@@ -8,4 +8,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="ConsultaTracking\" />
+    <Folder Include="RendicionHDR\" />
+    <Folder Include="RegistroRecepcion\" />
+    <Folder Include="RegistroDespacho\" />
+  </ItemGroup>
+
 </Project>
