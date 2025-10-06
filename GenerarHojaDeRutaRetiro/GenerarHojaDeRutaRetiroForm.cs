@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CAIGrupoG.GeneracionHDR
+namespace CAIGrupoG.GenerarHojaDeRutaRetiro
 {
-    public partial class GenerarEncomiendas : Form
+    public partial class GenerarHojaDeRutaRetiroForm : Form
     {
-        public GenerarEncomiendas()
+        public GenerarHojaDeRutaRetiroForm()
         {
             InitializeComponent();
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
