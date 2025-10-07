@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CAIGrupoG.Imposicion.ImpCallCenter
+namespace CAIGrupoG.EntregaGuíaAgencia
 {
-    public partial class ImposicionCallCenterForm : Form
+    public partial class EntregaGuíaAgenciaForm : Form
     {
-        public ImposicionCallCenterForm()
+        public EntregaGuíaAgenciaForm()
         {
             InitializeComponent();
         }

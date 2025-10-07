@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
+namespace CAIGrupoG.Imposicion.ImpAgencia
 {
-    public partial class ImposicionCentroDistribucionForm : Form
+    public partial class ImposicionDeEncomiendaAgenciaForm : Form
     {
-        public ImposicionCentroDistribucionForm()
+        public ImposicionDeEncomiendaAgenciaForm()
         {
             InitializeComponent();
+        }
+
+        private void ImposicionAgenciaForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

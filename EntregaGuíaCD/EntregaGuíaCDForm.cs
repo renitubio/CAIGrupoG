@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CAIGrupoG.Imposicion.ImpAgencia
+namespace CAIGrupoG.EntregaGuíaCD
 {
-    public partial class ImposicionAgenciaForm : Form
+    public partial class EntregaGuíaCDForm : Form
     {
-        public ImposicionAgenciaForm()
+        public EntregaGuíaCDForm()
         {
             InitializeComponent();
-        }
-
-        private void ImposicionAgenciaForm_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

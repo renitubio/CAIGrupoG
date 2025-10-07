@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CAIGrupoG.GenerarHojaDeRutaDistribucion
+namespace CAIGrupoG.Playero
 {
-    public partial class GenerarHojaDeRutaDistribucionForm : Form
+    public partial class PlayeroForm : Form
     {
-        public GenerarHojaDeRutaDistribucionForm()
+        public PlayeroForm()
         {
             InitializeComponent();
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

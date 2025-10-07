@@ -30,25 +30,23 @@
         {
             label1 = new Label();
             dataGridView1 = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
+            checkBox1 = new CheckBox();
+            button1 = new Button();
+            button2 = new Button();
             Column2 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
             Column4 = new DataGridViewTextBoxColumn();
             Column5 = new DataGridViewTextBoxColumn();
             Column6 = new DataGridViewTextBoxColumn();
-            checkBox1 = new CheckBox();
-            button1 = new Button();
-            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(103, 75);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(12, 26);
             label1.Name = "label1";
-            label1.Size = new Size(132, 25);
+            label1.Size = new Size(87, 15);
             label1.TabIndex = 1;
             label1.Text = "Guías Rendidas";
             // 
@@ -56,24 +54,43 @@
             // 
             dataGridView1.BackgroundColor = SystemColors.ButtonFace;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5, Column6 });
-            dataGridView1.Location = new Point(103, 138);
-            dataGridView1.Margin = new Padding(4, 5, 4, 5);
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column2, Column3, Column4, Column5, Column6 });
+            dataGridView1.Location = new Point(12, 44);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(919, 455);
+            dataGridView1.Size = new Size(776, 273);
             dataGridView1.TabIndex = 2;
             // 
-            // Column1
+            // checkBox1
             // 
-            Column1.HeaderText = "Seleción";
-            Column1.MinimumWidth = 8;
-            Column1.Name = "Column1";
-            Column1.Width = 150;
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(21, 74);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(15, 14);
+            checkBox1.TabIndex = 3;
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(713, 338);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 4;
+            button1.Text = "Cancelar";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(632, 338);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 5;
+            button2.Text = "Emitir";
+            button2.UseVisualStyleBackColor = true;
             // 
             // Column2
             // 
-            Column2.HeaderText = "N° Guía Seguimiento";
+            Column2.HeaderText = "Guía";
             Column2.MinimumWidth = 8;
             Column2.Name = "Column2";
             Column2.Width = 150;
@@ -106,51 +123,20 @@
             Column6.Name = "Column6";
             Column6.Width = 150;
             // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(112, 203);
-            checkBox1.Margin = new Padding(4, 5, 4, 5);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(22, 21);
-            checkBox1.TabIndex = 3;
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(976, 648);
-            button1.Margin = new Padding(4, 5, 4, 5);
-            button1.Name = "button1";
-            button1.Size = new Size(107, 38);
-            button1.TabIndex = 4;
-            button1.Text = "Cancelar";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(860, 648);
-            button2.Margin = new Padding(4, 5, 4, 5);
-            button2.Name = "button2";
-            button2.Size = new Size(107, 38);
-            button2.TabIndex = 5;
-            button2.Text = "Emitir";
-            button2.UseVisualStyleBackColor = true;
-            // 
             // EmitirFactura
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(1143, 750);
+            ClientSize = new Size(800, 385);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(checkBox1);
             Controls.Add(dataGridView1);
             Controls.Add(label1);
             ForeColor = SystemColors.ControlText;
-            Margin = new Padding(4, 5, 4, 5);
             Name = "EmitirFactura";
-            Text = "EmitirFactura";
+            Text = "Facturación";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -160,14 +146,13 @@
 
         private Label label1;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn Column1;
+        private CheckBox checkBox1;
+        private Button button1;
+        private Button button2;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column4;
         private DataGridViewTextBoxColumn Column5;
         private DataGridViewTextBoxColumn Column6;
-        private CheckBox checkBox1;
-        private Button button1;
-        private Button button2;
     }
 }

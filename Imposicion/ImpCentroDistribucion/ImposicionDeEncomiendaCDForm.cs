@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CAIGrupoG.GenerarHojaDeRutaRetiro
+namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 {
-    public partial class GenerarHojaDeRutaRetiroForm : Form
+    public partial class ImposicionDeEncomiendaCDForm : Form
     {
-        public GenerarHojaDeRutaRetiroForm()
+        public ImposicionDeEncomiendaCDForm()
         {
             InitializeComponent();
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
