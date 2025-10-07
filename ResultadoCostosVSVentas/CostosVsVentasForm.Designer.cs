@@ -29,16 +29,12 @@
         private void InitializeComponent()
         {
             label17 = new Label();
-            label1 = new Label();
-            radioButton1 = new RadioButton();
-            radioButton2 = new RadioButton();
             groupBox1 = new GroupBox();
             dataGridView1 = new DataGridView();
             TotalVentas = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
             Column4 = new DataGridViewTextBoxColumn();
-            radioButton3 = new RadioButton();
             groupBox2 = new GroupBox();
             dataGridView2 = new DataGridView();
             Column5 = new DataGridViewTextBoxColumn();
@@ -55,7 +51,7 @@
             // label17
             // 
             label17.Font = new Font("Arial", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label17.Location = new Point(265, 28);
+            label17.Location = new Point(50, 40);
             label17.Margin = new Padding(4, 0, 4, 0);
             label17.Name = "label17";
             label17.Size = new Size(484, 39);
@@ -63,41 +59,10 @@
             label17.Text = "Resultado Económico Tutasa";
             label17.Click += label17_Click;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(50, 114);
-            label1.Name = "label1";
-            label1.Size = new Size(77, 25);
-            label1.TabIndex = 10;
-            label1.Text = "Servicio:";
-            // 
-            // radioButton1
-            // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(162, 112);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(154, 29);
-            radioButton1.TabIndex = 11;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Larga distancia";
-            radioButton1.UseVisualStyleBackColor = true;
-            // 
-            // radioButton2
-            // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(333, 110);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(160, 29);
-            radioButton2.TabIndex = 12;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Media distancia";
-            radioButton2.UseVisualStyleBackColor = true;
-            // 
             // groupBox1
             // 
             groupBox1.Controls.Add(dataGridView1);
-            groupBox1.Location = new Point(51, 166);
+            groupBox1.Location = new Point(50, 101);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(904, 154);
             groupBox1.TabIndex = 13;
@@ -143,22 +108,10 @@
             Column4.Name = "Column4";
             Column4.Width = 150;
             // 
-            // radioButton3
-            // 
-            radioButton3.AutoSize = true;
-            radioButton3.Location = new Point(521, 110);
-            radioButton3.Name = "radioButton3";
-            radioButton3.Size = new Size(85, 29);
-            radioButton3.TabIndex = 14;
-            radioButton3.TabStop = true;
-            radioButton3.Text = "Todos";
-            radioButton3.UseVisualStyleBackColor = true;
-            radioButton3.CheckedChanged += radioButton3_CheckedChanged;
-            // 
             // groupBox2
             // 
             groupBox2.Controls.Add(dataGridView2);
-            groupBox2.Location = new Point(51, 358);
+            groupBox2.Location = new Point(50, 293);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(904, 324);
             groupBox2.TabIndex = 15;
@@ -169,7 +122,7 @@
             // 
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView2.Columns.AddRange(new DataGridViewColumn[] { Column5, dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3, dataGridViewTextBoxColumn4 });
-            dataGridView2.Location = new Point(44, 43);
+            dataGridView2.Location = new Point(40, 44);
             dataGridView2.Name = "dataGridView2";
             dataGridView2.RowHeadersWidth = 62;
             dataGridView2.Size = new Size(815, 257);
@@ -216,13 +169,9 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1019, 745);
+            ClientSize = new Size(1019, 655);
             Controls.Add(groupBox2);
-            Controls.Add(radioButton3);
             Controls.Add(groupBox1);
-            Controls.Add(radioButton2);
-            Controls.Add(radioButton1);
-            Controls.Add(label1);
             Controls.Add(label17);
             Name = "CostosVsVentasForm";
             Text = "CostosVsVentasForm";
@@ -232,22 +181,17 @@
             groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
         private Label label17;
-        private Label label1;
-        private RadioButton radioButton1;
-        private RadioButton radioButton2;
         private GroupBox groupBox1;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn TotalVentas;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column4;
-        private RadioButton radioButton3;
         private GroupBox groupBox2;
         private DataGridView dataGridView2;
         private DataGridViewTextBoxColumn Column5;
