@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CAIGrupoG.EmitirFactura
+namespace CAIGrupoG.ResultadoCostosVSVentas
 {
-    public partial class EmitirFactura : Form
+    public partial class CostosVsVentasForm : Form
     {
-        public EmitirFactura()
+        public CostosVsVentasForm()
         {
             InitializeComponent();
         }

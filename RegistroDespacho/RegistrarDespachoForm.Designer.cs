@@ -53,9 +53,10 @@
             label2.AutoSize = true;
             label2.Location = new Point(57, 113);
             label2.Name = "label2";
-            label2.Size = new Size(197, 25);
+            label2.Size = new Size(152, 25);
             label2.TabIndex = 1;
-            label2.Text = "Selección de transporte";
+            label2.Text = "DNI transportista:";
+            label2.Click += label2_Click;
             // 
             // comboBox1
             // 

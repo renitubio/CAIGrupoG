@@ -33,10 +33,10 @@
             comboBox1 = new ComboBox();
             comboBox2 = new ComboBox();
             groupBox1 = new GroupBox();
+            checkedListBox1 = new CheckedListBox();
             label3 = new Label();
             comboBox3 = new ComboBox();
             button1 = new Button();
-            checkedListBox1 = new CheckedListBox();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -54,9 +54,9 @@
             label2.AutoSize = true;
             label2.Location = new Point(29, 81);
             label2.Name = "label2";
-            label2.Size = new Size(197, 25);
+            label2.Size = new Size(152, 25);
             label2.TabIndex = 1;
-            label2.Text = "Selección de transporte";
+            label2.Text = "DNI transportista:";
             label2.Click += label2_Click;
             // 
             // comboBox1
@@ -85,6 +85,14 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Encomiendas recibidas:";
             // 
+            // checkedListBox1
+            // 
+            checkedListBox1.FormattingEnabled = true;
+            checkedListBox1.Location = new Point(17, 40);
+            checkedListBox1.Name = "checkedListBox1";
+            checkedListBox1.Size = new Size(483, 172);
+            checkedListBox1.TabIndex = 0;
+            // 
             // label3
             // 
             label3.AutoSize = true;
@@ -111,14 +119,6 @@
             button1.TabIndex = 7;
             button1.Text = "Confirmar recepción";
             button1.UseVisualStyleBackColor = true;
-            // 
-            // checkedListBox1
-            // 
-            checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Location = new Point(17, 40);
-            checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(483, 172);
-            checkedListBox1.TabIndex = 0;
             // 
             // RegistrarRecepcionForm
             // 
