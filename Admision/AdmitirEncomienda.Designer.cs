@@ -41,6 +41,7 @@
             columnHeader8 = new ColumnHeader();
             button2 = new Button();
             button3 = new Button();
+            button4 = new Button();
             SuspendLayout();
             // 
             // button1
@@ -125,7 +126,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(643, 535);
+            button2.Location = new Point(496, 535);
             button2.Margin = new Padding(4, 4, 4, 4);
             button2.Name = "button2";
             button2.Size = new Size(155, 46);
@@ -143,11 +144,23 @@
             button3.Text = "Rechazar";
             button3.UseVisualStyleBackColor = true;
             // 
+            // button4
+            // 
+            button4.Location = new Point(661, 535);
+            button4.Margin = new Padding(4);
+            button4.Name = "button4";
+            button4.Size = new Size(155, 46);
+            button4.TabIndex = 7;
+            button4.Text = "Modificar";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
             // AdmitirEncomienda
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1041, 620);
+            Controls.Add(button4);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(listView1);
@@ -177,5 +190,6 @@
         private ColumnHeader columnHeader8;
         private Button button2;
         private Button button3;
+        private Button button4;
     }
 }
