@@ -45,9 +45,10 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(72, 45);
+            label1.Location = new Point(103, 75);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(87, 15);
+            label1.Size = new Size(132, 25);
             label1.TabIndex = 1;
             label1.Text = "Guías Rendidas";
             // 
@@ -56,80 +57,98 @@
             dataGridView1.BackgroundColor = SystemColors.ButtonFace;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5, Column6 });
-            dataGridView1.Location = new Point(72, 83);
+            dataGridView1.Location = new Point(103, 138);
+            dataGridView1.Margin = new Padding(4, 5, 4, 5);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(643, 273);
+            dataGridView1.RowHeadersWidth = 62;
+            dataGridView1.Size = new Size(919, 455);
             dataGridView1.TabIndex = 2;
             // 
             // Column1
             // 
             Column1.HeaderText = "Seleción";
+            Column1.MinimumWidth = 8;
             Column1.Name = "Column1";
+            Column1.Width = 150;
             // 
             // Column2
             // 
             Column2.HeaderText = "N° Guía Seguimiento";
+            Column2.MinimumWidth = 8;
             Column2.Name = "Column2";
+            Column2.Width = 150;
             // 
             // Column3
             // 
             Column3.HeaderText = "Fecha";
+            Column3.MinimumWidth = 8;
             Column3.Name = "Column3";
+            Column3.Width = 150;
             // 
             // Column4
             // 
             Column4.HeaderText = "CUIT/CUIL Cliente";
+            Column4.MinimumWidth = 8;
             Column4.Name = "Column4";
+            Column4.Width = 150;
             // 
             // Column5
             // 
             Column5.HeaderText = "Razón Social";
+            Column5.MinimumWidth = 8;
             Column5.Name = "Column5";
+            Column5.Width = 150;
             // 
             // Column6
             // 
             Column6.HeaderText = "Monto a Facturar";
+            Column6.MinimumWidth = 8;
             Column6.Name = "Column6";
+            Column6.Width = 150;
             // 
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(82, 126);
+            checkBox1.Location = new Point(112, 203);
+            checkBox1.Margin = new Padding(4, 5, 4, 5);
             checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(15, 14);
+            checkBox1.Size = new Size(22, 21);
             checkBox1.TabIndex = 3;
             checkBox1.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
-            button1.Location = new Point(683, 389);
+            button1.Location = new Point(976, 648);
+            button1.Margin = new Padding(4, 5, 4, 5);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(107, 38);
             button1.TabIndex = 4;
             button1.Text = "Cancelar";
             button1.UseVisualStyleBackColor = true;
             // 
             // button2
             // 
-            button2.Location = new Point(602, 389);
+            button2.Location = new Point(860, 648);
+            button2.Margin = new Padding(4, 5, 4, 5);
             button2.Name = "button2";
-            button2.Size = new Size(75, 23);
+            button2.Size = new Size(107, 38);
             button2.TabIndex = 5;
             button2.Text = "Emitir";
             button2.UseVisualStyleBackColor = true;
             // 
             // EmitirFactura
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1143, 750);
             Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(checkBox1);
             Controls.Add(dataGridView1);
             Controls.Add(label1);
             ForeColor = SystemColors.ControlText;
+            Margin = new Padding(4, 5, 4, 5);
             Name = "EmitirFactura";
             Text = "EmitirFactura";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
