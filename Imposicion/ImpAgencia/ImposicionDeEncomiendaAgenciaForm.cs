@@ -21,5 +21,10 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
         {
 
         }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

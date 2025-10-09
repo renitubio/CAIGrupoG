@@ -36,6 +36,7 @@
             button1 = new Button();
             label1 = new Label();
             groupBox2 = new GroupBox();
+            comboBox1 = new ComboBox();
             textBox2 = new TextBox();
             numericUpDown1 = new NumericUpDown();
             label7 = new Label();
@@ -51,7 +52,7 @@
             label9 = new Label();
             label8 = new Label();
             label6 = new Label();
-            comboBox1 = new ComboBox();
+            label10 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
@@ -59,7 +60,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(352, 446);
+            button3.Location = new Point(351, 503);
             button3.Margin = new Padding(3, 2, 3, 2);
             button3.Name = "button3";
             button3.Size = new Size(102, 25);
@@ -69,7 +70,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(459, 446);
+            button5.Location = new Point(458, 503);
             button5.Margin = new Padding(3, 2, 3, 2);
             button5.Name = "button5";
             button5.Size = new Size(102, 25);
@@ -128,6 +129,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(label10);
             groupBox2.Controls.Add(comboBox1);
             groupBox2.Controls.Add(textBox2);
             groupBox2.Controls.Add(numericUpDown1);
@@ -148,9 +150,18 @@
             groupBox2.Margin = new Padding(3, 2, 3, 2);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(3, 2, 3, 2);
-            groupBox2.Size = new Size(550, 329);
+            groupBox2.Size = new Size(550, 370);
             groupBox2.TabIndex = 33;
             groupBox2.TabStop = false;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(163, 152);
+            comboBox1.Margin = new Padding(3, 2, 3, 2);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(110, 23);
+            comboBox1.TabIndex = 33;
             // 
             // textBox2
             // 
@@ -194,7 +205,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(273, 266);
+            button4.Location = new Point(291, 252);
             button4.Margin = new Padding(3, 2, 3, 2);
             button4.Name = "button4";
             button4.Size = new Size(101, 25);
@@ -204,7 +215,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(273, 233);
+            button2.Location = new Point(291, 182);
             button2.Margin = new Padding(3, 2, 3, 2);
             button2.Name = "button2";
             button2.Size = new Size(101, 25);
@@ -214,7 +225,7 @@
             // 
             // listView1
             // 
-            listView1.Location = new Point(7, 217);
+            listView1.Location = new Point(25, 252);
             listView1.Name = "listView1";
             listView1.Size = new Size(248, 97);
             listView1.TabIndex = 19;
@@ -279,20 +290,21 @@
             label6.TabIndex = 5;
             label6.Text = "Datos de la encomienda";
             // 
-            // comboBox1
+            // label10
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(163, 152);
-            comboBox1.Margin = new Padding(3, 2, 3, 2);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(110, 23);
-            comboBox1.TabIndex = 33;
+            label10.AutoSize = true;
+            label10.Location = new Point(25, 230);
+            label10.Name = "label10";
+            label10.Size = new Size(135, 15);
+            label10.TabIndex = 34;
+            label10.Text = "Encomiendas a Imponer";
+            label10.Click += label10_Click;
             // 
             // ImposicionDeEncomiendaAgenciaForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(572, 478);
+            ClientSize = new Size(572, 539);
             Controls.Add(groupBox2);
             Controls.Add(button3);
             Controls.Add(button5);
@@ -335,5 +347,6 @@
         private Label label6;
         private TextBox textBox2;
         private ComboBox comboBox1;
+        private Label label10;
     }
 }

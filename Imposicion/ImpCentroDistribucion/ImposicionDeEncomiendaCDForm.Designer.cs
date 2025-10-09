@@ -36,14 +36,12 @@
             button3 = new Button();
             button5 = new Button();
             groupBox2 = new GroupBox();
+            comboBox1 = new ComboBox();
             textBox2 = new TextBox();
             numericUpDown1 = new NumericUpDown();
             label7 = new Label();
             textBox3 = new TextBox();
             label4 = new Label();
-            button4 = new Button();
-            button2 = new Button();
-            listView1 = new ListView();
             comboBox3 = new ComboBox();
             comboBox2 = new ComboBox();
             label3 = new Label();
@@ -51,7 +49,10 @@
             label9 = new Label();
             label8 = new Label();
             label6 = new Label();
-            comboBox1 = new ComboBox();
+            button2 = new Button();
+            label10 = new Label();
+            button4 = new Button();
+            listView1 = new ListView();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
@@ -108,7 +109,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(297, 433);
+            button3.Location = new Point(303, 486);
             button3.Margin = new Padding(3, 2, 3, 2);
             button3.Name = "button3";
             button3.Size = new Size(141, 25);
@@ -118,7 +119,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(451, 433);
+            button5.Location = new Point(457, 486);
             button5.Margin = new Padding(3, 2, 3, 2);
             button5.Name = "button5";
             button5.Size = new Size(100, 25);
@@ -128,15 +129,16 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(label10);
+            groupBox2.Controls.Add(button4);
+            groupBox2.Controls.Add(listView1);
+            groupBox2.Controls.Add(button2);
             groupBox2.Controls.Add(comboBox1);
             groupBox2.Controls.Add(textBox2);
             groupBox2.Controls.Add(numericUpDown1);
             groupBox2.Controls.Add(label7);
             groupBox2.Controls.Add(textBox3);
             groupBox2.Controls.Add(label4);
-            groupBox2.Controls.Add(button4);
-            groupBox2.Controls.Add(button2);
-            groupBox2.Controls.Add(listView1);
             groupBox2.Controls.Add(comboBox3);
             groupBox2.Controls.Add(comboBox2);
             groupBox2.Controls.Add(label3);
@@ -148,9 +150,18 @@
             groupBox2.Margin = new Padding(3, 2, 3, 2);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(3, 2, 3, 2);
-            groupBox2.Size = new Size(556, 329);
+            groupBox2.Size = new Size(556, 366);
             groupBox2.TabIndex = 29;
             groupBox2.TabStop = false;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(163, 149);
+            comboBox1.Margin = new Padding(3, 2, 3, 2);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(110, 23);
+            comboBox1.TabIndex = 33;
             // 
             // textBox2
             // 
@@ -191,34 +202,6 @@
             label4.Size = new Size(74, 19);
             label4.TabIndex = 26;
             label4.Text = "Domicilio:";
-            // 
-            // button4
-            // 
-            button4.Location = new Point(273, 266);
-            button4.Margin = new Padding(3, 2, 3, 2);
-            button4.Name = "button4";
-            button4.Size = new Size(101, 25);
-            button4.TabIndex = 25;
-            button4.Text = "Quitar";
-            button4.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(273, 233);
-            button2.Margin = new Padding(3, 2, 3, 2);
-            button2.Name = "button2";
-            button2.Size = new Size(101, 25);
-            button2.TabIndex = 24;
-            button2.Text = "Añadir";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // listView1
-            // 
-            listView1.Location = new Point(7, 217);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(248, 97);
-            listView1.TabIndex = 19;
-            listView1.UseCompatibleStateImageBehavior = false;
             // 
             // comboBox3
             // 
@@ -279,25 +262,53 @@
             label6.TabIndex = 5;
             label6.Text = "Datos de la encomienda";
             // 
-            // comboBox1
+            // button2
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(163, 149);
-            comboBox1.Margin = new Padding(3, 2, 3, 2);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(110, 23);
-            comboBox1.TabIndex = 33;
+            button2.Location = new Point(281, 182);
+            button2.Margin = new Padding(3, 2, 3, 2);
+            button2.Name = "button2";
+            button2.Size = new Size(101, 25);
+            button2.TabIndex = 34;
+            button2.Text = "Añadir";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(10, 224);
+            label10.Name = "label10";
+            label10.Size = new Size(135, 15);
+            label10.TabIndex = 40;
+            label10.Text = "Encomiendas a Imponer";
+            // 
+            // button4
+            // 
+            button4.Location = new Point(281, 246);
+            button4.Margin = new Padding(3, 2, 3, 2);
+            button4.Name = "button4";
+            button4.Size = new Size(101, 25);
+            button4.TabIndex = 39;
+            button4.Text = "Quitar";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // listView1
+            // 
+            listView1.Location = new Point(10, 246);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(248, 97);
+            listView1.TabIndex = 38;
+            listView1.UseCompatibleStateImageBehavior = false;
             // 
             // ImposicionDeEncomiendaCDForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(570, 464);
+            ClientSize = new Size(570, 522);
             Controls.Add(groupBox2);
             Controls.Add(button3);
             Controls.Add(button5);
             Controls.Add(groupBox1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "ImposicionDeEncomiendaCDForm";
             Text = "Imposición de Encomienda - CD";
             groupBox1.ResumeLayout(false);
@@ -322,9 +333,6 @@
         private Label label7;
         private TextBox textBox3;
         private Label label4;
-        private Button button4;
-        private Button button2;
-        private ListView listView1;
         private ComboBox comboBox3;
         private ComboBox comboBox2;
         private Label label3;
@@ -334,5 +342,9 @@
         private Label label6;
         private TextBox textBox2;
         private ComboBox comboBox1;
+        private Button button2;
+        private Label label10;
+        private Button button4;
+        private ListView listView1;
     }
 }
