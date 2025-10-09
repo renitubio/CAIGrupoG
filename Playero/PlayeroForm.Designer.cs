@@ -36,8 +36,8 @@
             columnHeader8 = new ColumnHeader();
             columnHeader9 = new ColumnHeader();
             columnHeader10 = new ColumnHeader();
-            button5 = new Button();
             label3 = new Label();
+            button5 = new Button();
             groupBox1 = new GroupBox();
             listView1 = new ListView();
             columnHeader1 = new ColumnHeader();
@@ -106,16 +106,6 @@
             columnHeader10.Text = "CD Destino";
             columnHeader10.Width = 100;
             // 
-            // button5
-            // 
-            button5.Location = new Point(695, 478);
-            button5.Margin = new Padding(3, 2, 3, 2);
-            button5.Name = "button5";
-            button5.Size = new Size(108, 28);
-            button5.TabIndex = 8;
-            button5.Text = "Aceptar";
-            button5.UseVisualStyleBackColor = true;
-            // 
             // label3
             // 
             label3.AutoSize = true;
@@ -124,6 +114,16 @@
             label3.Size = new Size(70, 15);
             label3.TabIndex = 5;
             label3.Text = "Detalle Guía";
+            // 
+            // button5
+            // 
+            button5.Location = new Point(711, 455);
+            button5.Margin = new Padding(3, 2, 3, 2);
+            button5.Name = "button5";
+            button5.Size = new Size(108, 28);
+            button5.TabIndex = 8;
+            button5.Text = "Aceptar";
+            button5.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -217,7 +217,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(848, 545);
+            ClientSize = new Size(837, 495);
             Controls.Add(groupBox2);
             Controls.Add(button5);
             Controls.Add(groupBox1);

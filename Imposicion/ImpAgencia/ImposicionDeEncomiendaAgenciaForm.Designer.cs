@@ -36,10 +36,6 @@
             button1 = new Button();
             label1 = new Label();
             groupBox2 = new GroupBox();
-            groupBox3 = new GroupBox();
-            button6 = new Button();
-            label11 = new Label();
-            listBox1 = new ListBox();
             radioButton2 = new RadioButton();
             radioButton1 = new RadioButton();
             label10 = new Label();
@@ -59,10 +55,14 @@
             label9 = new Label();
             label8 = new Label();
             label6 = new Label();
+            listBox1 = new ListBox();
+            label11 = new Label();
+            button6 = new Button();
+            groupBox3 = new GroupBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
-            groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // button3
@@ -136,6 +136,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(groupBox3);
             groupBox2.Controls.Add(button3);
             groupBox2.Controls.Add(button5);
             groupBox2.Controls.Add(radioButton2);
@@ -157,52 +158,13 @@
             groupBox2.Controls.Add(label9);
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(label6);
-            groupBox2.Location = new Point(12, 122);
+            groupBox2.Location = new Point(12, 118);
             groupBox2.Margin = new Padding(3, 2, 3, 2);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(3, 2, 3, 2);
             groupBox2.Size = new Size(550, 454);
             groupBox2.TabIndex = 33;
             groupBox2.TabStop = false;
-            // 
-            // groupBox3
-            // 
-            groupBox3.Controls.Add(button6);
-            groupBox3.Controls.Add(label11);
-            groupBox3.Controls.Add(listBox1);
-            groupBox3.Location = new Point(72, 113);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(408, 368);
-            groupBox3.TabIndex = 37;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "groupBox3";
-            // 
-            // button6
-            // 
-            button6.Location = new Point(265, 318);
-            button6.Margin = new Padding(3, 2, 3, 2);
-            button6.Name = "button6";
-            button6.Size = new Size(102, 25);
-            button6.TabIndex = 32;
-            button6.Text = "Finalizar";
-            button6.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(48, 28);
-            label11.Name = "label11";
-            label11.Size = new Size(179, 15);
-            label11.TabIndex = 1;
-            label11.Text = "Numeros de tracking generados:";
-            // 
-            // listBox1
-            // 
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(50, 52);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(317, 244);
-            listBox1.TabIndex = 0;
             // 
             // radioButton2
             // 
@@ -372,12 +334,50 @@
             label6.TabIndex = 5;
             label6.Text = "Datos de la encomienda";
             // 
+            // listBox1
+            // 
+            listBox1.FormattingEnabled = true;
+            listBox1.Location = new Point(50, 52);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(317, 244);
+            listBox1.TabIndex = 0;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(48, 28);
+            label11.Name = "label11";
+            label11.Size = new Size(179, 15);
+            label11.TabIndex = 1;
+            label11.Text = "Numeros de tracking generados:";
+            // 
+            // button6
+            // 
+            button6.Location = new Point(265, 318);
+            button6.Margin = new Padding(3, 2, 3, 2);
+            button6.Name = "button6";
+            button6.Size = new Size(102, 25);
+            button6.TabIndex = 32;
+            button6.Text = "Finalizar";
+            button6.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(button6);
+            groupBox3.Controls.Add(label11);
+            groupBox3.Controls.Add(listBox1);
+            groupBox3.Location = new Point(79, 0);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(408, 368);
+            groupBox3.TabIndex = 37;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "groupBox3";
+            // 
             // ImposicionDeEncomiendaAgenciaForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(572, 583);
-            Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Margin = new Padding(2);
@@ -388,9 +388,9 @@
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
         }
 

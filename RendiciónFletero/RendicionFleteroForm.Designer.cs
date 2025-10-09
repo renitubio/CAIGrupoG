@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            var listViewItem7 = new ListViewItem(new string[] { "33123123", "Pendiente entrega a domicilio" }, -1);
-            var listViewItem8 = new ListViewItem(new string[] { "441212", "Pendiente retiro" }, -1);
-            var listViewItem9 = new ListViewItem(new string[] { "6612312", "Pendiente entrega en agencia" }, -1);
+            ListViewItem listViewItem1 = new ListViewItem(new string[] { "33123123", "Pendiente entrega a domicilio" }, -1);
+            ListViewItem listViewItem2 = new ListViewItem(new string[] { "441212", "Pendiente retiro" }, -1);
+            ListViewItem listViewItem3 = new ListViewItem(new string[] { "6612312", "Pendiente entrega en agencia" }, -1);
+            ListViewItem listViewItem4 = new ListViewItem(new string[] { "33123123", "Pendiente entrega a domicilio" }, -1);
+            ListViewItem listViewItem5 = new ListViewItem(new string[] { "441212", "Pendiente retiro" }, -1);
+            ListViewItem listViewItem6 = new ListViewItem(new string[] { "6612312", "Pendiente entrega en agencia" }, -1);
             button1 = new Button();
             textBox1 = new TextBox();
             label1 = new Label();
@@ -45,16 +48,16 @@
             columnHeader13 = new ColumnHeader();
             label2 = new Label();
             groupBox2 = new GroupBox();
+            label3 = new Label();
             button5 = new Button();
             listView2 = new ListView();
             columnHeader4 = new ColumnHeader();
-            columnHeader11 = new ColumnHeader();
             columnHeader5 = new ColumnHeader();
             columnHeader8 = new ColumnHeader();
             columnHeader9 = new ColumnHeader();
             columnHeader10 = new ColumnHeader();
+            columnHeader11 = new ColumnHeader();
             columnHeader14 = new ColumnHeader();
-            label3 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -92,7 +95,7 @@
             groupBox1.Controls.Add(label2);
             groupBox1.Location = new Point(12, 78);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(807, 181);
+            groupBox1.Size = new Size(912, 181);
             groupBox1.TabIndex = 11;
             groupBox1.TabStop = false;
             groupBox1.Text = "Admision - Marque las tareas completadas por el fletero";
@@ -101,14 +104,14 @@
             // 
             listView1.CheckBoxes = true;
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader12, columnHeader2, columnHeader3, columnHeader6, columnHeader7, columnHeader13 });
-            listViewItem7.StateImageIndex = 0;
-            listViewItem8.StateImageIndex = 0;
-            listViewItem9.StateImageIndex = 0;
-            listView1.Items.AddRange(new ListViewItem[] { listViewItem7, listViewItem8, listViewItem9 });
+            listViewItem1.StateImageIndex = 0;
+            listViewItem2.StateImageIndex = 0;
+            listViewItem3.StateImageIndex = 0;
+            listView1.Items.AddRange(new ListViewItem[] { listViewItem1, listViewItem2, listViewItem3 });
             listView1.Location = new Point(6, 43);
             listView1.Margin = new Padding(3, 2, 3, 2);
             listView1.Name = "listView1";
-            listView1.Size = new Size(785, 92);
+            listView1.Size = new Size(898, 92);
             listView1.TabIndex = 6;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.View = View.Details;
@@ -160,67 +163,12 @@
             // 
             groupBox2.Controls.Add(listView2);
             groupBox2.Controls.Add(label3);
-            groupBox2.Location = new Point(12, 323);
+            groupBox2.Location = new Point(12, 265);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(807, 181);
+            groupBox2.Size = new Size(912, 181);
             groupBox2.TabIndex = 12;
             groupBox2.TabStop = false;
             groupBox2.Text = "Guias para entrega a domicilio y en agencia";
-            // 
-            // button5
-            // 
-            button5.Location = new Point(711, 522);
-            button5.Margin = new Padding(3, 2, 3, 2);
-            button5.Name = "button5";
-            button5.Size = new Size(108, 28);
-            button5.TabIndex = 8;
-            button5.Text = "Aceptar";
-            button5.UseVisualStyleBackColor = true;
-            // 
-            // listView2
-            // 
-            listView2.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader11, columnHeader5, columnHeader8, columnHeader9, columnHeader10, columnHeader14 });
-            listView2.Location = new Point(6, 43);
-            listView2.Margin = new Padding(3, 2, 3, 2);
-            listView2.Name = "listView2";
-            listView2.Size = new Size(785, 92);
-            listView2.TabIndex = 6;
-            listView2.UseCompatibleStateImageBehavior = false;
-            listView2.View = View.Details;
-            // 
-            // columnHeader4
-            // 
-            columnHeader4.Text = "N° Guía";
-            columnHeader4.Width = 70;
-            // 
-            // columnHeader11
-            // 
-            columnHeader11.Text = "Estado de Encomienda";
-            columnHeader11.Width = 160;
-            // 
-            // columnHeader5
-            // 
-            columnHeader5.Text = "Tipo Paquete";
-            columnHeader5.Width = 100;
-            // 
-            // columnHeader8
-            // 
-            columnHeader8.Text = "CUIT";
-            columnHeader8.Width = 100;
-            // 
-            // columnHeader9
-            // 
-            columnHeader9.Text = "Autorizado a retirar";
-            columnHeader9.Width = 140;
-            // 
-            // columnHeader10
-            // 
-            columnHeader10.Text = "Dirección Destinatario";
-            columnHeader10.Width = 140;
-            // 
-            // columnHeader14
-            // 
-            columnHeader14.Text = "CD";
             // 
             // label3
             // 
@@ -231,11 +179,72 @@
             label3.TabIndex = 5;
             label3.Text = "Detalle Guía";
             // 
+            // button5
+            // 
+            button5.Location = new Point(816, 451);
+            button5.Margin = new Padding(3, 2, 3, 2);
+            button5.Name = "button5";
+            button5.Size = new Size(108, 28);
+            button5.TabIndex = 8;
+            button5.Text = "Aceptar";
+            button5.UseVisualStyleBackColor = true;
+            // 
+            // listView2
+            // 
+            listView2.CheckBoxes = true;
+            listView2.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader8, columnHeader9, columnHeader10, columnHeader11, columnHeader14 });
+            listViewItem4.StateImageIndex = 0;
+            listViewItem5.StateImageIndex = 0;
+            listViewItem6.StateImageIndex = 0;
+            listView2.Items.AddRange(new ListViewItem[] { listViewItem4, listViewItem5, listViewItem6 });
+            listView2.Location = new Point(7, 44);
+            listView2.Margin = new Padding(3, 2, 3, 2);
+            listView2.Name = "listView2";
+            listView2.Size = new Size(898, 92);
+            listView2.TabIndex = 7;
+            listView2.UseCompatibleStateImageBehavior = false;
+            listView2.View = View.Details;
+            listView2.SelectedIndexChanged += listView2_SelectedIndexChanged;
+            // 
+            // columnHeader4
+            // 
+            columnHeader4.Text = "N° Guía";
+            columnHeader4.Width = 100;
+            // 
+            // columnHeader5
+            // 
+            columnHeader5.Text = "Estado de Encomienda";
+            columnHeader5.Width = 250;
+            // 
+            // columnHeader8
+            // 
+            columnHeader8.Text = "Tipo Paquete";
+            columnHeader8.Width = 100;
+            // 
+            // columnHeader9
+            // 
+            columnHeader9.Text = "CUIT";
+            columnHeader9.Width = 100;
+            // 
+            // columnHeader10
+            // 
+            columnHeader10.Text = "Autorizado a retirar";
+            columnHeader10.Width = 140;
+            // 
+            // columnHeader11
+            // 
+            columnHeader11.Text = "Dirección Destinatario";
+            columnHeader11.Width = 140;
+            // 
+            // columnHeader14
+            // 
+            columnHeader14.Text = "CD";
+            // 
             // RendicionFleteroForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(831, 561);
+            ClientSize = new Size(943, 492);
             Controls.Add(button5);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -268,16 +277,16 @@
         private Label label2;
         private GroupBox groupBox2;
         private Button button5;
+        private Label label3;
+        private ColumnHeader columnHeader12;
+        private ColumnHeader columnHeader13;
         private ListView listView2;
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader8;
         private ColumnHeader columnHeader9;
         private ColumnHeader columnHeader10;
-        private Label label3;
         private ColumnHeader columnHeader11;
-        private ColumnHeader columnHeader12;
-        private ColumnHeader columnHeader13;
         private ColumnHeader columnHeader14;
     }
 }
