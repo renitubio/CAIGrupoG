@@ -38,7 +38,6 @@
             groupBox2 = new GroupBox();
             textBox2 = new TextBox();
             numericUpDown1 = new NumericUpDown();
-            textBox4 = new TextBox();
             label7 = new Label();
             textBox3 = new TextBox();
             label4 = new Label();
@@ -52,6 +51,7 @@
             label9 = new Label();
             label8 = new Label();
             label6 = new Label();
+            comboBox1 = new ComboBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
@@ -128,9 +128,9 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(comboBox1);
             groupBox2.Controls.Add(textBox2);
             groupBox2.Controls.Add(numericUpDown1);
-            groupBox2.Controls.Add(textBox4);
             groupBox2.Controls.Add(label7);
             groupBox2.Controls.Add(textBox3);
             groupBox2.Controls.Add(label4);
@@ -167,14 +167,6 @@
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(109, 23);
             numericUpDown1.TabIndex = 31;
-            // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(164, 150);
-            textBox4.Margin = new Padding(3, 2, 3, 2);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(110, 23);
-            textBox4.TabIndex = 29;
             // 
             // label7
             // 
@@ -287,6 +279,15 @@
             label6.TabIndex = 5;
             label6.Text = "Datos de la encomienda";
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(163, 152);
+            comboBox1.Margin = new Padding(3, 2, 3, 2);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(110, 23);
+            comboBox1.TabIndex = 33;
+            // 
             // ImposicionDeEncomiendaAgenciaForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -296,7 +297,7 @@
             Controls.Add(button3);
             Controls.Add(button5);
             Controls.Add(groupBox1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "ImposicionDeEncomiendaAgenciaForm";
             Text = "Imposicion de Encomienda - Agencia";
             Load += ImposicionAgenciaForm_Load;
@@ -319,7 +320,6 @@
         private Label label1;
         private GroupBox groupBox2;
         private NumericUpDown numericUpDown1;
-        private TextBox textBox4;
         private Label label7;
         private TextBox textBox3;
         private Label label4;
@@ -334,5 +334,6 @@
         private Label label8;
         private Label label6;
         private TextBox textBox2;
+        private ComboBox comboBox1;
     }
 }
