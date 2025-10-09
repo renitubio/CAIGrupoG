@@ -49,6 +49,10 @@
             columnHeader9 = new ColumnHeader();
             columnHeader10 = new ColumnHeader();
             label3 = new Label();
+            columnHeader11 = new ColumnHeader();
+            columnHeader12 = new ColumnHeader();
+            columnHeader13 = new ColumnHeader();
+            columnHeader14 = new ColumnHeader();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -104,7 +108,7 @@
             // 
             // listView1
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader6, columnHeader7 });
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader12, columnHeader2, columnHeader3, columnHeader6, columnHeader7, columnHeader13 });
             listView1.Location = new Point(6, 43);
             listView1.Margin = new Padding(3, 2, 3, 2);
             listView1.Name = "listView1";
@@ -116,7 +120,7 @@
             // columnHeader1
             // 
             columnHeader1.Text = "N° Guía";
-            columnHeader1.Width = 100;
+            columnHeader1.Width = 70;
             // 
             // columnHeader2
             // 
@@ -171,7 +175,7 @@
             // 
             // listView2
             // 
-            listView2.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader8, columnHeader9, columnHeader10 });
+            listView2.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader11, columnHeader5, columnHeader8, columnHeader9, columnHeader10, columnHeader14 });
             listView2.Location = new Point(6, 43);
             listView2.Margin = new Padding(3, 2, 3, 2);
             listView2.Name = "listView2";
@@ -183,25 +187,29 @@
             // columnHeader4
             // 
             columnHeader4.Text = "N° Guía";
-            columnHeader4.Width = 100;
+            columnHeader4.Width = 70;
             // 
             // columnHeader5
             // 
+            columnHeader5.DisplayIndex = 1;
             columnHeader5.Text = "Tipo Paquete";
             columnHeader5.Width = 100;
             // 
             // columnHeader8
             // 
+            columnHeader8.DisplayIndex = 2;
             columnHeader8.Text = "CUIT";
             columnHeader8.Width = 100;
             // 
             // columnHeader9
             // 
+            columnHeader9.DisplayIndex = 3;
             columnHeader9.Text = "Autorizado a retirar";
             columnHeader9.Width = 140;
             // 
             // columnHeader10
             // 
+            columnHeader10.DisplayIndex = 4;
             columnHeader10.Text = "Dirección Destinatario";
             columnHeader10.Width = 140;
             // 
@@ -213,6 +221,24 @@
             label3.Size = new Size(70, 15);
             label3.TabIndex = 5;
             label3.Text = "Detalle Guía";
+            // 
+            // columnHeader11
+            // 
+            columnHeader11.Text = "Estado de Encomienda";
+            columnHeader11.Width = 160;
+            // 
+            // columnHeader12
+            // 
+            columnHeader12.Text = "Estado de Encomienda";
+            columnHeader12.Width = 160;
+            // 
+            // columnHeader13
+            // 
+            columnHeader13.Text = "CD";
+            // 
+            // columnHeader14
+            // 
+            columnHeader14.Text = "CD";
             // 
             // RendicionFleteroForm
             // 
@@ -258,5 +284,9 @@
         private ColumnHeader columnHeader9;
         private ColumnHeader columnHeader10;
         private Label label3;
+        private ColumnHeader columnHeader11;
+        private ColumnHeader columnHeader12;
+        private ColumnHeader columnHeader13;
+        private ColumnHeader columnHeader14;
     }
 }
