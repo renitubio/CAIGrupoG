@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             groupBox2 = new GroupBox();
+            numericUpDown1 = new NumericUpDown();
             textBox4 = new TextBox();
             label7 = new Label();
             textBox3 = new TextBox();
@@ -42,7 +43,6 @@
             label2 = new Label();
             label9 = new Label();
             label8 = new Label();
-            comboBox1 = new ComboBox();
             label6 = new Label();
             button5 = new Button();
             button3 = new Button();
@@ -51,14 +51,15 @@
             label5 = new Label();
             button1 = new Button();
             label1 = new Label();
-            numericUpDown1 = new NumericUpDown();
+            textBox2 = new TextBox();
             groupBox2.SuspendLayout();
-            groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(textBox2);
             groupBox2.Controls.Add(numericUpDown1);
             groupBox2.Controls.Add(textBox4);
             groupBox2.Controls.Add(label7);
@@ -73,7 +74,6 @@
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(label9);
             groupBox2.Controls.Add(label8);
-            groupBox2.Controls.Add(comboBox1);
             groupBox2.Controls.Add(label6);
             groupBox2.Location = new Point(14, 157);
             groupBox2.Name = "groupBox2";
@@ -81,6 +81,13 @@
             groupBox2.TabIndex = 7;
             groupBox2.TabStop = false;
             groupBox2.Enter += groupBox2_Enter;
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(187, 246);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(125, 27);
+            numericUpDown1.TabIndex = 31;
             // 
             // textBox4
             // 
@@ -187,14 +194,6 @@
             label8.TabIndex = 6;
             label8.Text = "Tipo de caja:";
             // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(187, 151);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(125, 28);
-            comboBox1.TabIndex = 6;
-            // 
             // label6
             // 
             label6.Font = new Font("Arial", 12F, FontStyle.Bold);
@@ -267,12 +266,12 @@
             label1.TabIndex = 0;
             label1.Text = "CUIT:";
             // 
-            // numericUpDown1
+            // textBox2
             // 
-            numericUpDown1.Location = new Point(187, 246);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(125, 27);
-            numericUpDown1.TabIndex = 31;
+            textBox2.Location = new Point(187, 153);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(125, 27);
+            textBox2.TabIndex = 32;
             // 
             // ImposicionDeEncomiendaCallCenterForm
             // 
@@ -289,9 +288,9 @@
             Load += ImposicionCallCenterForm_Load;
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             ResumeLayout(false);
         }
 
@@ -301,7 +300,6 @@
         private Button button3;
         private Label label9;
         private Label label8;
-        private ComboBox comboBox1;
         private Label label6;
         private GroupBox groupBox1;
         private TextBox textBox1;
@@ -320,5 +318,6 @@
         private Label label7;
         private TextBox textBox3;
         private NumericUpDown numericUpDown1;
+        private TextBox textBox2;
     }
 }

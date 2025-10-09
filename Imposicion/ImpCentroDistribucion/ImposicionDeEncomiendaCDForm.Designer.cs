@@ -50,8 +50,8 @@
             label2 = new Label();
             label9 = new Label();
             label8 = new Label();
-            comboBox1 = new ComboBox();
             label6 = new Label();
+            textBox2 = new TextBox();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
@@ -122,6 +122,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(textBox2);
             groupBox2.Controls.Add(numericUpDown1);
             groupBox2.Controls.Add(textBox4);
             groupBox2.Controls.Add(label7);
@@ -136,7 +137,6 @@
             groupBox2.Controls.Add(label2);
             groupBox2.Controls.Add(label9);
             groupBox2.Controls.Add(label8);
-            groupBox2.Controls.Add(comboBox1);
             groupBox2.Controls.Add(label6);
             groupBox2.Location = new Point(8, 132);
             groupBox2.Name = "groupBox2";
@@ -256,14 +256,6 @@
             label8.TabIndex = 6;
             label8.Text = "Tipo de caja:";
             // 
-            // comboBox1
-            // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(187, 151);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(125, 28);
-            comboBox1.TabIndex = 6;
-            // 
             // label6
             // 
             label6.Font = new Font("Arial", 12F, FontStyle.Bold);
@@ -272,6 +264,13 @@
             label6.Size = new Size(353, 36);
             label6.TabIndex = 5;
             label6.Text = "Datos de la encomienda";
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(187, 153);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(125, 27);
+            textBox2.TabIndex = 32;
             // 
             // ImposicionDeEncomiendaCDForm
             // 
@@ -317,7 +316,7 @@
         private Label label2;
         private Label label9;
         private Label label8;
-        private ComboBox comboBox1;
         private Label label6;
+        private TextBox textBox2;
     }
 }
