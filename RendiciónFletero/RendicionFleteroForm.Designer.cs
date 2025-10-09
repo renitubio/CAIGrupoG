@@ -28,31 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            var listViewItem7 = new ListViewItem(new string[] { "33123123", "Pendiente entrega a domicilio" }, -1);
+            var listViewItem8 = new ListViewItem(new string[] { "441212", "Pendiente retiro" }, -1);
+            var listViewItem9 = new ListViewItem(new string[] { "6612312", "Pendiente entrega en agencia" }, -1);
             button1 = new Button();
             textBox1 = new TextBox();
             label1 = new Label();
             groupBox1 = new GroupBox();
-            button2 = new Button();
             listView1 = new ListView();
             columnHeader1 = new ColumnHeader();
+            columnHeader12 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
             columnHeader6 = new ColumnHeader();
             columnHeader7 = new ColumnHeader();
+            columnHeader13 = new ColumnHeader();
             label2 = new Label();
             groupBox2 = new GroupBox();
             button5 = new Button();
             listView2 = new ListView();
             columnHeader4 = new ColumnHeader();
+            columnHeader11 = new ColumnHeader();
             columnHeader5 = new ColumnHeader();
             columnHeader8 = new ColumnHeader();
             columnHeader9 = new ColumnHeader();
             columnHeader10 = new ColumnHeader();
-            label3 = new Label();
-            columnHeader11 = new ColumnHeader();
-            columnHeader12 = new ColumnHeader();
-            columnHeader13 = new ColumnHeader();
             columnHeader14 = new ColumnHeader();
+            label3 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -86,7 +88,6 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(button2);
             groupBox1.Controls.Add(listView1);
             groupBox1.Controls.Add(label2);
             groupBox1.Location = new Point(12, 78);
@@ -94,21 +95,16 @@
             groupBox1.Size = new Size(807, 181);
             groupBox1.TabIndex = 11;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Admisión";
-            // 
-            // button2
-            // 
-            button2.Location = new Point(683, 139);
-            button2.Margin = new Padding(3, 2, 3, 2);
-            button2.Name = "button2";
-            button2.Size = new Size(108, 28);
-            button2.TabIndex = 8;
-            button2.Text = "Admitir";
-            button2.UseVisualStyleBackColor = true;
+            groupBox1.Text = "Admision - Marque las tareas completadas por el fletero";
             // 
             // listView1
             // 
+            listView1.CheckBoxes = true;
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader12, columnHeader2, columnHeader3, columnHeader6, columnHeader7, columnHeader13 });
+            listViewItem7.StateImageIndex = 0;
+            listViewItem8.StateImageIndex = 0;
+            listViewItem9.StateImageIndex = 0;
+            listView1.Items.AddRange(new ListViewItem[] { listViewItem7, listViewItem8, listViewItem9 });
             listView1.Location = new Point(6, 43);
             listView1.Margin = new Padding(3, 2, 3, 2);
             listView1.Name = "listView1";
@@ -120,7 +116,12 @@
             // columnHeader1
             // 
             columnHeader1.Text = "N° Guía";
-            columnHeader1.Width = 70;
+            columnHeader1.Width = 100;
+            // 
+            // columnHeader12
+            // 
+            columnHeader12.Text = "Estado de Encomienda";
+            columnHeader12.Width = 250;
             // 
             // columnHeader2
             // 
@@ -142,6 +143,10 @@
             columnHeader7.Text = "Dirección Destinatario";
             columnHeader7.Width = 140;
             // 
+            // columnHeader13
+            // 
+            columnHeader13.Text = "CD";
+            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -153,24 +158,23 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(button5);
             groupBox2.Controls.Add(listView2);
             groupBox2.Controls.Add(label3);
-            groupBox2.Location = new Point(12, 265);
+            groupBox2.Location = new Point(12, 323);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(807, 181);
             groupBox2.TabIndex = 12;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Retiro";
+            groupBox2.Text = "Guias para entrega a domicilio y en agencia";
             // 
             // button5
             // 
-            button5.Location = new Point(683, 139);
+            button5.Location = new Point(711, 522);
             button5.Margin = new Padding(3, 2, 3, 2);
             button5.Name = "button5";
             button5.Size = new Size(108, 28);
             button5.TabIndex = 8;
-            button5.Text = "Despachar";
+            button5.Text = "Aceptar";
             button5.UseVisualStyleBackColor = true;
             // 
             // listView2
@@ -189,29 +193,34 @@
             columnHeader4.Text = "N° Guía";
             columnHeader4.Width = 70;
             // 
+            // columnHeader11
+            // 
+            columnHeader11.Text = "Estado de Encomienda";
+            columnHeader11.Width = 160;
+            // 
             // columnHeader5
             // 
-            columnHeader5.DisplayIndex = 1;
             columnHeader5.Text = "Tipo Paquete";
             columnHeader5.Width = 100;
             // 
             // columnHeader8
             // 
-            columnHeader8.DisplayIndex = 2;
             columnHeader8.Text = "CUIT";
             columnHeader8.Width = 100;
             // 
             // columnHeader9
             // 
-            columnHeader9.DisplayIndex = 3;
             columnHeader9.Text = "Autorizado a retirar";
             columnHeader9.Width = 140;
             // 
             // columnHeader10
             // 
-            columnHeader10.DisplayIndex = 4;
             columnHeader10.Text = "Dirección Destinatario";
             columnHeader10.Width = 140;
+            // 
+            // columnHeader14
+            // 
+            columnHeader14.Text = "CD";
             // 
             // label3
             // 
@@ -222,29 +231,12 @@
             label3.TabIndex = 5;
             label3.Text = "Detalle Guía";
             // 
-            // columnHeader11
-            // 
-            columnHeader11.Text = "Estado de Encomienda";
-            columnHeader11.Width = 160;
-            // 
-            // columnHeader12
-            // 
-            columnHeader12.Text = "Estado de Encomienda";
-            columnHeader12.Width = 160;
-            // 
-            // columnHeader13
-            // 
-            columnHeader13.Text = "CD";
-            // 
-            // columnHeader14
-            // 
-            columnHeader14.Text = "CD";
-            // 
             // RendicionFleteroForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(831, 483);
+            ClientSize = new Size(831, 561);
+            Controls.Add(button5);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(label1);
@@ -267,7 +259,6 @@
         private TextBox textBox1;
         private Label label1;
         private GroupBox groupBox1;
-        private Button button2;
         private ListView listView1;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
