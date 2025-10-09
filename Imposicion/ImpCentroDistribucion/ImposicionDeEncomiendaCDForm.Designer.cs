@@ -36,6 +36,7 @@
             button3 = new Button();
             button5 = new Button();
             groupBox2 = new GroupBox();
+            numericUpDown1 = new NumericUpDown();
             textBox4 = new TextBox();
             label7 = new Label();
             textBox3 = new TextBox();
@@ -51,7 +52,6 @@
             label8 = new Label();
             comboBox1 = new ComboBox();
             label6 = new Label();
-            numericUpDown1 = new NumericUpDown();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
@@ -63,9 +63,9 @@
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(14, 15);
+            groupBox1.Location = new Point(8, 15);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(635, 137);
+            groupBox1.Size = new Size(635, 111);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             // 
@@ -104,7 +104,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(338, 556);
+            button3.Location = new Point(339, 577);
             button3.Name = "button3";
             button3.Size = new Size(161, 33);
             button3.TabIndex = 27;
@@ -113,7 +113,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(506, 556);
+            button5.Location = new Point(515, 577);
             button5.Name = "button5";
             button5.Size = new Size(114, 33);
             button5.TabIndex = 28;
@@ -138,45 +138,52 @@
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(comboBox1);
             groupBox2.Controls.Add(label6);
-            groupBox2.Location = new Point(8, 127);
+            groupBox2.Location = new Point(8, 132);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(635, 424);
-            groupBox2.TabIndex = 26;
+            groupBox2.Size = new Size(635, 439);
+            groupBox2.TabIndex = 29;
             groupBox2.TabStop = false;
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(187, 246);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(125, 27);
+            numericUpDown1.TabIndex = 31;
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(165, 369);
+            textBox4.Location = new Point(187, 200);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(125, 27);
             textBox4.TabIndex = 29;
             // 
             // label7
             // 
-            label7.Location = new Point(7, 379);
+            label7.Location = new Point(8, 156);
             label7.Name = "label7";
-            label7.Size = new Size(151, 21);
+            label7.Size = new Size(170, 23);
             label7.TabIndex = 28;
             label7.Text = "DNI autorizado a retirar:";
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(402, 99);
+            textBox3.Location = new Point(442, 101);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(125, 27);
             textBox3.TabIndex = 27;
             // 
             // label4
             // 
-            label4.Location = new Point(312, 104);
+            label4.Location = new Point(352, 104);
             label4.Name = "label4";
-            label4.Size = new Size(151, 25);
+            label4.Size = new Size(84, 25);
             label4.TabIndex = 26;
             label4.Text = "Domicilio:";
             // 
             // button4
             // 
-            button4.Location = new Point(312, 224);
+            button4.Location = new Point(312, 355);
             button4.Name = "button4";
             button4.Size = new Size(115, 33);
             button4.TabIndex = 25;
@@ -185,7 +192,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(312, 180);
+            button2.Location = new Point(312, 311);
             button2.Name = "button2";
             button2.Size = new Size(115, 33);
             button2.TabIndex = 24;
@@ -194,7 +201,7 @@
             // 
             // listView1
             // 
-            listView1.Location = new Point(7, 224);
+            listView1.Location = new Point(8, 289);
             listView1.Margin = new Padding(3, 4, 3, 4);
             listView1.Name = "listView1";
             listView1.Size = new Size(283, 128);
@@ -204,7 +211,7 @@
             // comboBox3
             // 
             comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(163, 104);
+            comboBox3.Location = new Point(187, 104);
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(125, 28);
             comboBox3.TabIndex = 18;
@@ -212,7 +219,7 @@
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(163, 59);
+            comboBox2.Location = new Point(187, 62);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(125, 28);
             comboBox2.TabIndex = 17;
@@ -227,7 +234,7 @@
             // 
             // label2
             // 
-            label2.Location = new Point(13, 188);
+            label2.Location = new Point(11, 248);
             label2.Name = "label2";
             label2.Size = new Size(97, 21);
             label2.TabIndex = 12;
@@ -243,7 +250,7 @@
             // 
             // label8
             // 
-            label8.Location = new Point(8, 149);
+            label8.Location = new Point(11, 203);
             label8.Name = "label8";
             label8.Size = new Size(97, 21);
             label8.TabIndex = 6;
@@ -252,7 +259,7 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(163, 144);
+            comboBox1.Location = new Point(187, 151);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(125, 28);
             comboBox1.TabIndex = 6;
@@ -266,21 +273,14 @@
             label6.TabIndex = 5;
             label6.Text = "Datos de la encomienda";
             // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Location = new Point(165, 182);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(125, 27);
-            numericUpDown1.TabIndex = 30;
-            // 
             // ImposicionDeEncomiendaCDForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(651, 604);
+            ClientSize = new Size(651, 619);
+            Controls.Add(groupBox2);
             Controls.Add(button3);
             Controls.Add(button5);
-            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Margin = new Padding(2, 3, 2, 3);
             Name = "ImposicionDeEncomiendaCDForm";
@@ -303,6 +303,7 @@
         private Button button3;
         private Button button5;
         private GroupBox groupBox2;
+        private NumericUpDown numericUpDown1;
         private TextBox textBox4;
         private Label label7;
         private TextBox textBox3;
@@ -318,6 +319,5 @@
         private Label label8;
         private ComboBox comboBox1;
         private Label label6;
-        private NumericUpDown numericUpDown1;
     }
 }
