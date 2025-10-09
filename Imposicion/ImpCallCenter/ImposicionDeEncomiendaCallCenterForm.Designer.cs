@@ -77,44 +77,44 @@
             groupBox2.Controls.Add(label6);
             groupBox2.Location = new Point(14, 157);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(635, 424);
+            groupBox2.Size = new Size(635, 439);
             groupBox2.TabIndex = 7;
             groupBox2.TabStop = false;
             groupBox2.Enter += groupBox2_Enter;
             // 
             // textBox4
             // 
-            textBox4.Location = new Point(165, 369);
+            textBox4.Location = new Point(187, 200);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(125, 27);
             textBox4.TabIndex = 29;
             // 
             // label7
             // 
-            label7.Location = new Point(7, 379);
+            label7.Location = new Point(8, 156);
             label7.Name = "label7";
-            label7.Size = new Size(151, 21);
+            label7.Size = new Size(170, 23);
             label7.TabIndex = 28;
             label7.Text = "DNI autorizado a retirar:";
             // 
             // textBox3
             // 
-            textBox3.Location = new Point(402, 99);
+            textBox3.Location = new Point(442, 101);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(125, 27);
             textBox3.TabIndex = 27;
             // 
             // label4
             // 
-            label4.Location = new Point(312, 104);
+            label4.Location = new Point(352, 104);
             label4.Name = "label4";
-            label4.Size = new Size(151, 25);
+            label4.Size = new Size(84, 25);
             label4.TabIndex = 26;
             label4.Text = "Domicilio:";
             // 
             // button4
             // 
-            button4.Location = new Point(312, 224);
+            button4.Location = new Point(312, 355);
             button4.Name = "button4";
             button4.Size = new Size(115, 33);
             button4.TabIndex = 25;
@@ -123,7 +123,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(312, 180);
+            button2.Location = new Point(312, 311);
             button2.Name = "button2";
             button2.Size = new Size(115, 33);
             button2.TabIndex = 24;
@@ -132,7 +132,7 @@
             // 
             // listView1
             // 
-            listView1.Location = new Point(7, 224);
+            listView1.Location = new Point(8, 289);
             listView1.Margin = new Padding(3, 4, 3, 4);
             listView1.Name = "listView1";
             listView1.Size = new Size(283, 128);
@@ -142,7 +142,7 @@
             // comboBox3
             // 
             comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(163, 104);
+            comboBox3.Location = new Point(187, 104);
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(125, 28);
             comboBox3.TabIndex = 18;
@@ -150,7 +150,7 @@
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(163, 59);
+            comboBox2.Location = new Point(187, 62);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(125, 28);
             comboBox2.TabIndex = 17;
@@ -165,7 +165,7 @@
             // 
             // label2
             // 
-            label2.Location = new Point(8, 188);
+            label2.Location = new Point(11, 248);
             label2.Name = "label2";
             label2.Size = new Size(97, 21);
             label2.TabIndex = 12;
@@ -181,7 +181,7 @@
             // 
             // label8
             // 
-            label8.Location = new Point(8, 149);
+            label8.Location = new Point(11, 203);
             label8.Name = "label8";
             label8.Size = new Size(97, 21);
             label8.TabIndex = 6;
@@ -190,7 +190,7 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(163, 144);
+            comboBox1.Location = new Point(187, 151);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(125, 28);
             comboBox1.TabIndex = 6;
@@ -206,7 +206,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(512, 587);
+            button5.Location = new Point(512, 602);
             button5.Name = "button5";
             button5.Size = new Size(114, 33);
             button5.TabIndex = 25;
@@ -215,7 +215,7 @@
             // 
             // button3
             // 
-            button3.Location = new Point(390, 587);
+            button3.Location = new Point(390, 602);
             button3.Name = "button3";
             button3.Size = new Size(115, 33);
             button3.TabIndex = 23;
@@ -269,7 +269,7 @@
             // 
             // numericUpDown1
             // 
-            numericUpDown1.Location = new Point(163, 182);
+            numericUpDown1.Location = new Point(187, 246);
             numericUpDown1.Name = "numericUpDown1";
             numericUpDown1.Size = new Size(125, 27);
             numericUpDown1.TabIndex = 31;
