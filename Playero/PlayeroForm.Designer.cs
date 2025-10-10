@@ -68,6 +68,7 @@
             // listView2
             // 
             listView2.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader6, columnHeader8, columnHeader9, columnHeader10 });
+            listView2.FullRowSelect = true;
             listView2.Location = new Point(11, 44);
             listView2.Margin = new Padding(3, 2, 3, 2);
             listView2.Name = "listView2";
@@ -139,6 +140,7 @@
             // listView1
             // 
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader7, columnHeader11, columnHeader12 });
+            listView1.FullRowSelect = true;
             listView1.Location = new Point(6, 43);
             listView1.Margin = new Padding(3, 2, 3, 2);
             listView1.Name = "listView1";

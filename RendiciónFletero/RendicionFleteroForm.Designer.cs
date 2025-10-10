@@ -48,8 +48,6 @@
             columnHeader13 = new ColumnHeader();
             label2 = new Label();
             groupBox2 = new GroupBox();
-            label3 = new Label();
-            button5 = new Button();
             listView2 = new ListView();
             columnHeader4 = new ColumnHeader();
             columnHeader5 = new ColumnHeader();
@@ -58,6 +56,8 @@
             columnHeader10 = new ColumnHeader();
             columnHeader11 = new ColumnHeader();
             columnHeader14 = new ColumnHeader();
+            label3 = new Label();
+            button5 = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             SuspendLayout();
@@ -104,6 +104,7 @@
             // 
             listView1.CheckBoxes = true;
             listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader12, columnHeader2, columnHeader3, columnHeader6, columnHeader7, columnHeader13 });
+            listView1.FullRowSelect = true;
             listViewItem1.StateImageIndex = 0;
             listViewItem2.StateImageIndex = 0;
             listViewItem3.StateImageIndex = 0;
@@ -170,29 +171,11 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Guias para entrega a domicilio y en agencia";
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(6, 19);
-            label3.Name = "label3";
-            label3.Size = new Size(70, 15);
-            label3.TabIndex = 5;
-            label3.Text = "Detalle Guía";
-            // 
-            // button5
-            // 
-            button5.Location = new Point(816, 451);
-            button5.Margin = new Padding(3, 2, 3, 2);
-            button5.Name = "button5";
-            button5.Size = new Size(108, 28);
-            button5.TabIndex = 8;
-            button5.Text = "Aceptar";
-            button5.UseVisualStyleBackColor = true;
-            // 
             // listView2
             // 
             listView2.CheckBoxes = true;
             listView2.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader8, columnHeader9, columnHeader10, columnHeader11, columnHeader14 });
+            listView2.FullRowSelect = true;
             listViewItem4.StateImageIndex = 0;
             listViewItem5.StateImageIndex = 0;
             listViewItem6.StateImageIndex = 0;
@@ -239,6 +222,25 @@
             // columnHeader14
             // 
             columnHeader14.Text = "CD";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(6, 19);
+            label3.Name = "label3";
+            label3.Size = new Size(70, 15);
+            label3.TabIndex = 5;
+            label3.Text = "Detalle Guía";
+            // 
+            // button5
+            // 
+            button5.Location = new Point(816, 451);
+            button5.Margin = new Padding(3, 2, 3, 2);
+            button5.Name = "button5";
+            button5.Size = new Size(108, 28);
+            button5.TabIndex = 8;
+            button5.Text = "Aceptar";
+            button5.UseVisualStyleBackColor = true;
             // 
             // RendicionFleteroForm
             // 
