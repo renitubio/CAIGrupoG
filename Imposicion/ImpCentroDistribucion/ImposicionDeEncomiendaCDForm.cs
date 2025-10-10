@@ -300,9 +300,9 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
         {
             // Lógica para limpiar todos los campos del formulario
             CuitTxtBox.Clear();
-            CiudadCmb.SelectedIndex = -1;
             DomicilioRadioBttn.Checked = false;
             AgenciaRadioBttn.Checked = false;
+            CiudadCmb.SelectedIndex = -1;
             DomicilioTxtBox.Clear();
             OpcionesDeEntregaCmb.DataSource = null;
             TipoDeCajaCmb.SelectedIndex = -1;
