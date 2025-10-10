@@ -8,7 +8,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 {
     public class ImposicionDeEncomiendaCDModelo
     {
-        // ⚡ DATOS ESTÁTICOS FICTICIOS INTEGRADOS DIRECTAMENTE EN EL MODELO ⚡
+        //DATOS ESTÁTICOS FICTICIOS INTEGRADOS DIRECTAMENTE EN EL MODELO
         private static List<Ciudad> _ciudades = new List<Ciudad>
         {
             new Ciudad { Id = 1, Nombre = "CABA" },
@@ -39,7 +39,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
         public List<AgenciaCD> ObtenerAgenciasPorCiudad(int ciudadId) => _agenciasCD.Where(a => a.CiudadId == ciudadId).ToList();
 
-        // ⚡ MODIFICACIÓN: Simula la generación de guías para múltiples líneas
+        //Simula la generación de guías para múltiples líneas
         public List<string> ConfirmarAdmision(int cantidadEncomiendas)
         {
             var guias = new List<string>();
@@ -54,7 +54,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             return guias;
         }
 
-        // ⚡ LÓGICA DE CLIENTE MODIFICADA: Simula si el CUIT está "registrado"
+        //Simula si el CUIT está "registrado"
         public bool BuscarCliente(string cuit)
         {
             // Solo el CUIT "30123456789" (de 11 dígitos) devuelve true

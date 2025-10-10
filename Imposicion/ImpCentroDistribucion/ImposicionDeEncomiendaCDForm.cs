@@ -22,7 +22,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             GuiasAsignadasGroupBox.Visible = false;
             DomicilioTxtBox.Enabled = false;
             OpcionesDeEntregaCmb.Enabled = false;
-            // ⚡ MODIFICACIÓN: Deshabilitar el groupbox de encomienda al iniciar
+            //Deshabilitar el groupbox de encomienda al iniciar
             groupBox2.Enabled = false;
 
             CargarDatosIniciales();
@@ -45,7 +45,6 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
         private void CargarDatosIniciales()
         {
-            // ... (Sin cambios) ...
             CiudadCmb.DataSource = modelo.ObtenerCiudades();
             CiudadCmb.DisplayMember = "Nombre";
             CiudadCmb.ValueMember = "Id";
@@ -59,7 +58,6 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
         private void CiudadCmb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // ... (Sin cambios) ...
             OpcionesDeEntregaCmb.DataSource = null;
             OpcionesDeEntregaCmb.SelectedIndex = -1;
 
@@ -71,7 +69,6 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
         private void DomicilioRadioBttn_CheckedChanged(object sender, EventArgs e)
         {
-            // ... (Sin cambios) ...
             if (DomicilioRadioBttn.Checked)
             {
                 DomicilioTxtBox.Enabled = true;
@@ -91,7 +88,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                     DomicilioTxtBox.Clear();
                     OpcionesDeEntregaCmb.Enabled = true;
 
-                    // NOTA: Asumiendo que Ciudad es una clase con propiedad 'Id' (Int32)
+                    //Asumiendo que Ciudad es una clase con propiedad 'Id' (Int32)
                     var agenciasFiltradas = modelo.ObtenerAgenciasPorCiudad(ciudadSeleccionada.Id);
 
                     OpcionesDeEntregaCmb.DataSource = agenciasFiltradas;
@@ -121,10 +118,10 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
 
         // -------------------------------------------------------------------------
-        // LÓGICA DE BOTONES (CRUD de Encomiendas)
+        // LÓGICA DE BOTONES (CRUD Encomiendas)
         // -------------------------------------------------------------------------
 
-        // ⚡ MODIFICACIÓN DE LA LÓGICA DEL CLIENTE
+        // Logica del Cliente
         private void BuscarClienteBttn_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(CuitTxtBox.Text) || !long.TryParse(CuitTxtBox.Text, out _) || CuitTxtBox.Text.Length != 11)
@@ -155,7 +152,6 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
         // Añade una encomienda al ListView
         private void AñadirBttn_Click(object sender, EventArgs e)
         {
-            // ... (Sin cambios) ...
             string dni = DNITxtBox.Text.Trim();
 
             // Validaciones (Ajustadas a lo esencial)
@@ -217,10 +213,9 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
         }
 
 
-        // ⚡ IMPLEMENTACIÓN: Remueve la línea seleccionada del ListView
+        //Remueve la línea seleccionada del ListView
         private void QuitarBttn_Click(object sender, EventArgs e)
         {
-            // ... (Sin cambios) ...
             if (EncomiendasListView.SelectedItems.Count > 0)
             {
                 foreach (ListViewItem item in EncomiendasListView.SelectedItems)
@@ -243,7 +238,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 return;
             }
 
-            // ⚡ Nueva lógica: Calcular la cantidad total de encomiendas sumando la columna 'Cantidad'
+            // Calcular la cantidad total de encomiendas sumando la columna 'Cantidad'
             int totalEncomiendas = 0;
 
             // Recorremos todos los ítems del ListView de Encomiendas
@@ -295,7 +290,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             this.Refresh();
         }
 
-        // ⚡ IMPLEMENTACIÓN: Vuelve al formulario para seguir operando (Botón 'Finalizar' en la pantalla de resultados).
+        //Vuelve al formulario para seguir operando (Botón 'Finalizar' en la pantalla de resultados).
         private void FinalizaBttn_Click(object sender, EventArgs e)
         {
             // Lógica para limpiar todos los campos del formulario
@@ -311,21 +306,20 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             EncomiendasListView.Items.Clear();
             GuiasGeneradasListView.Items.Clear();
 
-            // Restaura la visibilidad
+            //Restaura la visibilidad
             GuiasAsignadasGroupBox.Visible = false;
             groupBox1.Visible = true;
             groupBox2.Visible = true;
             groupBox2.Enabled = false; // Deshabilita hasta una nueva búsqueda de cliente
 
-            // ⚡ MODIFICACIÓN: Restaurar la habilidad de buscar cliente
+            //Restaurar la habilidad de buscar cliente
             CuitTxtBox.Enabled = true;
             BuscarClienteBttn.Enabled = true;
         }
 
-        // ⚡ IMPLEMENTACIÓN: Cierra el formulario (Botón 'Cancelar' en la pantalla principal).
+        //Cierra el formulario (Botón 'Cancelar' en la pantalla principal).
         private void CancelarBttn_Click(object sender, EventArgs e)
         {
-            // ... (Sin cambios) ...
             this.Close();
         }
     }
