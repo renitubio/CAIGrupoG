@@ -13,116 +13,163 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
     public partial class ImposicionDeEncomiendaCDForm : Form
     {
         public ImposicionDeEncomiendaCDModelo modelo = new();
+
         public ImposicionDeEncomiendaCDForm()
         {
             InitializeComponent();
 
-            // 1. OCULTAR: Esconde el GroupBox de guías generadas al inicio.
+            // 1. OCULTAR/INICIALIZAR 
             GuiasAsignadasGroupBox.Visible = false;
-
-            // 2. INICIALIZACIÓN: Deshabilita los campos de destino específicos (se habilitan con los RadioButtons).
             DomicilioTxtBox.Enabled = false;
             OpcionesDeEntregaCmb.Enabled = false;
+            // ⚡ MODIFICACIÓN: Deshabilitar el groupbox de encomienda al iniciar
+            groupBox2.Enabled = false;
 
-            // 3. ENLACE DE EVENTOS: Asegura que los eventos de los botones de radio estén asignados
+            CargarDatosIniciales();
+
+            // 3. ENLACE DE EVENTOS
             this.DomicilioRadioBttn.CheckedChanged += new EventHandler(this.DomicilioRadioBttn_CheckedChanged);
             this.AgenciaRadioBttn.CheckedChanged += new EventHandler(this.AgenciaRadioBttn_CheckedChanged);
+            this.CiudadCmb.SelectedIndexChanged += new EventHandler(this.CiudadCmb_SelectedIndexChanged);
             this.BuscarClienteBttn.Click += new EventHandler(this.BuscarClienteBttn_Click);
             this.AñadirBttn.Click += new EventHandler(this.AñadirBttn_Click);
+            this.QuitarBttn.Click += new EventHandler(this.QuitarBttn_Click);
             this.ConfirmarBttn.Click += new EventHandler(this.ConfirmarBttn_Click);
             this.FinalizaBttn.Click += new EventHandler(this.FinalizaBttn_Click);
+            this.CancelarBttn.Click += new EventHandler(this.CancelarBttn_Click);
         }
 
         // -------------------------------------------------------------------------
-        // LÓGICA DE RADIO BUTTONS
+        // MÉTODOS DE CARGA DE DATOS Y FLUJO
         // -------------------------------------------------------------------------
 
-        // Maneja la selección de Domicilio.
+        private void CargarDatosIniciales()
+        {
+            // ... (Sin cambios) ...
+            CiudadCmb.DataSource = modelo.ObtenerCiudades();
+            CiudadCmb.DisplayMember = "Nombre";
+            CiudadCmb.ValueMember = "Id";
+            CiudadCmb.SelectedIndex = -1;
+
+            TipoDeCajaCmb.DataSource = modelo.ObtenerTiposCaja();
+            TipoDeCajaCmb.DisplayMember = "Nombre";
+            TipoDeCajaCmb.ValueMember = "Nombre";
+            TipoDeCajaCmb.SelectedIndex = -1;
+        }
+
+        private void CiudadCmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // ... (Sin cambios) ...
+            OpcionesDeEntregaCmb.DataSource = null;
+            OpcionesDeEntregaCmb.SelectedIndex = -1;
+
+            if (AgenciaRadioBttn.Checked)
+            {
+                AgenciaRadioBttn_CheckedChanged(sender, e);
+            }
+        }
+
         private void DomicilioRadioBttn_CheckedChanged(object sender, EventArgs e)
         {
+            // ... (Sin cambios) ...
             if (DomicilioRadioBttn.Checked)
             {
                 DomicilioTxtBox.Enabled = true;
                 OpcionesDeEntregaCmb.Enabled = false;
-                OpcionesDeEntregaCmb.SelectedIndex = -1; // Limpia la selección de agencia.
+                OpcionesDeEntregaCmb.DataSource = null;
             }
         }
 
-        // Maneja la selección de Agencia/CD.
         private void AgenciaRadioBttn_CheckedChanged(object sender, EventArgs e)
         {
             if (AgenciaRadioBttn.Checked)
             {
-                DomicilioTxtBox.Enabled = false;
-                DomicilioTxtBox.Clear(); // Limpia el domicilio.
-                OpcionesDeEntregaCmb.Enabled = true;
-                // Lógica pendiente: Cargar OpcionesDeEntregaCmb con agencias/CD de la CiudadCmb.
+                // Solo ejecutamos la lógica de carga de agencias si está MARCADO
+                if (CiudadCmb.SelectedItem is Ciudad ciudadSeleccionada)
+                {
+                    DomicilioTxtBox.Enabled = false;
+                    DomicilioTxtBox.Clear();
+                    OpcionesDeEntregaCmb.Enabled = true;
+
+                    // NOTA: Asumiendo que Ciudad es una clase con propiedad 'Id' (Int32)
+                    var agenciasFiltradas = modelo.ObtenerAgenciasPorCiudad(ciudadSeleccionada.Id);
+
+                    OpcionesDeEntregaCmb.DataSource = agenciasFiltradas;
+                    OpcionesDeEntregaCmb.DisplayMember = "Nombre";
+                    OpcionesDeEntregaCmb.ValueMember = "Id";
+                    OpcionesDeEntregaCmb.SelectedIndex = -1;
+                }
+                else
+                {
+                    // Si el usuario MARCA Agencia y no hay Ciudad, mostramos la advertencia y desmarcamos.
+                    OpcionesDeEntregaCmb.DataSource = null;
+                    OpcionesDeEntregaCmb.Enabled = false;
+                    MessageBox.Show("Primero debe seleccionar una Ciudad.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    AgenciaRadioBttn.Checked = false; // Desmarcar para forzar al usuario a seleccionar Ciudad primero.
+                }
+            }
+            else
+            {
+                // Cuando se DESMARCA (ya sea porque el usuario marcó Domicilio o por limpieza en Finalizar):
+                // Simplemente limpiamos los controles sin mostrar advertencias.
+                OpcionesDeEntregaCmb.DataSource = null;
+                OpcionesDeEntregaCmb.Enabled = false;
+
+                // NOTA: No hacemos nada más para evitar que se ejecute en Finalizar.
             }
         }
 
+
         // -------------------------------------------------------------------------
-        // LÓGICA DE BOTONES (Validaciones)
+        // LÓGICA DE BOTONES (CRUD de Encomiendas)
         // -------------------------------------------------------------------------
 
-        // Valida y busca el cliente por CUIT.
+        // ⚡ MODIFICACIÓN DE LA LÓGICA DEL CLIENTE
         private void BuscarClienteBttn_Click(object sender, EventArgs e)
         {
-            // VALIDACIÓN: Campo no vacío
-            if (string.IsNullOrEmpty(CuitTxtBox.Text))
-            {
-                MessageBox.Show("El CUIT no puede estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            string cuit = CuitTxtBox.Text.Trim();
-
-            // VALIDACIÓN: Tipo y rango (debe ser numérico de 11 dígitos)
-            if (!long.TryParse(cuit, out _) || cuit.Length != 11)
+            if (string.IsNullOrEmpty(CuitTxtBox.Text) || !long.TryParse(CuitTxtBox.Text, out _) || CuitTxtBox.Text.Length != 11)
             {
                 MessageBox.Show("El CUIT debe ser numérico y contener exactamente 11 dígitos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // *** SIMULACIÓN DE LÓGICA DE NEGOCIO (PASOS 3, 4) ***
-            // Aquí iría la llamada a la capa de negocio para buscar el cliente.
-            bool clienteEncontrado = true;
-
-            if (clienteEncontrado)
+            if (modelo.BuscarCliente(CuitTxtBox.Text.Trim()))
             {
                 MessageBox.Show("Cliente encontrado. Procede a ingresar la encomienda.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // Habilitar la sección de encomienda después de la búsqueda exitosa.
+
+                // Encontrar cliente: Habilita el siguiente paso y deshabilita la búsqueda
                 groupBox2.Enabled = true;
+                CuitTxtBox.Enabled = false; // Deshabilita el CUIT
+                BuscarClienteBttn.Enabled = false; // Deshabilita el botón de búsqueda
             }
             else
             {
+                // No encuentra cliente: Deshabilita el siguiente paso
                 MessageBox.Show("CUIT no registrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 groupBox2.Enabled = false;
+                CuitTxtBox.Enabled = true; // Asegura que pueda reintentar
+                BuscarClienteBttn.Enabled = true;
             }
         }
 
-        // Valida los datos de la encomienda y los añade al ListView.
+        // Añade una encomienda al ListView
         private void AñadirBttn_Click(object sender, EventArgs e)
         {
-            // VALIDACIÓN: Ciudad y Tipo de Caja no seleccionados
-            if (CiudadCmb.SelectedIndex == -1)
-            {
-                MessageBox.Show("Debe seleccionar una Ciudad de destino.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            if (TipoDeCajaCmb.SelectedIndex == -1)
-            {
-                MessageBox.Show("Debe seleccionar el Tipo de Caja.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            // ... (Sin cambios) ...
+            string dni = DNITxtBox.Text.Trim();
 
-            // VALIDACIÓN: Opciones de Destino (Radio Buttons)
-            if (!AgenciaRadioBttn.Checked && !DomicilioRadioBttn.Checked)
+            // Validaciones (Ajustadas a lo esencial)
+            if (CiudadCmb.SelectedIndex == -1 || TipoDeCajaCmb.SelectedIndex == -1 ||
+                (!AgenciaRadioBttn.Checked && !DomicilioRadioBttn.Checked) || CantidadNum.Value < 1)
             {
-                MessageBox.Show("Debe seleccionar si la entrega es a Agencia/CD o a Domicilio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe completar todos los campos de destino y encomienda.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
-            // VALIDACIÓN: Domicilio o Agencia específico (Rango y no vacío)
+            if (!int.TryParse(dni, out _) || dni.Length < 7 || dni.Length > 8)
+            {
+                MessageBox.Show("El DNI debe ser numérico y tener entre 7 y 8 dígitos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (AgenciaRadioBttn.Checked && OpcionesDeEntregaCmb.SelectedIndex == -1)
             {
                 MessageBox.Show("Debe seleccionar la Agencia/CD de destino.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -134,60 +181,121 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 return;
             }
 
-            // VALIDACIÓN: Cantidad (Rango)
-            if (CantidadNum.Value < 1)
+            // Determinación del destino
+            string tipoDestino;
+            string destino;
+            if (DomicilioRadioBttn.Checked)
             {
-                MessageBox.Show("La cantidad de cajas debe ser al menos 1.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                tipoDestino = "Domicilio";
+                destino = DomicilioTxtBox.Text.Trim();
+            }
+            else
+            {
+                tipoDestino = "Agencia/CD";
+                destino = OpcionesDeEntregaCmb.Text;
             }
 
-            // VALIDACIÓN: DNI autorizado (No vacío, Tipo y Rango)
-            if (string.IsNullOrEmpty(DNITxtBox.Text))
+            // Se crea el ítem (asumiendo que hay suficientes columnas definidas en EncomiendasListView)
+            var item = new ListViewItem(new[]
             {
-                MessageBox.Show("El DNI autorizado no puede estar vacío.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                TipoDeCajaCmb.Text,          // Col 1: Tipo de Caja
+                CantidadNum.Value.ToString(),    // Col 2: Cantidad 
+                CiudadCmb.Text,                  // Col 3: Ciudad
+                tipoDestino,                    // Col 4: Tipo de Destino
+                destino,                        // Col 5: Detalle del Destino
+                dni                              // Col 6: DNI Autorizado
+            });
 
-            string dni = DNITxtBox.Text.Trim();
-            // Asume DNI de 7 a 8 dígitos.
-            if (!int.TryParse(dni, out _) || dni.Length < 7 || dni.Length > 8)
-            {
-                MessageBox.Show("El DNI debe ser numérico y tener entre 7 y 8 dígitos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+            EncomiendasListView.Items.Add(item);
 
-            // *** LÓGICA DE NEGOCIO (PASO 10 del CU) ***
-            // Lógica para añadir el item al EncomiendasListView
-            // EncomiendasListView.Items.Add(new ListViewItem(new[] { TipoDeCajaCmb.Text, CantidadNum.Value.ToString(), "CostoCalculado" }));
+            MessageBox.Show($"Se añadió una caja tipo {TipoDeCajaCmb.Text} a la lista.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            MessageBox.Show("Encomienda(s) añadida(s) a la lista.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // Limpieza (opcional)
+            TipoDeCajaCmb.SelectedIndex = -1;
+            CantidadNum.Value = 1;
+            DNITxtBox.Clear();
         }
 
-        // Confirma la imposición, genera guías y muestra el GroupBox de resultados.
+
+        // ⚡ IMPLEMENTACIÓN: Remueve la línea seleccionada del ListView
+        private void QuitarBttn_Click(object sender, EventArgs e)
+        {
+            // ... (Sin cambios) ...
+            if (EncomiendasListView.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem item in EncomiendasListView.SelectedItems)
+                {
+                    EncomiendasListView.Items.Remove(item);
+                }
+                MessageBox.Show("Línea(s) de encomienda eliminada(s).", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Debe seleccionar una línea para quitar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         private void ConfirmarBttn_Click(object sender, EventArgs e)
         {
-            // VALIDACIÓN FINAL: La lista de encomiendas no puede estar vacía.
             if (EncomiendasListView.Items.Count == 0)
             {
                 MessageBox.Show("Debe añadir al menos una encomienda a la lista antes de confirmar/admitir.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // *** LÓGICA DE NEGOCIO (PASOS 16 y 17) ***
-            // Lógica para generar las guías, registrar la Admisión en la DB y llenar GuiasAsignadasListView.
-            // Ejemplo:
-            // GuiasAsignadasListView.Items.Add("TRK-123456789");
-            // GuiasAsignadasListView.Items.Add("TRK-987654321");
+            // ⚡ Nueva lógica: Calcular la cantidad total de encomiendas sumando la columna 'Cantidad'
+            int totalEncomiendas = 0;
 
-            // OCULTAR/MOSTRAR: Oculta la interfaz principal.
-            groupBox1.Visible = false;
-            groupBox2.Visible = false;
+            // Recorremos todos los ítems del ListView de Encomiendas
+            foreach (ListViewItem item in EncomiendasListView.Items)
+            {
+                // La cantidad está en el SubItem[1] (el SubItem[0] es el Tipo de Caja)
+                if (int.TryParse(item.SubItems[1].Text, out int cantidadPorLinea))
+                {
+                    totalEncomiendas += cantidadPorLinea;
+                }
+                else
+                {
+                    // Esto es una validación extra por si los datos fueran inconsistentes
+                    MessageBox.Show("Error de formato en la columna Cantidad del listado. Por favor, revise la información.", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
 
-            // OCULTAR/MOSTRAR: Muestra el GroupBox con las guías generadas.
+            // Si la suma total es 0, no continuamos.
+            if (totalEncomiendas == 0)
+            {
+                MessageBox.Show("La cantidad total de encomiendas debe ser mayor a cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            // Llama al modelo para obtener una guía ficticia por el TOTAL de encomiendas
+            List<string> guiasGeneradas = modelo.ConfirmarAdmision(totalEncomiendas);
+
+            // 1. Llenar el ListView de guías generadas 
+            GuiasGeneradasListView.Items.Clear();
+
+            foreach (string guia in guiasGeneradas)
+            {
+                // Aseguramos que se añade correctamente como un elemento para el ListView
+                GuiasGeneradasListView.Items.Add(new ListViewItem(guia));
+            }
+
+            // 2. Control de visibilidad para mostrar SOLO los resultados
+
+            // Oculta los GroupBox principales
+            groupBox1.Visible = false; // Datos del Cliente
+            groupBox2.Visible = false; // Datos de la encomienda
+
+            // Muestra el GroupBox de resultados
             GuiasAsignadasGroupBox.Visible = true;
+
+            // Opcional: Asegúrate de que el formulario redibuje correctamente
+            this.Refresh();
         }
 
-        // Finaliza el proceso y limpia el formulario.
+        // ⚡ IMPLEMENTACIÓN: Vuelve al formulario para seguir operando (Botón 'Finalizar' en la pantalla de resultados).
         private void FinalizaBttn_Click(object sender, EventArgs e)
         {
             // Lógica para limpiar todos los campos del formulario
@@ -196,18 +304,29 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             DomicilioRadioBttn.Checked = false;
             AgenciaRadioBttn.Checked = false;
             DomicilioTxtBox.Clear();
-            OpcionesDeEntregaCmb.SelectedIndex = -1;
+            OpcionesDeEntregaCmb.DataSource = null;
             TipoDeCajaCmb.SelectedIndex = -1;
             CantidadNum.Value = 1;
             DNITxtBox.Clear();
             EncomiendasListView.Items.Clear();
-            GuiasAsignadasListView.Items.Clear();
+            GuiasGeneradasListView.Items.Clear();
 
-            // Restaura la visibilidad de los GroupBox
+            // Restaura la visibilidad
             GuiasAsignadasGroupBox.Visible = false;
             groupBox1.Visible = true;
             groupBox2.Visible = true;
             groupBox2.Enabled = false; // Deshabilita hasta una nueva búsqueda de cliente
+
+            // ⚡ MODIFICACIÓN: Restaurar la habilidad de buscar cliente
+            CuitTxtBox.Enabled = true;
+            BuscarClienteBttn.Enabled = true;
+        }
+
+        // ⚡ IMPLEMENTACIÓN: Cierra el formulario (Botón 'Cancelar' en la pantalla principal).
+        private void CancelarBttn_Click(object sender, EventArgs e)
+        {
+            // ... (Sin cambios) ...
+            this.Close();
         }
     }
 }
