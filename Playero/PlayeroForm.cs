@@ -12,6 +12,7 @@ namespace CAIGrupoG.Playero
 {
     public partial class PlayeroForm : Form
     {
+        public PlayeroModelo modelo = new();
         public PlayeroForm()
         {
             InitializeComponent();

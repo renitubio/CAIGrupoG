@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.EmitirFactura
 {
-    internal class EmitirFacturaModelo
+    public class EmitirFacturaModelo
     {
     }
 }

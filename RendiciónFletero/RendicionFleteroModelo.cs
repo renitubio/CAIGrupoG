@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.RendiciónFletero
 {
-    internal class RendicionFleteroModelo
+    public class RendicionFleteroModelo
     {
     }
 }

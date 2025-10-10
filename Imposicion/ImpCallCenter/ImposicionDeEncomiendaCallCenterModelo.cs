@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Imposicion.ImpCallCenter
 {
-    internal class ImposicionDeEncomiendaCallCenterModelo
+    public class ImposicionDeEncomiendaCallCenterModelo
     {
     }
 }

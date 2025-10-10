@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.ConsultaTracking
 {
-    internal class ConsultaTrackingModelo
+    public class ConsultaTrackingModelo
     {
     }
 }

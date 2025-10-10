@@ -12,6 +12,7 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 {
     public partial class ImposicionDeEncomiendaCallCenterForm : Form
     {
+        public ImposicionDeEncomiendaCallCenterModelo modelo = new();
         public ImposicionDeEncomiendaCallCenterForm()
         {
             InitializeComponent();

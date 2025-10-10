@@ -12,6 +12,8 @@ namespace CAIGrupoG.ConsultaTracking
 {
     public partial class ConsultarTrackingForm : Form
     {
+        public ConsultaTrackingModelo modelo = new();
+
         public ConsultarTrackingForm()
         {
             InitializeComponent();

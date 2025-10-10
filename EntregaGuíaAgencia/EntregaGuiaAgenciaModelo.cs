@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.EntregaGuíaAgencia
 {
-    internal class EntregaGuiaAgenciaModelo
+    public class EntregaGuiaAgenciaModelo
     {
     }
 }

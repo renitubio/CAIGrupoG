@@ -12,6 +12,7 @@ namespace CAIGrupoG.ResultadoCostosVSVentas
 {
     public partial class CostosVsVentasForm : Form
     {
+        public CostosVsVentasModelo modelo = new();
         public CostosVsVentasForm()
         {
             InitializeComponent();

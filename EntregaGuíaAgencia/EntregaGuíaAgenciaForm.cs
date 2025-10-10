@@ -12,6 +12,7 @@ namespace CAIGrupoG.EntregaGuíaAgencia
 {
     public partial class EntregaGuíaAgenciaForm : Form
     {
+        public EntregaGuiaAgenciaModelo modelo = new();
         public EntregaGuíaAgenciaForm()
         {
             InitializeComponent();

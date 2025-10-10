@@ -12,6 +12,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 {
     public partial class ImposicionDeEncomiendaCDForm : Form
     {
+        public ImposicionDeEncomiendaCDModelo modelo = new();
         public ImposicionDeEncomiendaCDForm()
         {
             InitializeComponent();

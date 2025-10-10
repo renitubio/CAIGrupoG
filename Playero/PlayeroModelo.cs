@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Playero
 {
-    internal class PlayeroModelo
+    public class PlayeroModelo
     {
     }
 }

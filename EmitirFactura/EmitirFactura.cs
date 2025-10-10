@@ -12,6 +12,7 @@ namespace CAIGrupoG.EmitirFactura
 {
     public partial class EmitirFactura : Form
     {
+        public EmitirFacturaModelo modelo = new();
         public EmitirFactura()
         {
             InitializeComponent();

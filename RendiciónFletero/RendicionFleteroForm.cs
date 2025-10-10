@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CAIGrupoG.RendiciónFletero;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ namespace CAIGrupoG.Admisión
 {
     public partial class RendicionFleteroForm : Form
     {
+        public RendicionFleteroModelo modelo = new();
         public RendicionFleteroForm()
         {
             InitializeComponent();

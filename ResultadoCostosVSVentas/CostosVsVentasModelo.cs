@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.ResultadoCostosVSVentas
 {
-    internal class CostosVsVentasModelo
+    public class CostosVsVentasModelo
     {
     }
 }

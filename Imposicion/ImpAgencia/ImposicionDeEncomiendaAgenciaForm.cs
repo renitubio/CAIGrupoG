@@ -12,6 +12,7 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
 {
     public partial class ImposicionDeEncomiendaAgenciaForm : Form
     {
+        public ImposicionDeEncomiendaAgenciaModelo modelo = new();
         public ImposicionDeEncomiendaAgenciaForm()
         {
             InitializeComponent();

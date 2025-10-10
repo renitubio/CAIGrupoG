@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Imposicion.ImpAgencia
 {
-    internal class ImposicionDeEncomiendaAgenciaModelo
+    public class ImposicionDeEncomiendaAgenciaModelo
     {
     }
 }
