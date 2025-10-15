@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -13,35 +14,130 @@ namespace CAIGrupoG.Admisión
 {
     public partial class RendicionFleteroForm : Form
     {
-        public RendicionFleteroModelo modelo = new();
+        private readonly RendicionFleteroModelo modelo = new();
+        private List<Guia> guiasAdmisionActuales;
+        private List<Guia> guiasRetiroActuales;
+
         public RendicionFleteroForm()
         {
             InitializeComponent();
+            // Asociar los eventos a los manejadores de eventos correctos
+            this.BuscarGuiasButton.Click += new System.EventHandler(this.BuscarGuiasButton_Click);
+            this.AceptarButton.Click += new System.EventHandler(this.AceptarButton_Click);
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        private void BuscarGuiasButton_Click(object sender, EventArgs e)
         {
+            string dni = DNIText.Text.Trim();
 
+            // 1. Validación del DNI
+            if (!ValidarDNI(dni))
+            {
+                MessageBox.Show("El formato del DNI no es válido. Debe contener entre 7 y 8 dígitos numéricos.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // 2. Llamada al modelo para buscar las guías
+            var resultado = modelo.BuscarGuiasPorDNI(dni);
+            guiasAdmisionActuales = resultado.Admision;
+            guiasRetiroActuales = resultado.Retiro;
+
+            // 3. Poblar los ListViews
+            PoblarListView(AdmisionListView, guiasAdmisionActuales);
+            PoblarListView(RetiroListView, guiasRetiroActuales);
+
+            if (guiasAdmisionActuales.Count == 0 && guiasRetiroActuales.Count == 0)
+            {
+                MessageBox.Show("No se encontraron guías asociadas al DNI del fletero.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void AceptarButton_Click(object sender, EventArgs e)
         {
+            if ((guiasAdmisionActuales == null || guiasAdmisionActuales.Count == 0) &&
+                (guiasRetiroActuales == null || guiasRetiroActuales.Count == 0))
+            {
+                MessageBox.Show("No hay guías para procesar. Realice una búsqueda primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
+            // Aquí iría la lógica para procesar las guías seleccionadas (opcional según requerimiento)
+
+            MessageBox.Show("Operación Exitosa.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // Limpiar la pantalla para la siguiente operación
+            LimpiarFormulario();
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
+        /// <summary>
+        /// Valida que el DNI ingresado tenga un formato correcto (7 u 8 dígitos).
+        /// </summary>
+        private bool ValidarDNI(string dni)
         {
+            if (string.IsNullOrWhiteSpace(dni))
+                return false;
 
+            // Expresión regular para DNI argentino (7 u 8 dígitos)
+            return Regex.IsMatch(dni, @"^\d{7,8}$");
         }
 
-        private void listView1_SelectedIndexChanged_1(object sender, EventArgs e)
+        /// <summary>
+        /// Rellena un control ListView con la lista de guías correspondiente.
+        /// </summary>
+        private void PoblarListView(ListView listView, List<Guia> guias)
         {
+            listView.Items.Clear();
+            if (guias == null) return;
 
+            foreach (var guia in guias)
+            {
+                var row = new string[]
+                {
+                    guia.NumeroGuia,
+                    FormatearEstado(guia.Estado),
+                    guia.TipoPaquete.ToString(),
+                    guia.CUIT,
+                    guia.DniAutorizadoRetirar,
+                    guia.Destino
+                };
+                var item = new ListViewItem(row);
+                listView.Items.Add(item);
+            }
         }
 
-        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
+        /// <summary>
+        /// Convierte un valor del enum EstadoEncomienda a un string legible.
+        /// </summary>
+        private string FormatearEstado(EstadoEncomienda estado)
         {
+            switch (estado)
+            {
+                case EstadoEncomienda.DistribucionUltimaMilla:
+                    return "Distribución última milla";
+                case EstadoEncomienda.PrimerIntentoDeEntrega:
+                    return "Primer Intento de Entrega";
+                case EstadoEncomienda.EnCaminoARetirarDomicilio:
+                    return "En camino a retirar (Dom)";
+                case EstadoEncomienda.EnCaminoARetirarAgencia:
+                    return "En camino a retirar (Age)";
+                case EstadoEncomienda.EnCDDestino:
+                    return "En CD destino";
+                default:
+                    return estado.ToString();
+            }
+        }
 
+        /// <summary>
+        /// Limpia todos los controles del formulario.
+        /// </summary>
+        private void LimpiarFormulario()
+        {
+            DNIText.Clear();
+            AdmisionListView.Items.Clear();
+            RetiroListView.Items.Clear();
+            guiasAdmisionActuales = null;
+            guiasRetiroActuales = null;
+            DNIText.Focus();
         }
     }
 }

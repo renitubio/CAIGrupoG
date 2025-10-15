@@ -29,18 +29,11 @@
         private void InitializeComponent()
         {
             BuscarGuiasButton = new Button();
-            DniFleteroText = new TextBox();
+            DNIText = new TextBox();
             label1 = new Label();
-            groupBox1 = new GroupBox();
-            AdmisiónListView = new ListView();
-            columnHeader1 = new ColumnHeader();
-            columnHeader12 = new ColumnHeader();
-            columnHeader2 = new ColumnHeader();
-            columnHeader3 = new ColumnHeader();
-            columnHeader6 = new ColumnHeader();
-            columnHeader7 = new ColumnHeader();
+            AdmisionGpBox = new GroupBox();
             label2 = new Label();
-            groupBox2 = new GroupBox();
+            RetiroGpBox = new GroupBox();
             RetiroListView = new ListView();
             columnHeader4 = new ColumnHeader();
             columnHeader5 = new ColumnHeader();
@@ -50,8 +43,15 @@
             columnHeader11 = new ColumnHeader();
             label3 = new Label();
             AceptarButton = new Button();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
+            AdmisionListView = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
+            columnHeader6 = new ColumnHeader();
+            columnHeader7 = new ColumnHeader();
+            columnHeader12 = new ColumnHeader();
+            AdmisionGpBox.SuspendLayout();
+            RetiroGpBox.SuspendLayout();
             SuspendLayout();
             // 
             // BuscarGuiasButton
@@ -64,13 +64,13 @@
             BuscarGuiasButton.Text = "Buscar Guías asociadas";
             BuscarGuiasButton.UseVisualStyleBackColor = true;
             // 
-            // DniFleteroText
+            // DNIText
             // 
-            DniFleteroText.Location = new Point(20, 40);
-            DniFleteroText.Margin = new Padding(3, 2, 3, 2);
-            DniFleteroText.Name = "DniFleteroText";
-            DniFleteroText.Size = new Size(253, 23);
-            DniFleteroText.TabIndex = 1;
+            DNIText.Location = new Point(20, 40);
+            DNIText.Margin = new Padding(3, 2, 3, 2);
+            DNIText.Name = "DNIText";
+            DNIText.Size = new Size(253, 23);
+            DNIText.TabIndex = 1;
             // 
             // label1
             // 
@@ -81,60 +81,17 @@
             label1.TabIndex = 2;
             label1.Text = "DNI Fletero";
             // 
-            // groupBox1
+            // AdmisionGpBox
             // 
-            groupBox1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            groupBox1.Controls.Add(AdmisiónListView);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Location = new Point(12, 78);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(758, 181);
-            groupBox1.TabIndex = 11;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Admision - Encomiendas entrantes desde Domicilios particulares y Agencias";
-            // 
-            // AdmisiónListView
-            // 
-            AdmisiónListView.CheckBoxes = true;
-            AdmisiónListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader12, columnHeader2, columnHeader3, columnHeader6, columnHeader7 });
-            AdmisiónListView.FullRowSelect = true;
-            AdmisiónListView.Location = new Point(6, 43);
-            AdmisiónListView.Margin = new Padding(3, 2, 3, 2);
-            AdmisiónListView.Name = "AdmisiónListView";
-            AdmisiónListView.Size = new Size(705, 92);
-            AdmisiónListView.TabIndex = 6;
-            AdmisiónListView.UseCompatibleStateImageBehavior = false;
-            AdmisiónListView.View = View.Details;
-            // 
-            // columnHeader1
-            // 
-            columnHeader1.Text = "N° Guía";
-            columnHeader1.Width = 100;
-            // 
-            // columnHeader12
-            // 
-            columnHeader12.Text = "Estado de Encomienda";
-            columnHeader12.Width = 200;
-            // 
-            // columnHeader2
-            // 
-            columnHeader2.Text = "Tipo Paquete";
-            columnHeader2.Width = 150;
-            // 
-            // columnHeader3
-            // 
-            columnHeader3.Text = "CUIT";
-            columnHeader3.Width = 100;
-            // 
-            // columnHeader6
-            // 
-            columnHeader6.Text = "Autorizado a retirar";
-            columnHeader6.Width = 200;
-            // 
-            // columnHeader7
-            // 
-            columnHeader7.Text = "Dirección Destinatario";
-            columnHeader7.Width = 200;
+            AdmisionGpBox.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            AdmisionGpBox.Controls.Add(AdmisionListView);
+            AdmisionGpBox.Controls.Add(label2);
+            AdmisionGpBox.Location = new Point(12, 78);
+            AdmisionGpBox.Name = "AdmisionGpBox";
+            AdmisionGpBox.Size = new Size(758, 181);
+            AdmisionGpBox.TabIndex = 11;
+            AdmisionGpBox.TabStop = false;
+            AdmisionGpBox.Text = "Admision - Encomiendas Entrantes desde Domicilios/ Agencias";
             // 
             // label2
             // 
@@ -145,16 +102,16 @@
             label2.TabIndex = 5;
             label2.Text = "Detalle Guía";
             // 
-            // groupBox2
+            // RetiroGpBox
             // 
-            groupBox2.Controls.Add(RetiroListView);
-            groupBox2.Controls.Add(label3);
-            groupBox2.Location = new Point(12, 265);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(758, 181);
-            groupBox2.TabIndex = 12;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Encomiendas salientes, entregadas en Domicilios particulaes y Agencias";
+            RetiroGpBox.Controls.Add(RetiroListView);
+            RetiroGpBox.Controls.Add(label3);
+            RetiroGpBox.Location = new Point(12, 265);
+            RetiroGpBox.Name = "RetiroGpBox";
+            RetiroGpBox.Size = new Size(758, 181);
+            RetiroGpBox.TabIndex = 12;
+            RetiroGpBox.TabStop = false;
+            RetiroGpBox.Text = "Encomiendas Salientes hacia Domicilios/ Agencias";
             // 
             // RetiroListView
             // 
@@ -164,11 +121,10 @@
             RetiroListView.Location = new Point(7, 44);
             RetiroListView.Margin = new Padding(3, 2, 3, 2);
             RetiroListView.Name = "RetiroListView";
-            RetiroListView.Size = new Size(705, 92);
+            RetiroListView.Size = new Size(745, 92);
             RetiroListView.TabIndex = 7;
             RetiroListView.UseCompatibleStateImageBehavior = false;
             RetiroListView.View = View.Details;
-            RetiroListView.SelectedIndexChanged += listView2_SelectedIndexChanged;
             // 
             // columnHeader4
             // 
@@ -178,27 +134,27 @@
             // columnHeader5
             // 
             columnHeader5.Text = "Estado de Encomienda";
-            columnHeader5.Width = 200;
+            columnHeader5.Width = 140;
             // 
             // columnHeader8
             // 
             columnHeader8.Text = "Tipo Paquete";
-            columnHeader8.Width = 150;
+            columnHeader8.Width = 80;
             // 
             // columnHeader9
             // 
             columnHeader9.Text = "CUIT";
-            columnHeader9.Width = 100;
+            columnHeader9.Width = 80;
             // 
             // columnHeader10
             // 
             columnHeader10.Text = "Autorizado a retirar";
-            columnHeader10.Width = 200;
+            columnHeader10.Width = 130;
             // 
             // columnHeader11
             // 
-            columnHeader11.Text = "Dirección Destinatario";
-            columnHeader11.Width = 200;
+            columnHeader11.Text = "Destino";
+            columnHeader11.Width = 180;
             // 
             // label3
             // 
@@ -219,24 +175,67 @@
             AceptarButton.Text = "Aceptar";
             AceptarButton.UseVisualStyleBackColor = true;
             // 
+            // AdmisionListView
+            // 
+            AdmisionListView.CheckBoxes = true;
+            AdmisionListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader6, columnHeader7, columnHeader12 });
+            AdmisionListView.FullRowSelect = true;
+            AdmisionListView.Location = new Point(6, 45);
+            AdmisionListView.Margin = new Padding(3, 2, 3, 2);
+            AdmisionListView.Name = "AdmisionListView";
+            AdmisionListView.Size = new Size(745, 92);
+            AdmisionListView.TabIndex = 8;
+            AdmisionListView.UseCompatibleStateImageBehavior = false;
+            AdmisionListView.View = View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "N° Guía";
+            columnHeader1.Width = 100;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Estado de Encomienda";
+            columnHeader2.Width = 140;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Tipo Paquete";
+            columnHeader3.Width = 80;
+            // 
+            // columnHeader6
+            // 
+            columnHeader6.Text = "CUIT";
+            columnHeader6.Width = 80;
+            // 
+            // columnHeader7
+            // 
+            columnHeader7.Text = "Autorizado a retirar";
+            columnHeader7.Width = 130;
+            // 
+            // columnHeader12
+            // 
+            columnHeader12.Text = "Destino";
+            columnHeader12.Width = 180;
+            // 
             // RendicionFleteroForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(807, 492);
             Controls.Add(AceptarButton);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
+            Controls.Add(RetiroGpBox);
+            Controls.Add(AdmisionGpBox);
             Controls.Add(label1);
-            Controls.Add(DniFleteroText);
+            Controls.Add(DNIText);
             Controls.Add(BuscarGuiasButton);
-            Margin = new Padding(1, 1, 1, 1);
+            Margin = new Padding(1);
             Name = "RendicionFleteroForm";
             Text = "Rendición de Fletero";
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
+            AdmisionGpBox.ResumeLayout(false);
+            AdmisionGpBox.PerformLayout();
+            RetiroGpBox.ResumeLayout(false);
+            RetiroGpBox.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -244,20 +243,13 @@
         #endregion
 
         private Button BuscarGuiasButton;
-        private TextBox DniFleteroText;
+        private TextBox DNIText;
         private Label label1;
-        private GroupBox groupBox1;
-        private ListView AdmisiónListView;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
-        private ColumnHeader columnHeader3;
-        private ColumnHeader columnHeader6;
-        private ColumnHeader columnHeader7;
+        private GroupBox AdmisionGpBox;
         private Label label2;
-        private GroupBox groupBox2;
+        private GroupBox RetiroGpBox;
         private Button AceptarButton;
         private Label label3;
-        private ColumnHeader columnHeader12;
         private ListView RetiroListView;
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader5;
@@ -265,5 +257,12 @@
         private ColumnHeader columnHeader9;
         private ColumnHeader columnHeader10;
         private ColumnHeader columnHeader11;
+        private ListView AdmisionListView;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ColumnHeader columnHeader3;
+        private ColumnHeader columnHeader6;
+        private ColumnHeader columnHeader7;
+        private ColumnHeader columnHeader12;
     }
 }
