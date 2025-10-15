@@ -28,54 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            groupBox2 = new GroupBox();
-            listView2 = new ListView();
+            DescargaGpBox = new GroupBox();
+            DescargarListView = new ListView();
             columnHeader4 = new ColumnHeader();
             columnHeader5 = new ColumnHeader();
             columnHeader6 = new ColumnHeader();
-            columnHeader8 = new ColumnHeader();
             columnHeader9 = new ColumnHeader();
             columnHeader10 = new ColumnHeader();
             label3 = new Label();
-            button5 = new Button();
-            groupBox1 = new GroupBox();
-            listView1 = new ListView();
+            AceptarBttn = new Button();
+            CargaGpBox = new GroupBox();
+            CargaListView = new ListView();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             columnHeader3 = new ColumnHeader();
-            columnHeader7 = new ColumnHeader();
             columnHeader11 = new ColumnHeader();
             columnHeader12 = new ColumnHeader();
             label2 = new Label();
             label1 = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
-            groupBox2.SuspendLayout();
-            groupBox1.SuspendLayout();
+            PatenteTxt = new TextBox();
+            BuscarGuiasAsociadasBttn = new Button();
+            DescargaGpBox.SuspendLayout();
+            CargaGpBox.SuspendLayout();
             SuspendLayout();
             // 
-            // groupBox2
+            // DescargaGpBox
             // 
-            groupBox2.Controls.Add(listView2);
-            groupBox2.Controls.Add(label3);
-            groupBox2.Location = new Point(12, 269);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(807, 181);
-            groupBox2.TabIndex = 17;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Descarga";
+            DescargaGpBox.Controls.Add(DescargarListView);
+            DescargaGpBox.Controls.Add(label3);
+            DescargaGpBox.Location = new Point(12, 269);
+            DescargaGpBox.Name = "DescargaGpBox";
+            DescargaGpBox.Size = new Size(807, 181);
+            DescargaGpBox.TabIndex = 17;
+            DescargaGpBox.TabStop = false;
+            DescargaGpBox.Text = "Descarga";
             // 
-            // listView2
+            // DescargarListView
             // 
-            listView2.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader6, columnHeader8, columnHeader9, columnHeader10 });
-            listView2.FullRowSelect = true;
-            listView2.Location = new Point(11, 44);
-            listView2.Margin = new Padding(3, 2, 3, 2);
-            listView2.Name = "listView2";
-            listView2.Size = new Size(785, 92);
-            listView2.TabIndex = 9;
-            listView2.UseCompatibleStateImageBehavior = false;
-            listView2.View = View.Details;
+            DescargarListView.Columns.AddRange(new ColumnHeader[] { columnHeader4, columnHeader5, columnHeader6, columnHeader9, columnHeader10 });
+            DescargarListView.FullRowSelect = true;
+            DescargarListView.Location = new Point(11, 44);
+            DescargarListView.Margin = new Padding(3, 2, 3, 2);
+            DescargarListView.Name = "DescargarListView";
+            DescargarListView.Size = new Size(785, 92);
+            DescargarListView.TabIndex = 9;
+            DescargarListView.UseCompatibleStateImageBehavior = false;
+            DescargarListView.View = View.Details;
             // 
             // columnHeader4
             // 
@@ -91,11 +89,6 @@
             // 
             columnHeader6.Text = "CUIT";
             columnHeader6.Width = 100;
-            // 
-            // columnHeader8
-            // 
-            columnHeader8.Text = "Dirección Destinatario";
-            columnHeader8.Width = 140;
             // 
             // columnHeader9
             // 
@@ -116,38 +109,38 @@
             label3.TabIndex = 5;
             label3.Text = "Detalle Guía";
             // 
-            // button5
+            // AceptarBttn
             // 
-            button5.Location = new Point(711, 455);
-            button5.Margin = new Padding(3, 2, 3, 2);
-            button5.Name = "button5";
-            button5.Size = new Size(108, 28);
-            button5.TabIndex = 8;
-            button5.Text = "Aceptar";
-            button5.UseVisualStyleBackColor = true;
+            AceptarBttn.Location = new Point(711, 455);
+            AceptarBttn.Margin = new Padding(3, 2, 3, 2);
+            AceptarBttn.Name = "AceptarBttn";
+            AceptarBttn.Size = new Size(108, 28);
+            AceptarBttn.TabIndex = 8;
+            AceptarBttn.Text = "Aceptar";
+            AceptarBttn.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // CargaGpBox
             // 
-            groupBox1.Controls.Add(listView1);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Location = new Point(12, 73);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(807, 181);
-            groupBox1.TabIndex = 16;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Carga";
+            CargaGpBox.Controls.Add(CargaListView);
+            CargaGpBox.Controls.Add(label2);
+            CargaGpBox.Location = new Point(12, 73);
+            CargaGpBox.Name = "CargaGpBox";
+            CargaGpBox.Size = new Size(807, 181);
+            CargaGpBox.TabIndex = 16;
+            CargaGpBox.TabStop = false;
+            CargaGpBox.Text = "Carga";
             // 
-            // listView1
+            // CargaListView
             // 
-            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader7, columnHeader11, columnHeader12 });
-            listView1.FullRowSelect = true;
-            listView1.Location = new Point(6, 43);
-            listView1.Margin = new Padding(3, 2, 3, 2);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(785, 92);
-            listView1.TabIndex = 6;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.View = View.Details;
+            CargaListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader11, columnHeader12 });
+            CargaListView.FullRowSelect = true;
+            CargaListView.Location = new Point(6, 43);
+            CargaListView.Margin = new Padding(3, 2, 3, 2);
+            CargaListView.Name = "CargaListView";
+            CargaListView.Size = new Size(785, 92);
+            CargaListView.TabIndex = 6;
+            CargaListView.UseCompatibleStateImageBehavior = false;
+            CargaListView.View = View.Details;
             // 
             // columnHeader1
             // 
@@ -163,11 +156,6 @@
             // 
             columnHeader3.Text = "CUIT";
             columnHeader3.Width = 100;
-            // 
-            // columnHeader7
-            // 
-            columnHeader7.Text = "Dirección Destinatario";
-            columnHeader7.Width = 140;
             // 
             // columnHeader11
             // 
@@ -197,67 +185,65 @@
             label1.TabIndex = 15;
             label1.Text = "Patente";
             // 
-            // textBox1
+            // PatenteTxt
             // 
-            textBox1.Location = new Point(18, 31);
-            textBox1.Margin = new Padding(3, 2, 3, 2);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(253, 23);
-            textBox1.TabIndex = 14;
+            PatenteTxt.Location = new Point(18, 31);
+            PatenteTxt.Margin = new Padding(3, 2, 3, 2);
+            PatenteTxt.Name = "PatenteTxt";
+            PatenteTxt.Size = new Size(253, 23);
+            PatenteTxt.TabIndex = 14;
             // 
-            // button1
+            // BuscarGuiasAsociadasBttn
             // 
-            button1.Location = new Point(298, 31);
-            button1.Margin = new Padding(3, 2, 3, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(145, 28);
-            button1.TabIndex = 13;
-            button1.Text = "Buscar Guías asociadas";
-            button1.UseVisualStyleBackColor = true;
+            BuscarGuiasAsociadasBttn.Location = new Point(298, 31);
+            BuscarGuiasAsociadasBttn.Margin = new Padding(3, 2, 3, 2);
+            BuscarGuiasAsociadasBttn.Name = "BuscarGuiasAsociadasBttn";
+            BuscarGuiasAsociadasBttn.Size = new Size(145, 28);
+            BuscarGuiasAsociadasBttn.TabIndex = 13;
+            BuscarGuiasAsociadasBttn.Text = "Buscar Guías asociadas";
+            BuscarGuiasAsociadasBttn.UseVisualStyleBackColor = true;
             // 
             // PlayeroForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(837, 495);
-            Controls.Add(groupBox2);
-            Controls.Add(button5);
-            Controls.Add(groupBox1);
+            Controls.Add(DescargaGpBox);
+            Controls.Add(AceptarBttn);
+            Controls.Add(CargaGpBox);
             Controls.Add(label1);
-            Controls.Add(textBox1);
-            Controls.Add(button1);
+            Controls.Add(PatenteTxt);
+            Controls.Add(BuscarGuiasAsociadasBttn);
             Name = "PlayeroForm";
             Text = "Carga/Descarga - Playero";
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
+            DescargaGpBox.ResumeLayout(false);
+            DescargaGpBox.PerformLayout();
+            CargaGpBox.ResumeLayout(false);
+            CargaGpBox.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private GroupBox groupBox2;
-        private Button button5;
+        private GroupBox DescargaGpBox;
+        private Button AceptarBttn;
         private Label label3;
-        private GroupBox groupBox1;
-        private ListView listView1;
+        private GroupBox CargaGpBox;
+        private ListView CargaListView;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
         private ColumnHeader columnHeader3;
-        private ColumnHeader columnHeader7;
         private Label label2;
         private Label label1;
-        private TextBox textBox1;
-        private Button button1;
+        private TextBox PatenteTxt;
+        private Button BuscarGuiasAsociadasBttn;
         private ColumnHeader columnHeader11;
         private ColumnHeader columnHeader12;
-        private ListView listView2;
+        private ListView DescargarListView;
         private ColumnHeader columnHeader4;
         private ColumnHeader columnHeader5;
         private ColumnHeader columnHeader6;
-        private ColumnHeader columnHeader8;
         private ColumnHeader columnHeader9;
         private ColumnHeader columnHeader10;
     }

@@ -35,6 +35,9 @@
             button1 = new Button();
             textBox1 = new TextBox();
             label1 = new Label();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
             SuspendLayout();
             // 
             // button3
@@ -57,11 +60,13 @@
             // 
             // listView1
             // 
+            listView1.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3 });
             listView1.Location = new Point(31, 125);
             listView1.Name = "listView1";
             listView1.Size = new Size(739, 238);
             listView1.TabIndex = 11;
             listView1.UseCompatibleStateImageBehavior = false;
+            listView1.View = View.Details;
             // 
             // label2
             // 
@@ -97,6 +102,21 @@
             label1.TabIndex = 7;
             label1.Text = "DNI";
             // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "N°Guia";
+            columnHeader1.Width = 100;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Estado";
+            columnHeader2.Width = 100;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Tipo Paquete";
+            columnHeader3.Width = 100;
+            // 
             // EntregaGuíaAgenciaForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -124,5 +144,8 @@
         private Button button1;
         private TextBox textBox1;
         private Label label1;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ColumnHeader columnHeader3;
     }
 }
