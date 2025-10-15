@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
+            DNIText = new TextBox();
+            BuscarBttn = new Button();
             label2 = new Label();
-            listView1 = new ListView();
-            button2 = new Button();
-            button3 = new Button();
+            GuiasListView = new ListView();
+            CancelarBttn = new Button();
+            RetirarBttn = new Button();
             SuspendLayout();
             // 
             // label1
@@ -46,21 +46,21 @@
             label1.TabIndex = 0;
             label1.Text = "DNI";
             // 
-            // textBox1
+            // DNIText
             // 
-            textBox1.Location = new Point(30, 46);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 1;
+            DNIText.Location = new Point(30, 46);
+            DNIText.Name = "DNIText";
+            DNIText.Size = new Size(100, 23);
+            DNIText.TabIndex = 1;
             // 
-            // button1
+            // BuscarBttn
             // 
-            button1.Location = new Point(153, 46);
-            button1.Name = "button1";
-            button1.Size = new Size(97, 23);
-            button1.TabIndex = 2;
-            button1.Text = "Buscar";
-            button1.UseVisualStyleBackColor = true;
+            BuscarBttn.Location = new Point(153, 46);
+            BuscarBttn.Name = "BuscarBttn";
+            BuscarBttn.Size = new Size(97, 23);
+            BuscarBttn.TabIndex = 2;
+            BuscarBttn.Text = "Buscar";
+            BuscarBttn.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -71,43 +71,43 @@
             label2.TabIndex = 3;
             label2.Text = "Guías Asociadas";
             // 
-            // listView1
+            // GuiasListView
             // 
-            listView1.Location = new Point(30, 117);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(739, 238);
-            listView1.TabIndex = 4;
-            listView1.UseCompatibleStateImageBehavior = false;
+            GuiasListView.Location = new Point(30, 117);
+            GuiasListView.Name = "GuiasListView";
+            GuiasListView.Size = new Size(739, 238);
+            GuiasListView.TabIndex = 4;
+            GuiasListView.UseCompatibleStateImageBehavior = false;
             // 
-            // button2
+            // CancelarBttn
             // 
-            button2.Location = new Point(672, 392);
-            button2.Name = "button2";
-            button2.Size = new Size(97, 23);
-            button2.TabIndex = 5;
-            button2.Text = "Cancelar";
-            button2.UseVisualStyleBackColor = true;
+            CancelarBttn.Location = new Point(672, 392);
+            CancelarBttn.Name = "CancelarBttn";
+            CancelarBttn.Size = new Size(97, 23);
+            CancelarBttn.TabIndex = 5;
+            CancelarBttn.Text = "Cancelar";
+            CancelarBttn.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // RetirarBttn
             // 
-            button3.Location = new Point(569, 392);
-            button3.Name = "button3";
-            button3.Size = new Size(97, 23);
-            button3.TabIndex = 6;
-            button3.Text = "Retirar";
-            button3.UseVisualStyleBackColor = true;
+            RetirarBttn.Location = new Point(569, 392);
+            RetirarBttn.Name = "RetirarBttn";
+            RetirarBttn.Size = new Size(97, 23);
+            RetirarBttn.TabIndex = 6;
+            RetirarBttn.Text = "Retirar";
+            RetirarBttn.UseVisualStyleBackColor = true;
             // 
             // EntregaGuíaCDForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(listView1);
+            Controls.Add(RetirarBttn);
+            Controls.Add(CancelarBttn);
+            Controls.Add(GuiasListView);
             Controls.Add(label2);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(BuscarBttn);
+            Controls.Add(DNIText);
             Controls.Add(label1);
             Name = "EntregaGuíaCDForm";
             Text = "Entrega Encomienda - CD";
@@ -118,11 +118,11 @@
         #endregion
 
         private Label label1;
-        private TextBox textBox1;
-        private Button button1;
+        private TextBox DNIText;
+        private Button BuscarBttn;
         private Label label2;
-        private ListView listView1;
-        private Button button2;
-        private Button button3;
+        private ListView GuiasListView;
+        private Button CancelarBttn;
+        private Button RetirarBttn;
     }
 }
