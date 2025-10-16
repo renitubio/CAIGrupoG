@@ -21,7 +21,8 @@ namespace CAIGrupoG.RendiciónFletero
     public enum EstadoEncomienda
     {
         // Estados para la admisión (el fletero entrega al CD)
-        DistribucionUltimaMilla,
+        DistribucionUltimaMillaAgencia,
+        DistribucionUltimaMillaDomicilio,
         PrimerIntentoDeEntrega,
         EnCaminoARetirarDomicilio,
         EnCaminoARetirarAgencia,
