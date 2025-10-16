@@ -21,10 +21,8 @@ namespace CAIGrupoG.Playero
             CargarDatosFicticios();
         }
 
-        /// <summary>
         /// Busca un vehículo por su patente y clasifica sus guías en Carga y Descarga.
-        /// </summary>
-        /// <param name="patente">La patente del vehículo a buscar.</param>
+        /// /// <param name="patente">La patente del vehículo a buscar.</param>
         /// <returns>Una tupla con dos listas: guías para cargar y guías para descargar.</returns>
         public (List<Guia> Cargas, List<Guia> Descargas) BuscarGuiasPorPatente(string patente)
         {
@@ -49,9 +47,7 @@ namespace CAIGrupoG.Playero
             return (guiasCarga, guiasDescarga);
         }
 
-        /// <summary>
         /// Cambia el estado de las guías procesadas.
-        /// </summary>
         /// <param name="cargas">Lista de guías que se cargaron.</param>
         /// <param name="descargas">Lista de guías que se descargaron.</param>
         public void ConfirmarOperacion(List<Guia> cargas, List<Guia> descargas)
@@ -69,9 +65,7 @@ namespace CAIGrupoG.Playero
             }
         }
 
-        /// <summary>
         /// Método privado para generar y cargar los datos de prueba.
-        /// </summary>
         private void CargarDatosFicticios()
         {
             // Vehículo 1
