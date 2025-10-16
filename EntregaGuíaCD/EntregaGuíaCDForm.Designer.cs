@@ -32,9 +32,12 @@
             DNIText = new TextBox();
             BuscarBttn = new Button();
             label2 = new Label();
-            GuiasListView = new ListView();
             CancelarBttn = new Button();
             RetirarBttn = new Button();
+            GuiasListView = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            columnHeader3 = new ColumnHeader();
             SuspendLayout();
             // 
             // label1
@@ -71,14 +74,6 @@
             label2.TabIndex = 3;
             label2.Text = "Guías Asociadas";
             // 
-            // GuiasListView
-            // 
-            GuiasListView.Location = new Point(30, 117);
-            GuiasListView.Name = "GuiasListView";
-            GuiasListView.Size = new Size(739, 238);
-            GuiasListView.TabIndex = 4;
-            GuiasListView.UseCompatibleStateImageBehavior = false;
-            // 
             // CancelarBttn
             // 
             CancelarBttn.Location = new Point(672, 392);
@@ -97,14 +92,39 @@
             RetirarBttn.Text = "Retirar";
             RetirarBttn.UseVisualStyleBackColor = true;
             // 
+            // GuiasListView
+            // 
+            GuiasListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3 });
+            GuiasListView.Location = new Point(30, 117);
+            GuiasListView.Name = "GuiasListView";
+            GuiasListView.Size = new Size(739, 238);
+            GuiasListView.TabIndex = 12;
+            GuiasListView.UseCompatibleStateImageBehavior = false;
+            GuiasListView.View = View.Details;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "N°Guia";
+            columnHeader1.Width = 100;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Estado";
+            columnHeader2.Width = 280;
+            // 
+            // columnHeader3
+            // 
+            columnHeader3.Text = "Tipo Paquete";
+            columnHeader3.Width = 100;
+            // 
             // EntregaGuíaCDForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(GuiasListView);
             Controls.Add(RetirarBttn);
             Controls.Add(CancelarBttn);
-            Controls.Add(GuiasListView);
             Controls.Add(label2);
             Controls.Add(BuscarBttn);
             Controls.Add(DNIText);
@@ -121,8 +141,11 @@
         private TextBox DNIText;
         private Button BuscarBttn;
         private Label label2;
-        private ListView GuiasListView;
         private Button CancelarBttn;
         private Button RetirarBttn;
+        private ListView GuiasListView;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private ColumnHeader columnHeader3;
     }
 }

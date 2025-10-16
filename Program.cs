@@ -1,5 +1,6 @@
 using CAIGrupoG.Admisión;
 using CAIGrupoG.EntregaGuíaAgencia;
+using CAIGrupoG.EntregaGuíaCD;
 using CAIGrupoG.Imposicion.ImpCentroDistribucion;
 using CAIGrupoG.Playero;
 
@@ -16,7 +17,7 @@ namespace CAIGrupoG
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new EntregaGuíaAgenciaForm());
+            Application.Run(new EntregaGuíaCDForm());
         }
     }
 }
