@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.EntregaGuíaAgencia
 {
-    public class Guia
+    public enum EstadoGuia
     {
-        public string NumeroGuia { get; set; }
-        public EstadoGuia Estado { get; set; }
-        public TipoPaquete TipoPaquete { get; set; }
-        public string DniDestinatario { get; set; }
+        PendienteDeRetiroEnAgencia,
+        Retirado,
+        EnTransito
     }
-    // Enumeración para los tipos de paquete
     public enum TipoPaquete
     {
         S,
@@ -22,12 +20,11 @@ namespace CAIGrupoG.EntregaGuíaAgencia
         L,
         XL
     }
-
-    // Enumeración para los estados de la guía
-    public enum EstadoGuia
+    public class Guia
     {
-        PendienteDeRetiroEnAgencia,
-        Retirado,
-        EnTransito // Otros estados posibles
+        public string NumeroGuia { get; set; }
+        public EstadoGuia Estado { get; set; }
+        public TipoPaquete TipoPaquete { get; set; }
+        public string DniDestinatario { get; set; }
     }
 }

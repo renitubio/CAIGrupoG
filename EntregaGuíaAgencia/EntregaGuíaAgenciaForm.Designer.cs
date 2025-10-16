@@ -76,7 +76,7 @@
             // columnHeader2
             // 
             columnHeader2.Text = "Estado";
-            columnHeader2.Width = 100;
+            columnHeader2.Width = 280;
             // 
             // columnHeader3
             // 

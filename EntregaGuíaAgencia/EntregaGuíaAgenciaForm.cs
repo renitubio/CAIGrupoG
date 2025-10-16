@@ -14,12 +14,11 @@ namespace CAIGrupoG.EntregaGuíaAgencia
     public partial class EntregaGuíaAgenciaForm : Form
     {
         private readonly EntregaGuiaAgenciaModelo modelo = new();
-        private List<Guia> guiasEncontradas;
+        private List<Guia> guiasEncontradas = new List<Guia>();
 
-        public void EntregaGuiaAgenciaForm()
+        public EntregaGuíaAgenciaForm()
         {
             InitializeComponent();
-            // Asociar los eventos a los manejadores
             this.BuscarBttn.Click += new System.EventHandler(this.BuscarBttn_Click);
             this.RetirarBttn.Click += new System.EventHandler(this.RetirarBttn_Click);
             this.CancelarBttn.Click += new System.EventHandler(this.CancelarBttn_Click);
@@ -29,17 +28,13 @@ namespace CAIGrupoG.EntregaGuíaAgencia
         {
             string dni = DNIText.Text.Trim();
 
-            // 1. Validar el formato del DNI
             if (!ValidarDNI(dni))
             {
                 MessageBox.Show("El DNI ingresado no es válido. Debe contener 7 u 8 dígitos.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // 2. Buscar las guías en el modelo
             guiasEncontradas = modelo.BuscarGuiasPorDNI(dni);
-
-            // 3. Mostrar las guías en el ListView
             PoblarListView(guiasEncontradas);
 
             if (guiasEncontradas.Count == 0)
@@ -50,18 +45,15 @@ namespace CAIGrupoG.EntregaGuíaAgencia
 
         private void RetirarBttn_Click(object sender, EventArgs e)
         {
-            // Validar si se encontraron guías previamente
-            if (guiasEncontradas == null || guiasEncontradas.Count == 0)
+            // CORRECCIÓN: Como la lista nunca es nula, solo necesitamos chequear si está vacía.
+            if (guiasEncontradas.Count == 0)
             {
                 MessageBox.Show("No hay guías para retirar. Por favor, realice una búsqueda primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Confirmar la operación en el modelo
             modelo.ConfirmarRetiro(guiasEncontradas);
-
             MessageBox.Show("Operación Exitosa. Las guías han sido marcadas como retiradas.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             LimpiarFormulario();
         }
 
@@ -70,9 +62,6 @@ namespace CAIGrupoG.EntregaGuíaAgencia
             LimpiarFormulario();
         }
 
-        /// <summary>
-        /// Valida que el string DNI tenga 7 u 8 dígitos numéricos.
-        /// </summary>
         private bool ValidarDNI(string dni)
         {
             if (string.IsNullOrWhiteSpace(dni))
@@ -81,9 +70,6 @@ namespace CAIGrupoG.EntregaGuíaAgencia
             return Regex.IsMatch(dni, @"^\d{7,8}$");
         }
 
-        /// <summary>
-        /// Limpia y rellena el ListView con una lista de guías.
-        /// </summary>
         private void PoblarListView(List<Guia> guias)
         {
             GuiasListView.Items.Clear();
@@ -94,22 +80,19 @@ namespace CAIGrupoG.EntregaGuíaAgencia
                 var row = new string[]
                 {
                     guia.NumeroGuia,
-                    "Pendiente de retiro en agencia", // El estado es siempre este según la lógica de búsqueda
+                    "Pendiente de retiro en agencia",
                     guia.TipoPaquete.ToString()
                 };
                 var item = new ListViewItem(row);
                 GuiasListView.Items.Add(item);
             }
         }
-
-        /// <summary>
-        /// Restablece el formulario a su estado inicial.
-        /// </summary>
         private void LimpiarFormulario()
         {
             DNIText.Clear();
             GuiasListView.Items.Clear();
-            guiasEncontradas = null;
+            // CORRECCIÓN: Se vacía la lista en lugar de asignarle null.
+            guiasEncontradas.Clear();
             DNIText.Focus();
         }
     }
