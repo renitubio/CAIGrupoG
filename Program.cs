@@ -1,7 +1,6 @@
-using CAIGrupoG.AdmisiÛn;
-using CAIGrupoG.EmitirFactura;
-using CAIGrupoG.EntregaGuÌaAgencia;
-using CAIGrupoG.EntregaGuÌaCD;
+using CAIGrupoG.Admisi√≥n;
+using CAIGrupoG.EntregaGu√≠aAgencia;
+using CAIGrupoG.EntregaGu√≠aCD;
 using CAIGrupoG.Imposicion.ImpCentroDistribucion;
 using CAIGrupoG.Playero;
 
@@ -18,7 +17,7 @@ namespace CAIGrupoG
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new EmitirFacturaForm());
+            Application.Run(new EntregaGu√≠aCDForm());
         }
     }
 }
