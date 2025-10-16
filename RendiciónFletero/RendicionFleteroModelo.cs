@@ -32,7 +32,7 @@ namespace CAIGrupoG.RendiciónFletero
             {
                 // Guías de Admisión: Las que el fletero trae al CD.
                 guiasAdmision = fletero.GuiasAsignadas
-                    .Where(g => g.Estado == EstadoEncomienda.DistribucionUltimaMilla ||
+                    .Where(g => g.Estado == EstadoEncomienda.DistribucionUltimaMillaAgencia ||
                                  g.Estado == EstadoEncomienda.PrimerIntentoDeEntrega ||
                                  g.Estado == EstadoEncomienda.EnCaminoARetirarDomicilio ||
                                  g.Estado == EstadoEncomienda.EnCaminoARetirarAgencia)
@@ -55,7 +55,7 @@ namespace CAIGrupoG.RendiciónFletero
             // Fletero 1
             var fletero1 = new Fletero { DNI = "30123456", Nombre = "Juan Perez" };
             fletero1.GuiasAsignadas.Add(new Guia { NumeroGuia = "GA001", Estado = EstadoEncomienda.EnCDDestino, TipoPaquete = TipoPaquete.M, CUIT = "20-11111111-1", DniAutorizadoRetirar = "32345655", Destino = "Av. Corrientes 1234, CABA" });
-            fletero1.GuiasAsignadas.Add(new Guia { NumeroGuia = "GA002", Estado = EstadoEncomienda.DistribucionUltimaMilla, TipoPaquete = TipoPaquete.S, CUIT = "20-22222222-2", DniAutorizadoRetirar = "12345678", Destino = "Agencia Flores" });
+            fletero1.GuiasAsignadas.Add(new Guia { NumeroGuia = "GA002", Estado = EstadoEncomienda.DistribucionUltimaMillaAgencia, TipoPaquete = TipoPaquete.S, CUIT = "20-22222222-2", DniAutorizadoRetirar = "12345678", Destino = "Agencia Flores" });
             fletero1.GuiasAsignadas.Add(new Guia { NumeroGuia = "GA003", Estado = EstadoEncomienda.PrimerIntentoDeEntrega, TipoPaquete = TipoPaquete.L, CUIT = "20-33333333-3", DniAutorizadoRetirar = "87654321", Destino = "Agencia Belgrano" });
 
             // Fletero 2

@@ -112,8 +112,10 @@ namespace CAIGrupoG.Admisión
         {
             switch (estado)
             {
-                case EstadoEncomienda.DistribucionUltimaMilla:
-                    return "Distribución última milla";
+                case EstadoEncomienda.DistribucionUltimaMillaAgencia:
+                    return "Distribución última milla - Agencia";
+                case EstadoEncomienda.DistribucionUltimaMillaDomicilio:
+                    return "Distribución última milla - Domicilio";
                 case EstadoEncomienda.PrimerIntentoDeEntrega:
                     return "Primer Intento de Entrega";
                 case EstadoEncomienda.EnCaminoARetirarDomicilio:
