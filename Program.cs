@@ -4,6 +4,7 @@ using CAIGrupoG.EntregaGuíaCD;
 using CAIGrupoG.Imposicion.ImpCentroDistribucion;
 using CAIGrupoG.Playero;
 using CAIGrupoG.EmitirFactura;
+using CAIGrupoG.ConsultaTracking;
 
 namespace CAIGrupoG
 {
@@ -18,7 +19,7 @@ namespace CAIGrupoG
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new EmitirFacturaForm ());
+            Application.Run(new ConsultarTrackingForm());
         }
     }
 }

@@ -28,46 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button3 = new Button();
-            button1 = new Button();
-            textBox1 = new TextBox();
-            textBox3 = new TextBox();
+            CancelarBttn = new Button();
+            BuscarBttn = new Button();
+            GuiaText = new TextBox();
+            EstadoText = new TextBox();
             label3 = new Label();
             label1 = new Label();
             SuspendLayout();
             // 
-            // button3
+            // CancelarBttn
             // 
-            button3.Location = new Point(338, 143);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 7;
-            button3.Text = "Cancelar";
-            button3.UseVisualStyleBackColor = true;
+            CancelarBttn.Location = new Point(338, 143);
+            CancelarBttn.Name = "CancelarBttn";
+            CancelarBttn.Size = new Size(75, 23);
+            CancelarBttn.TabIndex = 7;
+            CancelarBttn.Text = "Cancelar";
+            CancelarBttn.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // BuscarBttn
             // 
-            button1.Location = new Point(338, 37);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 2;
-            button1.Text = "Buscar";
-            button1.UseVisualStyleBackColor = true;
+            BuscarBttn.Location = new Point(338, 37);
+            BuscarBttn.Name = "BuscarBttn";
+            BuscarBttn.Size = new Size(75, 23);
+            BuscarBttn.TabIndex = 2;
+            BuscarBttn.Text = "Buscar";
+            BuscarBttn.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // GuiaText
             // 
-            textBox1.Location = new Point(12, 37);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(320, 23);
-            textBox1.TabIndex = 1;
+            GuiaText.Location = new Point(12, 37);
+            GuiaText.Name = "GuiaText";
+            GuiaText.Size = new Size(320, 23);
+            GuiaText.TabIndex = 1;
             // 
-            // textBox3
+            // EstadoText
             // 
-            textBox3.Location = new Point(12, 101);
-            textBox3.Name = "textBox3";
-            textBox3.ReadOnly = true;
-            textBox3.Size = new Size(320, 23);
-            textBox3.TabIndex = 8;
+            EstadoText.Location = new Point(12, 101);
+            EstadoText.Name = "EstadoText";
+            EstadoText.ReadOnly = true;
+            EstadoText.Size = new Size(320, 23);
+            EstadoText.TabIndex = 8;
             // 
             // label3
             // 
@@ -94,10 +94,10 @@
             ClientSize = new Size(425, 178);
             Controls.Add(label1);
             Controls.Add(label3);
-            Controls.Add(button3);
-            Controls.Add(textBox3);
-            Controls.Add(textBox1);
-            Controls.Add(button1);
+            Controls.Add(CancelarBttn);
+            Controls.Add(EstadoText);
+            Controls.Add(GuiaText);
+            Controls.Add(BuscarBttn);
             HelpButton = true;
             Name = "ConsultarTrackingForm";
             Text = "Consultar Tracking";
@@ -106,10 +106,10 @@
         }
 
         #endregion
-        private Button button3;
-        private Button button1;
-        private TextBox textBox1;
-        private TextBox textBox3;
+        private Button CancelarBttn;
+        private Button BuscarBttn;
+        private TextBox GuiaText;
+        private TextBox EstadoText;
         private Label label3;
         private Label label1;
     }
