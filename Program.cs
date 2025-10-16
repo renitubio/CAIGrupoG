@@ -1,4 +1,5 @@
 using CAIGrupoG.Admisión;
+using CAIGrupoG.EmitirFactura;
 using CAIGrupoG.EntregaGuíaAgencia;
 using CAIGrupoG.EntregaGuíaCD;
 using CAIGrupoG.Imposicion.ImpCentroDistribucion;
@@ -17,7 +18,7 @@ namespace CAIGrupoG
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new EntregaGuíaCDForm());
+            Application.Run(new EmitirFacturaForm());
         }
     }
 }
