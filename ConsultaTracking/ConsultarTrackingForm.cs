@@ -62,7 +62,7 @@ namespace CAIGrupoG.ConsultaTracking
             EstadoText.Clear();
             GuiaText.Focus();
         }
-
+            
         /// Convierte un valor del enum EstadoGuia a un string más legible para el usuario.
         private string FormatearEstado(EstadoGuia estado)
         {

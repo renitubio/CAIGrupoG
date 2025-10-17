@@ -14,6 +14,8 @@ namespace CAIGrupoG.Playero
     public partial class PlayeroForm : Form
     {
         private readonly PlayeroModelo modelo = new();
+
+        //TODO: Estas dos variables se tienen que ir. Pedirle los datos al modelo en donde se necesiten, las veces q haga falta.
         private List<Guia> guiasCargaActuales;
         private List<Guia> guiasDescargaActuales;
 

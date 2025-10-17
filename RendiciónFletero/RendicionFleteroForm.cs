@@ -15,6 +15,8 @@ namespace CAIGrupoG.Admisión
     public partial class RendicionFleteroForm : Form
     {
         private readonly RendicionFleteroModelo modelo = new();
+
+        //TODO: Estas dos variables se tienen que ir. Pedirle los datos al modelo en donde se necesiten, las veces q haga falta.
         private List<Guia> guiasAdmisionActuales;
         private List<Guia> guiasRetiroActuales;
 
