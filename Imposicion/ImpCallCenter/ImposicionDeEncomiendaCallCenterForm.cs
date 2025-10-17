@@ -16,6 +16,8 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
         public ImposicionDeEncomiendaCallCenterForm()
         {
             InitializeComponent();
+
+            this.groupBox3.Location = new Point(79, 58);
         }
 
         private void ImposicionCallCenterForm_Load(object sender, EventArgs e)

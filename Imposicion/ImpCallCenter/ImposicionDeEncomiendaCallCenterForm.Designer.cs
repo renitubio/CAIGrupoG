@@ -153,7 +153,7 @@
             groupBox3.Controls.Add(button3);
             groupBox3.Controls.Add(label11);
             groupBox3.Controls.Add(Guías);
-            groupBox3.Location = new Point(75, 1);
+            groupBox3.Location = new Point(461, 391);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new Size(408, 368);
             groupBox3.TabIndex = 39;
@@ -393,7 +393,7 @@
             ClientSize = new Size(580, 583);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "ImposicionDeEncomiendaCallCenterForm";
             Text = "Imposición de Encomienda - Call Center";
             Load += ImposicionCallCenterForm_Load;
