@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,8 +16,6 @@ namespace CAIGrupoG.Admisión
     public partial class RendicionFleteroForm : Form
     {
         private readonly RendicionFleteroModelo modelo = new();
-        private List<Guia> guiasAdmisionActuales;
-        private List<Guia> guiasRetiroActuales;
 
         public RendicionFleteroForm()
         {
@@ -37,16 +36,22 @@ namespace CAIGrupoG.Admisión
                 return;
             }
 
+            // acá tengo que llamar al modelo para buscar las guías de admsión y retiro
+
+            var guíasAdmisionActuales = modelo.BuscarGuiasPorDNI(dni).Admision;
+            var guiasRetiroActuales = modelo.BuscarGuiasPorDNI(dni).Retiro;
+
             // 2. Llamada al modelo para buscar las guías
             var resultado = modelo.BuscarGuiasPorDNI(dni);
-            guiasAdmisionActuales = resultado.Admision;
+
+            guíasAdmisionActuales = resultado.Admision;
             guiasRetiroActuales = resultado.Retiro;
 
             // 3. Poblar los ListViews
-            PoblarListView(AdmisionListView, guiasAdmisionActuales);
+            PoblarListView(AdmisionListView, guíasAdmisionActuales);
             PoblarListView(RetiroListView, guiasRetiroActuales);
 
-            if (guiasAdmisionActuales.Count == 0 && guiasRetiroActuales.Count == 0)
+            if (guíasAdmisionActuales.Count == 0 && guiasRetiroActuales.Count == 0)
             {
                 MessageBox.Show("No se encontraron guías asociadas al DNI del fletero.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -54,7 +59,12 @@ namespace CAIGrupoG.Admisión
 
         private void AceptarButton_Click(object sender, EventArgs e)
         {
-            if ((guiasAdmisionActuales == null || guiasAdmisionActuales.Count == 0) &&
+            string dni = DNIText.Text.Trim();
+
+            var guíasAdmisionActuales = modelo.BuscarGuiasPorDNI(dni).Admision;
+            var guiasRetiroActuales = modelo.BuscarGuiasPorDNI(dni).Retiro;
+
+            if ((guíasAdmisionActuales == null || guíasAdmisionActuales.Count == 0) &&
                 (guiasRetiroActuales == null || guiasRetiroActuales.Count == 0))
             {
                 MessageBox.Show("No hay guías para procesar. Realice una búsqueda primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -137,8 +147,6 @@ namespace CAIGrupoG.Admisión
             DNIText.Clear();
             AdmisionListView.Items.Clear();
             RetiroListView.Items.Clear();
-            guiasAdmisionActuales = null;
-            guiasRetiroActuales = null;
             DNIText.Focus();
         }
     }

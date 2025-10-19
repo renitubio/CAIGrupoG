@@ -16,6 +16,7 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
         public ImposicionDeEncomiendaAgenciaForm()
         {
             InitializeComponent();
+            this.groupBox3.Location = new Point(79, 58);
         }
 
         private void ImposicionAgenciaForm_Load(object sender, EventArgs e)

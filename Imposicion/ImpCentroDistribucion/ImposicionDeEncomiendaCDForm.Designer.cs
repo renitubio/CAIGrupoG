@@ -73,48 +73,46 @@
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(BuscarClienteBttn);
             groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(10, 18);
-            groupBox1.Margin = new Padding(4, 3, 4, 3);
+            groupBox1.Location = new Point(7, 11);
+            groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(4, 3, 4, 3);
-            groupBox1.Size = new Size(794, 138);
+            groupBox1.Padding = new Padding(3, 2, 3, 2);
+            groupBox1.Size = new Size(556, 83);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             // 
             // CuitTxtBox
             // 
-            CuitTxtBox.Location = new Point(70, 82);
-            CuitTxtBox.Margin = new Padding(4, 3, 4, 3);
+            CuitTxtBox.Location = new Point(49, 49);
+            CuitTxtBox.Margin = new Padding(3, 2, 3, 2);
             CuitTxtBox.Name = "CuitTxtBox";
-            CuitTxtBox.Size = new Size(155, 31);
+            CuitTxtBox.Size = new Size(110, 23);
             CuitTxtBox.TabIndex = 7;
             // 
             // label5
             // 
             label5.Font = new Font("Arial", 12F, FontStyle.Bold);
-            label5.Location = new Point(9, 28);
-            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Location = new Point(6, 17);
             label5.Name = "label5";
-            label5.Size = new Size(323, 35);
+            label5.Size = new Size(226, 21);
             label5.TabIndex = 4;
             label5.Text = "Datos del Cliente";
             // 
             // BuscarClienteBttn
             // 
-            BuscarClienteBttn.Location = new Point(254, 73);
-            BuscarClienteBttn.Margin = new Padding(4, 3, 4, 3);
+            BuscarClienteBttn.Location = new Point(178, 44);
+            BuscarClienteBttn.Margin = new Padding(3, 2, 3, 2);
             BuscarClienteBttn.Name = "BuscarClienteBttn";
-            BuscarClienteBttn.Size = new Size(169, 53);
+            BuscarClienteBttn.Size = new Size(118, 32);
             BuscarClienteBttn.TabIndex = 0;
             BuscarClienteBttn.Text = "Buscar Cliente";
             BuscarClienteBttn.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
-            label1.Location = new Point(9, 88);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(6, 53);
             label1.Name = "label1";
-            label1.Size = new Size(99, 32);
+            label1.Size = new Size(69, 19);
             label1.TabIndex = 0;
             label1.Text = "CUIT:";
             // 
@@ -122,21 +120,19 @@
             // 
             GuiasAsignadasGroupBox.Controls.Add(FinalizaBttn);
             GuiasAsignadasGroupBox.Controls.Add(GuiasGeneradasListView);
-            GuiasAsignadasGroupBox.Location = new Point(17, 10);
-            GuiasAsignadasGroupBox.Margin = new Padding(4, 5, 4, 5);
+            GuiasAsignadasGroupBox.Location = new Point(471, 360);
             GuiasAsignadasGroupBox.Name = "GuiasAsignadasGroupBox";
-            GuiasAsignadasGroupBox.Padding = new Padding(4, 5, 4, 5);
-            GuiasAsignadasGroupBox.Size = new Size(583, 405);
+            GuiasAsignadasGroupBox.Size = new Size(408, 243);
             GuiasAsignadasGroupBox.TabIndex = 38;
             GuiasAsignadasGroupBox.TabStop = false;
             GuiasAsignadasGroupBox.Text = "Guias Generadas";
             // 
             // FinalizaBttn
             // 
-            FinalizaBttn.Location = new Point(396, 338);
-            FinalizaBttn.Margin = new Padding(4, 3, 4, 3);
+            FinalizaBttn.Location = new Point(277, 203);
+            FinalizaBttn.Margin = new Padding(3, 2, 3, 2);
             FinalizaBttn.Name = "FinalizaBttn";
-            FinalizaBttn.Size = new Size(146, 42);
+            FinalizaBttn.Size = new Size(102, 25);
             FinalizaBttn.TabIndex = 32;
             FinalizaBttn.Text = "Finalizar";
             FinalizaBttn.UseVisualStyleBackColor = true;
@@ -144,10 +140,9 @@
             // GuiasGeneradasListView
             // 
             GuiasGeneradasListView.Columns.AddRange(new ColumnHeader[] { columnHeader3 });
-            GuiasGeneradasListView.Location = new Point(34, 45);
-            GuiasGeneradasListView.Margin = new Padding(4, 5, 4, 5);
+            GuiasGeneradasListView.Location = new Point(24, 27);
             GuiasGeneradasListView.Name = "GuiasGeneradasListView";
-            GuiasGeneradasListView.Size = new Size(505, 264);
+            GuiasGeneradasListView.Size = new Size(355, 160);
             GuiasGeneradasListView.TabIndex = 33;
             GuiasGeneradasListView.UseCompatibleStateImageBehavior = false;
             GuiasGeneradasListView.View = View.Details;
@@ -160,74 +155,68 @@
             // label6
             // 
             label6.Font = new Font("Arial", 12F, FontStyle.Bold);
-            label6.Location = new Point(10, 28);
-            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Location = new Point(7, 17);
             label6.Name = "label6";
-            label6.Size = new Size(441, 45);
+            label6.Size = new Size(309, 27);
             label6.TabIndex = 5;
             label6.Text = "Datos de la encomienda";
             // 
             // label8
             // 
-            label8.Location = new Point(14, 343);
-            label8.Margin = new Padding(4, 0, 4, 0);
+            label8.Location = new Point(10, 206);
             label8.Name = "label8";
-            label8.Size = new Size(121, 27);
+            label8.Size = new Size(85, 16);
             label8.TabIndex = 6;
             label8.Text = "Tipo de caja:";
             // 
             // label9
             // 
-            label9.Location = new Point(10, 220);
-            label9.Margin = new Padding(4, 0, 4, 0);
+            label9.Location = new Point(7, 132);
             label9.Name = "label9";
-            label9.Size = new Size(189, 32);
+            label9.Size = new Size(132, 19);
             label9.TabIndex = 7;
             label9.Text = "Opciones de entrega:";
             // 
             // label2
             // 
-            label2.Location = new Point(14, 400);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(10, 240);
             label2.Name = "label2";
-            label2.Size = new Size(121, 27);
+            label2.Size = new Size(85, 16);
             label2.TabIndex = 12;
             label2.Text = "Cantidad:";
             // 
             // label3
             // 
-            label3.Location = new Point(10, 73);
-            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Location = new Point(7, 44);
             label3.Name = "label3";
-            label3.Size = new Size(189, 32);
+            label3.Size = new Size(132, 19);
             label3.TabIndex = 14;
             label3.Text = "Ciudad:";
             // 
             // CiudadCmb
             // 
             CiudadCmb.FormattingEnabled = true;
-            CiudadCmb.Location = new Point(234, 77);
-            CiudadCmb.Margin = new Padding(4, 3, 4, 3);
+            CiudadCmb.Location = new Point(164, 46);
+            CiudadCmb.Margin = new Padding(3, 2, 3, 2);
             CiudadCmb.Name = "CiudadCmb";
-            CiudadCmb.Size = new Size(155, 33);
+            CiudadCmb.Size = new Size(110, 23);
             CiudadCmb.TabIndex = 17;
             // 
             // OpcionesDeEntregaCmb
             // 
             OpcionesDeEntregaCmb.FormattingEnabled = true;
-            OpcionesDeEntregaCmb.Location = new Point(234, 220);
-            OpcionesDeEntregaCmb.Margin = new Padding(4, 3, 4, 3);
+            OpcionesDeEntregaCmb.Location = new Point(164, 132);
+            OpcionesDeEntregaCmb.Margin = new Padding(3, 2, 3, 2);
             OpcionesDeEntregaCmb.Name = "OpcionesDeEntregaCmb";
-            OpcionesDeEntregaCmb.Size = new Size(155, 33);
+            OpcionesDeEntregaCmb.Size = new Size(110, 23);
             OpcionesDeEntregaCmb.TabIndex = 18;
             // 
             // EncomiendasListView
             // 
             EncomiendasListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
-            EncomiendasListView.Location = new Point(36, 510);
-            EncomiendasListView.Margin = new Padding(4, 5, 4, 5);
+            EncomiendasListView.Location = new Point(25, 306);
             EncomiendasListView.Name = "EncomiendasListView";
-            EncomiendasListView.Size = new Size(353, 159);
+            EncomiendasListView.Size = new Size(248, 97);
             EncomiendasListView.TabIndex = 19;
             EncomiendasListView.UseCompatibleStateImageBehavior = false;
             EncomiendasListView.View = View.Details;
@@ -244,92 +233,88 @@
             // 
             // AñadirBttn
             // 
-            AñadirBttn.Location = new Point(416, 393);
-            AñadirBttn.Margin = new Padding(4, 3, 4, 3);
+            AñadirBttn.Location = new Point(291, 236);
+            AñadirBttn.Margin = new Padding(3, 2, 3, 2);
             AñadirBttn.Name = "AñadirBttn";
-            AñadirBttn.Size = new Size(144, 42);
+            AñadirBttn.Size = new Size(101, 25);
             AñadirBttn.TabIndex = 24;
             AñadirBttn.Text = "Añadir";
             AñadirBttn.UseVisualStyleBackColor = true;
             // 
             // QuitarBttn
             // 
-            QuitarBttn.Location = new Point(416, 510);
-            QuitarBttn.Margin = new Padding(4, 3, 4, 3);
+            QuitarBttn.Location = new Point(291, 306);
+            QuitarBttn.Margin = new Padding(3, 2, 3, 2);
             QuitarBttn.Name = "QuitarBttn";
-            QuitarBttn.Size = new Size(144, 42);
+            QuitarBttn.Size = new Size(101, 25);
             QuitarBttn.TabIndex = 25;
             QuitarBttn.Text = "Quitar";
             QuitarBttn.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
-            label4.Location = new Point(440, 220);
-            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Location = new Point(308, 132);
             label4.Name = "label4";
-            label4.Size = new Size(106, 32);
+            label4.Size = new Size(74, 19);
             label4.TabIndex = 26;
             label4.Text = "Domicilio:";
             // 
             // DomicilioTxtBox
             // 
-            DomicilioTxtBox.Location = new Point(553, 217);
-            DomicilioTxtBox.Margin = new Padding(4, 3, 4, 3);
+            DomicilioTxtBox.Location = new Point(387, 130);
+            DomicilioTxtBox.Margin = new Padding(3, 2, 3, 2);
             DomicilioTxtBox.Name = "DomicilioTxtBox";
-            DomicilioTxtBox.Size = new Size(155, 31);
+            DomicilioTxtBox.Size = new Size(110, 23);
             DomicilioTxtBox.TabIndex = 27;
             // 
             // label7
             // 
-            label7.Location = new Point(10, 285);
-            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Location = new Point(7, 171);
             label7.Name = "label7";
-            label7.Size = new Size(213, 28);
+            label7.Size = new Size(149, 17);
             label7.TabIndex = 28;
             label7.Text = "DNI autorizado a retirar:";
             // 
             // CantidadNum
             // 
-            CantidadNum.Location = new Point(234, 397);
-            CantidadNum.Margin = new Padding(4, 3, 4, 3);
+            CantidadNum.Location = new Point(164, 238);
+            CantidadNum.Margin = new Padding(3, 2, 3, 2);
             CantidadNum.Name = "CantidadNum";
-            CantidadNum.Size = new Size(156, 31);
+            CantidadNum.Size = new Size(109, 23);
             CantidadNum.TabIndex = 31;
             // 
             // DNITxtBox
             // 
-            DNITxtBox.Location = new Point(234, 282);
-            DNITxtBox.Margin = new Padding(4, 3, 4, 3);
+            DNITxtBox.Location = new Point(164, 169);
+            DNITxtBox.Margin = new Padding(3, 2, 3, 2);
             DNITxtBox.Name = "DNITxtBox";
-            DNITxtBox.Size = new Size(155, 31);
+            DNITxtBox.Size = new Size(110, 23);
             DNITxtBox.TabIndex = 32;
             // 
             // TipoDeCajaCmb
             // 
             TipoDeCajaCmb.FormattingEnabled = true;
-            TipoDeCajaCmb.Location = new Point(233, 343);
-            TipoDeCajaCmb.Margin = new Padding(4, 3, 4, 3);
+            TipoDeCajaCmb.Location = new Point(163, 206);
+            TipoDeCajaCmb.Margin = new Padding(3, 2, 3, 2);
             TipoDeCajaCmb.Name = "TipoDeCajaCmb";
-            TipoDeCajaCmb.Size = new Size(155, 33);
+            TipoDeCajaCmb.Size = new Size(110, 23);
             TipoDeCajaCmb.TabIndex = 33;
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(36, 472);
-            label10.Margin = new Padding(4, 0, 4, 0);
+            label10.Location = new Point(25, 283);
             label10.Name = "label10";
-            label10.Size = new Size(204, 25);
+            label10.Size = new Size(135, 15);
             label10.TabIndex = 34;
             label10.Text = "Encomiendas a Imponer";
             // 
             // DomicilioRadioBttn
             // 
             DomicilioRadioBttn.AutoSize = true;
-            DomicilioRadioBttn.Location = new Point(437, 152);
-            DomicilioRadioBttn.Margin = new Padding(4, 5, 4, 5);
+            DomicilioRadioBttn.Location = new Point(306, 91);
             DomicilioRadioBttn.Name = "DomicilioRadioBttn";
-            DomicilioRadioBttn.Size = new Size(112, 29);
+            DomicilioRadioBttn.Size = new Size(76, 19);
             DomicilioRadioBttn.TabIndex = 35;
             DomicilioRadioBttn.TabStop = true;
             DomicilioRadioBttn.Text = "Domicilio";
@@ -338,10 +323,9 @@
             // AgenciaRadioBttn
             // 
             AgenciaRadioBttn.AutoSize = true;
-            AgenciaRadioBttn.Location = new Point(10, 152);
-            AgenciaRadioBttn.Margin = new Padding(4, 5, 4, 5);
+            AgenciaRadioBttn.Location = new Point(7, 91);
             AgenciaRadioBttn.Name = "AgenciaRadioBttn";
-            AgenciaRadioBttn.Size = new Size(141, 29);
+            AgenciaRadioBttn.Size = new Size(95, 19);
             AgenciaRadioBttn.TabIndex = 36;
             AgenciaRadioBttn.TabStop = true;
             AgenciaRadioBttn.Text = "Agencia / CD";
@@ -349,26 +333,27 @@
             // 
             // CancelarBttn
             // 
-            CancelarBttn.Location = new Point(614, 700);
-            CancelarBttn.Margin = new Padding(4, 3, 4, 3);
+            CancelarBttn.Location = new Point(430, 420);
+            CancelarBttn.Margin = new Padding(3, 2, 3, 2);
             CancelarBttn.Name = "CancelarBttn";
-            CancelarBttn.Size = new Size(146, 42);
+            CancelarBttn.Size = new Size(102, 25);
             CancelarBttn.TabIndex = 32;
             CancelarBttn.Text = "Cancelar";
             CancelarBttn.UseVisualStyleBackColor = true;
             // 
             // ConfirmarBttn
             // 
-            ConfirmarBttn.Location = new Point(437, 700);
-            ConfirmarBttn.Margin = new Padding(4, 3, 4, 3);
+            ConfirmarBttn.Location = new Point(306, 420);
+            ConfirmarBttn.Margin = new Padding(3, 2, 3, 2);
             ConfirmarBttn.Name = "ConfirmarBttn";
-            ConfirmarBttn.Size = new Size(170, 42);
+            ConfirmarBttn.Size = new Size(119, 25);
             ConfirmarBttn.TabIndex = 31;
             ConfirmarBttn.Text = "Confirmar/ Admitir";
             ConfirmarBttn.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(GuiasAsignadasGroupBox);
             groupBox2.Controls.Add(ConfirmarBttn);
             groupBox2.Controls.Add(CancelarBttn);
             groupBox2.Controls.Add(AgenciaRadioBttn);
@@ -390,22 +375,22 @@
             groupBox2.Controls.Add(label9);
             groupBox2.Controls.Add(label8);
             groupBox2.Controls.Add(label6);
-            groupBox2.Location = new Point(10, 163);
-            groupBox2.Margin = new Padding(4, 3, 4, 3);
+            groupBox2.Location = new Point(7, 98);
+            groupBox2.Margin = new Padding(3, 2, 3, 2);
             groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(4, 3, 4, 3);
-            groupBox2.Size = new Size(794, 757);
+            groupBox2.Padding = new Padding(3, 2, 3, 2);
+            groupBox2.Size = new Size(556, 454);
             groupBox2.TabIndex = 34;
             groupBox2.TabStop = false;
             // 
             // ImposicionDeEncomiendaCDForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(814, 935);
-            Controls.Add(GuiasAsignadasGroupBox);
+            ClientSize = new Size(570, 561);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
+            Margin = new Padding(2);
             Name = "ImposicionDeEncomiendaCDForm";
             Text = "Imposición de Encomienda - CD";
             groupBox1.ResumeLayout(false);

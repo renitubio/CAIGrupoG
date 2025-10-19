@@ -37,6 +37,9 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             this.ConfirmarBttn.Click += new EventHandler(this.ConfirmarBttn_Click);
             this.FinalizaBttn.Click += new EventHandler(this.FinalizaBttn_Click);
             this.CancelarBttn.Click += new EventHandler(this.CancelarBttn_Click);
+
+
+            this.GuiasAsignadasGroupBox.Location = new Point(79, 58);
         }
 
         // -------------------------------------------------------------------------

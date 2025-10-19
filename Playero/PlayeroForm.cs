@@ -14,8 +14,6 @@ namespace CAIGrupoG.Playero
     public partial class PlayeroForm : Form
     {
         private readonly PlayeroModelo modelo = new();
-        private List<Guia> guiasCargaActuales;
-        private List<Guia> guiasDescargaActuales;
 
         public PlayeroForm()
         {
@@ -36,16 +34,15 @@ namespace CAIGrupoG.Playero
                 return;
             }
 
-            // 2. Llamada al modelo para buscar las guías
+            // Suponiendo que BuscarGuiasPorPatente ahora retorna una tupla (List<Guia> Cargas, List<Guia> Descargas)
             var resultado = modelo.BuscarGuiasPorPatente(patente);
-            guiasCargaActuales = resultado.Cargas;
-            guiasDescargaActuales = resultado.Descargas;
+
 
             // 3. Limpiar y poblar los ListViews
-            PoblarListView(CargaListView, guiasCargaActuales);
-            PoblarListView(DescargarListView, guiasDescargaActuales);
+            PoblarListView(CargaListView, resultado.Cargas);
+            PoblarListView(DescargarListView, resultado.Descargas);
 
-            if (!guiasCargaActuales.Any() && !guiasDescargaActuales.Any())
+            if (!resultado.Cargas.Any() && !resultado.Descargas.Any())
             {
                 MessageBox.Show("No se encontraron guías pendientes para la patente ingresada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -53,16 +50,19 @@ namespace CAIGrupoG.Playero
 
         private void AceptarBttn_Click(object sender, EventArgs e)
         {
+            string patente = PatenteTxt.Text.Trim();
+            var resultado = modelo.BuscarGuiasPorPatente(patente);
+
             // Validar si hay guías para procesar
-            if ((guiasCargaActuales == null || !guiasCargaActuales.Any()) &&
-                (guiasDescargaActuales == null || !guiasDescargaActuales.Any()))
+            if ((resultado.Cargas == null || !resultado.Cargas.Any()) &&
+                (resultado.Descargas == null || !resultado.Descargas.Any()))
             {
                 MessageBox.Show("No hay guías para procesar. Por favor, busque una patente primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             // Llamar al modelo para confirmar la operación
-            modelo.ConfirmarOperacion(guiasCargaActuales, guiasDescargaActuales);
+            modelo.ConfirmarOperacion(resultado.Cargas, resultado.Descargas);
 
             MessageBox.Show("Operación Exitosa.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -116,8 +116,6 @@ namespace CAIGrupoG.Playero
             PatenteTxt.Clear();
             CargaListView.Items.Clear();
             DescargarListView.Items.Clear();
-            guiasCargaActuales = null;
-            guiasDescargaActuales = null;
             PatenteTxt.Focus();
         }
     }
