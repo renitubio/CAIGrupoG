@@ -6,6 +6,7 @@ using CAIGrupoG.Playero;
 using CAIGrupoG.EmitirFactura;
 using CAIGrupoG.ConsultaTracking;
 using CAIGrupoG.ResultadoCostosVSVentas;
+using CAIGrupoG.Imposicion.ImpCallCenter;
 
 namespace CAIGrupoG
 {
@@ -20,7 +21,7 @@ namespace CAIGrupoG
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new PlayeroForm());
+            Application.Run(new ImposicionDeEncomiendaCallCenterForm());
         }
     }
 }

@@ -42,9 +42,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             this.GuiasAsignadasGroupBox.Location = new Point(79, 58);
         }
 
-        // -------------------------------------------------------------------------
         // MÉTODOS DE CARGA DE DATOS Y FLUJO
-        // -------------------------------------------------------------------------
 
         private void CargarDatosIniciales()
         {
@@ -135,7 +133,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
             if (modelo.BuscarCliente(CuitTxtBox.Text.Trim()))
             {
-                MessageBox.Show("Cliente encontrado. Procede a ingresar la encomienda.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Cliente encontrado. Proceda a ingresar la encomienda.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 // Encontrar cliente: Habilita el siguiente paso y deshabilita la búsqueda
                 groupBox2.Enabled = true;

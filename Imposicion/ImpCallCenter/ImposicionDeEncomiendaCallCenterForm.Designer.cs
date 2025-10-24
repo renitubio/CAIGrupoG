@@ -28,13 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            groupBox1 = new GroupBox();
-            textBox1 = new TextBox();
+            DatosClienteGpBox = new GroupBox();
+            CuitText = new TextBox();
             label5 = new Label();
-            button1 = new Button();
+            BuscarBttn = new Button();
             label1 = new Label();
-            groupBox2 = new GroupBox();
-            groupBox3 = new GroupBox();
+            DatosEncomiendaGpBox = new GroupBox();
+            GuiasGeneradasGpBox = new GroupBox();
             button3 = new Button();
             label11 = new Label();
             Guías = new ListBox();
@@ -43,51 +43,51 @@
             columnHeader2 = new ColumnHeader();
             ConfirmarBttn = new Button();
             CancelarBttn = new Button();
-            radioButton2 = new RadioButton();
-            radioButton1 = new RadioButton();
+            AgenciaRdBttn = new RadioButton();
+            DomicilioRdBttn = new RadioButton();
             label10 = new Label();
-            comboBox1 = new ComboBox();
-            textBox2 = new TextBox();
-            numericUpDown1 = new NumericUpDown();
+            TipoCajaCmb = new ComboBox();
+            DNIText = new TextBox();
+            CantidadNum = new NumericUpDown();
             label7 = new Label();
-            textBox3 = new TextBox();
+            DomicilioText = new TextBox();
             label4 = new Label();
-            button6 = new Button();
-            button7 = new Button();
-            comboBox3 = new ComboBox();
-            comboBox2 = new ComboBox();
+            QuitarBttn = new Button();
+            AñadirBttn = new Button();
+            EntregaCmb = new ComboBox();
+            CiudadCmb = new ComboBox();
             label3 = new Label();
             label2 = new Label();
             label9 = new Label();
             label8 = new Label();
             label6 = new Label();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
-            groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            DatosClienteGpBox.SuspendLayout();
+            DatosEncomiendaGpBox.SuspendLayout();
+            GuiasGeneradasGpBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)CantidadNum).BeginInit();
             SuspendLayout();
             // 
-            // groupBox1
+            // DatosClienteGpBox
             // 
-            groupBox1.Controls.Add(textBox1);
-            groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(button1);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Location = new Point(12, 11);
-            groupBox1.Margin = new Padding(3, 2, 3, 2);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(3, 2, 3, 2);
-            groupBox1.Size = new Size(556, 103);
-            groupBox1.TabIndex = 6;
-            groupBox1.TabStop = false;
+            DatosClienteGpBox.Controls.Add(CuitText);
+            DatosClienteGpBox.Controls.Add(label5);
+            DatosClienteGpBox.Controls.Add(BuscarBttn);
+            DatosClienteGpBox.Controls.Add(label1);
+            DatosClienteGpBox.Location = new Point(12, 11);
+            DatosClienteGpBox.Margin = new Padding(3, 2, 3, 2);
+            DatosClienteGpBox.Name = "DatosClienteGpBox";
+            DatosClienteGpBox.Padding = new Padding(3, 2, 3, 2);
+            DatosClienteGpBox.Size = new Size(556, 103);
+            DatosClienteGpBox.TabIndex = 6;
+            DatosClienteGpBox.TabStop = false;
             // 
-            // textBox1
+            // CuitText
             // 
-            textBox1.Location = new Point(49, 49);
-            textBox1.Margin = new Padding(3, 2, 3, 2);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(110, 23);
-            textBox1.TabIndex = 7;
+            CuitText.Location = new Point(49, 49);
+            CuitText.Margin = new Padding(3, 2, 3, 2);
+            CuitText.Name = "CuitText";
+            CuitText.Size = new Size(110, 23);
+            CuitText.TabIndex = 7;
             // 
             // label5
             // 
@@ -98,15 +98,15 @@
             label5.TabIndex = 4;
             label5.Text = "Datos del Cliente";
             // 
-            // button1
+            // BuscarBttn
             // 
-            button1.Location = new Point(178, 44);
-            button1.Margin = new Padding(3, 2, 3, 2);
-            button1.Name = "button1";
-            button1.Size = new Size(118, 32);
-            button1.TabIndex = 0;
-            button1.Text = "Buscar Cliente";
-            button1.UseVisualStyleBackColor = true;
+            BuscarBttn.Location = new Point(178, 44);
+            BuscarBttn.Margin = new Padding(3, 2, 3, 2);
+            BuscarBttn.Name = "BuscarBttn";
+            BuscarBttn.Size = new Size(118, 32);
+            BuscarBttn.TabIndex = 0;
+            BuscarBttn.Text = "Buscar Cliente";
+            BuscarBttn.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -116,49 +116,48 @@
             label1.TabIndex = 0;
             label1.Text = "CUIT:";
             // 
-            // groupBox2
+            // DatosEncomiendaGpBox
             // 
-            groupBox2.Controls.Add(groupBox3);
-            groupBox2.Controls.Add(EncomiendasListView);
-            groupBox2.Controls.Add(ConfirmarBttn);
-            groupBox2.Controls.Add(CancelarBttn);
-            groupBox2.Controls.Add(radioButton2);
-            groupBox2.Controls.Add(radioButton1);
-            groupBox2.Controls.Add(label10);
-            groupBox2.Controls.Add(comboBox1);
-            groupBox2.Controls.Add(textBox2);
-            groupBox2.Controls.Add(numericUpDown1);
-            groupBox2.Controls.Add(label7);
-            groupBox2.Controls.Add(textBox3);
-            groupBox2.Controls.Add(label4);
-            groupBox2.Controls.Add(button6);
-            groupBox2.Controls.Add(button7);
-            groupBox2.Controls.Add(comboBox3);
-            groupBox2.Controls.Add(comboBox2);
-            groupBox2.Controls.Add(label3);
-            groupBox2.Controls.Add(label2);
-            groupBox2.Controls.Add(label9);
-            groupBox2.Controls.Add(label8);
-            groupBox2.Controls.Add(label6);
-            groupBox2.Location = new Point(12, 118);
-            groupBox2.Margin = new Padding(3, 2, 3, 2);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Padding = new Padding(3, 2, 3, 2);
-            groupBox2.Size = new Size(556, 454);
-            groupBox2.TabIndex = 34;
-            groupBox2.TabStop = false;
+            DatosEncomiendaGpBox.Controls.Add(EncomiendasListView);
+            DatosEncomiendaGpBox.Controls.Add(ConfirmarBttn);
+            DatosEncomiendaGpBox.Controls.Add(CancelarBttn);
+            DatosEncomiendaGpBox.Controls.Add(AgenciaRdBttn);
+            DatosEncomiendaGpBox.Controls.Add(DomicilioRdBttn);
+            DatosEncomiendaGpBox.Controls.Add(label10);
+            DatosEncomiendaGpBox.Controls.Add(TipoCajaCmb);
+            DatosEncomiendaGpBox.Controls.Add(DNIText);
+            DatosEncomiendaGpBox.Controls.Add(CantidadNum);
+            DatosEncomiendaGpBox.Controls.Add(label7);
+            DatosEncomiendaGpBox.Controls.Add(DomicilioText);
+            DatosEncomiendaGpBox.Controls.Add(label4);
+            DatosEncomiendaGpBox.Controls.Add(QuitarBttn);
+            DatosEncomiendaGpBox.Controls.Add(AñadirBttn);
+            DatosEncomiendaGpBox.Controls.Add(EntregaCmb);
+            DatosEncomiendaGpBox.Controls.Add(CiudadCmb);
+            DatosEncomiendaGpBox.Controls.Add(label3);
+            DatosEncomiendaGpBox.Controls.Add(label2);
+            DatosEncomiendaGpBox.Controls.Add(label9);
+            DatosEncomiendaGpBox.Controls.Add(label8);
+            DatosEncomiendaGpBox.Controls.Add(label6);
+            DatosEncomiendaGpBox.Location = new Point(12, 118);
+            DatosEncomiendaGpBox.Margin = new Padding(3, 2, 3, 2);
+            DatosEncomiendaGpBox.Name = "DatosEncomiendaGpBox";
+            DatosEncomiendaGpBox.Padding = new Padding(3, 2, 3, 2);
+            DatosEncomiendaGpBox.Size = new Size(556, 454);
+            DatosEncomiendaGpBox.TabIndex = 34;
+            DatosEncomiendaGpBox.TabStop = false;
             // 
-            // groupBox3
+            // GuiasGeneradasGpBox
             // 
-            groupBox3.Controls.Add(button3);
-            groupBox3.Controls.Add(label11);
-            groupBox3.Controls.Add(Guías);
-            groupBox3.Location = new Point(461, 391);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(408, 368);
-            groupBox3.TabIndex = 39;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Guías de Encomiendas";
+            GuiasGeneradasGpBox.Controls.Add(button3);
+            GuiasGeneradasGpBox.Controls.Add(label11);
+            GuiasGeneradasGpBox.Controls.Add(Guías);
+            GuiasGeneradasGpBox.Location = new Point(574, 462);
+            GuiasGeneradasGpBox.Name = "GuiasGeneradasGpBox";
+            GuiasGeneradasGpBox.Size = new Size(408, 368);
+            GuiasGeneradasGpBox.TabIndex = 39;
+            GuiasGeneradasGpBox.TabStop = false;
+            GuiasGeneradasGpBox.Text = "Guías de Encomiendas";
             // 
             // button3
             // 
@@ -227,27 +226,27 @@
             CancelarBttn.Text = "Cancelar";
             CancelarBttn.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // AgenciaRdBttn
             // 
-            radioButton2.AutoSize = true;
-            radioButton2.Location = new Point(7, 91);
-            radioButton2.Name = "radioButton2";
-            radioButton2.Size = new Size(95, 19);
-            radioButton2.TabIndex = 36;
-            radioButton2.TabStop = true;
-            radioButton2.Text = "Agencia / CD";
-            radioButton2.UseVisualStyleBackColor = true;
+            AgenciaRdBttn.AutoSize = true;
+            AgenciaRdBttn.Location = new Point(7, 91);
+            AgenciaRdBttn.Name = "AgenciaRdBttn";
+            AgenciaRdBttn.Size = new Size(95, 19);
+            AgenciaRdBttn.TabIndex = 36;
+            AgenciaRdBttn.TabStop = true;
+            AgenciaRdBttn.Text = "Agencia / CD";
+            AgenciaRdBttn.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // DomicilioRdBttn
             // 
-            radioButton1.AutoSize = true;
-            radioButton1.Location = new Point(306, 91);
-            radioButton1.Name = "radioButton1";
-            radioButton1.Size = new Size(76, 19);
-            radioButton1.TabIndex = 35;
-            radioButton1.TabStop = true;
-            radioButton1.Text = "Domicilio";
-            radioButton1.UseVisualStyleBackColor = true;
+            DomicilioRdBttn.AutoSize = true;
+            DomicilioRdBttn.Location = new Point(306, 91);
+            DomicilioRdBttn.Name = "DomicilioRdBttn";
+            DomicilioRdBttn.Size = new Size(76, 19);
+            DomicilioRdBttn.TabIndex = 35;
+            DomicilioRdBttn.TabStop = true;
+            DomicilioRdBttn.Text = "Domicilio";
+            DomicilioRdBttn.UseVisualStyleBackColor = true;
             // 
             // label10
             // 
@@ -258,30 +257,30 @@
             label10.TabIndex = 34;
             label10.Text = "Encomiendas a Imponer";
             // 
-            // comboBox1
+            // TipoCajaCmb
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(163, 206);
-            comboBox1.Margin = new Padding(3, 2, 3, 2);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(110, 23);
-            comboBox1.TabIndex = 33;
+            TipoCajaCmb.FormattingEnabled = true;
+            TipoCajaCmb.Location = new Point(163, 206);
+            TipoCajaCmb.Margin = new Padding(3, 2, 3, 2);
+            TipoCajaCmb.Name = "TipoCajaCmb";
+            TipoCajaCmb.Size = new Size(110, 23);
+            TipoCajaCmb.TabIndex = 33;
             // 
-            // textBox2
+            // DNIText
             // 
-            textBox2.Location = new Point(164, 169);
-            textBox2.Margin = new Padding(3, 2, 3, 2);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(110, 23);
-            textBox2.TabIndex = 32;
+            DNIText.Location = new Point(164, 169);
+            DNIText.Margin = new Padding(3, 2, 3, 2);
+            DNIText.Name = "DNIText";
+            DNIText.Size = new Size(110, 23);
+            DNIText.TabIndex = 32;
             // 
-            // numericUpDown1
+            // CantidadNum
             // 
-            numericUpDown1.Location = new Point(164, 238);
-            numericUpDown1.Margin = new Padding(3, 2, 3, 2);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(109, 23);
-            numericUpDown1.TabIndex = 31;
+            CantidadNum.Location = new Point(164, 238);
+            CantidadNum.Margin = new Padding(3, 2, 3, 2);
+            CantidadNum.Name = "CantidadNum";
+            CantidadNum.Size = new Size(109, 23);
+            CantidadNum.TabIndex = 31;
             // 
             // label7
             // 
@@ -291,13 +290,13 @@
             label7.TabIndex = 28;
             label7.Text = "DNI autorizado a retirar:";
             // 
-            // textBox3
+            // DomicilioText
             // 
-            textBox3.Location = new Point(387, 130);
-            textBox3.Margin = new Padding(3, 2, 3, 2);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(110, 23);
-            textBox3.TabIndex = 27;
+            DomicilioText.Location = new Point(387, 130);
+            DomicilioText.Margin = new Padding(3, 2, 3, 2);
+            DomicilioText.Name = "DomicilioText";
+            DomicilioText.Size = new Size(110, 23);
+            DomicilioText.TabIndex = 27;
             // 
             // label4
             // 
@@ -307,43 +306,43 @@
             label4.TabIndex = 26;
             label4.Text = "Domicilio:";
             // 
-            // button6
+            // QuitarBttn
             // 
-            button6.Location = new Point(291, 306);
-            button6.Margin = new Padding(3, 2, 3, 2);
-            button6.Name = "button6";
-            button6.Size = new Size(101, 25);
-            button6.TabIndex = 25;
-            button6.Text = "Quitar";
-            button6.UseVisualStyleBackColor = true;
+            QuitarBttn.Location = new Point(291, 306);
+            QuitarBttn.Margin = new Padding(3, 2, 3, 2);
+            QuitarBttn.Name = "QuitarBttn";
+            QuitarBttn.Size = new Size(101, 25);
+            QuitarBttn.TabIndex = 25;
+            QuitarBttn.Text = "Quitar";
+            QuitarBttn.UseVisualStyleBackColor = true;
             // 
-            // button7
+            // AñadirBttn
             // 
-            button7.Location = new Point(291, 236);
-            button7.Margin = new Padding(3, 2, 3, 2);
-            button7.Name = "button7";
-            button7.Size = new Size(101, 25);
-            button7.TabIndex = 24;
-            button7.Text = "Añadir";
-            button7.UseVisualStyleBackColor = true;
+            AñadirBttn.Location = new Point(291, 236);
+            AñadirBttn.Margin = new Padding(3, 2, 3, 2);
+            AñadirBttn.Name = "AñadirBttn";
+            AñadirBttn.Size = new Size(101, 25);
+            AñadirBttn.TabIndex = 24;
+            AñadirBttn.Text = "Añadir";
+            AñadirBttn.UseVisualStyleBackColor = true;
             // 
-            // comboBox3
+            // EntregaCmb
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(164, 132);
-            comboBox3.Margin = new Padding(3, 2, 3, 2);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(110, 23);
-            comboBox3.TabIndex = 18;
+            EntregaCmb.FormattingEnabled = true;
+            EntregaCmb.Location = new Point(164, 132);
+            EntregaCmb.Margin = new Padding(3, 2, 3, 2);
+            EntregaCmb.Name = "EntregaCmb";
+            EntregaCmb.Size = new Size(110, 23);
+            EntregaCmb.TabIndex = 18;
             // 
-            // comboBox2
+            // CiudadCmb
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(164, 46);
-            comboBox2.Margin = new Padding(3, 2, 3, 2);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(110, 23);
-            comboBox2.TabIndex = 17;
+            CiudadCmb.FormattingEnabled = true;
+            CiudadCmb.Location = new Point(164, 46);
+            CiudadCmb.Margin = new Padding(3, 2, 3, 2);
+            CiudadCmb.Name = "CiudadCmb";
+            CiudadCmb.Size = new Size(110, 23);
+            CiudadCmb.TabIndex = 17;
             // 
             // label3
             // 
@@ -391,44 +390,45 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(580, 583);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
+            Controls.Add(GuiasGeneradasGpBox);
+            Controls.Add(DatosEncomiendaGpBox);
+            Controls.Add(DatosClienteGpBox);
             Margin = new Padding(2);
             Name = "ImposicionDeEncomiendaCallCenterForm";
             Text = "Imposición de Encomienda - Call Center";
             Load += ImposicionCallCenterForm_Load;
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
-            groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            DatosClienteGpBox.ResumeLayout(false);
+            DatosClienteGpBox.PerformLayout();
+            DatosEncomiendaGpBox.ResumeLayout(false);
+            DatosEncomiendaGpBox.PerformLayout();
+            GuiasGeneradasGpBox.ResumeLayout(false);
+            GuiasGeneradasGpBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)CantidadNum).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-        private GroupBox groupBox1;
-        private TextBox textBox1;
+        private GroupBox DatosClienteGpBox;
+        private TextBox CuitText;
         private Label label5;
-        private Button button1;
+        private Button BuscarBttn;
         private Label label1;
-        private GroupBox groupBox2;
+        private GroupBox DatosEncomiendaGpBox;
         private Button ConfirmarBttn;
         private Button CancelarBttn;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private RadioButton AgenciaRdBttn;
+        private RadioButton DomicilioRdBttn;
         private Label label10;
-        private ComboBox comboBox1;
-        private TextBox textBox2;
-        private NumericUpDown numericUpDown1;
+        private ComboBox TipoCajaCmb;
+        private TextBox DNIText;
+        private NumericUpDown CantidadNum;
         private Label label7;
-        private TextBox textBox3;
+        private TextBox DomicilioText;
         private Label label4;
-        private Button button6;
-        private Button button7;
-        private ComboBox comboBox3;
-        private ComboBox comboBox2;
+        private Button QuitarBttn;
+        private Button AñadirBttn;
+        private ComboBox EntregaCmb;
+        private ComboBox CiudadCmb;
         private Label label3;
         private Label label2;
         private Label label9;
@@ -437,7 +437,7 @@
         private ListView EncomiendasListView;
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
-        private GroupBox groupBox3;
+        private GroupBox GuiasGeneradasGpBox;
         private Button button3;
         private Label label11;
         private ListBox Guías;
