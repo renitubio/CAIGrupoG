@@ -118,9 +118,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
         }
 
 
-        // -------------------------------------------------------------------------
         // LÓGICA DE BOTONES (CRUD Encomiendas)
-        // -------------------------------------------------------------------------
 
         // Logica del Cliente
         private void BuscarClienteBttn_Click(object sender, EventArgs e)

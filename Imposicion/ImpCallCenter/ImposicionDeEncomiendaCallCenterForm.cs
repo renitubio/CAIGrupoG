@@ -119,7 +119,6 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
             }
         }
 
-        // --- MÉTODO CORREGIDO ---
         private void AñadirBttn_Click(object sender, EventArgs e)
         {
             string dni = DNIText.Text.Trim();
