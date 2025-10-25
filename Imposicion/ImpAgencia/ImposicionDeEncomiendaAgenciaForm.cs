@@ -196,7 +196,10 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
             DatosClienteGpBox.Visible = false;
             EncomiendaGpBox.Visible = false;
             GuiasGeneradasGpBox.Visible = true;
+
+            this.Refresh(); //Opcional
         }
+
 
         private void Finalizar_Click(object sender, EventArgs e)
         {
