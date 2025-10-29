@@ -64,7 +64,6 @@ namespace CAIGrupoG.ResultadoCostosVSVentas
                     res.ResultadoEmpresa.ToString("C", culturaARS),
                     res.Ventas.ToString("C", culturaARS),
                     res.Costos.ToString("C", culturaARS),
-                    res.MargenBruto.ToString("P2"), // Formato de Porcentaje con 2 decimales
                     res.Rentabilidad.ToString("N2") + " %" // Formato Numérico con 2 decimales
                 };
                 ResultadoListView.Items.Add(new ListViewItem(row));

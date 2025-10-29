@@ -13,13 +13,9 @@ namespace CAIGrupoG.ResultadoCostosVSVentas
         public decimal Ventas { get; set; }
         public decimal Costos { get; set; }
 
-        // Propiedad calculada: Resultado = Ventas - Costos
-        public decimal ResultadoEmpresa => Ventas - Costos;
+            public decimal ResultadoEmpresa => Ventas - Costos;
 
-        // Propiedad calculada: Margen Bruto = (Resultado / Ventas)
-        public decimal MargenBruto => (Ventas > 0) ? (ResultadoEmpresa / Ventas) : 0;
-
-        // Propiedad calculada: Rentabilidad en porcentaje
-        public decimal Rentabilidad => MargenBruto * 100;
+            // Rentabilidad: beneficio total sobre ventas
+            public decimal Rentabilidad => (Ventas > 0) ? (ResultadoEmpresa / Ventas) * 100 : 0;
     }
 }
