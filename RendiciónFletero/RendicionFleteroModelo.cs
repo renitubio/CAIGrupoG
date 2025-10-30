@@ -47,6 +47,8 @@ namespace CAIGrupoG.RendiciónFletero
             return (guiasAdmision, guiasRetiro);
         }
 
+        // void ActualizarGuiasSeleccionadas
+
         /// <summary>
         /// Método privado para generar los datos de prueba.
         /// </summary>

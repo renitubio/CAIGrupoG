@@ -35,7 +35,7 @@ namespace CAIGrupoG.Playero
             {
                 // Guías de Carga: son las que tienen nuestro CD como origen.
                 guiasCarga = vehiculo.GuiasAsignadas
-                    .Where(g => g.CDOrigen == NuestroCD && g.Estado == EstadoGuia.Pendiente)
+                    .Where(g => g.CDOrigen == NuestroCD && g.Estado == EstadoGuia.AdmitidoCDOrigen)
                     .ToList();
 
                 // Guías de Descarga: son las que tienen nuestro CD como destino.
@@ -58,10 +58,10 @@ namespace CAIGrupoG.Playero
                 guia.Estado = EstadoGuia.EnTransito;
             }
 
-            // A las guías descargadas se les cambia el estado a "Procesado".
+            // A las guías descargadas se les cambia el estado a "AdmitidoCDDestino".
             foreach (var guia in descargas)
             {
-                guia.Estado = EstadoGuia.Procesado;
+                guia.Estado = EstadoGuia.AdmitidoCDDestino;
             }
         }
 
@@ -70,8 +70,8 @@ namespace CAIGrupoG.Playero
         {
             // Vehículo 1
             var vehiculo1 = new Vehiculo { Patente = "AA123BC" };
-            vehiculo1.GuiasAsignadas.Add(new Guia { NumeroGuia = "G001", TipoPaquete = TipoPaquete.S, CUIT = "30-11111111-1", CDOrigen = NuestroCD, CDDestino = "CD02", Estado = EstadoGuia.Pendiente });
-            vehiculo1.GuiasAsignadas.Add(new Guia { NumeroGuia = "G002", TipoPaquete = TipoPaquete.M, CUIT = "30-22222222-2", CDOrigen = NuestroCD, CDDestino = "CD03", Estado = EstadoGuia.Pendiente });
+            vehiculo1.GuiasAsignadas.Add(new Guia { NumeroGuia = "G001", TipoPaquete = TipoPaquete.S, CUIT = "30-11111111-1", CDOrigen = NuestroCD, CDDestino = "CD02", Estado = EstadoGuia.AdmitidoCDOrigen });
+            vehiculo1.GuiasAsignadas.Add(new Guia { NumeroGuia = "G002", TipoPaquete = TipoPaquete.M, CUIT = "30-22222222-2", CDOrigen = NuestroCD, CDDestino = "CD03", Estado = EstadoGuia.AdmitidoCDOrigen });
             vehiculo1.GuiasAsignadas.Add(new Guia { NumeroGuia = "G003", TipoPaquete = TipoPaquete.L, CUIT = "30-33333333-3", CDOrigen = "CD04", CDDestino = NuestroCD, Estado = EstadoGuia.EnTransito });
 
             // Vehículo 2
@@ -81,8 +81,8 @@ namespace CAIGrupoG.Playero
 
             // Vehículo 3
             var vehiculo3 = new Vehiculo { Patente = "AE789GH" };
-            vehiculo3.GuiasAsignadas.Add(new Guia { NumeroGuia = "G006", TipoPaquete = TipoPaquete.M, CUIT = "30-66666666-6", CDOrigen = NuestroCD, CDDestino = "CD05", Estado = EstadoGuia.Pendiente });
-            vehiculo3.GuiasAsignadas.Add(new Guia { NumeroGuia = "G007", TipoPaquete = TipoPaquete.L, CUIT = "30-77777777-7", CDOrigen = NuestroCD, CDDestino = "CD04", Estado = EstadoGuia.Pendiente });
+            vehiculo3.GuiasAsignadas.Add(new Guia { NumeroGuia = "G006", TipoPaquete = TipoPaquete.M, CUIT = "30-66666666-6", CDOrigen = NuestroCD, CDDestino = "CD05", Estado = EstadoGuia.AdmitidoCDOrigen });
+            vehiculo3.GuiasAsignadas.Add(new Guia { NumeroGuia = "G007", TipoPaquete = TipoPaquete.L, CUIT = "30-77777777-7", CDOrigen = NuestroCD, CDDestino = "CD04", Estado = EstadoGuia.AdmitidoCDOrigen });
 
             _vehiculos.Add(vehiculo1);
             _vehiculos.Add(vehiculo2);

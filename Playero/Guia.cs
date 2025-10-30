@@ -19,9 +19,9 @@ namespace CAIGrupoG.Playero
     // Enumeración para los estados de la guía
     public enum EstadoGuia
     {
-        Pendiente,
+        AdmitidoCDOrigen,
         EnTransito,
-        Procesado
+        AdmitidoCDDestino
     }
 
     // Enumeración para los tipos de paquete
