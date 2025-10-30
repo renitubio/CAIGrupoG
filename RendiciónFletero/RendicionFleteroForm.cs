@@ -64,19 +64,85 @@ namespace CAIGrupoG.Admisión
             var guíasAdmisionActuales = modelo.BuscarGuiasPorDNI(dni).Admision;
             var guiasRetiroActuales = modelo.BuscarGuiasPorDNI(dni).Retiro;
 
-            if ((guíasAdmisionActuales == null || guíasAdmisionActuales.Count == 0) &&
-                (guiasRetiroActuales == null || guiasRetiroActuales.Count == 0))
+
+            // Obtener las guías seleccionadas en ambos ListView
+            var guiasAdmSeleccion = ObtenerGuiasSeleccionadas(AdmisionListView, guíasAdmisionActuales);
+            var guiasRetSeleccion = ObtenerGuiasSeleccionadas(RetiroListView, guiasRetiroActuales);
+
+            if ((guiasAdmSeleccion == null || guiasAdmSeleccion.Count == 0) &&
+                (guiasRetSeleccion == null || guiasRetSeleccion.Count == 0))
             {
-                MessageBox.Show("No hay guías para procesar. Realice una búsqueda primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No ha seleccionado guías. Seleccione al menos una guía para continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Aquí iría la lógica para procesar las guías seleccionadas (opcional según requerimiento)
+            // Pasar las selecciones al modelo para que actualice los estados.
+            if ((guiasAdmSeleccion != null && guiasAdmSeleccion.Count > 0) && (guiasRetSeleccion != null && guiasRetSeleccion.Count > 0))
+            {
+                modelo.CambioEstadoGuiasSelecc(guiasAdmSeleccion, guiasRetSeleccion);
+            }
+
+
+            // Refrescar la vista volviendo a consultar las guías y poblando los ListViews
+            var resultado = modelo.BuscarGuiasPorDNI(dni);
+            PoblarListView(AdmisionListView, resultado.Admision);
+            PoblarListView(RetiroListView, resultado.Retiro);
 
             MessageBox.Show("Operación Exitosa.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // Limpiar la pantalla para la siguiente operación
             LimpiarFormulario();
+        }
+
+        /// <summary>
+        /// Recupera las guías seleccionadas en un ListView comparando por Número de Guía con la lista fuente.
+        /// </summary>
+        private List<Guia> ObtenerGuiasSeleccionadas(ListView listView, List<Guia> fuenteGuias)
+        {
+            var seleccion = new List<Guia>();
+            if (listView == null || fuenteGuias == null) return seleccion;
+
+            // Evitar duplicados por número de guía
+            var agregados = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            // 1) Elementos seleccionados (SelectedItems)
+            foreach (ListViewItem item in listView.SelectedItems)
+            {
+                if (item.Tag is Guia guiaFromTag)
+                {
+                    if (!string.IsNullOrWhiteSpace(guiaFromTag.NumeroGuia) && agregados.Add(guiaFromTag.NumeroGuia.Trim()))
+                        seleccion.Add(guiaFromTag);
+                    continue;
+                }
+
+                var numeroGuia = item.Text?.Trim();
+                if (string.IsNullOrEmpty(numeroGuia)) continue;
+
+                var guia = fuenteGuias.FirstOrDefault(g => string.Equals(g.NumeroGuia?.Trim(), numeroGuia, StringComparison.OrdinalIgnoreCase));
+                if (guia != null && agregados.Add(guia.NumeroGuia?.Trim() ?? string.Empty))
+                    seleccion.Add(guia);
+            }
+
+            // 2) Elementos marcados (CheckedItems) — útil si el ListView tiene CheckBoxes = true
+            foreach (ListViewItem item in listView.CheckedItems)
+            {
+                // Si ya fue añadido en selectedItems, el HashSet lo evita
+                if (item.Tag is Guia guiaFromTag)
+                {
+                    if (!string.IsNullOrWhiteSpace(guiaFromTag.NumeroGuia) && agregados.Add(guiaFromTag.NumeroGuia.Trim()))
+                        seleccion.Add(guiaFromTag);
+                    continue;
+                }
+
+                var numeroGuia = item.Text?.Trim();
+                if (string.IsNullOrEmpty(numeroGuia)) continue;
+
+                var guia = fuenteGuias.FirstOrDefault(g => string.Equals(g.NumeroGuia?.Trim(), numeroGuia, StringComparison.OrdinalIgnoreCase));
+                if (guia != null && agregados.Add(guia.NumeroGuia?.Trim() ?? string.Empty))
+                    seleccion.Add(guia);
+            }
+
+            return seleccion;
         }
 
         /// <summary>
@@ -110,7 +176,11 @@ namespace CAIGrupoG.Admisión
                     guia.DniAutorizadoRetirar,
                     guia.Destino
                 };
-                var item = new ListViewItem(row);
+                var item = new ListViewItem(row)
+                {
+                    Tag = guia,       // <-- asociamos el objeto Guia para recuperarlo directamente
+                    Checked = false   // opcional: inicializar como no marcado
+                };
                 listView.Items.Add(item);
             }
         }

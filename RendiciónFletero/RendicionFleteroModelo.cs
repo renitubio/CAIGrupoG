@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CAIGrupoG.RendiciónFletero
 {
@@ -47,7 +49,87 @@ namespace CAIGrupoG.RendiciónFletero
             return (guiasAdmision, guiasRetiro);
         }
 
-        // void ActualizarGuiasSeleccionadas
+        internal void CambioEstadoGuiasSelecc(List<Guia> guiasAdmSeleccion, List<Guia> guiasRetSeleccion)
+        {
+            if (guiasAdmSeleccion == null) guiasAdmSeleccion = new List<Guia>();
+            if (guiasRetSeleccion == null) guiasRetSeleccion = new List<Guia>();
+
+            // Actualiza las guías seleccionadas en Admisión según su estado actual
+            foreach (var guia in guiasAdmSeleccion)
+            {
+                switch (guia.Estado)
+                {
+                    // "en camino a retirar..." -> "Admitido en CD origen"
+                    case EstadoEncomienda.EnCaminoARetirarDomicilio:
+                    case EstadoEncomienda.EnCaminoARetirarAgencia:
+                        guia.Estado = EstadoEncomienda.EnCDOrigen;
+                        break;
+
+                    // "Distribución última milla Agencia" -> se mapea a "EnCDDestino" (se interpreta como pendiente de retiro en agencia)
+                    case EstadoEncomienda.DistribucionUltimaMillaAgencia:
+                        guia.Estado = EstadoEncomienda.EnCDDestino;
+                        break;
+
+                    // "Distribución última milla Domicilio" -> "Entregado"
+                    case EstadoEncomienda.DistribucionUltimaMillaDomicilio:
+                        guia.Estado = EstadoEncomienda.Entregado;
+                        break;
+
+                    default:
+                        // Otros estados: no se cambia
+                        break;
+                }
+            }
+
+            // Actualiza las guías seleccionadas para retiro (se asume que se llevan desde CD origen)
+            foreach (var guia in guiasRetSeleccion)
+            {
+                // "Admitido en CD destino" -> pasar a distribución última milla domicilio/agencia según destino
+                if (!string.IsNullOrEmpty(guia.Destino) &&
+                    guia.Destino.IndexOf("Agencia", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    guia.Estado = EstadoEncomienda.DistribucionUltimaMillaAgencia;
+                }
+                else
+                {
+                    guia.Estado = EstadoEncomienda.DistribucionUltimaMillaDomicilio;
+                }
+                break;
+            }
+
+            // Guías no seleccionadas en Admisión:
+            //  - las que estaban en DistribucionUltimaMillaDomicilio pasan a PrimerIntentoDeEntrega.
+            //  - las que ya estaban en PrimerIntentoDeEntrega y no fueron seleccionadas pasan a Rechazado.
+            var todasGuias = _fleteros.SelectMany(f => f.GuiasAsignadas).ToList();
+
+            // Capturar primero las guías que ya estaban en PrimerIntentoDeEntrega y no fueron seleccionadas,
+            // para convertirlas en Rechazado según el nuevo requerimiento.
+            var primerIntentoPrevioNoSeleccionadas = todasGuias
+                .Where(g => g.Estado == EstadoEncomienda.PrimerIntentoDeEntrega &&
+                            !guiasAdmSeleccion.Any(sel => sel.NumeroGuia == g.NumeroGuia))
+                .ToList();
+
+            var distribDomicilioNoSeleccionadas = todasGuias
+                .Where(g => g.Estado == EstadoEncomienda.DistribucionUltimaMillaDomicilio &&
+                            !guiasAdmSeleccion.Any(sel => sel.NumeroGuia == g.NumeroGuia))
+                .ToList();
+
+            // Las que estaban en Distribución última milla domicilio no seleccionadas -> Primer intento de entrega
+            foreach (var guia in distribDomicilioNoSeleccionadas)
+            {
+                guia.Estado = EstadoEncomienda.PrimerIntentoDeEntrega;
+            }
+
+            // Las que ya estaban en PrimerIntentoDeEntrega y no fueron seleccionadas -> Rechazado
+            foreach (var guia in primerIntentoPrevioNoSeleccionadas)
+            {
+                guia.Estado = EstadoEncomienda.Rechazado;
+            }
+        }
+
+
+
+
 
         /// <summary>
         /// Método privado para generar los datos de prueba.
@@ -73,5 +155,7 @@ namespace CAIGrupoG.RendiciónFletero
             _fleteros.Add(fletero2);
             _fleteros.Add(fletero3);
         }
+        
+
     }
 }

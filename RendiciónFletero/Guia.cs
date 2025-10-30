@@ -20,15 +20,15 @@ namespace CAIGrupoG.RendiciónFletero
     // Enumeración para los estados específicos de esta pantalla
     public enum EstadoEncomienda
     {
-        // Estados para la admisión (el fletero entrega al CD)
         DistribucionUltimaMillaAgencia,
         DistribucionUltimaMillaDomicilio,
         PrimerIntentoDeEntrega,
         EnCaminoARetirarDomicilio,
         EnCaminoARetirarAgencia,
-
-        // Estado para el retiro (el fletero retira del CD)
-        EnCDDestino
+        Entregado,
+        Rechazado,
+        EnCDDestino,
+        EnCDOrigen
     }
     public enum TipoPaquete
     {
