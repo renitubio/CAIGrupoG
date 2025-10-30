@@ -17,19 +17,19 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
 
         private static List<Ciudad> _ciudades = new List<Ciudad>
         {
-            new Ciudad { Id = 1, Nombre = "CABA" },
-            new Ciudad { Id = 2, Nombre = "Rosario" },
-            new Ciudad { Id = 3, Nombre = "Córdoba" }
+            new Ciudad { Id = 1, Nombre = "CABA", CD_ID = 1 },
+            new Ciudad { Id = 2, Nombre = "Rosario", CD_ID = 2 },
+            new Ciudad { Id = 3, Nombre = "Córdoba", CD_ID = 3 }
         };
 
         private static List<AgenciaCD> _agenciasCD = new List<AgenciaCD>
         {
-            new AgenciaCD { Id = 101, Nombre = "CD Terminal Dellepiane", CiudadId = 1 },
-            new AgenciaCD { Id = 103, Nombre = "Agencia Palermo", CiudadId = 1 },
-            new AgenciaCD { Id = 102, Nombre = "Agencia Microcentro", CiudadId = 1 },
-            new AgenciaCD { Id = 201, Nombre = "CD Terminal Rosario", CiudadId = 2 },
+            new AgenciaCD { Id = 1, Nombre = "CD Terminal Dellepiane", CiudadId = 1 },
+            new AgenciaCD { Id = 101, Nombre = "Agencia Microcentro", CiudadId = 1 },
+            new AgenciaCD { Id = 102, Nombre = "Agencia Palermo", CiudadId = 1 },
+            new AgenciaCD { Id = 2, Nombre = "CD Terminal Rosario", CiudadId = 2 },
             new AgenciaCD { Id = 301, Nombre = "CD Terminal Córdoba", CiudadId = 3 },
-            new AgenciaCD { Id = 302, Nombre = "Agencia Cerro", CiudadId = 3 }
+            new AgenciaCD { Id = 3, Nombre = "Agencia Cerro", CiudadId = 3 }
         };
 
         private static List<TipoCaja> _tiposCaja = new List<TipoCaja>
@@ -50,7 +50,8 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
         // agregar un obtener CD por ciudad id
         public List<AgenciaCD> ObtenerCDPorCiudad(int ciudadId)
         {
-            return _agenciasCD.Where(a => a.CiudadId == ciudadId).ToList();
+            //retornar solo los cd con el mismo id que la ciudad
+            return _agenciasCD.Where(a => a.CiudadId == ciudadId && a.Id == ciudadId).ToList();
         }
 
         /// <summary>
