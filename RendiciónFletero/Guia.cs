@@ -27,8 +27,8 @@ namespace CAIGrupoG.RendiciónFletero
         EnCaminoARetirarAgencia,
         Entregado,
         Rechazado,
-        EnCDDestino,
-        EnCDOrigen
+        AdmitidoEnCDDestino,
+        AdmitidoEnCDOrigen
     }
     public enum TipoPaquete
     {

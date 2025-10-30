@@ -202,7 +202,7 @@ namespace CAIGrupoG.Admisión
                     return "En camino a retirar (Dom)";
                 case EstadoEncomienda.EnCaminoARetirarAgencia:
                     return "En camino a retirar (Age)";
-                case EstadoEncomienda.EnCDDestino:
+                case EstadoEncomienda.AdmitidoEnCDDestino:
                     return "En CD destino";
                 default:
                     return estado.ToString();

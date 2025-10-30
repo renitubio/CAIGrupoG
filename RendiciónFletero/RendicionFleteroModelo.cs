@@ -42,7 +42,7 @@ namespace CAIGrupoG.RendiciónFletero
 
                 // Guías de Retiro: Las que el fletero se lleva del CD.
                 guiasRetiro = fletero.GuiasAsignadas
-                    .Where(g => g.Estado == EstadoEncomienda.EnCDDestino)
+                    .Where(g => g.Estado == EstadoEncomienda.AdmitidoEnCDDestino)
                     .ToList();
             }
 
@@ -62,12 +62,12 @@ namespace CAIGrupoG.RendiciónFletero
                     // "en camino a retirar..." -> "Admitido en CD origen"
                     case EstadoEncomienda.EnCaminoARetirarDomicilio:
                     case EstadoEncomienda.EnCaminoARetirarAgencia:
-                        guia.Estado = EstadoEncomienda.EnCDOrigen;
+                        guia.Estado = EstadoEncomienda.AdmitidoEnCDOrigen;
                         break;
 
                     // "Distribución última milla Agencia" -> se mapea a "EnCDDestino" (se interpreta como pendiente de retiro en agencia)
                     case EstadoEncomienda.DistribucionUltimaMillaAgencia:
-                        guia.Estado = EstadoEncomienda.EnCDDestino;
+                        guia.Estado = EstadoEncomienda.AdmitidoEnCDDestino;
                         break;
 
                     // "Distribución última milla Domicilio" -> "Entregado"
@@ -138,14 +138,14 @@ namespace CAIGrupoG.RendiciónFletero
         {
             // Fletero 1
             var fletero1 = new Fletero { DNI = "30123456", Nombre = "Juan Perez" };
-            fletero1.GuiasAsignadas.Add(new Guia { NumeroGuia = "GA001", Estado = EstadoEncomienda.EnCDDestino, TipoPaquete = TipoPaquete.M, CUIT = "20-11111111-1", DniAutorizadoRetirar = "32345655", Destino = "Av. Corrientes 1234, CABA" });
+            fletero1.GuiasAsignadas.Add(new Guia { NumeroGuia = "GA001", Estado = EstadoEncomienda.AdmitidoEnCDDestino, TipoPaquete = TipoPaquete.M, CUIT = "20-11111111-1", DniAutorizadoRetirar = "32345655", Destino = "Av. Corrientes 1234, CABA" });
             fletero1.GuiasAsignadas.Add(new Guia { NumeroGuia = "GA002", Estado = EstadoEncomienda.DistribucionUltimaMillaAgencia, TipoPaquete = TipoPaquete.S, CUIT = "20-22222222-2", DniAutorizadoRetirar = "12345678", Destino = "Agencia Flores" });
             fletero1.GuiasAsignadas.Add(new Guia { NumeroGuia = "GA003", Estado = EstadoEncomienda.PrimerIntentoDeEntrega, TipoPaquete = TipoPaquete.L, CUIT = "20-33333333-3", DniAutorizadoRetirar = "87654321", Destino = "Agencia Belgrano" });
 
             // Fletero 2
             var fletero2 = new Fletero { DNI = "35987654", Nombre = "Maria Lopez" };
-            fletero2.GuiasAsignadas.Add(new Guia { NumeroGuia = "GB004", Estado = EstadoEncomienda.EnCDDestino, TipoPaquete = TipoPaquete.XL, CUIT = "27-44444444-4", DniAutorizadoRetirar = "22345600", Destino = "Calle Falsa 123, Springfield" });
-            fletero2.GuiasAsignadas.Add(new Guia { NumeroGuia = "GB005", Estado = EstadoEncomienda.EnCDDestino, TipoPaquete = TipoPaquete.S, CUIT = "27-55555555-5", DniAutorizadoRetirar = "33345600", Destino = "Agencia Caballito" });
+            fletero2.GuiasAsignadas.Add(new Guia { NumeroGuia = "GB004", Estado = EstadoEncomienda.AdmitidoEnCDDestino, TipoPaquete = TipoPaquete.XL, CUIT = "27-44444444-4", DniAutorizadoRetirar = "22345600", Destino = "Calle Falsa 123, Springfield" });
+            fletero2.GuiasAsignadas.Add(new Guia { NumeroGuia = "GB005", Estado = EstadoEncomienda.AdmitidoEnCDDestino, TipoPaquete = TipoPaquete.S, CUIT = "27-55555555-5", DniAutorizadoRetirar = "33345600", Destino = "Agencia Caballito" });
 
             // Fletero 3 (solo tiene guías de admisión)
             var fletero3 = new Fletero { DNI = "40111222", Nombre = "Carlos Garcia" };
