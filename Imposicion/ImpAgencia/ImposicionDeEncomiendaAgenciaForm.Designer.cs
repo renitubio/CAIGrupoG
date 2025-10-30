@@ -36,10 +36,6 @@
             BuscarBttn = new Button();
             label1 = new Label();
             EncomiendaGpBox = new GroupBox();
-            GuiasGeneradasGpBox = new GroupBox();
-            button6 = new Button();
-            label11 = new Label();
-            GuíasGeneradasListView = new ListBox();
             EncomiendasListView = new ListView();
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
@@ -61,10 +57,14 @@
             label9 = new Label();
             label8 = new Label();
             label6 = new Label();
+            GuiasGeneradasGpBox = new GroupBox();
+            button6 = new Button();
+            label11 = new Label();
+            GuíasGeneradasListView = new ListBox();
             DatosClienteGpBox.SuspendLayout();
             EncomiendaGpBox.SuspendLayout();
-            GuiasGeneradasGpBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CantidadNum).BeginInit();
+            GuiasGeneradasGpBox.SuspendLayout();
             SuspendLayout();
             // 
             // ConfirmarBttn
@@ -168,49 +168,6 @@
             EncomiendaGpBox.Size = new Size(786, 757);
             EncomiendaGpBox.TabIndex = 33;
             EncomiendaGpBox.TabStop = false;
-            // 
-            // GuiasGeneradasGpBox
-            // 
-            GuiasGeneradasGpBox.Controls.Add(button6);
-            GuiasGeneradasGpBox.Controls.Add(label11);
-            GuiasGeneradasGpBox.Controls.Add(GuíasGeneradasListView);
-            GuiasGeneradasGpBox.Location = new Point(160, 188);
-            GuiasGeneradasGpBox.Margin = new Padding(4, 5, 4, 5);
-            GuiasGeneradasGpBox.Name = "GuiasGeneradasGpBox";
-            GuiasGeneradasGpBox.Padding = new Padding(4, 5, 4, 5);
-            GuiasGeneradasGpBox.Size = new Size(583, 613);
-            GuiasGeneradasGpBox.TabIndex = 38;
-            GuiasGeneradasGpBox.TabStop = false;
-            GuiasGeneradasGpBox.Text = "Guías de Encomiendas";
-            // 
-            // button6
-            // 
-            button6.Location = new Point(379, 530);
-            button6.Margin = new Padding(4, 3, 4, 3);
-            button6.Name = "button6";
-            button6.Size = new Size(146, 42);
-            button6.TabIndex = 32;
-            button6.Text = "Finalizar";
-            button6.UseVisualStyleBackColor = true;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(70, 48);
-            label11.Margin = new Padding(4, 0, 4, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(271, 25);
-            label11.TabIndex = 1;
-            label11.Text = "Numeros de tracking generados:";
-            // 
-            // GuíasGeneradasListView
-            // 
-            GuíasGeneradasListView.FormattingEnabled = true;
-            GuíasGeneradasListView.Location = new Point(56, 93);
-            GuíasGeneradasListView.Margin = new Padding(4, 5, 4, 5);
-            GuíasGeneradasListView.Name = "GuíasGeneradasListView";
-            GuíasGeneradasListView.Size = new Size(451, 404);
-            GuíasGeneradasListView.TabIndex = 0;
             // 
             // EncomiendasListView
             // 
@@ -402,6 +359,49 @@
             label6.TabIndex = 5;
             label6.Text = "Datos de la encomienda";
             // 
+            // GuiasGeneradasGpBox
+            // 
+            GuiasGeneradasGpBox.Controls.Add(button6);
+            GuiasGeneradasGpBox.Controls.Add(label11);
+            GuiasGeneradasGpBox.Controls.Add(GuíasGeneradasListView);
+            GuiasGeneradasGpBox.Location = new Point(811, 721);
+            GuiasGeneradasGpBox.Margin = new Padding(4, 5, 4, 5);
+            GuiasGeneradasGpBox.Name = "GuiasGeneradasGpBox";
+            GuiasGeneradasGpBox.Padding = new Padding(4, 5, 4, 5);
+            GuiasGeneradasGpBox.Size = new Size(583, 613);
+            GuiasGeneradasGpBox.TabIndex = 38;
+            GuiasGeneradasGpBox.TabStop = false;
+            GuiasGeneradasGpBox.Text = "Guías de Encomiendas";
+            // 
+            // button6
+            // 
+            button6.Location = new Point(379, 530);
+            button6.Margin = new Padding(4, 3, 4, 3);
+            button6.Name = "button6";
+            button6.Size = new Size(146, 42);
+            button6.TabIndex = 32;
+            button6.Text = "Finalizar";
+            button6.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(70, 48);
+            label11.Margin = new Padding(4, 0, 4, 0);
+            label11.Name = "label11";
+            label11.Size = new Size(271, 25);
+            label11.TabIndex = 1;
+            label11.Text = "Numeros de tracking generados:";
+            // 
+            // GuíasGeneradasListView
+            // 
+            GuíasGeneradasListView.FormattingEnabled = true;
+            GuíasGeneradasListView.Location = new Point(56, 93);
+            GuíasGeneradasListView.Margin = new Padding(4, 5, 4, 5);
+            GuíasGeneradasListView.Name = "GuíasGeneradasListView";
+            GuíasGeneradasListView.Size = new Size(451, 404);
+            GuíasGeneradasListView.TabIndex = 0;
+            // 
             // ImposicionDeEncomiendaAgenciaForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -417,9 +417,9 @@
             DatosClienteGpBox.PerformLayout();
             EncomiendaGpBox.ResumeLayout(false);
             EncomiendaGpBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)CantidadNum).EndInit();
             GuiasGeneradasGpBox.ResumeLayout(false);
             GuiasGeneradasGpBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)CantidadNum).EndInit();
             ResumeLayout(false);
         }
 

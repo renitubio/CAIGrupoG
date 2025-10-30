@@ -25,6 +25,7 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
         private static List<AgenciaCD> _agenciasCD = new List<AgenciaCD>
         {
             new AgenciaCD { Id = 101, Nombre = "CD Terminal Dellepiane", CiudadId = 1 },
+            new AgenciaCD { Id = 103, Nombre = "Agencia Palermo", CiudadId = 1 },
             new AgenciaCD { Id = 102, Nombre = "Agencia Microcentro", CiudadId = 1 },
             new AgenciaCD { Id = 201, Nombre = "CD Terminal Rosario", CiudadId = 2 },
             new AgenciaCD { Id = 301, Nombre = "CD Terminal Córdoba", CiudadId = 3 },
@@ -45,6 +46,12 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
         public List<Ciudad> ObtenerCiudades() => _ciudades;
         public List<TipoCaja> ObtenerTiposCaja() => _tiposCaja;
         public List<AgenciaCD> ObtenerAgenciasPorCiudad(int ciudadId) => _agenciasCD.Where(a => a.CiudadId == ciudadId).ToList();
+
+        // agregar un obtener CD por ciudad id
+        public List<AgenciaCD> ObtenerCDPorCiudad(int ciudadId)
+        {
+            return _agenciasCD.Where(a => a.CiudadId == ciudadId).ToList();
+        }
 
         /// <summary>
         /// Simula la generación de guías, una por cada caja.

@@ -39,6 +39,14 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
         public List<AgenciaCD> ObtenerAgenciasPorCiudad(int ciudadId) => _agenciasCD.Where(a => a.CiudadId == ciudadId).ToList();
 
+        // agregar un obtener CD por ciudad id
+        public List<AgenciaCD> ObtenerCDPorCiudad(int ciudadId)
+        {
+            return _agenciasCD.Where(a => a.CiudadId == ciudadId).ToList();
+        }
+
+
+
         //Simula la generación de guías para múltiples líneas
         public List<string> ConfirmarAdmision(int cantidadEncomiendas)
         {

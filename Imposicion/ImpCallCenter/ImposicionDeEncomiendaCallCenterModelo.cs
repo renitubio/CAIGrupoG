@@ -46,6 +46,13 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
         public List<TipoCaja> ObtenerTiposCaja() => _tiposCaja;
         public List<AgenciaCD> ObtenerAgenciasPorCiudad(int ciudadId) => _agenciasCD.Where(a => a.CiudadId == ciudadId).ToList();
 
+        // agregar un obtener CD por ciudad id
+        public List<AgenciaCD> ObtenerCDPorCiudad(int ciudadId)
+        {
+            return _agenciasCD.Where(a => a.CiudadId == ciudadId).ToList();
+        }
+
+
         /// Simula la generación de guías, una por cada caja.
 
         public List<string> ConfirmarImposicion(int cantidadTotalCajas, string codigoDestino)
