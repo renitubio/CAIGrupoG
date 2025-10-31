@@ -25,6 +25,8 @@ namespace CAIGrupoG
             ApplicationConfiguration.Initialize();
             Application.Run(new RendicionFleteroForm());
 
+            //GUARDO POR CADA ALMACEN
+
             ClienteAlmacen.Grabar();
 
         }
