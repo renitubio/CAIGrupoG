@@ -8,5 +8,8 @@ namespace CAIGrupoG.Almacenes
 {
     internal class EmpresaTransporteEntidad
     {
+        public string CUITEmpresaTransporte { get; set; }
+
+        public string RazonSocial { get; set; }
     }
 }

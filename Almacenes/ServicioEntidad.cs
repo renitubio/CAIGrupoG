@@ -8,5 +8,19 @@ namespace CAIGrupoG.Almacenes
 {
     internal class ServicioEntidad
     {
+        public int ServicioID { get; set; }
+
+        public string Patente { get; set; }
+
+        public string CUITEmpresaTransporte { get; set; }
+
+        public int CDOrigen { get; set; }
+
+        public int CDDestingo { get; set; }
+
+        public DateTime FechaHoraSalida { get; set; }
+
+        public DateTime FechaHoraLlegada { get; set; }
+
     }
 }

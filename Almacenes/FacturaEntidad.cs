@@ -8,9 +8,11 @@ namespace CAIGrupoG.Almacenes
 {
     internal class FacturaEntidad
     {
-        int NumeroFactura { get; set; }
-        decimal Monto { get; set; }
-        DateOnly FechaEmision { get; set; }
-    
+        public int NumeroFactura { get; set; }
+        public decimal Monto { get; set; }
+        public DateOnly FechaEmision { get; set; }
+
+        public string ClienteCUIT { get; set; }
+
     }
 }

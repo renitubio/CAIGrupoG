@@ -9,8 +9,8 @@ namespace CAIGrupoG.Almacenes
     internal class Tarifario
     {
         public TipoPaqueteEnum TipoPaquete { get; set; }
-        int CDOrigen { get; set; }
-        int CDDestino { get; set; }
-        decimal Precio { get; set; }
+        public int CDOrigen { get; set; }
+        public int CDDestino { get; set; }
+        public decimal Precio { get; set; }
     }
 }

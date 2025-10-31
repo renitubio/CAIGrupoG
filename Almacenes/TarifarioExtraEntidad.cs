@@ -9,6 +9,6 @@ namespace CAIGrupoG.Almacenes
     internal class TarifarioExtraEntidad
     {
         public TipoExtraEnum Tipo { get; set; }
-        decimal Precio { get; set; }
+        public decimal Precio { get; set; }
     }
 }

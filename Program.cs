@@ -28,6 +28,9 @@ namespace CAIGrupoG
             //GUARDO POR CADA ALMACEN
 
             ClienteAlmacen.Grabar();
+            GuiaAlmacen.Grabar();
+            HojaDeRutaAlmacen.Grabar();
+
 
         }
     }
