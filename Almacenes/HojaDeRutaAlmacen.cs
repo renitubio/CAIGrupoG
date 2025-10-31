@@ -20,7 +20,7 @@ namespace CAIGrupoG.Almacenes
             hojasDeRuta.Add(hojaDeRuta);
         }
 
-        public static void Borrar(string HDR_ID)
+        public static void Borrar(int HDR_ID)
         {
             hojasDeRuta.RemoveAll(h => h.HDR_ID == HDR_ID); 
         }
