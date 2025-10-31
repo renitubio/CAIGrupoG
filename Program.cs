@@ -8,6 +8,7 @@ using CAIGrupoG.ConsultaTracking;
 using CAIGrupoG.ResultadoCostosVSVentas;
 using CAIGrupoG.Imposicion.ImpCallCenter;
 using CAIGrupoG.Imposicion.ImpAgencia;
+using CAIGrupoG.Almacenes;
 
 namespace CAIGrupoG
 {
@@ -23,6 +24,9 @@ namespace CAIGrupoG
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new RendicionFleteroForm());
+
+            ClienteAlmacen.Grabar();
+
         }
     }
 }
