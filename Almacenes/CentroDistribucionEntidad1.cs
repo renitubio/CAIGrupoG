@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Almacenes
 {
-    internal class CentroDistribucionEntidad1
+    internal class CentroDistribucionEntidad
     {
+
     }
 }

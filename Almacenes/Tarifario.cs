@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Almacenes
 {
-    internal class TarifarioExtraEntidad
+    internal class Tarifario
     {
-        public TipoExtraEnum Tipo { get; set; }
+        public TipoPaqueteEnum TipoPaquete { get; set; }
+        int CDOrigen { get; set; }
+        int CDDestino { get; set; }
         decimal Precio { get; set; }
     }
 }

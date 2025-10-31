@@ -6,11 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Almacenes
 {
-    internal class FacturaEntidad
+    internal class TipoExtraEnum
     {
-        int NumeroFactura { get; set; }
-        decimal Monto { get; set; }
-        DateOnly FechaEmision { get; set; }
-    
     }
 }
