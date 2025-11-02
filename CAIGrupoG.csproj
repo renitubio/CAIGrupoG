@@ -9,6 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Datos\EmpresasTransporte.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Datos\Egresos.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
