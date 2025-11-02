@@ -29,7 +29,7 @@ namespace CAIGrupoG.Almacenes
         {
             if(File.Exists(@"Datos\Clientes.json"))
             {
-                var clienteJson = File.ReadAllText(@"Datos\Clientes.json")
+                var clienteJson = File.ReadAllText(@"Datos\Clientes.json");
                 clientes = System.Text.Json.JsonSerializer.Deserialize<List<ClienteEntidad>>(clienteJson) ?? new List<ClienteEntidad>();
             }
         }
