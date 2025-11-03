@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Almacenes
 {
-    internal class TipoExtraEnum
+   public enum TipoExtraEnum
     {
+        RetiroDomicilio = 1,
+        EntregaAgencia = 2,
+        EntregaDomicilio = 3
     }
 }

@@ -8,6 +8,8 @@ namespace CAIGrupoG.Almacenes
 {
     internal class CentroDistribucionEntidad
     {
+        public int CD_ID { get; set; }
 
+        public string Nombre {  get; set; }
     }
 }

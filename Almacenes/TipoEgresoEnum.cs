@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Almacenes
 {
-    internal class TipoEgresoEnum
+    public enum TipoEgresoEnum
     {
+        ComisionAgencia = 1,
+        Arrendamiento = 2,
+        ComisionFlete = 3
     }
 }

@@ -10,7 +10,9 @@ namespace CAIGrupoG.Almacenes
     {
         public string NumeroGuia { get; set; }
 
-        //FALTAN LOS 2 ENUM
+        public TipoPaqueteEnum TipoPaquete { get; set; }
+
+        public EstadoEncomiendaEnum Estado { get; set; }
         public int CDDestinoID { get; set; }
         
         public string ClienteCUIT { get; set; }

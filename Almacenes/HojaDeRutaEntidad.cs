@@ -17,7 +17,7 @@ namespace CAIGrupoG.Almacenes
 
         public string FleteroDNI { get; set; }
 
-        //FALTA ENUM
+        public TipoHDREnum Tipo { get; set; }
 
         public bool Completada { get; set; }
 

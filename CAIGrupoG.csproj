@@ -27,6 +27,9 @@
     <Compile Include="Datos\Guias.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="Datos\TarifariosExtra.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Datos\HojasDeRuta.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>

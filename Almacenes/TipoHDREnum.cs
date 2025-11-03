@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Almacenes
 {
-    internal class TipoHDREnum
+    public enum TipoHDREnum
     {
+        Retiro = 1,
+        Transporte = 2,
+        Distribucion = 3
     }
 }

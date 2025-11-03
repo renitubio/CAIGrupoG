@@ -16,7 +16,7 @@ namespace CAIGrupoG.Almacenes
 
         public int NumeroFactura { get; set; }
 
-        //FALTA ENUM
+        public TipoEgresoEnum TipoEgreso { get; set; }
         public int AgenciaID { get; set; }
 
         public string FleteroDNI { get; set; }

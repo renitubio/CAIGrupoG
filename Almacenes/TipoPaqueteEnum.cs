@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Almacenes
 {
-    internal class TipoPaqueteEnum
+    public enum TipoPaqueteEnum
     {
+        S = 1,
+        M = 2,
+        L = 3,
+        XL = 4,
     }
 }
