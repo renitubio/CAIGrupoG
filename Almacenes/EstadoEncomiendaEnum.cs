@@ -15,10 +15,12 @@ namespace CAIGrupoG.Almacenes
         PendienteDeRetiroEnAgencia = 5,
         AdmitidoCDOrigen = 6,
         EnTransito = 7,
-        DistribucionUltimaMillaDomicilio = 8,
-        DistribucionUltimaMillaAgencia = 9,
-        PrimerIntentoDeEntrega = 10,
-        Rechazado = 11,
-        Entregado = 12,
+        AdmitidoCDDestino = 8,
+        DistribucionUltimaMillaDomicilio = 9,
+        DistribucionUltimaMillaAgencia = 10,
+        PrimerIntentoDeEntrega = 11,
+        Rechazado = 12,
+        Entregado = 13
+
     }
 }

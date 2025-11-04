@@ -91,13 +91,18 @@ namespace CAIGrupoG.Playero
 
         public void ConfirmarOperacion(List<GuiaEntidad> cargas, List<GuiaEntidad> descargas)
         {
+            // 1) Actualizar estados según regla:
+            //    AdmitidoCDOrigen -> EnTransito
+            //    EnTransito -> AdmitidoCDDestino
             if (cargas != null)
             {
                 foreach (var guia in cargas)
                 {
                     var guiaOriginal = GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == guia.NumeroGuia);
-                    if (guiaOriginal != null)
-                        guiaOriginal.Estado = EstadoEncomiendaEnum.EnCaminoARetirarAgencia;
+                    if (guiaOriginal != null && guiaOriginal.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen)
+                    {
+                        guiaOriginal.Estado = EstadoEncomiendaEnum.EnTransito;
+                    }
                 }
             }
 
@@ -106,12 +111,78 @@ namespace CAIGrupoG.Playero
                 foreach (var guia in descargas)
                 {
                     var guiaOriginal = GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == guia.NumeroGuia);
-                    if (guiaOriginal != null)
-                        guiaOriginal.Estado = EstadoEncomiendaEnum.EnTransito;
+                    if (guiaOriginal != null && guiaOriginal.Estado == EstadoEncomiendaEnum.EnTransito)
+                    {
+                        guiaOriginal.Estado = EstadoEncomiendaEnum.AdmitidoCDDestino;
+                    }
                 }
             }
 
+            // 2) Crear hojas de ruta (HDR) para entregas agrupadas por destino:
+            // Recolectar todas las guías procesadas (de cargas y descargas) y filtrar las que requieran entrega
+            var procesadas = new List<GuiaEntidad>();
+            if (cargas != null) procesadas.AddRange(cargas);
+            if (descargas != null) procesadas.AddRange(descargas);
+
+            // Calcular siguiente HDR_ID
+            int siguienteHDRID = 1;
+            if (HojaDeRutaAlmacen.HojasDeRuta != null && HojaDeRutaAlmacen.HojasDeRuta.Any())
+            {
+                try
+                {
+                    siguienteHDRID = HojaDeRutaAlmacen.HojasDeRuta.Max(h => h.HDR_ID) + 1;
+                }
+                catch
+                {
+                    siguienteHDRID = 1;
+                }
+            }
+
+            // Agrupar por AgenciaDestinoID para entregas en agencia
+            var entregasAgencia = procesadas
+                .Where(g => g != null && g.EntregaGuíaAgencia)
+                .GroupBy(g => g.AgenciaDestinoID);
+
+            foreach (var grupo in entregasAgencia)
+            {
+                var hoja = new HojaDeRutaEntidad
+                {
+                    HDR_ID = siguienteHDRID++,
+                    ServicioID = 0, // no hay contexto de servicio en este método
+                    FechaCreacion = DateTime.Now,
+                    FleteroDNI = string.Empty,
+                    Tipo = TipoHDREnum.Distribucion,
+                    Completada = false,
+                    guias = grupo.Select(g => GuiaAlmacen.Guias.FirstOrDefault(x => x.NumeroGuia == g.NumeroGuia)).Where(x => x != null).ToList()
+                };
+
+                HojaDeRutaAlmacen.Nuevo(hoja);
+            }
+
+            // Agrupar por DomicilioDestino para entregas a domicilio
+            var entregasDomicilio = procesadas
+                .Where(g => g != null && g.EntregaDomicilio && !string.IsNullOrWhiteSpace(g.DomicilioDestino))
+                .GroupBy(g => g.DomicilioDestino.Trim(), StringComparer.OrdinalIgnoreCase);
+
+            foreach (var grupo in entregasDomicilio)
+            {
+                var hoja = new HojaDeRutaEntidad
+                {
+                    HDR_ID = siguienteHDRID++,
+                    ServicioID = 0,
+                    FechaCreacion = DateTime.Now,
+                    FleteroDNI = string.Empty,
+                    Tipo = TipoHDREnum.Distribucion,
+                    Completada = false,
+                    guias = grupo.Select(g => GuiaAlmacen.Guias.FirstOrDefault(x => x.NumeroGuia == g.NumeroGuia)).Where(x => x != null).ToList()
+                };
+
+                HojaDeRutaAlmacen.Nuevo(hoja);
+            }
+
+            // 3) Persistir cambios
             GuiaAlmacen.Grabar();
+            HojaDeRutaAlmacen.Grabar();
         }
     }
 }

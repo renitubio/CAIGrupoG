@@ -54,13 +54,6 @@ namespace CAIGrupoG.Playero
             string patente = PatenteTxt.Text.Trim();
             var resultado = modelo.BuscarGuiasPorPatente(patente);
 
-            // Validar si hay guías para procesar
-            if ((resultado.Cargas == null || !resultado.Cargas.Any()) &&
-                (resultado.Descargas == null || !resultado.Descargas.Any()))
-            {
-                MessageBox.Show("No hay guías para procesar. Por favor, busque una patente primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
             // Llamar al modelo para confirmar la operación
             modelo.ConfirmarOperacion(resultado.Cargas, resultado.Descargas);
@@ -92,18 +85,19 @@ namespace CAIGrupoG.Playero
         {
             listView.Items.Clear(); // Limpiar items previos
 
-            if (guias == null) return;
+            if (guias == null || guias.Count == 0) return;
 
             foreach (var guia in guias)
             {
                 var row = new string[]
                 {
-                    guia.NumeroGuia,
+                    guia.NumeroGuia ?? string.Empty,
                     guia.TipoPaquete.ToString(),
-                    guia.CUIT,
-                    guia.CDOrigen,
-                    guia.CDDestino
+                    guia.ClienteCUIT ?? string.Empty,
+                    guia.CDOrigenID.ToString(),
+                    guia.CDDestinoID.ToString()
                 };
+
                 var item = new ListViewItem(row);
                 listView.Items.Add(item);
             }

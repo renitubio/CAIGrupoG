@@ -9,36 +9,36 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Datos\EmpresasTransporte.json">
+    <None Include="Datos\EmpresasTransporte.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Datos\Egresos.json">
+    </None>
+    <None Include="Datos\Egresos.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Datos\Fleteros.json">
+    </None>
+    <None Include="Datos\Fleteros.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Datos\Agencias.json">
+    </None>
+    <None Include="Datos\Agencias.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Datos\CentrosDeDistribucion.json">
+    </None>
+    <None Include="Datos\CentrosDeDistribucion.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Datos\Guias.json">
+    </None>
+    <None Include="Datos\Guias.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Datos\TarifariosExtra.json">
+    </None>
+    <None Include="Datos\TarifariosExtra.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Datos\HojasDeRuta.json">
+    </None>
+    <None Include="Datos\HojasDeRuta.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Datos\Ciudades.json">
+    </None>
+    <None Include="Datos\Ciudades.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Datos\Clientes.json">
+    </None>
+    <None Include="Datos\Clientes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
