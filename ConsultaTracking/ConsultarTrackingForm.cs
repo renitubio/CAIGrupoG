@@ -35,12 +35,10 @@ namespace CAIGrupoG.ConsultaTracking
             }
 
             // Llamada al modelo para buscar la guía
-            var estadoGuia = modelo.BuscarGuia(numeroGuia);
-
-            if (estadoGuia != null)
+            var guia = modelo.BuscarGuia(numeroGuia); // Cambia la firma para devolver GuiaEntidad
+            if (guia != null)
             {
-                // Si se encontró, mostramos el estado formateado
-                EstadoText.Text = modelo.ObtenerDescripcionEstado(estadoGuia);
+                EstadoText.Text = modelo.ObtenerDescripcionEstado(guia);
             }
             else
             {

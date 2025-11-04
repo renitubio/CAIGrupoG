@@ -19,11 +19,16 @@ namespace CAIGrupoG.ConsultaTracking
         }
 
 
-        /// Devuelve el estado de la guía identificada por su número en el almacén.
-        public EstadoEncomiendaEnum? BuscarGuia(string numeroGuia)
+        public GuiaEntidad BuscarGuia(string numeroGuia)
+        {
+            return GuiaAlmacen.FirstOrDefault(g => g.NumeroGuia == numeroGuia);
+        }
+
+        /// Devuelve la descripción en texto del estado de la guía identificada por su número en el almacén.
+        public string BuscarEstadoGuia(string numeroGuia)
         {
             var guia = GuiaAlmacen.FirstOrDefault(g => g.NumeroGuia.Equals(numeroGuia, StringComparison.OrdinalIgnoreCase));
-            return guia?.Estado;
+            return ObtenerDescripcionEstado(guia);
         }
 
         public string ObtenerDescripcionEstado(GuiaEntidad guia)
