@@ -9,7 +9,7 @@ namespace CAIGrupoG.Almacenes
     static class ServicioAlmacen
     {
 
-        static List<ServicioEntidad> servicios = new List<ServicioEntidad>();
+        public static List<ServicioEntidad> servicios;
 
         static ServicioAlmacen()
         {

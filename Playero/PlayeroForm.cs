@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CAIGrupoG.Almacenes;
 
 namespace CAIGrupoG.Playero
 {
@@ -87,7 +88,7 @@ namespace CAIGrupoG.Playero
         /// <summary>
         /// Rellena un control ListView con una lista de guías.
         /// </summary>
-        private void PoblarListView(ListView listView, List<Guia> guias)
+        private void PoblarListView(ListView listView, List<GuiaEntidad> guias)
         {
             listView.Items.Clear(); // Limpiar items previos
 

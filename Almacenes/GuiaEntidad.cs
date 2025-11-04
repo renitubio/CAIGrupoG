@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Almacenes
 {
-    internal class GuiaEntidad
+    public class GuiaEntidad
     {
         public string NumeroGuia { get; set; }
 

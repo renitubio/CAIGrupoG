@@ -1,92 +1,117 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CAIGrupoG.Almacenes;
 
 namespace CAIGrupoG.Playero
 {
     public class PlayeroModelo
     {
-        // Lista interna para almacenar los datos de los vehículos y sus guías.
-        private readonly List<Vehiculo> _vehiculos;
-
-        // Definimos cuál es nuestro Centro de Distribución (CD) actual.
         private const string NuestroCD = "CD01";
 
         public PlayeroModelo()
         {
-            // Inicializamos y cargamos los datos ficticios al crear el modelo.
-            _vehiculos = new List<Vehiculo>();
-            CargarDatosFicticios();
         }
 
-        /// Busca un vehículo por su patente y clasifica sus guías en Carga y Descarga.
-        /// /// <param name="patente">La patente del vehículo a buscar.</param>
-        /// <returns>Una tupla con dos listas: guías para cargar y guías para descargar.</returns>
-        public (List<Guia> Cargas, List<Guia> Descargas) BuscarGuiasPorPatente(string patente)
+        public (List<GuiaEntidad> Cargas, List<GuiaEntidad> Descargas) BuscarGuiasPorPatente(string patente)
         {
-            var vehiculo = _vehiculos.FirstOrDefault(v => v.Patente.Equals(patente, StringComparison.OrdinalIgnoreCase));
+            var cargas = new List<GuiaEntidad>();
+            var descargas = new List<GuiaEntidad>();
 
-            var guiasCarga = new List<Guia>();
-            var guiasDescarga = new List<Guia>();
+            if (string.IsNullOrWhiteSpace(patente))
+                return (cargas, descargas);
 
-            if (vehiculo != null)
+            // Usar el almacen ya cargado en memoria
+            var servicios = ServicioAlmacen.servicios
+                .Where(s => string.Equals(s.Patente?.Trim(), patente.Trim(), StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (!servicios.Any())
+                return (cargas, descargas);
+
+            var nuestroCentro = CentroDistribucionAlmacen.CentrosDistribucion.FirstOrDefault(c => c.Nombre == NuestroCD);
+            if (nuestroCentro == null)
+                return (cargas, descargas);
+
+            int nuestroCDId = nuestroCentro.CD_ID;
+
+            DateTime now = DateTime.Now;
+            ServicioEntidad servicioSeleccionado = null;
+            double mejorDiferenciaSegundos = double.MaxValue;
+
+            foreach (var servicio in servicios)
             {
-                // Guías de Carga: son las que tienen nuestro CD como origen.
-                guiasCarga = vehiculo.GuiasAsignadas
-                    .Where(g => g.CDOrigen == NuestroCD && g.Estado == EstadoGuia.AdmitidoCDOrigen)
-                    .ToList();
+                DateTime referencia;
+                if (servicio.CDOrigen == nuestroCDId)
+                    referencia = servicio.FechaHoraSalida;
+                else if (servicio.CDDestingo == nuestroCDId)
+                    referencia = servicio.FechaHoraLlegada;
+                else
+                    continue;
 
-                // Guías de Descarga: son las que tienen nuestro CD como destino.
-                guiasDescarga = vehiculo.GuiasAsignadas
-                    .Where(g => g.CDDestino == NuestroCD && g.Estado == EstadoGuia.EnTransito)
-                    .ToList();
+                double diff = Math.Abs((referencia - now).TotalSeconds);
+                if (diff < mejorDiferenciaSegundos)
+                {
+                    mejorDiferenciaSegundos = diff;
+                    servicioSeleccionado = servicio;
+                }
             }
 
-            return (guiasCarga, guiasDescarga);
+            if (servicioSeleccionado == null)
+                return (cargas, descargas);
+
+            var hojas = HojaDeRutaAlmacen.HojasDeRuta.Where(h => h.ServicioID == servicioSeleccionado.ServicioID);
+            if (hojas == null || !hojas.Any())
+                return (cargas, descargas);
+
+            foreach (var hoja in hojas)
+            {
+                var guiasHDR = hoja.guias;
+                if (guiasHDR == null) continue;
+
+                foreach (var guiaInHDR in guiasHDR)
+                {
+                    if (string.IsNullOrWhiteSpace(guiaInHDR.NumeroGuia)) continue;
+
+                    var guiaOriginal = GuiaAlmacen.Guias.FirstOrDefault(g => string.Equals(g.NumeroGuia?.Trim(), guiaInHDR.NumeroGuia.Trim(), StringComparison.OrdinalIgnoreCase));
+                    if (guiaOriginal == null) continue;
+
+                    if (guiaOriginal.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen)
+                        cargas.Add(guiaOriginal);
+                    else if (guiaOriginal.Estado == EstadoEncomiendaEnum.EnTransito)
+                        descargas.Add(guiaOriginal);
+                }
+            }
+
+            return (cargas, descargas);
         }
 
-        /// Cambia el estado de las guías procesadas.
-        /// <param name="cargas">Lista de guías que se cargaron.</param>
-        /// <param name="descargas">Lista de guías que se descargaron.</param>
-        public void ConfirmarOperacion(List<Guia> cargas, List<Guia> descargas)
+        public void ConfirmarOperacion(List<GuiaEntidad> cargas, List<GuiaEntidad> descargas)
         {
-            // A las guías cargadas se les cambia el estado a "En Tránsito".
-            foreach (var guia in cargas)
+            if (cargas != null)
             {
-                guia.Estado = EstadoGuia.EnTransito;
+                foreach (var guia in cargas)
+                {
+                    var guiaOriginal = GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == guia.NumeroGuia);
+                    if (guiaOriginal != null)
+                        guiaOriginal.Estado = EstadoEncomiendaEnum.EnCaminoARetirarAgencia;
+                }
             }
 
-            // A las guías descargadas se les cambia el estado a "AdmitidoCDDestino".
-            foreach (var guia in descargas)
+            if (descargas != null)
             {
-                guia.Estado = EstadoGuia.AdmitidoCDDestino;
+                foreach (var guia in descargas)
+                {
+                    var guiaOriginal = GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == guia.NumeroGuia);
+                    if (guiaOriginal != null)
+                        guiaOriginal.Estado = EstadoEncomiendaEnum.EnTransito;
+                }
             }
-        }
 
-        /// Método privado para generar y cargar los datos de prueba.
-        private void CargarDatosFicticios()
-        {
-            // Vehículo 1
-            var vehiculo1 = new Vehiculo { Patente = "AA123BC" };
-            vehiculo1.GuiasAsignadas.Add(new Guia { NumeroGuia = "G001", TipoPaquete = TipoPaquete.S, CUIT = "30-11111111-1", CDOrigen = NuestroCD, CDDestino = "CD02", Estado = EstadoGuia.AdmitidoCDOrigen });
-            vehiculo1.GuiasAsignadas.Add(new Guia { NumeroGuia = "G002", TipoPaquete = TipoPaquete.M, CUIT = "30-22222222-2", CDOrigen = NuestroCD, CDDestino = "CD03", Estado = EstadoGuia.AdmitidoCDOrigen });
-            vehiculo1.GuiasAsignadas.Add(new Guia { NumeroGuia = "G003", TipoPaquete = TipoPaquete.L, CUIT = "30-33333333-3", CDOrigen = "CD04", CDDestino = NuestroCD, Estado = EstadoGuia.EnTransito });
-
-            // Vehículo 2
-            var vehiculo2 = new Vehiculo { Patente = "AD456FE" };
-            vehiculo2.GuiasAsignadas.Add(new Guia { NumeroGuia = "G004", TipoPaquete = TipoPaquete.XL, CUIT = "30-44444444-4", CDOrigen = "CD05", CDDestino = NuestroCD, Estado = EstadoGuia.EnTransito });
-            vehiculo2.GuiasAsignadas.Add(new Guia { NumeroGuia = "G005", TipoPaquete = TipoPaquete.S, CUIT = "30-55555555-5", CDOrigen = "CD02", CDDestino = NuestroCD, Estado = EstadoGuia.EnTransito });
-
-            // Vehículo 3
-            var vehiculo3 = new Vehiculo { Patente = "AE789GH" };
-            vehiculo3.GuiasAsignadas.Add(new Guia { NumeroGuia = "G006", TipoPaquete = TipoPaquete.M, CUIT = "30-66666666-6", CDOrigen = NuestroCD, CDDestino = "CD05", Estado = EstadoGuia.AdmitidoCDOrigen });
-            vehiculo3.GuiasAsignadas.Add(new Guia { NumeroGuia = "G007", TipoPaquete = TipoPaquete.L, CUIT = "30-77777777-7", CDOrigen = NuestroCD, CDDestino = "CD04", Estado = EstadoGuia.AdmitidoCDOrigen });
-
-            _vehiculos.Add(vehiculo1);
-            _vehiculos.Add(vehiculo2);
-            _vehiculos.Add(vehiculo3);
+            GuiaAlmacen.Grabar();
         }
     }
 }
