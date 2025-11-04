@@ -1,120 +1,120 @@
 ﻿[
- {
-  "ClienteCUIT": "30-70123456-5",
-  "Direccion": "Av. Corrientes 1234, CABA",
-  "RazonSocial": "Tech Soluciones S.A.",
-  "CDOrigen": 1,
-  "Tarifas": [
-   {
-    "TipoPaquete": "Sobre",
+  {
+    "ClienteCUIT": "30-70123456-5",
+    "Direccion": "Av. Corrientes 1234, CABA",
+    "RazonSocial": "Tech Soluciones S.A.",
     "CDOrigen": 1,
-    "CDDestino": 101,
-    "Precio": 550.00
-   },
-   {
-    "TipoPaquete": "CajaPequeña",
-    "CDOrigen": 1,
-    "CDDestino": 101,
-    "Precio": 1500.50
-   },
-   {
-    "TipoPaquete": "CajaMediana",
-    "CDOrigen": 1,
-    "CDDestino": 102,
-    "Precio": 2200.00
-   }
-  ]
- },
- {
-  "ClienteCUIT": "20-12345678-9",
-  "Direccion": "San Martin 500, Rosario, Santa Fe",
-  "RazonSocial": "Logística del Litoral SRL",
-  "CDOrigen": 2,
-  "Tarifas": [
-   {
-    "TipoPaquete": "CajaPequeña",
+    "Tarifas": [
+      {
+        "TipoPaquete": "Sobre",
+        "CDOrigen": 1,
+        "CDDestino": 101,
+        "Precio": 550.00
+      },
+      {
+        "TipoPaquete": "CajaPequeña",
+        "CDOrigen": 1,
+        "CDDestino": 101,
+        "Precio": 1500.50
+      },
+      {
+        "TipoPaquete": "CajaMediana",
+        "CDOrigen": 1,
+        "CDDestino": 102,
+        "Precio": 2200.00
+      }
+    ]
+  },
+  {
+    "ClienteCUIT": "20-12345678-9",
+    "Direccion": "San Martin 500, Rosario, Santa Fe",
+    "RazonSocial": "Logística del Litoral SRL",
     "CDOrigen": 2,
-    "CDDestino": 201,
-    "Precio": 1800.75
-   },
-   {
-    "TipoPaquete": "CajaMediana",
-    "CDOrigen": 2,
-    "CDDestino": 201,
-    "Precio": 2500.00
-   },
-   {
-    "TipoPaquete": "CajaGrande",
-    "CDOrigen": 2,
-    "CDDestino": 101,
-    "Precio": 3000.00
-   }
-  ]
- },
- {
-  "ClienteCUIT": "33-65432109-7",
-  "Direccion": "Av. Colón 800, Córdoba",
-  "RazonSocial": "Comercial del Centro S.R.L.",
-  "CDOrigen": 3,
-  "Tarifas": [
-   {
-    "TipoPaquete": "Sobre",
+    "Tarifas": [
+      {
+        "TipoPaquete": "CajaPequeña",
+        "CDOrigen": 2,
+        "CDDestino": 201,
+        "Precio": 1800.75
+      },
+      {
+        "TipoPaquete": "CajaMediana",
+        "CDOrigen": 2,
+        "CDDestino": 201,
+        "Precio": 2500.00
+      },
+      {
+        "TipoPaquete": "CajaGrande",
+        "CDOrigen": 2,
+        "CDDestino": 101,
+        "Precio": 3000.00
+      }
+    ]
+  },
+  {
+    "ClienteCUIT": "33-65432109-7",
+    "Direccion": "Av. Colón 800, Córdoba",
+    "RazonSocial": "Comercial del Centro S.R.L.",
     "CDOrigen": 3,
-    "CDDestino": 301,
-    "Precio": 400.00
-   },
-   {
-    "TipoPaquete": "CajaMediana",
-    "CDOrigen": 3,
-    "CDDestino": 302,
-    "Precio": 1900.50
-   }
-  ]
- },
- {
-  "ClienteCUIT": "27-22334455-1",
-  "Direccion": "9 de Julio 100, Mendoza",
-  "RazonSocial": "Distribuidora Cuyo S.A.",
-  "CDOrigen": 4,
-  "Tarifas": [
-   {
-    "TipoPaquete": "CajaGrande",
+    "Tarifas": [
+      {
+        "TipoPaquete": "Sobre",
+        "CDOrigen": 3,
+        "CDDestino": 301,
+        "Precio": 400.00
+      },
+      {
+        "TipoPaquete": "CajaMediana",
+        "CDOrigen": 3,
+        "CDDestino": 302,
+        "Precio": 1900.50
+      }
+    ]
+  },
+  {
+    "ClienteCUIT": "27-22334455-1",
+    "Direccion": "9 de Julio 100, Mendoza",
+    "RazonSocial": "Distribuidora Cuyo S.A.",
     "CDOrigen": 4,
-    "CDDestino": 401,
-    "Precio": 2800.00
-   },
-   {
-    "TipoPaquete": "CajaPequeña",
-    "CDOrigen": 4,
-    "CDDestino": 101,
-    "Precio": 1950.00
-   }
-  ]
- },
- {
-  "ClienteCUIT": "30-98765432-1",
-  "Direccion": "Rivadavia 2020, Salta",
-  "RazonSocial": "Norte Envíos",
-  "CDOrigen": 5,
-  "Tarifas": [
-   {
-    "TipoPaquete": "CajaMediana",
+    "Tarifas": [
+      {
+        "TipoPaquete": "CajaGrande",
+        "CDOrigen": 4,
+        "CDDestino": 401,
+        "Precio": 2800.00
+      },
+      {
+        "TipoPaquete": "CajaPequeña",
+        "CDOrigen": 4,
+        "CDDestino": 101,
+        "Precio": 1950.00
+      }
+    ]
+  },
+  {
+    "ClienteCUIT": "30-98765432-1",
+    "Direccion": "Rivadavia 2020, Salta",
+    "RazonSocial": "Norte Envíos",
     "CDOrigen": 5,
-    "CDDestino": 501,
-    "Precio": 3500.00
-   },
-   {
-    "TipoPaquete": "CajaGrande",
-    "CDOrigen": 5,
-    "CDDestino": 101,
-    "Precio": 4200.00
-   },
-   {
-    "TipoPaquete": "CajaGrande",
-    "CDOrigen": 5,
-    "CDDestino": 301,
-    "Precio": 3900.00
-   }
-  ]
- }
+    "Tarifas": [
+      {
+        "TipoPaquete": "CajaMediana",
+        "CDOrigen": 5,
+        "CDDestino": 501,
+        "Precio": 3500.00
+      },
+      {
+        "TipoPaquete": "CajaGrande",
+        "CDOrigen": 5,
+        "CDDestino": 101,
+        "Precio": 4200.00
+      },
+      {
+        "TipoPaquete": "CajaGrande",
+        "CDOrigen": 5,
+        "CDDestino": 301,
+        "Precio": 3900.00
+      }
+    ]
+  }
 ]
