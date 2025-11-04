@@ -21,6 +21,5 @@ namespace CAIGrupoG.Almacenes
         PrimerIntentoDeEntrega = 11,
         Rechazado = 12,
         Entregado = 13
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CAIGrupoG.Almacenes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,12 +35,12 @@ namespace CAIGrupoG.ConsultaTracking
             }
 
             // Llamada al modelo para buscar la guía
-            var guiaEncontrada = modelo.BuscarGuia(numeroGuia);
+            var estadoGuia = modelo.BuscarGuia(numeroGuia);
 
-            if (guiaEncontrada != null)
+            if (estadoGuia != null)
             {
                 // Si se encontró, mostramos el estado formateado
-                EstadoText.Text = FormatearEstado(guiaEncontrada.Estado);
+                EstadoText.Text = modelo.ObtenerDescripcionEstado(estadoGuia);
             }
             else
             {
@@ -62,27 +63,6 @@ namespace CAIGrupoG.ConsultaTracking
             EstadoText.Clear();
             GuiaText.Focus();
         }
-            
-        /// Convierte un valor del enum EstadoGuia a un string más legible para el usuario.
-        private string FormatearEstado(EstadoGuia estado)
-        {
-            switch (estado)
-            {
-                case EstadoGuia.ImpuestoCallCenter: return "Impuesto Call Center";
-                case EstadoGuia.ImpuestoAgencia: return "Impuesto Agencia";
-                case EstadoGuia.EnCaminoARetirarDomicilio: return "En camino a retirar (Domicilio)";
-                case EstadoGuia.EnCaminoARetirarAgencia: return "En camino a retirar (Agencia)";
-                case EstadoGuia.AdmitidoEnCDOrigen: return "Admitido en CD Origen";
-                case EstadoGuia.EnTransito: return "En Tránsito";
-                case EstadoGuia.EnCDDestino: return "En CD Destino";
-                case EstadoGuia.DistribucionUltimaMillaDomicilio: return "En distribución a domicilio";
-                case EstadoGuia.PrimerIntentoEntrega: return "Primer intento de entrega";
-                case EstadoGuia.Rechazado: return "Rechazado";
-                case EstadoGuia.DistribucionUltimaMillaAgencia: return "En distribución a agencia";
-                case EstadoGuia.PendienteDeRetiroEnAgencia: return "Pendiente de retiro en agencia";
-                case EstadoGuia.Entregado: return "Entregado";
-                default: return estado.ToString();
-            }
-        }
+
     }
 }
