@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace CAIGrupoG.Imposicion.ImpAgencia
@@ -70,20 +71,28 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
 
         #region Métodos Solicitados (con Lógica de Linq)
 
-        /// <summary>
+
         /// Busca un cliente en la colección del Almacén usando Linq.
-        /// </summary>
+
         public Cliente BuscarCliente(string cuit)
         {
+            // El 'cuit' que viene del Formulario ya está limpio (ej: "20123456789")
+            // gracias a la validación de la UI.
+
             // Usamos Linq (FirstOrDefault) sobre la propiedad pública del Almacén
             var clienteEntidad = ClienteAlmacen.Clientes
-                                     .FirstOrDefault(c => c.ClienteCUIT == cuit);
+                                     .FirstOrDefault(c =>
+                                         // Normalizamos el CUIT del Almacén ANTES de comparar.
+                                         // Ej: "20-12345678-9" se convierte en "20123456789"
+                                         Regex.Replace(c.ClienteCUIT, "[^0-9]", "") == cuit
+                                     );
 
             if (clienteEntidad != null)
             {
                 _clienteActual = clienteEntidad;
                 return new Cliente // Mapeo a la clase que espera la UI
                 {
+                    // Devolvemos el CUIT que espera la UI, que puede ser el original
                     CUIT = clienteEntidad.ClienteCUIT,
                     RazonSocial = clienteEntidad.RazonSocial
                 };
@@ -92,7 +101,7 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
             return null;
         }
 
-        /// <summary>
+
         /// Obtiene las "Ciudades" (Centros de Distribución) desde el Almacén.
         /// </summary>
         public List<Ciudad> ObtenerCiudades()
@@ -151,9 +160,9 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                 }).ToList();
         }
 
-        /// <summary>
+
         /// Obtiene solo el CD de una ciudad, asumiendo que el ID de Agencia es igual al ID de Ciudad.
-        /// </summary>
+
         public List<AgenciaCD> ObtenerCDPorCiudad(int ciudadId)
         {
             // ASUMO: 'AgenciaAlmacen' tiene 'IReadOnlyCollection<AgenciaEntidad> Agencias'
@@ -167,9 +176,9 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                 }).ToList();
         }
 
-        /// <summary>
+
         /// Crea las Guías, las agrega al Almacén y persiste los cambios.
-        /// </summary>
+
         public List<string> ConfirmarImposicion(int cantidadTotalCajas, string codigoDestino)
         {
             if (_clienteActual == null)

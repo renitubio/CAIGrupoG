@@ -13,9 +13,9 @@ namespace CAIGrupoG.Almacenes
 
         static ServicioAlmacen()
         {
-            if (File.Exists("Servicios.json"))
+            if (File.Exists(@"Datos\Servicios.json"))
             {
-                var servicioJson = File.ReadAllText("Servicios.json");
+                var servicioJson = File.ReadAllText(@"Datos\Servicios.json");
                 servicios = System.Text.Json.JsonSerializer.Deserialize<List<ServicioEntidad>>(servicioJson) ?? new List<ServicioEntidad>();
             }
         }
@@ -24,7 +24,7 @@ namespace CAIGrupoG.Almacenes
         {
 
             var servicioJson = System.Text.Json.JsonSerializer.Serialize(servicios);
-            File.WriteAllText("Servicios.json", servicioJson);
+            File.WriteAllText(@"Datos\Servicios.json", servicioJson);
         }
     }
 }

@@ -46,7 +46,7 @@ namespace CAIGrupoG.Almacenes
         public static void Grabar()
         {
             var guiajson = JsonSerializer.Serialize(guias, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText("guias.json", guiajson);
+            File.WriteAllText(@"Datos\Guias.json", guiajson);
         }
     }
 }

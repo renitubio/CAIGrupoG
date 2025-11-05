@@ -27,9 +27,9 @@ namespace CAIGrupoG.Almacenes
 
         static HojaDeRutaAlmacen()
         {
-            if (File.Exists("HojaDeRuta.json"))
+            if (File.Exists(@"Datos\HojaDeRuta.json"))
             {
-                var HojaDeRutajson = File.ReadAllText("HojaDeRuta.json");
+                var HojaDeRutajson = File.ReadAllText(@"Datos\HojaDeRuta.json");
                 hojasDeRuta = System.Text.Json.JsonSerializer.Deserialize<List<HojaDeRutaEntidad>>(HojaDeRutajson) ?? new List<HojaDeRutaEntidad>();
             }
         }
@@ -38,7 +38,7 @@ namespace CAIGrupoG.Almacenes
         {
 
             var HojaDeRutajson = System.Text.Json.JsonSerializer.Serialize(hojasDeRuta);
-            File.WriteAllText("HojaDeRuta.json", HojaDeRutajson);
+            File.WriteAllText(@"Datos\HojaDeRuta.json", HojaDeRutajson);
         }
     }
 }
