@@ -1,5 +1,6 @@
 ﻿using CAIGrupoG.Almacenes;
 using CAIGrupoG.ConsultaTracking;
+using CAIGrupoG.Imposicion.ImpAgencia;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,9 +19,14 @@ public partial class MenuPrincipal : Form
         InitializeComponent();
     }
 
-    private void ConsultaTrackingButton_Click(object sender, EventArgs e)
+    private void ConsultaTrackingBttn_Click(object sender, EventArgs e)
     {
         (new ConsultarTrackingForm()).ShowDialog();
+    }
+
+    private void ImposicionAgenciaBttn_Click(object sender, EventArgs e)
+    {
+        (new ImposicionDeEncomiendaAgenciaForm()).ShowDialog();
     }
 
     private void MenuPrincipal_Load(object sender, EventArgs e)

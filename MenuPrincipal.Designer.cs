@@ -28,22 +28,23 @@ partial class MenuPrincipal
     /// </summary>
     private void InitializeComponent()
     {
-        ConsultaTrackingButton = new Button();
+        ConsultaTrackingBttn = new Button();
         CdCombo = new ComboBox();
         AgenciaCombo = new ComboBox();
         label1 = new Label();
         label2 = new Label();
+        ImposicionAgenciaBttn = new Button();
         SuspendLayout();
         // 
-        // ConsultaTrackingButton
+        // ConsultaTrackingBttn
         // 
-        ConsultaTrackingButton.Location = new Point(24, 110);
-        ConsultaTrackingButton.Name = "ConsultaTrackingButton";
-        ConsultaTrackingButton.Size = new Size(167, 23);
-        ConsultaTrackingButton.TabIndex = 0;
-        ConsultaTrackingButton.Text = "Consulta Tracking";
-        ConsultaTrackingButton.UseVisualStyleBackColor = true;
-        ConsultaTrackingButton.Click += ConsultaTrackingButton_Click;
+        ConsultaTrackingBttn.Location = new Point(24, 110);
+        ConsultaTrackingBttn.Name = "ConsultaTrackingBttn";
+        ConsultaTrackingBttn.Size = new Size(167, 23);
+        ConsultaTrackingBttn.TabIndex = 0;
+        ConsultaTrackingBttn.Text = "Consulta Tracking";
+        ConsultaTrackingBttn.UseVisualStyleBackColor = true;
+        ConsultaTrackingBttn.Click += ConsultaTrackingButton_Click;
         // 
         // CdCombo
         // 
@@ -81,18 +82,28 @@ partial class MenuPrincipal
         label2.TabIndex = 4;
         label2.Text = "Agencia actual:";
         // 
+        // ImposicionAgenciaBttn
+        // 
+        ImposicionAgenciaBttn.Location = new Point(223, 110);
+        ImposicionAgenciaBttn.Name = "ImposicionAgenciaBttn";
+        ImposicionAgenciaBttn.Size = new Size(167, 23);
+        ImposicionAgenciaBttn.TabIndex = 5;
+        ImposicionAgenciaBttn.Text = "Imposicion Agencia";
+        ImposicionAgenciaBttn.UseVisualStyleBackColor = true;
+        // 
         // MenuPrincipal
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(800, 450);
+        Controls.Add(ImposicionAgenciaBttn);
         Controls.Add(label2);
         Controls.Add(label1);
         Controls.Add(AgenciaCombo);
         Controls.Add(CdCombo);
-        Controls.Add(ConsultaTrackingButton);
+        Controls.Add(ConsultaTrackingBttn);
         Name = "MenuPrincipal";
-        Text = "MenuPrincipal";
+        Text = "Menu Principal";
         Load += MenuPrincipal_Load;
         ResumeLayout(false);
         PerformLayout();
@@ -100,9 +111,10 @@ partial class MenuPrincipal
 
     #endregion
 
-    private Button ConsultaTrackingButton;
+    private Button ConsultaTrackingBttn;
     private ComboBox CdCombo;
     private ComboBox AgenciaCombo;
     private Label label1;
     private Label label2;
+    private Button ImposicionAgenciaBttn;
 }
