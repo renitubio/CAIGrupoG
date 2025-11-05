@@ -80,14 +80,79 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                     CiudadId = a.CiudadID
                 }).ToList();
         }
+
+        #region Lógica del Contador de Guías (Búsqueda)
+        private static void BuscarUltimaGuia()
+        {
+            var guias = GuiaAlmacen.Guias;
+
+            if (guias == null || guias.Count == 0)
+            {
+                _proximoNumeroGuia = 1; // No hay guías, empezamos en 1
+                return;
+            }
+
+            try
+            {
+                int maxNumero = 0;
+                foreach (var guia in guias)
+                {
+                    // Formato esperado: "GUI001", "GUI006", etc.
+                    if (guia.NumeroGuia != null && guia.NumeroGuia.StartsWith("GUI"))
+                    {
+                        // Extrae la parte numérica, ej: "001"
+                        string numeroStr = guia.NumeroGuia.Substring(3);
+
+                        if (int.TryParse(numeroStr, out int numero))
+                        {
+                            if (numero > maxNumero)
+                            {
+                                maxNumero = numero;
+                            }
+                        }
+                    }
+                }
+                // Si maxNumero es 6, el próximo es 7.
+                _proximoNumeroGuia = maxNumero + 1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[DEBUG] Error al parsear números de guía: {ex.Message}");
+                _proximoNumeroGuia = 1; // Fallback en caso de error
+            }
+        }
+
         public List<string> ConfirmarImposicion(int cantidadTotalCajas, string codigoDestino)
         {
-            var guias = new List<string>();
+            if (_clienteActual == null)
+            {
+                throw new InvalidOperationException("Cliente no encontrado. Se debe buscar un cliente válido primero.");
+            }
+
+            var guiasGeneradas = new List<string>();
+
             for (int i = 0; i < cantidadTotalCajas; i++)
             {
-                guias.Add($"{codigoDestino}-{_proximoNumeroGuia++:D6}");
+                string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
+                guiasGeneradas.Add(numeroGuia);
+
+                var entidad = new GuiaEntidad
+                {
+                    NumeroGuia = numeroGuia,
+                    Estado = EstadoEncomiendaEnum.ImpuestoAgencia, // ASUMO Enum existe
+                    ClienteCUIT = _clienteActual.ClienteCUIT,
+                    CDOrigenID = _clienteActual.CDOrigen, // ASUMO ClienteEntidad tiene CDOrigen
+                    FechaAdmision = DateTime.Now,
+                    EntregaAgencia = true,
+                    // TODO: Faltan DNI, Domicilio, etc. que el Form no pasa.
+                };
+
+                GuiaAlmacen.Nuevo(entidad);
             }
-            return guias;
+
+            GuiaAlmacen.Grabar();
+
+            return guiasGeneradas;
         }
 
     }
