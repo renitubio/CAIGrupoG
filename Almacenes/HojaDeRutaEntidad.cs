@@ -21,6 +21,6 @@ namespace CAIGrupoG.Almacenes
 
         public bool Completada { get; set; }
 
-        public List<GuiaEntidad> guias { get; set; }
+        public List<GuiaEntidad> Guias { get; set; }
     }
 }

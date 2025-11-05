@@ -69,7 +69,7 @@ namespace CAIGrupoG.Playero
 
             foreach (var hoja in hojas)
             {
-                var guiasHDR = hoja.guias;
+                var guiasHDR = hoja.Guias;
                 if (guiasHDR == null) continue;
 
                 foreach (var guiaInHDR in guiasHDR)
@@ -140,7 +140,7 @@ namespace CAIGrupoG.Playero
 
             // Agrupar por AgenciaDestinoID para entregas en agencia
             var entregasAgencia = procesadas
-                .Where(g => g != null && g.EntregaGuíaAgencia)
+                .Where(g => g != null && g.EntregaAgencia)
                 .GroupBy(g => g.AgenciaDestinoID);
 
             foreach (var grupo in entregasAgencia)
@@ -153,7 +153,7 @@ namespace CAIGrupoG.Playero
                     FleteroDNI = string.Empty,
                     Tipo = TipoHDREnum.Distribucion,
                     Completada = false,
-                    guias = grupo.Select(g => GuiaAlmacen.Guias.FirstOrDefault(x => x.NumeroGuia == g.NumeroGuia)).Where(x => x != null).ToList()
+                    Guias = grupo.Select(g => GuiaAlmacen.Guias.FirstOrDefault(x => x.NumeroGuia == g.NumeroGuia)).Where(x => x != null).ToList()
                 };
 
                 HojaDeRutaAlmacen.Nuevo(hoja);
@@ -174,7 +174,7 @@ namespace CAIGrupoG.Playero
                     FleteroDNI = string.Empty,
                     Tipo = TipoHDREnum.Distribucion,
                     Completada = false,
-                    guias = grupo.Select(g => GuiaAlmacen.Guias.FirstOrDefault(x => x.NumeroGuia == g.NumeroGuia)).Where(x => x != null).ToList()
+                    Guias = grupo.Select(g => GuiaAlmacen.Guias.FirstOrDefault(x => x.NumeroGuia == g.NumeroGuia)).Where(x => x != null).ToList()
                 };
 
                 HojaDeRutaAlmacen.Nuevo(hoja);

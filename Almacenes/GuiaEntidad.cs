@@ -31,7 +31,7 @@ namespace CAIGrupoG.Almacenes
 
         public bool RetiroDomicilio { get; set; }
 
-        public bool EntregaGuíaAgencia { get; set; }
+        public bool EntregaAgencia { get; set; }
 
         public int NumeroFactura { get; set; }
 
