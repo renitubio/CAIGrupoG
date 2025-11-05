@@ -36,7 +36,6 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
 
         public List<Ciudad> ObtenerCiudades()
         {
-            // ASUMO: CentroDistribucionAlmacen.CentrosDistribucion existe
             return CentroDistribucionAlmacen.CentrosDistribucion
                 .Select(cd => new Ciudad
                 {
@@ -60,7 +59,6 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
 
         public List<AgenciaCD> ObtenerAgenciasPorCiudad(int ciudadId)
         {
-            // ASUMO: AgenciaAlmacen.Agencias existe
             return AgenciaAlmacen.Agencias
                 .Where(a => a.CiudadID == ciudadId)
                 .Select(a => new AgenciaCD
@@ -73,7 +71,6 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
 
         public List<AgenciaCD> ObtenerCDPorCiudad(int ciudadId)
         {
-            // ASUMO: AgenciaAlmacen.Agencias existe
             return AgenciaAlmacen.Agencias
                 .Where(a => a.CiudadID == ciudadId && a.AgenciaID == ciudadId)
                 .Select(a => new AgenciaCD
