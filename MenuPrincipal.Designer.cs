@@ -37,13 +37,13 @@ partial class MenuPrincipal
         // 
         // ConsultaTrackingBttn
         // 
-        ConsultaTrackingButton.Location = new Point(24, 110);
-        ConsultaTrackingButton.Name = "ConsultaTrackingButton";
-        ConsultaTrackingButton.Size = new Size(167, 23);
-        ConsultaTrackingButton.TabIndex = 0;
-        ConsultaTrackingButton.Text = "Consulta Tracking";
-        ConsultaTrackingButton.UseVisualStyleBackColor = true;
-        ConsultaTrackingButton.Click += ConsultaTrackingButton_Click;
+        ConsultaTrackingBttn.Location = new Point(24, 110);
+        ConsultaTrackingBttn.Name = "ConsultaTrackingButton";
+        ConsultaTrackingBttn.Size = new Size(167, 23);
+        ConsultaTrackingBttn.TabIndex = 0;
+        ConsultaTrackingBttn.Text = "Consulta Tracking";
+        ConsultaTrackingBttn.UseVisualStyleBackColor = true;
+        ConsultaTrackingBttn.Click += ConsultaTrackingBttn_Click;
         // 
         // CdCombo
         // 
