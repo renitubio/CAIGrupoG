@@ -1,1 +1,22 @@
-﻿
+﻿[
+  {
+    "Id": 1,
+    "Nombre": "Agencia Central",
+    "Direccion": "Av. Principal 123"
+  },
+  {
+    "Id": 2,
+    "Nombre": "Agencia Norte",
+    "Direccion": "Calle Norte 456"
+  },
+  {
+    "Id": 3,
+    "Nombre": "Agencia Sur",
+    "Direccion": "Av. Sur 789"
+  },
+  {
+    "Id": 4,
+    "Nombre": "Agencia Este",
+    "Direccion": "Calle Este 101"
+  }
+]

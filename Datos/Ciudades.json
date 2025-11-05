@@ -1,1 +1,22 @@
-﻿
+﻿[
+  {
+    "Id": 1,
+    "Nombre": "Buenos Aires",
+    "CD_ID": 1
+  },
+  {
+    "Id": 2,
+    "Nombre": "Córdoba",
+    "CD_ID": 2
+  },
+  {
+    "Id": 3,
+    "Nombre": "Rosario",
+    "CD_ID": 3
+  },
+  {
+    "Id": 4,
+    "Nombre": "Mendoza",
+    "CD_ID": 4
+  }
+]
