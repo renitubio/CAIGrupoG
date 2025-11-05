@@ -1,1 +1,12 @@
-﻿
+﻿[
+ {
+ "MontoPago":1000.50,
+ "NumeroGuia": "A12345",
+ "FechaPago": "2024-06-01T00:00:00",
+ "NumeroFactura":1019,
+ "TipoEgreso":1,
+ "AgenciaID":1,
+ "FleteroDNI": "",
+ "CUITEmpresaTransporte": ""
+ }
+]

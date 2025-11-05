@@ -1,1 +1,10 @@
-﻿
+﻿[
+  {
+    "DNI Fletero": "12345678",
+    "Nombre Fletero": "Juan Pérez",
+    "CD ID": 1,
+    "Comisiones": [
+      {"S":0.05, "M":0.07, "L":0.1,"XL":0.12}
+    ]
+  }
+]

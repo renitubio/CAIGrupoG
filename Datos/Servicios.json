@@ -2,7 +2,7 @@
  {
  "SericioID":1234567,
  "Patente": "XYZ234",
- "CUIT Empresa Transporte": "11-45676543 -2",
+ "CUIT Empresa Transporte": "11456765432",
  "CDOrigen":1,
  "CDDestino":2,
  "FechaHoraSalida": "2025-07-15T10:30:00",
@@ -11,7 +11,7 @@
  {
  "SericioID":2233445,
  "Patente": "ABC123",
- "CUIT Empresa Transporte": "30-87654321-7",
+ "CUIT Empresa Transporte": "30876543217",
  "CDOrigen":3,
  "CDDestino":4,
  "FechaHoraSalida": "2025-08-01T08:00:00",
@@ -20,7 +20,7 @@
  {
  "SericioID":3344556,
  "Patente": "LMN987",
- "CUIT Empresa Transporte": "20-11223344-5",
+ "CUIT Empresa Transporte": "20112233445",
  "CDOrigen":2,
  "CDDestino":5,
  "FechaHoraSalida": "2025-07-20T22:15:00",
@@ -29,7 +29,7 @@
  {
  "SericioID":4455667,
  "Patente": "QWE456",
- "CUIT Empresa Transporte": "27-55667788-3",
+ "CUIT Empresa Transporte": "27556677883",
  "CDOrigen":5,
  "CDDestino":1,
  "FechaHoraSalida": "2025-09-10T12:00:00",
@@ -38,7 +38,7 @@
  {
  "SericioID":5566778,
  "Patente": "AD123GG",
- "CUIT Empresa Transporte": "33-99887766-1",
+ "CUIT Empresa Transporte": "33998877661",
  "CDOrigen":4,
  "CDDestino":6,
  "FechaHoraSalida": "2025-10-05T05:30:00",
@@ -47,7 +47,7 @@
  {
  "SericioID":6677889,
  "Patente": "PLT555",
- "CUIT Empresa Transporte": "20-55443322-9",
+ "CUIT Empresa Transporte": "20554433229",
  "CDOrigen":6,
  "CDDestino":2,
  "FechaHoraSalida": "2025-11-12T07:45:00",
@@ -56,7 +56,7 @@
  {
  "SericioID":7788990,
  "Patente": "ZZZ999",
- "CUIT Empresa Transporte": "23-33445566-4",
+ "CUIT Empresa Transporte": "23334455664",
  "CDOrigen":1,
  "CDDestino":3,
  "FechaHoraSalida": "2025-12-01T23:00:00",
@@ -65,7 +65,7 @@
  {
  "SericioID":8899001,
  "Patente": "AA678GH",
- "CUIT Empresa Transporte": "30-12345678-0",
+ "CUIT Empresa Transporte": "30123456780",
  "CDOrigen":2,
  "CDDestino":1,
  "FechaHoraSalida": "2026-01-15T09:20:00",
@@ -74,7 +74,7 @@
  {
  "SericioID":9900112,
  "Patente": "UIO321",
- "CUIT Empresa Transporte": "27-66778899-6",
+ "CUIT Empresa Transporte": "27667788996",
  "CDOrigen":4,
  "CDDestino":5,
  "FechaHoraSalida": "2026-02-20T14:00:00",
@@ -83,7 +83,7 @@
  {
  "SericioID":10111213,
  "Patente": "AB444NM",
- "CUIT Empresa Transporte": "30-44556677-2",
+ "CUIT Empresa Transporte": "30445566772",
  "CDOrigen":5,
  "CDDestino":3,
  "FechaHoraSalida": "2026-03-05T02:30:00",

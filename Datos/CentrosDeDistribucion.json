@@ -1,18 +1,30 @@
 ﻿[
   {
-    "CD_ID": 1,
+    "ID de Centro de Distribución": 1,
     "Nombre": "Centro Norte"
   },
   {
-    "CD_ID": 2,
+    "ID de Centro de Distribución": 1,
+    "Nombre": "Centro Norte"
+  },
+  {
+    "ID de Centro de Distribución": 2,
     "Nombre": "Centro Sur"
   },
   {
-    "CD_ID": 3,
+    "ID de Centro de Distribución": 3,
     "Nombre": "Centro Este"
   },
   {
-    "CD_ID": 4,
+    "ID de Centro de Distribución": 4,
     "Nombre": "Centro Oeste"
+  },
+  {
+    "ID de Centro de Distribución": 5,
+    "Nombre": "Centro Central"
+  },
+  {
+    "ID de Centro de Distribución": 6,
+    "Nombre": "Centro Internacional"
   }
 ]

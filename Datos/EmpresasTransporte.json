@@ -1,1 +1,10 @@
-﻿
+﻿[
+  {
+    "CUIT Empresa de Transporte": "30123456789",
+    "Razón Social": "Transporte Rápido S.A."
+  },
+  {
+    "CUIT Empresa de Transporte": "30987654321",
+    "Razón Social": "Logística Global S.R.L."
+  }
+]

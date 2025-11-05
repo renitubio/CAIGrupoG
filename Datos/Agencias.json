@@ -1,22 +1,24 @@
 ﻿[
   {
-    "Id": 1,
-    "Nombre": "Agencia Central",
-    "Direccion": "Av. Principal 123"
+    "Agencia ID": 1,
+    "Nombre": "Agencia del centro",
+    "Ciudad": 1,
+    "Comisiones": {
+      "S": 10.0,
+      "M": 15.5,
+      "L": 20.0,
+      "XL": 25.9
+    }
   },
   {
-    "Id": 2,
-    "Nombre": "Agencia Norte",
-    "Direccion": "Calle Norte 456"
-  },
-  {
-    "Id": 3,
-    "Nombre": "Agencia Sur",
-    "Direccion": "Av. Sur 789"
-  },
-  {
-    "Id": 4,
-    "Nombre": "Agencia Este",
-    "Direccion": "Calle Este 101"
+    "Agencia ID": 20,
+    "Nombre": "Agencia Doña María",
+    "Ciudad": 1,
+    "Comisiones": {
+      "S": 10.0,
+      "M": 15.5,
+      "L": 18.0,
+      "XL": 20.9
+    }
   }
 ]
