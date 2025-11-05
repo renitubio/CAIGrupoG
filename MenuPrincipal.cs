@@ -1,6 +1,12 @@
-﻿using CAIGrupoG.Almacenes;
+﻿using CAIGrupoG.Admisión;
+using CAIGrupoG.Almacenes;
 using CAIGrupoG.ConsultaTracking;
+using CAIGrupoG.EmitirFactura;
+using CAIGrupoG.EntregaGuíaAgencia;
 using CAIGrupoG.Imposicion.ImpAgencia;
+using CAIGrupoG.Imposicion.ImpCentroDistribucion;
+using CAIGrupoG.Playero;
+using CAIGrupoG.ResultadoCostosVSVentas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +32,7 @@ public partial class MenuPrincipal : Form
         (new ConsultarTrackingForm()).ShowDialog();
     }
 
+
     private void MenuPrincipal_Load(object sender, EventArgs e)
     {
         CdCombo.DisplayMember = "Nombre";
@@ -49,4 +56,45 @@ public partial class MenuPrincipal : Form
     {
         (new ImposicionDeEncomiendaAgenciaForm()).ShowDialog();
     }
+
+    private void rendicionFleteroButton_Click(object sender, EventArgs e)
+    {
+        (new RendicionFleteroForm()).ShowDialog();
+    }
+
+    private void ImpCallCenterButton_Click(object sender, EventArgs e)
+    {
+        (new ImposicionDeEncomiendaAgenciaForm()).ShowDialog();
+    }
+
+    private void PlayeroButton_Click(object sender, EventArgs e)
+    {
+        (new PlayeroForm()).ShowDialog();
+    }
+
+    private void ImpCDButton_Click(object sender, EventArgs e)
+    {
+        (new ImposicionDeEncomiendaCDForm()).ShowDialog();
+    }
+
+    private void EntregaCDButton_Click(object sender, EventArgs e)
+    {
+        (new EntregaGuíaAgenciaForm()).ShowDialog();
+    }
+
+    private void EmitirFacturaButton_Click(object sender, EventArgs e)
+    {
+        (new EmitirFacturaForm()).ShowDialog();
+    }
+
+    private void EntregaAgenciaButton_Click(object sender, EventArgs e)
+    {
+        (new EntregaGuíaAgenciaForm()).ShowDialog();
+    }
+
+    private void CostosVentasButton_Click(object sender, EventArgs e)
+    {
+        (new CostosVsVentasForm()).ShowDialog();
+    }
+
 }
