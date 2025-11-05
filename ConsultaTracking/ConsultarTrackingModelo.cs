@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CAIGrupoG.Almacenes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,28 +10,21 @@ namespace CAIGrupoG.ConsultaTracking
     public class ConsultarTrackingModelo
     {
 
+
         public ConsultarTrackingModelo()
         {
-            _guias = new List<Guia>();
-            CargarDatosFicticios();
+
         }
 
-
-        /// Busca una guía por su número de seguimiento.
-        public Guia BuscarGuia(string numeroGuia)
+        public GuiaEntidad BuscarGuia(string numeroGuia)
         {
-            return _guias.FirstOrDefault(g => g.NumeroGuia.Equals(numeroGuia, StringComparison.OrdinalIgnoreCase));
+            return GuiaAlmacen.Buscar(numeroGuia);
         }
 
-        private void CargarDatosFicticios()
+        public EstadoEncomiendaEnum? ObtenerEstadoGuia(string numeroGuia)
         {
-            _guias.Add(new Guia { NumeroGuia = "TRK001", Estado = EstadoGuia.AdmitidoEnCDOrigen });
-            _guias.Add(new Guia { NumeroGuia = "TRK002", Estado = EstadoGuia.EnTransito });
-            _guias.Add(new Guia { NumeroGuia = "TRK003", Estado = EstadoGuia.EnCDDestino });
-            _guias.Add(new Guia { NumeroGuia = "TRK004", Estado = EstadoGuia.DistribucionUltimaMillaDomicilio });
-            _guias.Add(new Guia { NumeroGuia = "TRK005", Estado = EstadoGuia.Entregado });
-            _guias.Add(new Guia { NumeroGuia = "TRK006", Estado = EstadoGuia.Rechazado });
-            _guias.Add(new Guia { NumeroGuia = "TRK007", Estado = EstadoGuia.PendienteDeRetiroEnAgencia });
+            var guia = BuscarGuia(numeroGuia);
+            return guia?.Estado;
         }
     }
 }

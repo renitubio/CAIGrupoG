@@ -35,10 +35,12 @@ namespace CAIGrupoG.ConsultaTracking
             }
 
             // Llamada al modelo para buscar la guía
-            var guia = modelo.BuscarGuia(numeroGuia); // Cambia la firma para devolver GuiaEntidad
-            if (guia != null)
+            var guiaEncontrada = modelo.BuscarGuia(numeroGuia);
+
+            if (guiaEncontrada != null)
             {
-                EstadoText.Text = modelo.ObtenerDescripcionEstado(guia);
+                // Si se encontró, mostramos el estado formateado
+                EstadoText.Text = FormatearEstado(guiaEncontrada.Estado);
             }
             else
             {
@@ -62,5 +64,26 @@ namespace CAIGrupoG.ConsultaTracking
             GuiaText.Focus();
         }
 
+        /// Convierte un valor del enum EstadoGuia a un string más legible para el usuario.
+        private string FormatearEstado(EstadoEncomiendaEnum estado)
+        {
+            switch (estado)
+            {
+                case EstadoEncomiendaEnum.ImpuestoCallCenter: return "Impuesto Call Center";
+                case EstadoEncomiendaEnum.ImpuestoAgencia: return "Impuesto Agencia";
+                case EstadoEncomiendaEnum.EnCaminoARetirarDomicilio: return "En camino a retirar (Domicilio)";
+                case EstadoEncomiendaEnum.EnCaminoARetirarAgencia: return "En camino a retirar (Agencia)";
+                case EstadoEncomiendaEnum.PendienteDeRetiroEnAgencia: return "Pendiente de retiro en agencia";
+                case EstadoEncomiendaEnum.AdmitidoCDOrigen: return "Admitido en CD Origen";
+                case EstadoEncomiendaEnum.EnTransito: return "En tránsito";
+                case EstadoEncomiendaEnum.AdmitidoCDDestino: return "Admitido en CD Destino";
+                case EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio: return "Distribución última milla (domicilio)";
+                case EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia: return "Distribución última milla (agencia)";
+                case EstadoEncomiendaEnum.PrimerIntentoDeEntrega: return "Primer intento de entrega";
+                case EstadoEncomiendaEnum.Rechazado: return "Rechazado";
+                case EstadoEncomiendaEnum.Entregado: return "Entregado";
+                default: return estado.ToString();
+            }
+        }
     }
 }
