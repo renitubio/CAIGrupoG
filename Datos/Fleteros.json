@@ -4,7 +4,38 @@
     "Nombre Fletero": "Juan Pérez",
     "CD ID": 1,
     "Comisiones": [
-      {"S":0.05, "M":0.07, "L":0.1,"XL":0.12}
+      {
+        "S": 0.05,
+        "M": 0.07,
+        "L": 0.1,
+        "XL": 0.12
+      }
+    ]
+  },
+  {
+    "DNI Fletero": "23456789",
+    "Nombre Fletero": "María González",
+    "CD ID": 2,
+    "Comisiones": [
+      {
+        "S": 0.06,
+        "M": 0.08,
+        "L": 0.11,
+        "XL": 0.13
+      }
+    ]
+  },
+  {
+    "DNI Fletero": "34567890",
+    "Nombre Fletero": "Carlos López",
+    "CD ID": 3,
+    "Comisiones": [
+      {
+        "S": 0.055,
+        "M": 0.075,
+        "L": 0.105,
+        "XL": 0.125
+      }
     ]
   }
 ]

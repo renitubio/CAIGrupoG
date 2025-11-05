@@ -15,6 +15,12 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
 
         private static int _proximoNumeroGuia = 1;
 
+        //Preguntar a andres.
+        public ImposicionDeEncomiendaAgenciaModelo()
+        {
+            BuscarUltimaGuia();
+        }
+
         public Cliente BuscarCliente(string cuit)
         {
             var clienteEntidad = ClienteAlmacen.Clientes
@@ -80,8 +86,6 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                     CiudadId = a.CiudadID
                 }).ToList();
         }
-
-        #region Lógica del Contador de Guías (Búsqueda)
         private static void BuscarUltimaGuia()
         {
             var guias = GuiaAlmacen.Guias;
@@ -121,7 +125,6 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                 _proximoNumeroGuia = 1; // Fallback en caso de error
             }
         }
-
         public List<string> ConfirmarImposicion(int cantidadTotalCajas, string codigoDestino)
         {
             if (_clienteActual == null)
