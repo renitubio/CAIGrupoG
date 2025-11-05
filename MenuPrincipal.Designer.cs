@@ -44,7 +44,7 @@ partial class MenuPrincipal
         ConsultaTrackingBttn.TabIndex = 0;
         ConsultaTrackingBttn.Text = "Consulta Tracking";
         ConsultaTrackingBttn.UseVisualStyleBackColor = true;
-        ConsultaTrackingBttn.Click += ConsultaTrackingButton_Click;
+        ConsultaTrackingBttn.Click += ConsultaTrackingBttn_Click;
         // 
         // CdCombo
         // 
@@ -90,6 +90,7 @@ partial class MenuPrincipal
         ImposicionAgenciaBttn.TabIndex = 5;
         ImposicionAgenciaBttn.Text = "Imposicion Agencia";
         ImposicionAgenciaBttn.UseVisualStyleBackColor = true;
+        ImposicionAgenciaBttn.Click += ImposicionAgenciaBttn_Click;
         // 
         // MenuPrincipal
         // 
