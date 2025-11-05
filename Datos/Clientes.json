@@ -6,19 +6,19 @@
     "CDOrigen": 1,
     "Tarifas": [
       {
-        "TipoPaquete": "Sobre",
+        "TipoPaquete": 1,
         "CDOrigen": 1,
         "CDDestino": 101,
         "Precio": 550.00
       },
       {
-        "TipoPaquete": "CajaPequeña",
+        "TipoPaquete": 2,
         "CDOrigen": 1,
         "CDDestino": 101,
         "Precio": 1500.50
       },
       {
-        "TipoPaquete": "CajaMediana",
+        "TipoPaquete": 3,
         "CDOrigen": 1,
         "CDDestino": 102,
         "Precio": 2200.00
@@ -32,19 +32,19 @@
     "CDOrigen": 2,
     "Tarifas": [
       {
-        "TipoPaquete": "CajaPequeña",
+        "TipoPaquete": 2,
         "CDOrigen": 2,
         "CDDestino": 201,
         "Precio": 1800.75
       },
       {
-        "TipoPaquete": "CajaMediana",
+        "TipoPaquete": 3,
         "CDOrigen": 2,
         "CDDestino": 201,
         "Precio": 2500.00
       },
       {
-        "TipoPaquete": "CajaGrande",
+        "TipoPaquete": 4,
         "CDOrigen": 2,
         "CDDestino": 101,
         "Precio": 3000.00
@@ -58,13 +58,13 @@
     "CDOrigen": 3,
     "Tarifas": [
       {
-        "TipoPaquete": "Sobre",
+        "TipoPaquete": 1,
         "CDOrigen": 3,
         "CDDestino": 301,
         "Precio": 400.00
       },
       {
-        "TipoPaquete": "CajaMediana",
+        "TipoPaquete": 3,
         "CDOrigen": 3,
         "CDDestino": 302,
         "Precio": 1900.50
@@ -78,13 +78,13 @@
     "CDOrigen": 4,
     "Tarifas": [
       {
-        "TipoPaquete": "CajaGrande",
+        "TipoPaquete": 4,
         "CDOrigen": 4,
         "CDDestino": 401,
         "Precio": 2800.00
       },
       {
-        "TipoPaquete": "CajaPequeña",
+        "TipoPaquete": 2,
         "CDOrigen": 4,
         "CDDestino": 101,
         "Precio": 1950.00
@@ -98,19 +98,19 @@
     "CDOrigen": 5,
     "Tarifas": [
       {
-        "TipoPaquete": "CajaMediana",
+        "TipoPaquete": 3,
         "CDOrigen": 5,
         "CDDestino": 501,
         "Precio": 3500.00
       },
       {
-        "TipoPaquete": "CajaGrande",
+        "TipoPaquete": 4,
         "CDOrigen": 5,
         "CDDestino": 101,
         "Precio": 4200.00
       },
       {
-        "TipoPaquete": "CajaGrande",
+        "TipoPaquete": 4,
         "CDOrigen": 5,
         "CDDestino": 301,
         "Precio": 3900.00
