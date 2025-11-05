@@ -13,18 +13,6 @@ namespace CAIGrupoG.Almacenes
 
         public static IReadOnlyCollection<EmpresaTransporteEntidad> EmpresasTransporte => empresasTransporte.AsReadOnly();
 
-        public static void Nuevo(EmpresaTransporteEntidad empresaTransporte)
-        {
-            if (empresaTransporte.CUITEmpresaTransporte == null)
-                throw new ArgumentException("El CUIT no puede ser nulo");
-            empresasTransporte.Add(empresaTransporte);
-        }
-
-        public static void Borrar(string CUITEmpresaTransporte)
-        {
-            empresasTransporte.RemoveAll(e => e.CUITEmpresaTransporte == CUITEmpresaTransporte);
-        }
-
         static EmpresaTransporteAlmacen()
         {
             if (File.Exists(@"Datos\EmpresasTransporte.json"))

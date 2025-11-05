@@ -13,18 +13,6 @@ namespace CAIGrupoG.Almacenes
 
         public static IReadOnlyCollection<ClienteEntidad> Clientes => clientes.AsReadOnly();
 
-        public static void Nuevo(ClienteEntidad cliente)
-        {
-            if (cliente.ClienteCUIT == null)
-                throw new ArgumentException("El CUIT no puede ser nulo");
-            clientes.Add(cliente);
-        }
-
-        public static void Borrar(string ClienteCUIT)
-        {
-            clientes.RemoveAll(c => c.ClienteCUIT == ClienteCUIT);
-        }
-
         static ClienteAlmacen()
         {
             if(File.Exists(@"Datos\Clientes.json"))

@@ -20,6 +20,7 @@ namespace CAIGrupoG.Almacenes
             guias.Add(guia);
         }
 
+        //Se podria borrar.
         public static void Borrar(string NumeroGuia)
         {
             guias.RemoveAll(g => g.NumeroGuia == NumeroGuia);

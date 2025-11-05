@@ -13,19 +13,6 @@ namespace CAIGrupoG.Almacenes
 
         public static IReadOnlyCollection<AgenciaEntidad> Agencias => agencias.AsReadOnly();
 
-        //en verdad es useless porque no creamos agencias nuevas.
-        public static void Nuevo(AgenciaEntidad agencia)
-        {
-            if (agencia.AgenciaID == null)
-                throw new ArgumentException("El CUIT no puede ser nulo");
-            agencias.Add(agencia);
-        }
-
-        public static void Borrar(int AgenciaID)
-        {
-            agencias.RemoveAll(a => a.AgenciaID == AgenciaID);
-        }
-
         static AgenciaAlmacen()
         {
             if (File.Exists(@"Datos\Agencias.json"))

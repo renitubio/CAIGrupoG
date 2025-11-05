@@ -13,19 +13,19 @@ namespace CAIGrupoG.Almacenes
 
         public static IReadOnlyCollection<EgresosEntidad> Egresos => egresos.AsReadOnly();
 
-        /*
+        
         public static void Nuevo(EgresosEntidad egreso)
         {
             if (egreso.MontoPago == null)
-                throw new ArgumentException("El CUIT no puede ser nulo");
+                throw new ArgumentException("El MONTO no puede ser nulo");
             egresos.Add(egreso);
         }
 
-        public static void Borrar(string MontoPago)
+        public static void Borrar(int MontoPago)
         {
             egresos.RemoveAll(e => e.MontoPago == MontoPago);
         }
-        */
+        
         static EgresosAlmacen()
         {
             if (File.Exists(@"Datos\Clientes.json"))

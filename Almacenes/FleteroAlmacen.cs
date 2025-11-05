@@ -13,18 +13,6 @@ namespace CAIGrupoG.Almacenes
 
         public static IReadOnlyCollection<FleteroEntidad> Fleteros => fleteros.AsReadOnly();
 
-        public static void Nuevo(FleteroEntidad fletero)
-        {
-            if (fletero.FleteroDNI == null)
-                throw new ArgumentException("El CUIT no puede ser nulo");
-            fleteros.Add(fletero);
-        }
-
-        public static void Borrar(string FleteroDNI)
-        {
-            fleteros.RemoveAll(f => f.FleteroDNI == FleteroDNI);
-        }
-
         static FleteroAlmacen()
         {
             if (File.Exists(@"Datos\Fleteros.json"))
