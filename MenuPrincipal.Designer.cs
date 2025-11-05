@@ -33,12 +33,13 @@ partial class MenuPrincipal
         AgenciaCombo = new ComboBox();
         label1 = new Label();
         label2 = new Label();
+        ImposicionAgenciaBttn = new Button();
         SuspendLayout();
         // 
         // ConsultaTrackingBttn
         // 
         ConsultaTrackingBttn.Location = new Point(24, 110);
-        ConsultaTrackingBttn.Name = "ConsultaTrackingButton";
+        ConsultaTrackingBttn.Name = "ConsultaTrackingBttn";
         ConsultaTrackingBttn.Size = new Size(167, 23);
         ConsultaTrackingBttn.TabIndex = 0;
         ConsultaTrackingBttn.Text = "Consulta Tracking";
@@ -81,11 +82,22 @@ partial class MenuPrincipal
         label2.TabIndex = 4;
         label2.Text = "Agencia actual:";
         // 
+        // ImposicionAgenciaBttn
+        // 
+        ImposicionAgenciaBttn.Location = new Point(238, 110);
+        ImposicionAgenciaBttn.Name = "ImposicionAgenciaBttn";
+        ImposicionAgenciaBttn.Size = new Size(167, 23);
+        ImposicionAgenciaBttn.TabIndex = 5;
+        ImposicionAgenciaBttn.Text = "Imposicion en Agencia";
+        ImposicionAgenciaBttn.UseVisualStyleBackColor = true;
+        ImposicionAgenciaBttn.Click += ImposicionAgenciaBttn_Click;
+        // 
         // MenuPrincipal
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(800, 450);
+        Controls.Add(ImposicionAgenciaBttn);
         Controls.Add(label2);
         Controls.Add(label1);
         Controls.Add(AgenciaCombo);
@@ -105,4 +117,5 @@ partial class MenuPrincipal
     private ComboBox AgenciaCombo;
     private Label label1;
     private Label label2;
+    private Button ImposicionAgenciaBttn;
 }

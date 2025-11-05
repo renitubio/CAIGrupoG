@@ -1,5 +1,6 @@
 ﻿using CAIGrupoG.Almacenes;
 using CAIGrupoG.ConsultaTracking;
+using CAIGrupoG.Imposicion.ImpAgencia;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -42,5 +43,10 @@ public partial class MenuPrincipal : Form
     private void AgenciaCombo_SelectedIndexChanged(object sender, EventArgs e)
     {
         AgenciaAlmacen.AgenciaActual = AgenciaCombo.SelectedItem as AgenciaEntidad;
+    }
+
+    private void ImposicionAgenciaBttn_Click(object sender, EventArgs e)
+    {
+        (new ImposicionDeEncomiendaAgenciaForm()).ShowDialog();
     }
 }
