@@ -67,7 +67,7 @@
  "Patente": "AA678GH",
  "CUIT Empresa Transporte": "30-12345678-0",
  "CDOrigen":2,
- "CDDestino":4,
+ "CDDestino":1,
  "FechaHoraSalida": "2026-01-15T09:20:00",
  "FechaHoraLlegada": "2026-01-15T16:45:00"
  },
