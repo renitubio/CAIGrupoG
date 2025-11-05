@@ -6,5 +6,9 @@
     "DNI Fletero": "30123456",
     "Tipo HDR": 2,
     "Completada": false,
-    "Guias Asignadas": [{ "GUI001" } { "GUI002" }]
+    "Guias Asignadas": [
+      "GUI001",
+      "GUI002"
+    ]
   }
+]
