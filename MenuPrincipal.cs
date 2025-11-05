@@ -19,6 +19,8 @@ public partial class MenuPrincipal : Form
         InitializeComponent();
     }
 
+
+    //PRUEBA
     private void ConsultaTrackingBttn_Click(object sender, EventArgs e)
     {
         (new ConsultarTrackingForm()).ShowDialog();
