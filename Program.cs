@@ -23,14 +23,21 @@ namespace CAIGrupoG
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new ConsultarTrackingForm());
+            Application.Run(new ImposicionDeEncomiendaAgenciaForm());
 
             //GUARDO POR CADA ALMACEN
 
             ClienteAlmacen.Grabar();
             GuiaAlmacen.Grabar();
             HojaDeRutaAlmacen.Grabar();
-
+            AgenciaAlmacen.Grabar();
+            CentroDistribucionAlmacen.Grabar();
+            EgresosAlmacen.Grabar();
+            EmpresaTransporteAlmacen.Grabar();
+            FacturaAlmacen.Grabar();
+            FleteroAlmacen.Grabar();
+            ServicioAlmacen.Grabar();
+            TarifarioExtraAlmacen.Grabar();
 
         }
     }

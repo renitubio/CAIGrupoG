@@ -1,6 +1,6 @@
 ﻿[
   {
-    "ClienteCUIT": "30-70123456-5",
+    "ClienteCUIT": "30701234565",
     "Direccion": "Av. Corrientes 1234, CABA",
     "RazonSocial": "Tech Soluciones S.A.",
     "CDOrigen": 1,
@@ -26,7 +26,7 @@
     ]
   },
   {
-    "ClienteCUIT": "20-12345678-9",
+    "ClienteCUIT": "20123456789",
     "Direccion": "San Martin 500, Rosario, Santa Fe",
     "RazonSocial": "Logística del Litoral SRL",
     "CDOrigen": 2,
@@ -52,7 +52,7 @@
     ]
   },
   {
-    "ClienteCUIT": "33-65432109-7",
+    "ClienteCUIT": "33654321097",
     "Direccion": "Av. Colón 800, Córdoba",
     "RazonSocial": "Comercial del Centro S.R.L.",
     "CDOrigen": 3,
@@ -72,7 +72,7 @@
     ]
   },
   {
-    "ClienteCUIT": "27-22334455-1",
+    "ClienteCUIT": "27223344551",
     "Direccion": "9 de Julio 100, Mendoza",
     "RazonSocial": "Distribuidora Cuyo S.A.",
     "CDOrigen": 4,
@@ -92,7 +92,7 @@
     ]
   },
   {
-    "ClienteCUIT": "30-98765432-1",
+    "ClienteCUIT": "30987654321",
     "Direccion": "Rivadavia 2020, Salta",
     "RazonSocial": "Norte Envíos",
     "CDOrigen": 5,
