@@ -1,1 +1,10 @@
-﻿
+﻿[
+  {
+    "ID Hoja De Ruta": 4567,
+    "ID Servicio": 1234567,
+    "Fecha de Creacion": "2025-07-10T09:00:00",
+    "DNI Fletero": "30123456",
+    "Tipo HDR": 2,
+    "Completada": false,
+    "Guias Asignadas": [{ "GUI001" } { "GUI002" }]
+  }
