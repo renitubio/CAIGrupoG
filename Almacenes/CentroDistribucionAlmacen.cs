@@ -8,6 +8,8 @@ namespace CAIGrupoG.Almacenes
 {
     static class CentroDistribucionAlmacen
     {
+        public static CentroDistribucionEntidad CentroDistribucionActual { get; set; }
+
 
         private static List<CentroDistribucionEntidad> centrosDistribucion = new List<CentroDistribucionEntidad>();
 

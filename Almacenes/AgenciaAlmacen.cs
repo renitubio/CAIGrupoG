@@ -8,6 +8,7 @@ namespace CAIGrupoG.Almacenes
 {
     static class AgenciaAlmacen
     {
+        public static AgenciaEntidad AgenciaActual { get; set; }
 
         private static List<AgenciaEntidad> agencias = new List<AgenciaEntidad>();
 

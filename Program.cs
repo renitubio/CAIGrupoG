@@ -23,7 +23,7 @@ namespace CAIGrupoG
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new ImposicionDeEncomiendaAgenciaForm());
+            Application.Run(new MenuPrincipal());
 
             //GUARDO POR CADA ALMACEN
 
