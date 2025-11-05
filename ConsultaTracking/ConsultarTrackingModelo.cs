@@ -17,8 +17,10 @@ namespace CAIGrupoG.ConsultaTracking
         }
 
         public GuiaEntidad BuscarGuia(string numeroGuia)
-        {
-            return GuiaAlmacen.Buscar(numeroGuia);
+        { 
+        
+            // Solución: Buscar en la colección Guias de GuiaAlmacen
+            return CAIGrupoG.Almacenes.GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == numeroGuia);
         }
 
         public EstadoEncomiendaEnum? ObtenerEstadoGuia(string numeroGuia)
