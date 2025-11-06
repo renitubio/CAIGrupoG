@@ -15,6 +15,6 @@ namespace CAIGrupoG.Almacenes
 
         public int CD_ID { get; set; }
 
-        public Dictionary<string, decimal> comisiones { get; set; }
+        public Dictionary<TipoPaqueteEnum, decimal> comisiones { get; set; }
     }
 }

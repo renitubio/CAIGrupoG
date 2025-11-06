@@ -1,68 +1,68 @@
 ﻿[
   {
-    "Agencia ID": 1,
+    "AgenciaID": 1,
     "Nombre": "Agencia del centro",
     "Ciudad": 1,
     "Comisiones": {
-      "S": 10.0,
-      "M": 15.5,
-      "L": 20.0,
-      "XL": 25.9
+      "1": 10.0,
+      "2": 15.5,
+      "3": 20.0,
+      "4": 25.9
     }
   },
   {
-    "Agencia ID": 20,
+    "AgenciaID": 20,
     "Nombre": "Agencia Doña María",
     "Ciudad": 1,
     "Comisiones": {
-      "S": 10.0,
-      "M": 15.5,
-      "L": 18.0,
-      "XL": 20.9
+      "1": 10.0,
+      "2": 15.5,
+      "3": 18.0,
+      "4": 20.9
     }
   },
   {
-    "Agencia ID": 10,
+    "AgenciaID": 10,
     "Nombre": "Agencia Don Camaron",
     "Ciudad": 1,
     "Comisiones": {
-      "S": 10.0,
-      "M": 15.5,
-      "L": 18.0,
-      "XL": 20.9
+      "1": 10.0,
+      "2": 15.5,
+      "3": 18.0,
+      "4": 20.9
     }
   },
   {
-    "Agencia ID": 40,
+    "AgenciaID": 40,
     "Nombre": "Agencia Rapiditas",
     "Ciudad": 2,
     "Comisiones": {
-      "S": 10.0,
-      "M": 15.5,
-      "L": 18.0,
-      "XL": 20.9
+      "1": 10.0,
+      "2": 15.5,
+      "3": 18.0,
+      "4": 20.9
     }
   },
   {
-    "Agencia ID": 80,
+    "AgenciaID": 80,
     "Nombre": "Agencia Leones",
     "Ciudad": 4,
     "Comisiones": {
-      "S": 10.0,
-      "M": 15.5,
-      "L": 18.0,
-      "XL": 20.9
+      "1": 10.0,
+      "2": 15.5,
+      "3": 18.0,
+      "4": 20.9
     }
   },
   {
-    "Agencia ID": 100,
+    "AgenciaID": 100,
     "Nombre": "Agencia Oeste",
     "Ciudad": 4,
     "Comisiones": {
-      "S": 10.0,
-      "M": 15.5,
-      "L": 18.0,
-      "XL": 20.9
+      "1": 10.0,
+      "2": 15.5,
+      "3": 18.0,
+      "4": 20.9
     }
   }
 ]

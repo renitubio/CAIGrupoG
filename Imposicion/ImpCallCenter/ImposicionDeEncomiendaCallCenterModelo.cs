@@ -49,8 +49,11 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
         private static void BuscarUltimoIdHDR()
         {
-            // ASUMO que HojaDeRutaEntidad.cs se corrigió para usar List<string> Guias
-            // y [JsonPropertyName], de lo contrario esto crashea.
+            // ¡ADVERTENCIA DE CRASH!
+            // Esta línea intentará cargar HojasDeRuta.json.
+            // Tu JSON tiene List<string>
+            // Tu Entidad (la que me pasaste) espera List<GuiaEntidad>
+            // Esto causará un JsonException y el programa fallará.
             var hdrs = HojaDeRutaAlmacen.HojasDeRuta;
 
             if (hdrs == null || hdrs.Count == 0)
@@ -107,32 +110,18 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                 .Select(nombre => new TipoCaja { Nombre = nombre })
                 .ToList();
         }
-
         public List<AgenciaCD> ObtenerAgenciasPorCiudad(int ciudadId)
         {
-            var opciones = new List<AgenciaCD>();
+            var lista = new List<AgenciaCD>();
 
-            // 1. Buscar el CD asociado a esa Ciudad
-            var ciudadSeleccionada = CiudadAlmacen.Ciudades.FirstOrDefault(c => c.CiudadID == ciudadId);
-
-            if (ciudadSeleccionada != null)
+            // 1️⃣ Buscar el CD correspondiente a la ciudad
+            var cd = ObtenerCDPorCiudad(ciudadId);
+            if (cd != null)
             {
-                var cd = CentroDistribucionAlmacen.CentrosDistribucion
-                           .FirstOrDefault(c => c.CD_ID == ciudadSeleccionada.CDID);
-
-                if (cd != null)
-                {
-                    opciones.Add(new AgenciaCD
-                    {
-                        Id = cd.CD_ID,
-                        Nombre = cd.Nombre + " (Centro de Distribución)",
-                        CiudadId = ciudadId
-                    });
-                }
+                lista.Add(cd); // se agrega al inicio
             }
 
-            // 2. Buscar las Agencias asociadas a esa Ciudad
-            // ASUMO que AgenciaEntidad.cs está corregida (usa Dictionary<string, decimal>)
+            // 2️⃣ Agregar las agencias de la ciudad
             var agencias = AgenciaAlmacen.Agencias
                 .Where(a => a.CiudadID == ciudadId)
                 .Select(a => new AgenciaCD
@@ -142,14 +131,35 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                     CiudadId = a.CiudadID
                 });
 
-            opciones.AddRange(agencias);
+            lista.AddRange(agencias);
 
-            return opciones;
+            return lista;
+        }
+
+        public AgenciaCD ObtenerCDPorCiudad(int ciudadId)
+        {
+            var ciudad = CiudadAlmacen.Ciudades.FirstOrDefault(c => c.CiudadID == ciudadId);
+            if (ciudad == null)
+                return null;
+
+            var cd = CentroDistribucionAlmacen.CentrosDistribucion
+                .FirstOrDefault(c => c.CD_ID == ciudad.CDID);
+
+            if (cd == null)
+                return null;
+
+            // Se devuelve también como AgenciaCD para que el ComboBox pueda mostrarlo igual
+            return new AgenciaCD
+            {
+                Id = cd.CD_ID,
+                Nombre = cd.Nombre + " (Centro de Distribución)",
+                CiudadId = ciudadId
+            };
         }
 
         private FleteroEntidad BuscarFletero(int cdOrigen)
         {
-            // ASUMO que FleteroEntidad.cs está corregida (usa [JsonPropertyName] y List<Dictionary...>)
+            // ASUMO que FleteroEntidad.cs está corregida
             var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.CD_ID == cdOrigen);
             if (fletero == null)
             {
@@ -184,7 +194,7 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                     FechaAdmision = DateTime.Now,
                     Estado = EstadoEncomiendaEnum.ImpuestoCallCenter, // Estado 1
                     RetiroDomicilio = true,
-                    // Se quita DNIFletero, ya que no existe en GuiaEntidad
+                    // Se quita DNIFletero (no existe en GuiaEntidad)
                 };
 
                 GuiaAlmacen.Nuevo(entidad);
@@ -212,9 +222,9 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                 Completada = false,
 
                 // --- ¡CORRECCIÓN! ---
-                // Convertimos la lista de OBJETOS (List<GuiaEntidad>)
-                // en la lista de STRINGS (List<string>) que la Entidad espera.
-                Guias = guias.Select(g => g.NumeroGuia).ToList(),
+                // Ahora le pasamos la lista de OBJETOS (List<GuiaEntidad>)
+                // tal como tu HojaDeRutaEntidad.cs (user_86) lo pide.
+                Guias = guias,
 
                 ServicioID = 0
             };
