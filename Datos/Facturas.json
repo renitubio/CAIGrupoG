@@ -4,5 +4,11 @@
     "Monto": 2000.0,
     "FechaEmision": "2024-10-11T00:00:00",
     "ClienteCUIT": "20664588201"
+  },
+  {
+    "NumeroFactura": 2,
+    "Monto": 6500.0,
+    "FechaEmision": "2025-09-08T00:00:00",
+    "ClienteCUIT": "20323347824"
   }
 ]

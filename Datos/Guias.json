@@ -168,5 +168,22 @@
     "EntregaGuíaAgencia": false,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 0
-  }
+  },
+  {
+    "NumeroGuia": "GUI009",
+    "TipoPaquete": 3,
+    "Estado": 13,
+    "CDDestinoID": 5,
+    "ClienteCUIT": "20323347824",
+    "CDOrigenID": 2,
+    "Importe": 7800.00,
+    "DNIAutorizadoRetirar": "39621054",
+    "DomicilioDestino": "Gonzalez 1020",
+    "EntregaDomicilio": false,
+    "FechaAdmision": "2025-10-22T00:00:00",
+    "RetiroDomicilio": false,
+    "EntregaGuíaAgencia": false,
+    "NumeroFactura": 0,
+    "AgenciaDestinoID": 0
+  } 
 ]
