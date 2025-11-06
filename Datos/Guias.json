@@ -167,6 +167,6 @@
     "RetiroDomicilio": false,
     "EntregaGuíaAgencia": false,
     "NumeroFactura": 0,
-    "AgenciaDestinoID": 0
+    "AgenciaDestinoID": 20
   }
 ]

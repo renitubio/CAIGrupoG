@@ -11,8 +11,6 @@ namespace CAIGrupoG.EntregaGuíaAgencia
     {
         public EntregaGuiaAgenciaModelo()
         {
-            // El constructor está vacío.
-            // Los datos se leen directamente de los Almacenes estáticos.
         }
 
         /// <summary>

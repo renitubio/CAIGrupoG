@@ -20,5 +20,27 @@
       "L": 18.0,
       "XL": 20.9
     }
+  },
+  {
+    "Agencia ID": 10,
+    "Nombre": "Agencia Don Camaron",
+    "Ciudad": 1,
+    "Comisiones": {
+      "S": 10.0,
+      "M": 15.5,
+      "L": 18.0,
+      "XL": 20.9
+    }
+  },
+  {
+    "Agencia ID": 5,
+    "Nombre": "Agencia Rapiditas",
+    "Ciudad": 1,
+    "Comisiones": {
+      "S": 10.0,
+      "M": 15.5,
+      "L": 18.0,
+      "XL": 20.9
+    }
   }
 ]
