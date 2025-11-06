@@ -1,26 +1,38 @@
 ﻿[
   {
     "ID de Centro de Distribución": 1,
-    "Nombre": "Centro Norte"
+    "Nombre": "Buenos Aires"
   },
   {
     "ID de Centro de Distribución": 2,
-    "Nombre": "Centro Sur"
+    "Nombre": "CABA"
   },
   {
     "ID de Centro de Distribución": 3,
-    "Nombre": "Centro Este"
+    "Nombre": "Rosario"
   },
   {
     "ID de Centro de Distribución": 4,
-    "Nombre": "Centro Oeste"
+    "Nombre": "Cordoba"
   },
   {
     "ID de Centro de Distribución": 5,
-    "Nombre": "Centro Central"
+    "Nombre": "Santa Fe"
   },
   {
     "ID de Centro de Distribución": 6,
-    "Nombre": "Centro Internacional"
+    "Nombre": "Jujuy"
+  }
+  {
+    "ID de Centro de Distribución": 7,
+    "Nombre": "Formosa"
+  }
+  {
+    "ID de Centro de Distribución": 8,
+    "Nombre": "Chaco"
+  }
+  {
+    "ID de Centro de Distribución": 9,
+    "Nombre": "Corrientes"
   }
 ]
