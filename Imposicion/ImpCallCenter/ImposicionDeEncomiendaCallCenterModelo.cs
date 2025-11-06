@@ -49,11 +49,6 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
         private static void BuscarUltimoIdHDR()
         {
-            // ¡ADVERTENCIA DE CRASH!
-            // Esta línea intentará cargar HojasDeRuta.json.
-            // Tu JSON tiene List<string>
-            // Tu Entidad (la que me pasaste) espera List<GuiaEntidad>
-            // Esto causará un JsonException y el programa fallará.
             var hdrs = HojaDeRutaAlmacen.HojasDeRuta;
 
             if (hdrs == null || hdrs.Count == 0)
@@ -220,10 +215,6 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                 FleteroDNI = fletero.FleteroDNI,
                 Tipo = tipo,
                 Completada = false,
-
-                // --- ¡CORRECCIÓN! ---
-                // Ahora le pasamos la lista de OBJETOS (List<GuiaEntidad>)
-                // tal como tu HojaDeRutaEntidad.cs (user_86) lo pide.
                 Guias = guias,
 
                 ServicioID = 0

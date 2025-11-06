@@ -65,26 +65,49 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
 
         public List<AgenciaCD> ObtenerAgenciasPorCiudad(int ciudadId)
         {
-            return AgenciaAlmacen.Agencias
+            var lista = new List<AgenciaCD>();
+
+            // 1️⃣ Buscar el CD correspondiente a la ciudad
+            var cd = ObtenerCDPorCiudad(ciudadId);
+            if (cd != null)
+            {
+                lista.Add(cd); // se agrega al inicio
+            }
+
+            // 2️⃣ Agregar las agencias de la ciudad
+            var agencias = AgenciaAlmacen.Agencias
                 .Where(a => a.CiudadID == ciudadId)
                 .Select(a => new AgenciaCD
                 {
                     Id = a.AgenciaID,
                     Nombre = a.Nombre,
                     CiudadId = a.CiudadID
-                }).ToList();
+                });
+
+            lista.AddRange(agencias);
+
+            return lista;
         }
 
-        public List<AgenciaCD> ObtenerCDPorCiudad(int ciudadId)
+        public AgenciaCD ObtenerCDPorCiudad(int ciudadId)
         {
-            return AgenciaAlmacen.Agencias
-                .Where(a => a.CiudadID == ciudadId && a.AgenciaID == ciudadId)
-                .Select(a => new AgenciaCD
-                {
-                    Id = a.AgenciaID,
-                    Nombre = a.Nombre,
-                    CiudadId = a.CiudadID
-                }).ToList();
+            var ciudad = CiudadAlmacen.Ciudades.FirstOrDefault(c => c.CiudadID == ciudadId);
+            if (ciudad == null)
+                return null;
+
+            var cd = CentroDistribucionAlmacen.CentrosDistribucion
+                .FirstOrDefault(c => c.CD_ID == ciudad.CDID);
+
+            if (cd == null)
+                return null;
+
+            // Se devuelve también como AgenciaCD para que el ComboBox pueda mostrarlo igual
+            return new AgenciaCD
+            {
+                Id = cd.CD_ID,
+                Nombre = cd.Nombre + " (Centro de Distribución)",
+                CiudadId = ciudadId
+            };
         }
         private static void BuscarUltimaGuia()
         {
