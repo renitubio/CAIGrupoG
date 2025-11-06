@@ -22,6 +22,6 @@ namespace CAIGrupoG.Almacenes
         public bool Completada { get; set; }
 
         //cambio aqui de List<GuiaEntidad> a List<string>, esta bien??? ivo
-        public List<string> Guias { get; set; }
+        public List<GuiaEntidad> Guias { get; set; }
     }
 }
