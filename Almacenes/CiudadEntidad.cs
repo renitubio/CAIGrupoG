@@ -8,7 +8,7 @@ namespace CAIGrupoG.Almacenes
 {
     internal class CiudadEntidad
     {
-        public string CiudadID { get; set; }
+        public int CiudadID { get; set; }
         public string Nombre { get; set; }
         public int CDID { get; set; }
     }

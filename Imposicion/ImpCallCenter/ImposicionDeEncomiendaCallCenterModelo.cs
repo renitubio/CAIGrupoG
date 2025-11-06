@@ -13,12 +13,12 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
     {
         private ClienteEntidad _clienteActual;
         private static int _proximoNumeroGuia = 1;
-        private static int _proximoIdHDR = 1; // Contador para Hoja de Ruta
+        private static int _proximoIdHDR = 1;
 
         public ImposicionDeEncomiendaCallCenterModelo()
         {
             BuscarUltimaGuia();
-            BuscarUltimoIdHDR(); // Carga el último ID de Hoja de Ruta
+            BuscarUltimoIdHDR();
         }
 
         #region Lógica de Contadores (Guía y HDR)
@@ -49,9 +49,8 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
         private static void BuscarUltimoIdHDR()
         {
-            // ¡ADVERTENCIA! Esta línea causará un CRASH al ejecutarse
-            // porque HojaDeRuta.json (List<string>) no coincide
-            // con HojaDeRutaEntidad.cs (List<GuiaEntidad>).
+            // ASUMO que HojaDeRutaEntidad.cs se corrigió para usar List<string> Guias
+            // y [JsonPropertyName], de lo contrario esto crashea.
             var hdrs = HojaDeRutaAlmacen.HojasDeRuta;
 
             if (hdrs == null || hdrs.Count == 0)
@@ -66,7 +65,7 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
             }
             catch
             {
-                _proximoIdHDR = 4568; // Fallback
+                _proximoIdHDR = 4568;
             }
         }
 
@@ -92,12 +91,13 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
         public List<Ciudad> ObtenerCiudades()
         {
-            return CentroDistribucionAlmacen.CentrosDistribucion
-                .Select(cd => new Ciudad
+            // Asumiendo que CiudadEntidad.cs usa 'int CiudadID'
+            return CiudadAlmacen.Ciudades
+                .Select(c => new Ciudad
                 {
-                    Id = cd.CD_ID,
-                    Nombre = cd.Nombre,
-                    CD_ID = cd.CD_ID
+                    Id = c.CiudadID,
+                    Nombre = c.Nombre,
+                    CD_ID = c.CDID
                 }).ToList();
         }
 
@@ -110,24 +110,46 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
         public List<AgenciaCD> ObtenerAgenciasPorCiudad(int ciudadId)
         {
-            // Este método fallará en silencio (devolverá 0 agencias)
-            // hasta que arregles el 'AgenciaEntidad.cs'
-            // (que espera un Dictionary<Enum, ...> en vez de <string, ...>)
-            return AgenciaAlmacen.Agencias
+            var opciones = new List<AgenciaCD>();
+
+            // 1. Buscar el CD asociado a esa Ciudad
+            var ciudadSeleccionada = CiudadAlmacen.Ciudades.FirstOrDefault(c => c.CiudadID == ciudadId);
+
+            if (ciudadSeleccionada != null)
+            {
+                var cd = CentroDistribucionAlmacen.CentrosDistribucion
+                           .FirstOrDefault(c => c.CD_ID == ciudadSeleccionada.CDID);
+
+                if (cd != null)
+                {
+                    opciones.Add(new AgenciaCD
+                    {
+                        Id = cd.CD_ID,
+                        Nombre = cd.Nombre + " (Centro de Distribución)",
+                        CiudadId = ciudadId
+                    });
+                }
+            }
+
+            // 2. Buscar las Agencias asociadas a esa Ciudad
+            // ASUMO que AgenciaEntidad.cs está corregida (usa Dictionary<string, decimal>)
+            var agencias = AgenciaAlmacen.Agencias
                 .Where(a => a.CiudadID == ciudadId)
                 .Select(a => new AgenciaCD
                 {
                     Id = a.AgenciaID,
                     Nombre = a.Nombre,
                     CiudadId = a.CiudadID
-                }).ToList();
+                });
+
+            opciones.AddRange(agencias);
+
+            return opciones;
         }
 
         private FleteroEntidad BuscarFletero(int cdOrigen)
         {
-            // Este método fallará en silencio (devolverá null y crasheará)
-            // hasta que arregles el 'FleteroEntidad.cs'
-            // para que use [JsonPropertyName("DNI Fletero")]
+            // ASUMO que FleteroEntidad.cs está corregida (usa [JsonPropertyName] y List<Dictionary...>)
             var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.CD_ID == cdOrigen);
             if (fletero == null)
             {
@@ -162,12 +184,7 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                     FechaAdmision = DateTime.Now,
                     Estado = EstadoEncomiendaEnum.ImpuestoCallCenter, // Estado 1
                     RetiroDomicilio = true,
-
-                    // Se quita la asignación de 'DNIFletero'
-                    // porque (según me dijiste) no existe en GuiaEntidad.cs
-                    // DNIFletero = fleteroAsignado.FleteroDNI, 
-
-                    // TODO: Faltan datos que el Form no pasa
+                    // Se quita DNIFletero, ya que no existe en GuiaEntidad
                 };
 
                 GuiaAlmacen.Nuevo(entidad);
@@ -176,7 +193,6 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
             GuiaAlmacen.Grabar();
 
-            // Pasamos la lista de objetos GuiaEntidad
             CrearHojaDeRuta(guiasEntidadCreadas, fleteroAsignado, TipoHDREnum.Retiro);
 
             return guiasEntidadCreadas.Select(g => g.NumeroGuia).ToList();
@@ -191,13 +207,14 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
             {
                 HDR_ID = _proximoIdHDR++,
                 FechaCreacion = DateTime.Now,
-                FleteroDNI = fletero.FleteroDNI, // (Tu entidad sí tiene esto)
+                FleteroDNI = fletero.FleteroDNI,
                 Tipo = tipo,
                 Completada = false,
 
-                // Asignamos la lista de OBJETOS (List<GuiaEntidad>)
-                // (Tu entidad sí tiene esto)
-                Guias = guias,
+                // --- ¡CORRECCIÓN! ---
+                // Convertimos la lista de OBJETOS (List<GuiaEntidad>)
+                // en la lista de STRINGS (List<string>) que la Entidad espera.
+                Guias = guias.Select(g => g.NumeroGuia).ToList(),
 
                 ServicioID = 0
             };

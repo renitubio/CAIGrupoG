@@ -1,47 +1,47 @@
 ﻿[
   {
-    "Ciudad ID": 1,
+    "CiudadID": 1,
     "Nombre": "Buenos Aires",
-    "CD ID": 1
+    "CDID": 1
   },
   {
-    "Ciudad ID": 2,
+    "CiudadID": 2,
     "Nombre": "CABA",
-    "CD ID": 2
+    "CDID": 2
   },
   {
-    "Ciudad ID": 2,
+    "CiudadID": 3,
     "Nombre": "Rosario",
-    "CD ID": 3
+    "CDID": 3
   },
   {
-    "Ciudad ID": 2,
+    "CiudadID": 4,
     "Nombre": "Córdoba",
-    "CD ID": 4
+    "CDID": 4
   },
   {
-    "Ciudad ID": 2,
+    "CiudadID": 5,
     "Nombre": "Santa Fe",
-    "CD ID": 5
+    "CDID": 5
   },
   {
-    "Ciudad ID": 2,
+    "CiudadID": 6,
     "Nombre": "Jujuy",
-    "CD ID": 6
+    "CDID": 6
   },
   {
-    "Ciudad ID": 2,
+    "CiudadID": 7,
     "Nombre": "Formosa",
-    "CD ID": 7
+    "CDID": 7
   },
   {
-    "Ciudad ID": 2,
+    "CiudadID": 8,
     "Nombre": "Chaco",
-    "CD ID": 8
+    "CDID": 8
   },
   {
-    "Ciudad ID": 2,
+    "CiudadID": 9,
     "Nombre": "Corrientes",
-    "CD ID": 9
+    "CDID": 9
   }
 ]
