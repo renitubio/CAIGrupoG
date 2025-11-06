@@ -6,7 +6,42 @@
   },
   {
     "Ciudad ID": 2,
-    "Nombre": "Córdoba",
+    "Nombre": "CABA",
     "CD ID": 2
+  },
+  {
+    "Ciudad ID": 2,
+    "Nombre": "Rosario",
+    "CD ID": 3
+  },
+  {
+    "Ciudad ID": 2,
+    "Nombre": "Córdoba",
+    "CD ID": 4
+  },
+  {
+    "Ciudad ID": 2,
+    "Nombre": "Santa Fe",
+    "CD ID": 5
+  },
+  {
+    "Ciudad ID": 2,
+    "Nombre": "Jujuy",
+    "CD ID": 6
+  },
+  {
+    "Ciudad ID": 2,
+    "Nombre": "Formosa",
+    "CD ID": 7
+  },
+  {
+    "Ciudad ID": 2,
+    "Nombre": "Chaco",
+    "CD ID": 8
+  },
+  {
+    "Ciudad ID": 2,
+    "Nombre": "Corrientes",
+    "CD ID": 9
   }
 ]

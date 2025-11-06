@@ -33,9 +33,31 @@
     }
   },
   {
-    "Agencia ID": 5,
+    "Agencia ID": 40,
     "Nombre": "Agencia Rapiditas",
-    "Ciudad": 1,
+    "Ciudad": 2,
+    "Comisiones": {
+      "S": 10.0,
+      "M": 15.5,
+      "L": 18.0,
+      "XL": 20.9
+    }
+  },
+  {
+    "Agencia ID": 80,
+    "Nombre": "Agencia Leones",
+    "Ciudad": 4,
+    "Comisiones": {
+      "S": 10.0,
+      "M": 15.5,
+      "L": 18.0,
+      "XL": 20.9
+    }
+  }
+  {
+    "Agencia ID": 100,
+    "Nombre": "Agencia Oeste",
+    "Ciudad": 4,
     "Comisiones": {
       "S": 10.0,
       "M": 15.5,

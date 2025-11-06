@@ -13,7 +13,7 @@ namespace CAIGrupoG.Almacenes
         public int CiudadID { get; set; }
         // debe referenciar a la entidad CiudadEntidad
 
-        public Dictionary<TipoPaqueteEnum, decimal> Comisiones { get; set; }
+        public Dictionary<string, decimal> Comisiones { get; set; }
 
     }
 }
