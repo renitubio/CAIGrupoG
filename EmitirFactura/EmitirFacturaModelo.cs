@@ -22,7 +22,7 @@ namespace CAIGrupoG.EmitirFactura
         // --- Lógica de Búsqueda (Diagrama de Secuencia: Buscar) ---
 
         /// Implementa la lógica de búsqueda de guías aptas para facturar (Entregado=13, NumFactura=0).
-        public List<Guia> ObtenerGuiasParaFacturar(string cuit)
+        public List<Guia> BuscarGuiasPorCUIT(string cuit)
         {
             lock (_guiaAlmacenLock)
             {
@@ -63,7 +63,7 @@ namespace CAIGrupoG.EmitirFactura
         // --- Lógica de Emisión de Factura (Diagrama de Secuencia: Emitir) ---
 
         /// Cambia el estado de las guías, genera una nueva factura y persiste ambos cambios.
-        public int ConfirmarEmisionFactura(List<Guia> guiasAFacturar)
+        public int EmitirFacturas(List<Guia> guiasAFacturar)
         {
             if (!guiasAFacturar.Any()) return 0;
 
