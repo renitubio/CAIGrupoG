@@ -6,7 +6,7 @@
     "FleteroDNI": "30123456",
     "TipoHDREnum": 2,
     "Completada": false,
-    "GuiasAsignadas": [
+    "Guias": [
       "GUI001",
       "GUI002"
     ]

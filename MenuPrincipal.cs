@@ -5,6 +5,7 @@ using CAIGrupoG.EmitirFactura;
 using CAIGrupoG.EntregaGuíaAgencia;
 using CAIGrupoG.EntregaGuíaCD;
 using CAIGrupoG.Imposicion.ImpAgencia;
+using CAIGrupoG.Imposicion.ImpCallCenter;
 using CAIGrupoG.Imposicion.ImpCentroDistribucion;
 using CAIGrupoG.Playero;
 using CAIGrupoG.ResultadoCostosVSVentas;
@@ -65,7 +66,7 @@ public partial class MenuPrincipal : Form
 
     private void ImpCallCenterButton_Click(object sender, EventArgs e)
     {
-        (new ImposicionDeEncomiendaAgenciaForm()).ShowDialog();
+        (new ImposicionDeEncomiendaCallCenterForm()).ShowDialog();
     }
 
     private void PlayeroButton_Click(object sender, EventArgs e)

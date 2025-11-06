@@ -49,11 +49,13 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
         private static void BuscarUltimoIdHDR()
         {
-            // Asumimos que HojaDeRutaAlmacen ya cargó su JSON
+            // ¡ADVERTENCIA! Esta línea causará un CRASH al ejecutarse
+            // porque HojaDeRuta.json (List<string>) no coincide
+            // con HojaDeRutaEntidad.cs (List<GuiaEntidad>).
             var hdrs = HojaDeRutaAlmacen.HojasDeRuta;
+
             if (hdrs == null || hdrs.Count == 0)
             {
-                // Si el JSON está vacío, usamos el 4567 de tu ejemplo como base
                 _proximoIdHDR = 4568;
                 return;
             }
@@ -78,7 +80,7 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
             if (clienteEntidad != null)
             {
                 _clienteActual = clienteEntidad;
-                return new Cliente // Mapeo a la clase que espera la UI
+                return new Cliente
                 {
                     CUIT = clienteEntidad.ClienteCUIT,
                     RazonSocial = clienteEntidad.RazonSocial
@@ -101,7 +103,6 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
         public List<TipoCaja> ObtenerTiposCaja()
         {
-            // Mapeamos el Enum real (TipoPaqueteEnum) a la clase 'TipoCaja'
             return Enum.GetNames(typeof(TipoPaqueteEnum))
                 .Select(nombre => new TipoCaja { Nombre = nombre })
                 .ToList();
@@ -109,6 +110,9 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
         public List<AgenciaCD> ObtenerAgenciasPorCiudad(int ciudadId)
         {
+            // Este método fallará en silencio (devolverá 0 agencias)
+            // hasta que arregles el 'AgenciaEntidad.cs'
+            // (que espera un Dictionary<Enum, ...> en vez de <string, ...>)
             return AgenciaAlmacen.Agencias
                 .Where(a => a.CiudadID == ciudadId)
                 .Select(a => new AgenciaCD
@@ -121,8 +125,9 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
         private FleteroEntidad BuscarFletero(int cdOrigen)
         {
-            // Busca el primer fletero que trabaje para ese CD de Origen
-            // (Gracias a tu FleteroEntidad.cs corregido, esto ahora carga)
+            // Este método fallará en silencio (devolverá null y crasheará)
+            // hasta que arregles el 'FleteroEntidad.cs'
+            // para que use [JsonPropertyName("DNI Fletero")]
             var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.CD_ID == cdOrigen);
             if (fletero == null)
             {
@@ -142,11 +147,9 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                 throw new InvalidOperationException("Cliente no encontrado.");
             }
 
-            // 1. Buscar Fletero (antes de crear las guías)
             var fleteroAsignado = BuscarFletero(_clienteActual.CDOrigen);
             var guiasEntidadCreadas = new List<GuiaEntidad>();
 
-            // 2. Crear las Guías
             for (int i = 0; i < cantidadTotalCajas; i++)
             {
                 string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
@@ -157,30 +160,25 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                     ClienteCUIT = _clienteActual.ClienteCUIT,
                     CDOrigenID = _clienteActual.CDOrigen,
                     FechaAdmision = DateTime.Now,
-
-                    // Lógica de Call Center
                     Estado = EstadoEncomiendaEnum.ImpuestoCallCenter, // Estado 1
-                    RetiroDomicilio = true, // El fletero lo retira
+                    RetiroDomicilio = true,
 
-                    // AHORA COMPILA: Asignamos el fletero
-                    DNIFletero = fleteroAsignado.FleteroDNI,
+                    // Se quita la asignación de 'DNIFletero'
+                    // porque (según me dijiste) no existe en GuiaEntidad.cs
+                    // DNIFletero = fleteroAsignado.FleteroDNI, 
 
                     // TODO: Faltan datos que el Form no pasa
-                    // (TipoPaquete, DNIAutorizadoRetirar, DomicilioDestino, etc.)
                 };
 
                 GuiaAlmacen.Nuevo(entidad);
                 guiasEntidadCreadas.Add(entidad);
             }
 
-            // 3. Grabar las Guías
             GuiaAlmacen.Grabar();
 
-            // 4. Crear la Hoja de Ruta
-            // ASUMO que TipoHDREnum existe y tiene el valor 'Retiro'
+            // Pasamos la lista de objetos GuiaEntidad
             CrearHojaDeRuta(guiasEntidadCreadas, fleteroAsignado, TipoHDREnum.Retiro);
 
-            // 5. Devolver los números de guía al formulario
             return guiasEntidadCreadas.Select(g => g.NumeroGuia).ToList();
         }
 
@@ -191,14 +189,17 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
             var nuevaHdr = new HojaDeRutaEntidad
             {
-                HDR_ID = _proximoIdHDR++, // Asigna el próximo ID
+                HDR_ID = _proximoIdHDR++,
                 FechaCreacion = DateTime.Now,
-                FleteroDNI = fletero.FleteroDNI,
+                FleteroDNI = fletero.FleteroDNI, // (Tu entidad sí tiene esto)
                 Tipo = tipo,
                 Completada = false,
-                // Convierte la List<GuiaEntidad> a List<string> (solo los IDs)
-                GuiasAsignadas = guias.Select(g => g.NumeroGuia).ToList(),
-                ServicioID = 0 // Usamos 0 o algún placeholder
+
+                // Asignamos la lista de OBJETOS (List<GuiaEntidad>)
+                // (Tu entidad sí tiene esto)
+                Guias = guias,
+
+                ServicioID = 0
             };
 
             HojaDeRutaAlmacen.Nuevo(nuevaHdr);
