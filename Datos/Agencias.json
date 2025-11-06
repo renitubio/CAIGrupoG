@@ -2,7 +2,7 @@
   {
     "AgenciaID": 1,
     "Nombre": "Agencia del centro",
-    "Ciudad": 1,
+    "CiudadID": 1,
     "Comisiones": {
       "1": 10.0,
       "2": 15.5,
@@ -13,7 +13,7 @@
   {
     "AgenciaID": 20,
     "Nombre": "Agencia Doña María",
-    "Ciudad": 1,
+    "CiudadID": 1,
     "Comisiones": {
       "1": 10.0,
       "2": 15.5,
@@ -24,7 +24,7 @@
   {
     "AgenciaID": 10,
     "Nombre": "Agencia Don Camaron",
-    "Ciudad": 1,
+    "CiudadID": 1,
     "Comisiones": {
       "1": 10.0,
       "2": 15.5,
@@ -35,7 +35,7 @@
   {
     "AgenciaID": 40,
     "Nombre": "Agencia Rapiditas",
-    "Ciudad": 2,
+    "CiudadID": 2,
     "Comisiones": {
       "1": 10.0,
       "2": 15.5,
@@ -46,7 +46,7 @@
   {
     "AgenciaID": 80,
     "Nombre": "Agencia Leones",
-    "Ciudad": 4,
+    "CiudadID": 4,
     "Comisiones": {
       "1": 10.0,
       "2": 15.5,
@@ -57,7 +57,7 @@
   {
     "AgenciaID": 100,
     "Nombre": "Agencia Oeste",
-    "Ciudad": 4,
+    "CiudadID": 4,
     "Comisiones": {
       "1": 10.0,
       "2": 15.5,
