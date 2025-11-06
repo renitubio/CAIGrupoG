@@ -16,7 +16,7 @@ namespace CAIGrupoG.Almacenes
 
         public int CDOrigen { get; set; }
 
-        public int CDDestingo { get; set; }
+        public int CDDestino { get; set; }
 
         public DateTime FechaHoraSalida { get; set; }
 

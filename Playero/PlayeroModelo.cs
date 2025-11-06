@@ -7,7 +7,6 @@ namespace CAIGrupoG.Playero
 {
     public class PlayeroModelo
     {
-        // Cambia const por propiedad
         public int NuestroCD { get; set; }
 
         public PlayeroModelo(int cdSeleccionado)
@@ -21,19 +20,44 @@ namespace CAIGrupoG.Playero
 
         public (List<GuiaEntidad> Cargas, List<GuiaEntidad> Descargas) BuscarGuiasPorPatente(string patente)
         {
-            var todas = GuiaAlmacen.Guias;
+            var ahora = DateTime.Now;
 
-            var cargas = todas.Where(g =>
-                g.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen &&
-                g.CDOrigenID == NuestroCD &&
-                g.DNIAutorizadoRetirar == patente
-            ).ToList();
+            // Buscar el servicio de carga (salida desde nuestro CD)
+            var servicioCarga = ServicioAlmacen.servicios
+                .Where(s => s.Patente == patente && s.CDOrigen == NuestroCD && s.FechaHoraSalida > ahora)
+                .OrderBy(s => s.FechaHoraSalida)
+                .FirstOrDefault();
 
-            var descargas = todas.Where(g =>
-                g.Estado == EstadoEncomiendaEnum.EnTransito &&
-                g.CDDestinoID == NuestroCD &&
-                g.DNIAutorizadoRetirar == patente
-            ).ToList();
+            // Buscar el servicio de descarga (llegada a nuestro CD)
+            var servicioDescarga = ServicioAlmacen.servicios
+                .Where(s => s.Patente == patente && s.CDDestino == NuestroCD && s.FechaHoraLlegada > ahora)
+                .OrderBy(s => s.FechaHoraLlegada)
+                .FirstOrDefault();
+
+            var cargas = new List<GuiaEntidad>();
+            var descargas = new List<GuiaEntidad>();
+
+            if (servicioCarga != null)
+            {
+                var hojaCarga = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h => h.ServicioID == servicioCarga.ServicioID);
+                if (hojaCarga != null && hojaCarga.Guias != null)
+                {
+                    cargas = hojaCarga.Guias
+                        .Where(g => g.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen && g.CDOrigenID == NuestroCD)
+                        .ToList();
+                }
+            }
+
+            if (servicioDescarga != null)
+            {
+                var hojaDescarga = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h => h.ServicioID == servicioDescarga.ServicioID);
+                if (hojaDescarga != null && hojaDescarga.Guias != null)
+                {
+                    descargas = hojaDescarga.Guias
+                        .Where(g => g.Estado == EstadoEncomiendaEnum.EnTransito && g.CDDestinoID == NuestroCD)
+                        .ToList();
+                }
+            }
 
             return (cargas, descargas);
         }
