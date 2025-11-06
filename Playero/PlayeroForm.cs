@@ -16,6 +16,10 @@ namespace CAIGrupoG.Playero
     {
         private readonly PlayeroModelo modelo = new();
 
+        //TODO: Estas dos variables se tienen que ir. Pedirle los datos al modelo en donde se necesiten, las veces q haga falta.
+        // private List<Guia> guiasCargaActuales;
+        // private List<Guia> guiasDescargaActuales;
+
         public PlayeroForm()
         {
             InitializeComponent();
@@ -54,6 +58,13 @@ namespace CAIGrupoG.Playero
             string patente = PatenteTxt.Text.Trim();
             var resultado = modelo.BuscarGuiasPorPatente(patente);
 
+            // Validar si hay guías para procesar
+            if ((resultado.Cargas == null || !resultado.Cargas.Any()) &&
+                (resultado.Descargas == null || !resultado.Descargas.Any()))
+            {
+                MessageBox.Show("No hay guías para procesar. Por favor, busque una patente primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             // Llamar al modelo para confirmar la operación
             modelo.ConfirmarOperacion(resultado.Cargas, resultado.Descargas);
@@ -64,9 +75,6 @@ namespace CAIGrupoG.Playero
             LimpiarFormulario();
         }
 
-        /// <summary>
-        /// Valida el formato de una patente argentina (Mercosur y anterior).
-        /// </summary>
         private bool ValidarPatente(string patente)
         {
             if (string.IsNullOrWhiteSpace(patente))
@@ -78,34 +86,28 @@ namespace CAIGrupoG.Playero
             return regex.IsMatch(patente.ToUpper());
         }
 
-        /// <summary>
-        /// Rellena un control ListView con una lista de guías.
-        /// </summary>
+
         private void PoblarListView(ListView listView, List<GuiaEntidad> guias)
         {
             listView.Items.Clear(); // Limpiar items previos
 
-            if (guias == null || guias.Count == 0) return;
+            if (guias == null) return;
 
             foreach (var guia in guias)
             {
                 var row = new string[]
                 {
-                    guia.NumeroGuia ?? string.Empty,
+                    guia.NumeroGuia,
                     guia.TipoPaquete.ToString(),
-                    guia.ClienteCUIT ?? string.Empty,
+                    guia.ClienteCUIT,
                     guia.CDOrigenID.ToString(),
                     guia.CDDestinoID.ToString()
                 };
-
                 var item = new ListViewItem(row);
                 listView.Items.Add(item);
             }
         }
 
-        /// <summary>
-        /// Limpia todos los controles del formulario a su estado inicial.
-        /// </summary>
         private void LimpiarFormulario()
         {
             PatenteTxt.Clear();
