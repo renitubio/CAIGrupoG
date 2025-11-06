@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CAIGrupoG.Almacenes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,52 +9,80 @@ namespace CAIGrupoG.EntregaGuíaAgencia
 {
     public class EntregaGuiaAgenciaModelo
     {
-        private readonly List<Guia> _guias;
-
         public EntregaGuiaAgenciaModelo()
         {
-            _guias = new List<Guia>();
-            CargarDatosFicticios();
+            // El constructor está vacío.
+            // Los datos se leen directamente de los Almacenes estáticos.
         }
 
-        /// Busca guías asociadas a un DNI que estén pendientes de retiro.
-        /// <param name="dni">DNI del destinatario.</param>
-        /// <returns>Una lista de guías encontradas.</returns>
+        /// <summary>
+        /// Busca guías en el GuiaAlmacen que coincidan con la regla de negocio.
+        /// </summary>
         public List<Guia> BuscarGuiasPorDNI(string dni)
         {
-            return _guias
-                .Where(g => g.DniDestinatario == dni && g.Estado == EstadoGuia.PendienteDeRetiroEnAgencia)
+            // 1. Obtener el ID de la Agencia "logueada" (como vimos en MenuPrincipal.cs)
+            if (AgenciaAlmacen.AgenciaActual == null)
+            {
+                // Si alguien abre este form sin seleccionar una Agencia en el menú
+                throw new InvalidOperationException("No se ha seleccionado una Agencia en el Menú Principal.");
+            }
+            // ASUMO que AgenciaEntidad tiene la propiedad 'AgenciaID'
+            int agenciaActualID = AgenciaAlmacen.AgenciaActual.AgenciaID;
+
+            // 2. Definir el estado que buscamos
+            // (Estado 5)
+            EstadoEncomiendaEnum estadoRequerido = EstadoEncomiendaEnum.PendienteDeRetiroEnAgencia;
+
+            // 3. Buscar en el Almacén (la fuente real 'GuiaEntidad')
+            var guiasEntidad = GuiaAlmacen.Guias
+                .Where(g =>
+                    g.DNIAutorizadoRetirar == dni &&
+                    g.Estado == estadoRequerido &&
+                    g.AgenciaDestinoID == agenciaActualID // <--- Esta es la nueva regla
+                )
                 .ToList();
+
+            // 4. Mapear de la lista de 'GuiaEntidad' (Datos) 
+            //    a la lista de 'Guia' (el View Model que espera el Form)
+            var guiasViewModel = guiasEntidad.Select(g => new Guia
+            {
+                NumeroGuia = g.NumeroGuia,
+                DniDestinatario = g.DNIAutorizadoRetirar,
+                // Hacemos un "cast" directo de los enums
+                TipoPaquete = (TipoPaquete)g.TipoPaquete,
+                // El estado es el que espera el Form para mostrar
+                Estado = EstadoGuia.PendienteDeRetiroEnAgencia
+            }).ToList();
+
+            return guiasViewModel;
         }
 
-        /// Cambia el estado de una lista de guías a "Retirado".
-        /// <param name="guiasARetirar">La lista de guías que se van a retirar.</param>
+        /// <summary>
+        /// Confirma el retiro, actualizando las entidades reales en el Almacén.
+        /// </summary>
         public void ConfirmarRetiro(List<Guia> guiasARetirar)
         {
-            foreach (var guia in guiasARetirar)
+            // 'guiasARetirar' es la lista de View Models (Guia)
+            // Debemos encontrar las entidades reales (GuiaEntidad) y modificarlas.
+
+            // (Estado 13)
+            EstadoEncomiendaEnum nuevoEstado = EstadoEncomiendaEnum.Entregado;
+
+            foreach (var guiaVM in guiasARetirar)
             {
-                // Buscamos la guía en la lista original y cambiamos su estado
-                var guiaOriginal = _guias.FirstOrDefault(g => g.NumeroGuia == guia.NumeroGuia);
-                if (guiaOriginal != null)
+                // Buscar la entidad original en el Almacén
+                var guiaEntidad = GuiaAlmacen.Guias
+                    .FirstOrDefault(g => g.NumeroGuia == guiaVM.NumeroGuia);
+
+                if (guiaEntidad != null)
                 {
-                    guiaOriginal.Estado = EstadoGuia.Retirado;
+                    // Cambiar el estado en la entidad real
+                    guiaEntidad.Estado = nuevoEstado;
                 }
             }
-        }
 
-        /// Método privado para generar datos de prueba.
-        private void CargarDatosFicticios()
-        {
-            // Guías para el DNI 25111222
-            _guias.Add(new Guia { NumeroGuia = "AGE001", DniDestinatario = "25111222", Estado = EstadoGuia.PendienteDeRetiroEnAgencia, TipoPaquete = TipoPaquete.S });
-            _guias.Add(new Guia { NumeroGuia = "AGE002", DniDestinatario = "25111222", Estado = EstadoGuia.PendienteDeRetiroEnAgencia, TipoPaquete = TipoPaquete.L });
-
-            // Guías para el DNI 32333444
-            _guias.Add(new Guia { NumeroGuia = "AGE003", DniDestinatario = "32333444", Estado = EstadoGuia.PendienteDeRetiroEnAgencia, TipoPaquete = TipoPaquete.M });
-
-            // Guías para el DNI 38555666 (una ya fue retirada para probar el filtro)
-            _guias.Add(new Guia { NumeroGuia = "AGE004", DniDestinatario = "38555666", Estado = EstadoGuia.PendienteDeRetiroEnAgencia, TipoPaquete = TipoPaquete.XL });
-            _guias.Add(new Guia { NumeroGuia = "AGE005", DniDestinatario = "38555666", Estado = EstadoGuia.Retirado, TipoPaquete = TipoPaquete.S });
+            // Guardar TODOS los cambios hechos en el Almacén en el JSON
+            GuiaAlmacen.Grabar();
         }
     }
 }

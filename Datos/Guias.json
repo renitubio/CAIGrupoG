@@ -166,7 +166,7 @@
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": false,
     "EntregaGuíaAgencia": false,
-    "NumeroFactura": 1012,
+    "NumeroFactura": 0,
     "AgenciaDestinoID": 0
   }
 ]
