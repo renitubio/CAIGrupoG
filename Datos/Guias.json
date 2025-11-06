@@ -167,11 +167,7 @@
     "RetiroDomicilio": false,
     "EntregaGuíaAgencia": false,
     "NumeroFactura": 0,
-<<<<<<< HEAD
     "AgenciaDestinoID": 20
-  }
-=======
-    "AgenciaDestinoID": 0
   },
   {
     "NumeroGuia": "GUI009",
@@ -190,5 +186,4 @@
     "NumeroFactura": 0,
     "AgenciaDestinoID": 0
   } 
->>>>>>> 91f81cd426d6e330d7936c706cacac19c58ada9f
 ]
