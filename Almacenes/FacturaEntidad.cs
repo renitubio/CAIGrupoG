@@ -10,7 +10,7 @@ namespace CAIGrupoG.Almacenes
     {
         public int NumeroFactura { get; set; }
         public decimal Monto { get; set; }
-        public DateOnly FechaEmision { get; set; }
+        public DateTime FechaEmision { get; set; }
 
         public string ClienteCUIT { get; set; }
 

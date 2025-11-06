@@ -88,7 +88,7 @@ namespace CAIGrupoG.EmitirFactura
                 {
                     NumeroFactura = nuevoNumeroFactura,
                     Monto = importeTotal,
-                    FechaEmision = DateOnly.FromDateTime(DateTime.Now),
+                    FechaEmision = DateTime.Now,
                     ClienteCUIT = cuit
                 };
 

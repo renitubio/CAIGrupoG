@@ -1,1 +1,8 @@
-﻿
+﻿[
+  {
+    "NumeroFactura": 1,
+    "Monto": 2000.0,
+    "FechaEmision": "2024-10-11T00:00:00",
+    "ClienteCUIT": "20664588201"
+  }
+]
