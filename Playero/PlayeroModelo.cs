@@ -30,7 +30,7 @@ namespace CAIGrupoG.Playero
             ).ToList();
 
             var descargas = todas.Where(g =>
-                g.Estado == EstadoEncomiendaEnum.AdmitidoCDDestino &&
+                g.Estado == EstadoEncomiendaEnum.EnTransito &&
                 g.CDDestinoID == NuestroCD &&
                 g.DNIAutorizadoRetirar == patente
             ).ToList();
@@ -38,7 +38,7 @@ namespace CAIGrupoG.Playero
             return (cargas, descargas);
         }
 
-        public void ConfirmarOperacion(List<GuiaEntidad> cargas, List<GuiaEntidad> descargas)
+        public Dictionary<string, List<GuiaEntidad>> ConfirmarOperacion(List<GuiaEntidad> cargas, List<GuiaEntidad> descargas)
         {
             if (cargas != null)
             {
@@ -48,13 +48,60 @@ namespace CAIGrupoG.Playero
                 }
             }
 
+            var agrupadas = new Dictionary<string, List<GuiaEntidad>>();
+
             if (descargas != null)
             {
                 foreach (var guia in descargas)
                 {
-                    guia.Estado = EstadoEncomiendaEnum.Entregado;
+                    guia.Estado = EstadoEncomiendaEnum.AdmitidoCDDestino;
                 }
+
+                // Agrupar por DomicilioDestino si EntregaDomicilio es true
+                var porDomicilio = descargas.Where(g => g.EntregaDomicilio).GroupBy(g => g.DomicilioDestino)
+                    .ToDictionary(g => $"Domicilio: {g.Key}", g => g.ToList());
+                foreach (var kvp in porDomicilio)
+                    agrupadas[kvp.Key] = kvp.Value;
+
+                // Agrupar por AgenciaDestinoID si EntregaAgencia es true
+                var porAgencia = descargas.Where(g => g.EntregaAgencia).GroupBy(g => g.AgenciaDestinoID)
+                    .ToDictionary(g => $"Agencia: {g.Key}", g => g.ToList());
+                foreach (var kvp in porAgencia)
+                    agrupadas[kvp.Key] = kvp.Value;
+
+                // Las restantes como entrega en CD
+                var enCD = descargas.Where(g => !g.EntregaDomicilio && !g.EntregaAgencia).ToList();
+                if (enCD.Any())
+                    agrupadas["Entrega en CD"] = enCD;
             }
+
+            return agrupadas;
+        }
+
+        public List<HojaDeRutaEntidad> CrearHojasDeRutaDistribucion(Dictionary<string, List<GuiaEntidad>> agrupadas)
+        {
+            var hojas = new List<HojaDeRutaEntidad>();
+            int ultimoId = HojaDeRutaAlmacen.HojasDeRuta.Any() ? HojaDeRutaAlmacen.HojasDeRuta.Max(h => h.HDR_ID) :0;
+            var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.CD_ID == NuestroCD);
+            string fleteroDNI = fletero?.FleteroDNI ?? string.Empty;
+
+            foreach (var grupo in agrupadas)
+            {
+                var hoja = new HojaDeRutaEntidad
+                {
+                    HDR_ID = ++ultimoId,
+                    ServicioID =0,
+                    FechaCreacion = DateTime.Now,
+                    FleteroDNI = fleteroDNI,
+                    Tipo = TipoHDREnum.Distribucion, // Asumiendo que existe y es =3
+                    Completada = false,
+                    Guias = grupo.Value
+                };
+                HojaDeRutaAlmacen.Nuevo(hoja);
+                hojas.Add(hoja);
+            }
+            HojaDeRutaAlmacen.Grabar();
+            return hojas;
         }
     }
 }

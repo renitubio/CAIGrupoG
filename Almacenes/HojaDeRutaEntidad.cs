@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CAIGrupoG.Almacenes
 {
-    internal class HojaDeRutaEntidad
+    public class HojaDeRutaEntidad
     {
 
         public int HDR_ID { get; set; }
