@@ -117,7 +117,7 @@
     "EntregaGuíaAgencia": false,
     "NumeroFactura": 1012,
     "AgenciaDestinoID": 0
-  }
+  },
   {
     "NumeroGuia": "GUI006",
     "TipoPaquete": 3,
@@ -134,7 +134,7 @@
     "EntregaGuíaAgencia": false,
     "NumeroFactura": 1012,
     "AgenciaDestinoID": 0
-  }
+  },
   {
     "NumeroGuia": "GUI006",
     "TipoPaquete": 3,

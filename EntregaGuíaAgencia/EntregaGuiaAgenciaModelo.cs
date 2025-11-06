@@ -16,9 +16,7 @@ namespace CAIGrupoG.EntregaGuíaAgencia
             CargarDatosFicticios();
         }
 
-        /// <summary>
         /// Busca guías asociadas a un DNI que estén pendientes de retiro.
-        /// </summary>
         /// <param name="dni">DNI del destinatario.</param>
         /// <returns>Una lista de guías encontradas.</returns>
         public List<Guia> BuscarGuiasPorDNI(string dni)
@@ -28,9 +26,7 @@ namespace CAIGrupoG.EntregaGuíaAgencia
                 .ToList();
         }
 
-        /// <summary>
         /// Cambia el estado de una lista de guías a "Retirado".
-        /// </summary>
         /// <param name="guiasARetirar">La lista de guías que se van a retirar.</param>
         public void ConfirmarRetiro(List<Guia> guiasARetirar)
         {
@@ -45,9 +41,7 @@ namespace CAIGrupoG.EntregaGuíaAgencia
             }
         }
 
-        /// <summary>
         /// Método privado para generar datos de prueba.
-        /// </summary>
         private void CargarDatosFicticios()
         {
             // Guías para el DNI 25111222

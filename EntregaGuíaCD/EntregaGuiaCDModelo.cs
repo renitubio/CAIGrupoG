@@ -11,13 +11,7 @@ namespace CAIGrupoG.EntregaGuíaCD
     {
         public EntregaGuiaCDModelo()
         {
-            // El constructor está vacío.
-            // Los datos se leen directamente de los Almacenes estáticos.
         }
-
-        /// <summary>
-        /// Busca guías en el GuiaAlmacen que coincidan con la regla de negocio.
-        /// </summary>
         public List<Guia> BuscarGuiasPorDNI(string dni)
         {
             // 1. Obtener el ID del CD "logueado" (como vimos en MenuPrincipal.cs)
@@ -29,10 +23,9 @@ namespace CAIGrupoG.EntregaGuíaCD
             int cdActualID = CentroDistribucionAlmacen.CentroDistribucionActual.CD_ID;
 
             // 2. Definir el estado que buscamos
-            // ASUMO que tu enum real (EstadoEncomiendaEnum) tiene este valor
             EstadoEncomiendaEnum estadoRequerido = EstadoEncomiendaEnum.AdmitidoCDDestino;
 
-            // 3. Buscar en el Almacén (la fuente real 'GuiaEntidad')
+            // 3. Buscar en el Almacén
             var guiasEntidad = GuiaAlmacen.Guias
                 .Where(g =>
                     g.DNIAutorizadoRetirar == dni &&
@@ -42,45 +35,35 @@ namespace CAIGrupoG.EntregaGuíaCD
                 .ToList();
 
             // 4. Mapear de la lista de 'GuiaEntidad' (Datos) 
-            //    a la lista de 'Guia' (el View Model que espera el Form)
             var guiasViewModel = guiasEntidad.Select(g => new Guia
             {
                 NumeroGuia = g.NumeroGuia,
                 DniDestinatario = g.DNIAutorizadoRetirar,
-                // Hacemos un "cast" directo de los enums
                 TipoPaquete = (TipoPaquete)g.TipoPaquete,
-                // El estado es el que espera el Form para mostrar
                 Estado = EstadoGuia.PendienteDeRetiroEnCD
             }).ToList();
 
             return guiasViewModel;
         }
 
-        /// <summary>
-        /// Confirma el retiro, actualizando las entidades reales en el Almacén.
-        /// </summary>
         public void ConfirmarRetiro(List<Guia> guiasARetirar)
         {
-            // 'guiasARetirar' es la lista de View Models (Guia)
-            // Debemos encontrar las entidades reales (GuiaEntidad) y modificarlas.
-
-            // ASUMO que tu enum real tiene el estado "Entregado"
-            EstadoEncomiendaEnum nuevoEstado = EstadoEncomiendaEnum.Entregado;
+            // 1. Definís el nuevo estado
+            EstadoEncomiendaEnum nuevoEstado = EstadoEncomiendaEnum.Entregado; // (Estado 13)
 
             foreach (var guiaVM in guiasARetirar)
             {
-                // Buscar la entidad original en el Almacén
                 var guiaEntidad = GuiaAlmacen.Guias
-                    .FirstOrDefault(g => g.NumeroGuia == guiaVM.NumeroGuia);
+                  .FirstOrDefault(g => g.NumeroGuia == guiaVM.NumeroGuia);
 
                 if (guiaEntidad != null)
                 {
-                    // Cambiar el estado en la entidad real
+                    // 2. Cambiás el estado de la guía en el Almacén
                     guiaEntidad.Estado = nuevoEstado;
                 }
             }
 
-            // Guardar TODOS los cambios hechos en el Almacén en el JSON
+            // 3. Grabás los cambios permanentemente en el Guias.json
             GuiaAlmacen.Grabar();
         }
     }

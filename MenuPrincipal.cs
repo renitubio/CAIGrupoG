@@ -3,6 +3,7 @@ using CAIGrupoG.Almacenes;
 using CAIGrupoG.ConsultaTracking;
 using CAIGrupoG.EmitirFactura;
 using CAIGrupoG.EntregaGuíaAgencia;
+using CAIGrupoG.EntregaGuíaCD;
 using CAIGrupoG.Imposicion.ImpAgencia;
 using CAIGrupoG.Imposicion.ImpCentroDistribucion;
 using CAIGrupoG.Playero;
@@ -79,7 +80,7 @@ public partial class MenuPrincipal : Form
 
     private void EntregaCDButton_Click(object sender, EventArgs e)
     {
-        (new EntregaGuíaAgenciaForm()).ShowDialog();
+        (new EntregaGuíaCDForm()).ShowDialog();
     }
 
     private void EmitirFacturaButton_Click(object sender, EventArgs e)
