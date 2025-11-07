@@ -27,6 +27,9 @@ namespace CAIGrupoG.ResultadoCostosVSVentas
         }
 
         /// Genera datos de prueba en ARS para diferentes fechas.
+      
+        
+        //               ¡ CORRESPONDE A PROTOTIPO; MODELO AUN NO TERMINADO !
         private void CargarDatosFicticios()
         {
             // Datos de Septiembre 2025
