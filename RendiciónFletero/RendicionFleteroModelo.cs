@@ -1,161 +1,129 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.IO;
+using CAIGrupoG.Almacenes;
+// using CAIGrupoG.RendiciónFletero; // Deberías eliminar o corregir esta línea
+// Necesitas que GuiaEntidad, TipoHDREnum y EstadoEncomiendaEnum estén definidos y accesibles.
 
-namespace CAIGrupoG.RendiciónFletero
+namespace CAIGrupoG.Modelos
 {
     public class RendicionFleteroModelo
     {
-        private readonly List<Fletero> _fleteros;
+        // Propiedades para la información que se mostrará en la vista
+        public List<GuiaEntidad> EncomiendasEntrantes { get; private set; }
+        public List<GuiaEntidad> EncomiendasSalientes { get; private set; }
 
-        public RendicionFleteroModelo()
-        {
-            _fleteros = new List<Fletero>();
-            CargarDatosFicticios();
-        }
-
-        /// <summary>
-        /// Busca un fletero por DNI y clasifica sus guías en Admisión y Retiro.
-        /// </summary>
-        /// <param name="dni">DNI del fletero a buscar.</param>
-        /// <returns>Una tupla con dos listas: guías de admisión y guías de retiro.</returns>
-        public (List<Guia> Admision, List<Guia> Retiro) BuscarGuiasPorDNI(string dni)
-        {
-            var fletero = _fleteros.FirstOrDefault(f => f.DNI == dni);
-
-            var guiasAdmision = new List<Guia>();
-            var guiasRetiro = new List<Guia>();
-
-            if (fletero != null)
-            {
-                // Guías de Admisión: Las que el fletero trae al CD.
-                guiasAdmision = fletero.GuiasAsignadas
-                    .Where(g => g.Estado == EstadoEncomienda.DistribucionUltimaMillaAgencia ||
-                                 g.Estado == EstadoEncomienda.PrimerIntentoDeEntrega ||
-                                 g.Estado == EstadoEncomienda.EnCaminoARetirarDomicilio ||
-                                 g.Estado == EstadoEncomienda.EnCaminoARetirarAgencia)
-                    .ToList();
-
-                // Guías de Retiro: Las que el fletero se lleva del CD.
-                guiasRetiro = fletero.GuiasAsignadas
-                    .Where(g => g.Estado == EstadoEncomienda.AdmitidoEnCDDestino)
-                    .ToList();
-            }
-
-            return (guiasAdmision, guiasRetiro);
-        }
-
-        internal void CambioEstadoGuiasSelecc(List<Guia> guiasAdmSeleccion, List<Guia> guiasRetSeleccion)
-        {
-            if (guiasAdmSeleccion == null) guiasAdmSeleccion = new List<Guia>();
-            if (guiasRetSeleccion == null) guiasRetSeleccion = new List<Guia>();
-
-            // Actualiza las guías seleccionadas en Admisión según su estado actual
-            foreach (var guia in guiasAdmSeleccion)
-            {
-                switch (guia.Estado)
-                {
-                    // "en camino a retirar..." -> "Admitido en CD origen"
-                    case EstadoEncomienda.EnCaminoARetirarDomicilio:
-                    case EstadoEncomienda.EnCaminoARetirarAgencia:
-                        guia.Estado = EstadoEncomienda.AdmitidoEnCDOrigen;
-                        break;
-
-                    // "Distribución última milla Agencia" -> se mapea a "EnCDDestino" (se interpreta como pendiente de retiro en agencia)
-                    case EstadoEncomienda.DistribucionUltimaMillaAgencia:
-                        guia.Estado = EstadoEncomienda.AdmitidoEnCDDestino;
-                        break;
-
-                    // "Distribución última milla Domicilio" -> "Entregado"
-                    case EstadoEncomienda.DistribucionUltimaMillaDomicilio:
-                        guia.Estado = EstadoEncomienda.Entregado;
-                        break;
-
-                    default:
-                        // Otros estados: no se cambia
-                        break;
-                }
-            }
-
-            // Actualiza las guías seleccionadas para retiro (se asume que se llevan desde CD origen)
-            foreach (var guia in guiasRetSeleccion)
-            {
-                // "Admitido en CD destino" -> pasar a distribución última milla domicilio/agencia según destino
-                if (!string.IsNullOrEmpty(guia.Destino) &&
-                    guia.Destino.IndexOf("Agencia", StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    guia.Estado = EstadoEncomienda.DistribucionUltimaMillaAgencia;
-                }
-                else
-                {
-                    guia.Estado = EstadoEncomienda.DistribucionUltimaMillaDomicilio;
-                }
-                break;
-            }
-
-            // Guías no seleccionadas en Admisión:
-            //  - las que estaban en DistribucionUltimaMillaDomicilio pasan a PrimerIntentoDeEntrega.
-            //  - las que ya estaban en PrimerIntentoDeEntrega y no fueron seleccionadas pasan a Rechazado.
-            var todasGuias = _fleteros.SelectMany(f => f.GuiasAsignadas).ToList();
-
-            // Capturar primero las guías que ya estaban en PrimerIntentoDeEntrega y no fueron seleccionadas,
-            // para convertirlas en Rechazado según el nuevo requerimiento.
-            var primerIntentoPrevioNoSeleccionadas = todasGuias
-                .Where(g => g.Estado == EstadoEncomienda.PrimerIntentoDeEntrega &&
-                            !guiasAdmSeleccion.Any(sel => sel.NumeroGuia == g.NumeroGuia))
-                .ToList();
-
-            var distribDomicilioNoSeleccionadas = todasGuias
-                .Where(g => g.Estado == EstadoEncomienda.DistribucionUltimaMillaDomicilio &&
-                            !guiasAdmSeleccion.Any(sel => sel.NumeroGuia == g.NumeroGuia))
-                .ToList();
-
-            // Las que estaban en Distribución última milla domicilio no seleccionadas -> Primer intento de entrega
-            foreach (var guia in distribDomicilioNoSeleccionadas)
-            {
-                guia.Estado = EstadoEncomienda.PrimerIntentoDeEntrega;
-            }
-
-            // Las que ya estaban en PrimerIntentoDeEntrega y no fueron seleccionadas -> Rechazado
-            foreach (var guia in primerIntentoPrevioNoSeleccionadas)
-            {
-                guia.Estado = EstadoEncomienda.Rechazado;
-            }
-        }
-
-
-
-
+        // Campo para almacenar las hojas de ruta encontradas, necesarias para la rendición
+        private List<HojaDeRutaEntidad> _hojasDeRutaPendientes;
 
         /// <summary>
-        /// Método privado para generar los datos de prueba.
+        /// Busca el fletero por DNI y obtiene SOLO las guías que su estado en GuiaAlmacen NO es Entregado.
         /// </summary>
-        private void CargarDatosFicticios()
+        public bool BuscarGuiasAsociadas(string dniFletero)
         {
-            // Fletero 1
-            var fletero1 = new Fletero { DNI = "30123456", Nombre = "Juan Perez" };
-            fletero1.GuiasAsignadas.Add(new Guia { NumeroGuia = "GA001", Estado = EstadoEncomienda.AdmitidoEnCDDestino, TipoPaquete = TipoPaquete.M, CUIT = "20-11111111-1", DniAutorizadoRetirar = "32345655", Destino = "Av. Corrientes 1234, CABA" });
-            fletero1.GuiasAsignadas.Add(new Guia { NumeroGuia = "GA002", Estado = EstadoEncomienda.DistribucionUltimaMillaAgencia, TipoPaquete = TipoPaquete.S, CUIT = "20-22222222-2", DniAutorizadoRetirar = "12345678", Destino = "Agencia Flores" });
-            fletero1.GuiasAsignadas.Add(new Guia { NumeroGuia = "GA003", Estado = EstadoEncomienda.PrimerIntentoDeEntrega, TipoPaquete = TipoPaquete.L, CUIT = "20-33333333-3", DniAutorizadoRetirar = "87654321", Destino = "Agencia Belgrano" });
+            GuiaAlmacen.Recargar();
 
-            // Fletero 2
-            var fletero2 = new Fletero { DNI = "35987654", Nombre = "Maria Lopez" };
-            fletero2.GuiasAsignadas.Add(new Guia { NumeroGuia = "GB004", Estado = EstadoEncomienda.AdmitidoEnCDDestino, TipoPaquete = TipoPaquete.XL, CUIT = "27-44444444-4", DniAutorizadoRetirar = "22345600", Destino = "Calle Falsa 123, Springfield" });
-            fletero2.GuiasAsignadas.Add(new Guia { NumeroGuia = "GB005", Estado = EstadoEncomienda.AdmitidoEnCDDestino, TipoPaquete = TipoPaquete.S, CUIT = "27-55555555-5", DniAutorizadoRetirar = "33345600", Destino = "Agencia Caballito" });
+            const EstadoEncomiendaEnum ESTADO_EXCLUIDO = EstadoEncomiendaEnum.Entregado;
 
-            // Fletero 3 (solo tiene guías de admisión)
-            var fletero3 = new Fletero { DNI = "40111222", Nombre = "Carlos Garcia" };
-            fletero3.GuiasAsignadas.Add(new Guia { NumeroGuia = "GC006", Estado = EstadoEncomienda.EnCaminoARetirarDomicilio, TipoPaquete = TipoPaquete.M, CUIT = "20-66666666-6", DniAutorizadoRetirar = "22333444", Destino = "Agencia Palermo" });
+            // 1. Verificar si el fletero existe
+            var fleteroExiste = FleteroAlmacen.Fleteros.Any(f => f.FleteroDNI == dniFletero); // Asumo DNI
 
-            _fleteros.Add(fletero1);
-            _fleteros.Add(fletero2);
-            _fleteros.Add(fletero3);
+            if (!fleteroExiste)
+            {
+                throw new KeyNotFoundException($"No se encontró un fletero con DNI: {dniFletero}.");
+            }
+
+            // 2. Obtener Hojas de Ruta Pendientes (Completada = false)
+            _hojasDeRutaPendientes = HojaDeRutaAlmacen.HojasDeRuta
+                .Where(hdr => hdr.FleteroDNI == dniFletero && !hdr.Completada)
+                .ToList();
+            if (!_hojasDeRutaPendientes.Any())
+            {
+                EncomiendasEntrantes = new List<GuiaEntidad>();
+                EncomiendasSalientes = new List<GuiaEntidad>();
+                return false;
+            }
+
+            // --- LÓGICA DE FILTRADO CRUZADO PARA EXCLUIR GUÍAS YA RENDIDAS ---
+
+            // 3. Obtener un HashSet de los Números de Guía que están en estado 'Entregado' en el ALMACÉN PRINCIPAL
+            var guiasRendidasNumeros = GuiaAlmacen.Guias
+                .Where(g => g.Estado == ESTADO_EXCLUIDO)
+                .Select(g => g.NumeroGuia)
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+            // 4. Compilar y clasificar las guías, EXCLUYENDO aquellas que ya están en el ESTADO_EXCLUIDO.
+
+            // Guías Entrantes
+            EncomiendasEntrantes = _hojasDeRutaPendientes
+                .Where(hdr => hdr.Tipo == TipoHDREnum.ENTRANTE)
+                .SelectMany(hdr => hdr.Guias)
+                .Where(g => !guiasRendidasNumeros.Contains(g.NumeroGuia)) // Filtro por exclusión
+                .ToList();
+
+            // Guías Salientes
+            EncomiendasSalientes = _hojasDeRutaPendientes
+                .Where(hdr => hdr.Tipo == TipoHDREnum.Distribucion)
+                .SelectMany(hdr => hdr.Guias)
+                .Where(g => !guiasRendidasNumeros.Contains(g.NumeroGuia)) // Filtro por exclusión
+                .ToList();
+
+            return EncomiendasEntrantes.Any() || EncomiendasSalientes.Any();
         }
-        
 
+        // ---------------------------------------------------------------------------------------------------
+
+        /// <summary>
+        /// Realiza la rendición: actualiza el estado de las guías a Entregado y marca las HDRs como completadas.
+        /// </summary>
+        public void Rendir()
+        {
+            if (_hojasDeRutaPendientes == null || !_hojasDeRutaPendientes.Any())
+            {
+                throw new InvalidOperationException("No hay hojas de ruta pendientes para rendir.");
+            }
+
+            // 1. Actualizar el estado de las guías asociadas a Entregado
+            const EstadoEncomiendaEnum ESTADO_FINAL = EstadoEncomiendaEnum.Entregado;
+
+            var guiasARendir = EncomiendasEntrantes.Concat(EncomiendasSalientes).ToList();
+            // Obtener todos los números de guía a rendir
+            var guiasNumerosARendir = EncomiendasEntrantes
+                .Concat(EncomiendasSalientes)
+                .Select(g => g.NumeroGuia)
+                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+            // ⚠️ EL AJUSTE CLAVE ESTÁ AQUÍ: Iteramos sobre GuiaAlmacen.Guias para modificar la referencia que se va a grabar.
+            // Esto es crucial porque IReadOnlyCollection<T> expone la misma lista que GuiaAlmacen serializa.
+            foreach (var guiaOriginal in GuiaAlmacen.Guias)
+            {
+                if (guiasNumerosARendir.Contains(guiaOriginal.NumeroGuia))
+                {
+                    // Modificamos el estado en el objeto de referencia que está en el almacén.
+                    guiaOriginal.Estado = ESTADO_FINAL;
+                }
+            }
+            // ---------------------------------------------------------------------------------------------------
+
+            // 2. Actualizar las Hojas de Ruta como completadas
+            foreach (var hdrPendiente in _hojasDeRutaPendientes)
+            {
+                var hdrOriginal = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h => h.HDR_ID == hdrPendiente.HDR_ID);
+                if (hdrOriginal != null)
+                {
+                    hdrOriginal.Completada = true;
+                }
+            }
+
+            // 3. Grabar todos los cambios
+            GuiaAlmacen.Grabar();       // Graba las guías con el nuevo estado (ESTE DEBE SER EL ARCHIVO CONSULTADO)
+            HojaDeRutaAlmacen.Grabar(); // Graba las HDRs como completadas
+
+            // Limpieza interna del modelo después de la rendición
+            EncomiendasEntrantes = new List<GuiaEntidad>();
+            EncomiendasSalientes = new List<GuiaEntidad>();
+            _hojasDeRutaPendientes = new List<HojaDeRutaEntidad>();
+        }
     }
 }

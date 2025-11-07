@@ -12,7 +12,14 @@ namespace CAIGrupoG.Almacenes
         private static List<GuiaEntidad> guias = new List<GuiaEntidad>();
 
         public static IReadOnlyCollection<GuiaEntidad> Guias => guias.AsReadOnly();
+        public static void Actualizar(GuiaEntidad guiaModificada)
+        {
+            // 1. Encontrar y remover la versión antigua por NumeroGuia
+            Borrar(guiaModificada.NumeroGuia);
 
+            // 2. Agregar la nueva versión (con el estado 'Entregado')
+            guias.Add(guiaModificada);
+        }
         public static void Nuevo(GuiaEntidad guia)
         {
             if (guia.NumeroGuia == null)
@@ -41,6 +48,14 @@ namespace CAIGrupoG.Almacenes
             var guiaJson = System.Text.Json.JsonSerializer.Serialize(guias);
             File.WriteAllText(@"Datos\Guias.json", guiaJson);
         }
+        public static void Recargar()
+        {
+            if (File.Exists(@"Datos\Guias.json"))
+            {
+                var guiaJson = File.ReadAllText(@"Datos\Guias.json");
+                // Importante: Reemplazar la lista estática interna con los nuevos datos
+                guias = System.Text.Json.JsonSerializer.Deserialize<List<GuiaEntidad>>(guiaJson) ?? new List<GuiaEntidad>();
+            }
+        }
     }
 }
-

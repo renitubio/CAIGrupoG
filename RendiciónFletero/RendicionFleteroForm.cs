@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CAIGrupoG.Admisión
-{
+{  
     public partial class RendicionFleteroForm : Form
     {
-        private readonly RendicionFleteroModelo modelo = new();
+        private readonly RendicionFleteroModelo modelo = new RendicionFleteroModelo();
 
         public RendicionFleteroForm()
         {
