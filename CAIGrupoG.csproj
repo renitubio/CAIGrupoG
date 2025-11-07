@@ -51,7 +51,7 @@
     <None Update="Datos\Guias.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Datos\HojasDeRuta.json">
+    <None Update="Datos\HojaDeRuta.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Datos\Servicios.json">

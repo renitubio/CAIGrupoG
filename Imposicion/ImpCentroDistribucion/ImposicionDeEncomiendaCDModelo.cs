@@ -108,9 +108,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 .ToList();
         }
 
-        /// <summary>
         /// Devuelve el Centro de Distribución (CD) correspondiente a una ciudad.
-        /// </summary>
         public AgenciaCD ObtenerCDPorCiudad(int ciudadId)
         {
             var ciudad = CiudadAlmacen.Ciudades.FirstOrDefault(c => c.CiudadID == ciudadId);
@@ -131,9 +129,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             };
         }
 
-        /// <summary>
         /// Devuelve una lista con el CD y las agencias de la ciudad indicada.
-        /// </summary>
         public List<AgenciaCD> ObtenerAgenciasPorCiudad(int ciudadId)
         {
             var lista = new List<AgenciaCD>();
@@ -158,18 +154,32 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             return lista;
         }
 
+        private FleteroEntidad BuscarFletero(int cdOrigen)
+        {
+            // ASUMO que FleteroEntidad.cs está corregida
+            var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.CD_ID == cdOrigen);
+            if (fletero == null)
+            {
+                throw new InvalidOperationException($"No se encontró un fletero para el CD Origen ID: {cdOrigen}");
+            }
+            return fletero;
+        }
+
         #endregion
 
-        #region Lógica de Confirmación (Generación de Guías en CD)
+        #region Lógica de Confirmación (Crear Guía y Hoja de Ruta)
 
-        public List<string> ConfirmarAdmision(int cantidadEncomiendas)
+        public List<string> ConfirmarImposicion(int cantidadTotalCajas, string codigoDestino)
         {
             if (_clienteActual == null)
-                throw new InvalidOperationException("Debe seleccionar un cliente antes de confirmar la admisión.");
+            {
+                throw new InvalidOperationException("Cliente no encontrado.");
+            }
 
-            var guiasCreadas = new List<string>();
+            var fleteroAsignado = BuscarFletero(_clienteActual.CDOrigen);
+            var guiasEntidadCreadas = new List<GuiaEntidad>();
 
-            for (int i = 0; i < cantidadEncomiendas; i++)
+            for (int i = 0; i < cantidadTotalCajas; i++)
             {
                 string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
 
@@ -177,17 +187,43 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 {
                     NumeroGuia = numeroGuia,
                     ClienteCUIT = _clienteActual.ClienteCUIT,
+                    CDOrigenID = _clienteActual.CDOrigen,
                     FechaAdmision = DateTime.Now,
-                    Estado = EstadoEncomiendaEnum.AdmitidoCDOrigen,
-                    RetiroDomicilio = false
+                    Estado = EstadoEncomiendaEnum.ImpuestoCallCenter, // Estado 1
+                    RetiroDomicilio = true,
+                    // Se quita DNIFletero (no existe en GuiaEntidad)
                 };
 
                 GuiaAlmacen.Nuevo(entidad);
-                guiasCreadas.Add(numeroGuia);
+                guiasEntidadCreadas.Add(entidad);
             }
 
             GuiaAlmacen.Grabar();
-            return guiasCreadas;
+
+            CrearHojaDeRuta(guiasEntidadCreadas, fleteroAsignado, TipoHDREnum.Retiro);
+
+            return guiasEntidadCreadas.Select(g => g.NumeroGuia).ToList();
+        }
+
+        private void CrearHojaDeRuta(List<GuiaEntidad> guias, FleteroEntidad fletero, TipoHDREnum tipo)
+        {
+            if (guias == null || guias.Count == 0 || fletero == null)
+                return;
+
+            var nuevaHdr = new HojaDeRutaEntidad
+            {
+                HDR_ID = _proximoIdHDR++,
+                FechaCreacion = DateTime.Now,
+                FleteroDNI = fletero.FleteroDNI,
+                Tipo = tipo,
+                Completada = false,
+                Guias = guias,
+
+                ServicioID = 0
+            };
+
+            HojaDeRutaAlmacen.Nuevo(nuevaHdr);
+            HojaDeRutaAlmacen.Grabar();
         }
 
         #endregion

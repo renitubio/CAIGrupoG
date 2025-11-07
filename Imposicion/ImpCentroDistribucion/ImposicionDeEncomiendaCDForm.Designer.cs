@@ -120,7 +120,7 @@
             // 
             GuiasAsignadasGroupBox.Controls.Add(FinalizaBttn);
             GuiasAsignadasGroupBox.Controls.Add(GuiasGeneradasListView);
-            GuiasAsignadasGroupBox.Location = new Point(471, 360);
+            GuiasAsignadasGroupBox.Location = new Point(569, 284);
             GuiasAsignadasGroupBox.Name = "GuiasAsignadasGroupBox";
             GuiasAsignadasGroupBox.Size = new Size(408, 243);
             GuiasAsignadasGroupBox.TabIndex = 38;
@@ -353,7 +353,6 @@
             // 
             // groupBox2
             // 
-            groupBox2.Controls.Add(GuiasAsignadasGroupBox);
             groupBox2.Controls.Add(ConfirmarBttn);
             groupBox2.Controls.Add(CancelarBttn);
             groupBox2.Controls.Add(AgenciaRadioBttn);
@@ -388,6 +387,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(570, 561);
+            Controls.Add(GuiasAsignadasGroupBox);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Margin = new Padding(2);
