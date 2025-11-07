@@ -1,4 +1,4 @@
-﻿using CAIGrupoG.RendiciónFletero;
+﻿using CAIGrupoG.Modelos;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CAIGrupoG.Admisión
-{  
+{
     public partial class RendicionFleteroForm : Form
     {
-        private readonly RendicionFleteroModelo modelo = new RendicionFleteroModelo();
+        private readonly RendicionFleteroModelo modelo = new();
 
         public RendicionFleteroForm()
         {
@@ -43,13 +43,12 @@ namespace CAIGrupoG.Admisión
 
             // 2. Llamada al modelo para buscar las guías
             var resultado = modelo.BuscarGuiasPorDNI(dni);
-
-            guíasAdmisionActuales = resultado.Admision;
-            guiasRetiroActuales = resultado.Retiro;
+            var guiasAdmisionPresentacion = modelo.ObtenerGuiasPresentacion(resultado.Admision);
+            var guiasRetiroPresentacion = modelo.ObtenerGuiasPresentacion(resultado.Retiro);
 
             // 3. Poblar los ListViews
-            PoblarListView(AdmisionListView, guíasAdmisionActuales);
-            PoblarListView(RetiroListView, guiasRetiroActuales);
+            PoblarListView(AdmisionListView, guiasAdmisionPresentacion);
+            PoblarListView(RetiroListView, guiasRetiroPresentacion);
 
             if (guíasAdmisionActuales.Count == 0 && guiasRetiroActuales.Count == 0)
             {
@@ -64,85 +63,19 @@ namespace CAIGrupoG.Admisión
             var guíasAdmisionActuales = modelo.BuscarGuiasPorDNI(dni).Admision;
             var guiasRetiroActuales = modelo.BuscarGuiasPorDNI(dni).Retiro;
 
-
-            // Obtener las guías seleccionadas en ambos ListView
-            var guiasAdmSeleccion = ObtenerGuiasSeleccionadas(AdmisionListView, guíasAdmisionActuales);
-            var guiasRetSeleccion = ObtenerGuiasSeleccionadas(RetiroListView, guiasRetiroActuales);
-
-            if ((guiasAdmSeleccion == null || guiasAdmSeleccion.Count == 0) &&
-                (guiasRetSeleccion == null || guiasRetSeleccion.Count == 0))
+            if ((guíasAdmisionActuales == null || guíasAdmisionActuales.Count == 0) &&
+                (guiasRetiroActuales == null || guiasRetiroActuales.Count == 0))
             {
-                MessageBox.Show("No ha seleccionado guías. Seleccione al menos una guía para continuar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("No hay guías para procesar. Realice una búsqueda primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Pasar las selecciones al modelo para que actualice los estados.
-            if ((guiasAdmSeleccion != null && guiasAdmSeleccion.Count > 0) && (guiasRetSeleccion != null && guiasRetSeleccion.Count > 0))
-            {
-                modelo.CambioEstadoGuiasSelecc(guiasAdmSeleccion, guiasRetSeleccion);
-            }
-
-
-            // Refrescar la vista volviendo a consultar las guías y poblando los ListViews
-            var resultado = modelo.BuscarGuiasPorDNI(dni);
-            PoblarListView(AdmisionListView, resultado.Admision);
-            PoblarListView(RetiroListView, resultado.Retiro);
+            // Aquí iría la lógica para procesar las guías seleccionadas (opcional según requerimiento)
 
             MessageBox.Show("Operación Exitosa.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             // Limpiar la pantalla para la siguiente operación
             LimpiarFormulario();
-        }
-
-        /// <summary>
-        /// Recupera las guías seleccionadas en un ListView comparando por Número de Guía con la lista fuente.
-        /// </summary>
-        private List<Guia> ObtenerGuiasSeleccionadas(ListView listView, List<Guia> fuenteGuias)
-        {
-            var seleccion = new List<Guia>();
-            if (listView == null || fuenteGuias == null) return seleccion;
-
-            // Evitar duplicados por número de guía
-            var agregados = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-            // 1) Elementos seleccionados (SelectedItems)
-            foreach (ListViewItem item in listView.SelectedItems)
-            {
-                if (item.Tag is Guia guiaFromTag)
-                {
-                    if (!string.IsNullOrWhiteSpace(guiaFromTag.NumeroGuia) && agregados.Add(guiaFromTag.NumeroGuia.Trim()))
-                        seleccion.Add(guiaFromTag);
-                    continue;
-                }
-
-                var numeroGuia = item.Text?.Trim();
-                if (string.IsNullOrEmpty(numeroGuia)) continue;
-
-                var guia = fuenteGuias.FirstOrDefault(g => string.Equals(g.NumeroGuia?.Trim(), numeroGuia, StringComparison.OrdinalIgnoreCase));
-                if (guia != null && agregados.Add(guia.NumeroGuia?.Trim() ?? string.Empty))
-                    seleccion.Add(guia);
-            }
-
-            // 2) Elementos marcados (CheckedItems) — útil si el ListView tiene CheckBoxes = true
-            foreach (ListViewItem item in listView.CheckedItems)
-            {
-                // Si ya fue añadido en selectedItems, el HashSet lo evita
-                if (item.Tag is Guia guiaFromTag)
-                {
-                    if (!string.IsNullOrWhiteSpace(guiaFromTag.NumeroGuia) && agregados.Add(guiaFromTag.NumeroGuia.Trim()))
-                        seleccion.Add(guiaFromTag);
-                    continue;
-                }
-
-                var numeroGuia = item.Text?.Trim();
-                if (string.IsNullOrEmpty(numeroGuia)) continue;
-
-                var guia = fuenteGuias.FirstOrDefault(g => string.Equals(g.NumeroGuia?.Trim(), numeroGuia, StringComparison.OrdinalIgnoreCase));
-                if (guia != null && agregados.Add(guia.NumeroGuia?.Trim() ?? string.Empty))
-                    seleccion.Add(guia);
-            }
-
-            return seleccion;
         }
 
         /// <summary>
@@ -160,7 +93,7 @@ namespace CAIGrupoG.Admisión
         /// <summary>
         /// Rellena un control ListView con la lista de guías correspondiente.
         /// </summary>
-        private void PoblarListView(ListView listView, List<Guia> guias)
+        private void PoblarListView(ListView listView, List<GuiaPresentacionDTO> guias)
         {
             listView.Items.Clear();
             if (guias == null) return;
@@ -170,42 +103,14 @@ namespace CAIGrupoG.Admisión
                 var row = new string[]
                 {
                     guia.NumeroGuia,
-                    FormatearEstado(guia.Estado),
-                    guia.TipoPaquete.ToString(),
+                    guia.EstadoDescripcion,
+                    guia.TipoPaquete,
                     guia.CUIT,
                     guia.DniAutorizadoRetirar,
                     guia.Destino
                 };
-                var item = new ListViewItem(row)
-                {
-                    Tag = guia,       // <-- asociamos el objeto Guia para recuperarlo directamente
-                    Checked = false   // opcional: inicializar como no marcado
-                };
+                var item = new ListViewItem(row);
                 listView.Items.Add(item);
-            }
-        }
-
-        /// <summary>
-        /// Convierte un valor del enum EstadoEncomienda a un string legible.
-        /// </summary>
-        private string FormatearEstado(EstadoEncomienda estado)
-        {
-            switch (estado)
-            {
-                case EstadoEncomienda.DistribucionUltimaMillaAgencia:
-                    return "Distribución última milla - Agencia";
-                case EstadoEncomienda.DistribucionUltimaMillaDomicilio:
-                    return "Distribución última milla - Domicilio";
-                case EstadoEncomienda.PrimerIntentoDeEntrega:
-                    return "Primer Intento de Entrega";
-                case EstadoEncomienda.EnCaminoARetirarDomicilio:
-                    return "En camino a retirar (Dom)";
-                case EstadoEncomienda.EnCaminoARetirarAgencia:
-                    return "En camino a retirar (Age)";
-                case EstadoEncomienda.AdmitidoEnCDDestino:
-                    return "En CD destino";
-                default:
-                    return estado.ToString();
             }
         }
 
