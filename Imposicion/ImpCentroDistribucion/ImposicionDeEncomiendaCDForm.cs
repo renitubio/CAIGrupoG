@@ -129,7 +129,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 return;
             }
 
-            if (modelo.BuscarCliente(CuitTxtBox.Text.Trim()))
+            if (modelo.BuscarCliente(CuitTxtBox.Text.Trim()) != null)
             {
                 MessageBox.Show("Cliente encontrado. Proceda a ingresar la encomienda.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
