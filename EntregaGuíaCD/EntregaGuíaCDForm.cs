@@ -1,4 +1,4 @@
-﻿using CAIGrupoG.EntregaGuíaAgencia;
+﻿using CAIGrupoG.Almacenes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +15,7 @@ namespace CAIGrupoG.EntregaGuíaCD
     public partial class EntregaGuíaCDForm : Form
     {
         private readonly EntregaGuiaCDModelo modelo = new();
-        private List<Guia> guiasEncontradas = new List<Guia>();
+        private List<GuiaEntidad> guiasEncontradas = new List<GuiaEntidad>();
 
         public EntregaGuíaCDForm()
         {
@@ -67,7 +67,7 @@ namespace CAIGrupoG.EntregaGuíaCD
             return Regex.IsMatch(dni, @"^\d{7,8}$");
         }
 
-        private void PoblarListView(List<Guia> guias)
+        private void PoblarListView(List<GuiaEntidad> guias)
         {
             GuiasListView.Items.Clear();
             if (guias == null) return;
@@ -76,7 +76,6 @@ namespace CAIGrupoG.EntregaGuíaCD
                 var row = new string[]
                 {
                     guia.NumeroGuia,
-                    // CORRECCIÓN: Se cambió el texto para que diga "CD".
                     "Pendiente de retiro en CD",
                     guia.TipoPaquete.ToString()
                 };

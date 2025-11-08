@@ -11,59 +11,41 @@ namespace CAIGrupoG.EntregaGuíaCD
     {
         public EntregaGuiaCDModelo()
         {
+            // Utiliza GuiaEntidad y CentroDistribucionEntidad del Almacenes
         }
-        public List<Guia> BuscarGuiasPorDNI(string dni)
+
+        public List<GuiaEntidad> BuscarGuiasPorDNI(string dni)
         {
-            // 1. Obtener el ID del CD "logueado" (como vimos en MenuPrincipal.cs)
             if (CentroDistribucionAlmacen.CentroDistribucionActual == null)
             {
-                // Si alguien abre este form sin seleccionar un CD en el menú
                 throw new InvalidOperationException("No se ha seleccionado un Centro de Distribución en el Menú Principal.");
             }
             int cdActualID = CentroDistribucionAlmacen.CentroDistribucionActual.CD_ID;
-
-            // 2. Definir el estado que buscamos
             EstadoEncomiendaEnum estadoRequerido = EstadoEncomiendaEnum.AdmitidoCDDestino;
 
-            // 3. Buscar en el Almacén
-            var guiasEntidad = GuiaAlmacen.Guias
+            return GuiaAlmacen.Guias
                 .Where(g =>
                     g.DNIAutorizadoRetirar == dni &&
                     g.Estado == estadoRequerido &&
                     g.CDDestinoID == cdActualID
                 )
                 .ToList();
-
-            // 4. Mapear de la lista de 'GuiaEntidad' (Datos) 
-            var guiasViewModel = guiasEntidad.Select(g => new Guia
-            {
-                NumeroGuia = g.NumeroGuia,
-                DniDestinatario = g.DNIAutorizadoRetirar,
-                TipoPaquete = (TipoPaquete)g.TipoPaquete,
-                Estado = EstadoGuia.PendienteDeRetiroEnCD
-            }).ToList();
-
-            return guiasViewModel;
         }
 
-        public void ConfirmarRetiro(List<Guia> guiasARetirar)
+        public void ConfirmarRetiro(List<GuiaEntidad> guiasARetirar)
         {
-            // 1. Definís el nuevo estado
-            EstadoEncomiendaEnum nuevoEstado = EstadoEncomiendaEnum.Entregado; // (Estado 13)
+            EstadoEncomiendaEnum nuevoEstado = EstadoEncomiendaEnum.Entregado;
 
-            foreach (var guiaVM in guiasARetirar)
+            foreach (var guiaEntidad in guiasARetirar)
             {
-                var guiaEntidad = GuiaAlmacen.Guias
-                  .FirstOrDefault(g => g.NumeroGuia == guiaVM.NumeroGuia);
+                var guia = GuiaAlmacen.Guias
+                  .FirstOrDefault(g => g.NumeroGuia == guiaEntidad.NumeroGuia);
 
-                if (guiaEntidad != null)
+                if (guia != null)
                 {
-                    // 2. Cambiás el estado de la guía en el Almacén
-                    guiaEntidad.Estado = nuevoEstado;
+                    guia.Estado = nuevoEstado;
                 }
             }
-
-            // 3. Grabás los cambios permanentemente en el Guias.json
             GuiaAlmacen.Grabar();
         }
     }
