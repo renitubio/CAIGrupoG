@@ -65,14 +65,14 @@ namespace CAIGrupoG.Modelos
                 .Select(g => g.NumeroGuia)
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-            // Estados válidos para guías entrantes
+            // Estados válidos para guías entrantes (según el enum)
             var estadosEntrantes = new[]
             {
                 EstadoEncomiendaEnum.EnCaminoARetirarDomicilio,
                 EstadoEncomiendaEnum.EnCaminoARetirarAgencia,
-                EstadoEncomiendaEnum.PrimerIntentoDeEntrega,
                 EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio,
-                EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia
+                EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia,
+                EstadoEncomiendaEnum.PrimerIntentoDeEntrega
             };
 
             // Guías Entrantes: HDR de tipo Retiro y Distribucion, y estado válido
@@ -91,7 +91,6 @@ namespace CAIGrupoG.Modelos
                     && g.Estado == EstadoEncomiendaEnum.AdmitidoCDDestino)
                 .ToList();
 
-            // Actualiza las propiedades para el form
             EncomiendasEntrantes = resultado.Admision;
             EncomiendasSalientes = resultado.Retiro;
 

@@ -53,7 +53,7 @@
   {
     "NumeroGuia": "GUI004",
     "TipoPaquete": 4,
-    "Estado": 2,
+    "Estado": 4,
     "CDDestinoID": 1,
     "ClienteCUIT": "20675554987",
     "CDOrigenID": 2,
