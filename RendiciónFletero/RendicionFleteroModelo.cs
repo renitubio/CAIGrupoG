@@ -21,8 +21,8 @@ namespace CAIGrupoG.Modelos
     public class RendicionFleteroModelo
     {
         // Propiedades para la información que se mostrará en la vista
-        public List<GuiaEntidad> EncomiendasEntrantes { get; private set; }
-        public List<GuiaEntidad> EncomiendasSalientes { get; private set; }
+        public List<GuiaEntidad> EncomiendasEntrantes { get; private set; } = new();
+        public List<GuiaEntidad> EncomiendasSalientes { get; private set; } = new();
 
         // Campo para almacenar las hojas de ruta encontradas, necesarias para la rendición
         private List<HojaDeRutaEntidad> _hojasDeRutaPendientes;
@@ -42,13 +42,11 @@ namespace CAIGrupoG.Modelos
 
             const EstadoEncomiendaEnum ESTADO_EXCLUIDO = EstadoEncomiendaEnum.Entregado;
 
-            // 1. Verificar si el fletero existe
-            var fleteroExiste = FleteroAlmacen.Fleteros.Any(f => f.FleteroDNI == dniFletero); // Asumo DNI
+            var fleteroExiste = FleteroAlmacen.Fleteros.Any(f => f.FleteroDNI == dniFletero);
 
             if (!fleteroExiste)
                 throw new KeyNotFoundException($"No se encontró un fletero con DNI: {dniFletero}.");
 
-            // 2. Obtener Hojas de Ruta Pendientes (Completada = false)
             _hojasDeRutaPendientes = HojaDeRutaAlmacen.HojasDeRuta
                 .Where(hdr => hdr.FleteroDNI == dniFletero && !hdr.Completada)
                 .ToList();
@@ -62,34 +60,43 @@ namespace CAIGrupoG.Modelos
                 return resultado;
             }
 
-            // 3. Obtener un HashSet de los Números de Guía que están en estado 'Entregado' en el ALMACÉN PRINCIPAL
             var guiasRendidasNumeros = GuiaAlmacen.Guias
                 .Where(g => g.Estado == ESTADO_EXCLUIDO)
                 .Select(g => g.NumeroGuia)
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-            // 4. Compilar y clasificar las guías, EXCLUYENDO aquellas que ya están en el ESTADO_EXCLUIDO.
+            // Estados válidos para guías entrantes
+            var estadosEntrantes = new[]
+            {
+                EstadoEncomiendaEnum.EnCaminoARetirarDomicilio,
+                EstadoEncomiendaEnum.EnCaminoARetirarAgencia,
+                EstadoEncomiendaEnum.PrimerIntentoDeEntrega,
+                EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio,
+                EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia
+            };
 
-            // Guías Entrantes (Admisión)
+            // Guías Entrantes: HDR de tipo Retiro y Distribucion, y estado válido
             resultado.Admision = _hojasDeRutaPendientes
-                .Where(hdr => hdr.Tipo == TipoHDREnum.Retiro)
+                .Where(hdr => hdr.Tipo == TipoHDREnum.Retiro || hdr.Tipo == TipoHDREnum.Distribucion)
                 .SelectMany(hdr => hdr.Guias)
-                .Where(g => !guiasRendidasNumeros.Contains(g.NumeroGuia)) // Filtro por exclusión
+                .Where(g => !guiasRendidasNumeros.Contains(g.NumeroGuia)
+                    && estadosEntrantes.Contains(g.Estado))
                 .ToList();
 
-            // Guías Salientes (Retiro)
+            // Guías Salientes: solo HDR de tipo Distribucion y estado AdmitidoCDDestino
             resultado.Retiro = _hojasDeRutaPendientes
                 .Where(hdr => hdr.Tipo == TipoHDREnum.Distribucion)
                 .SelectMany(hdr => hdr.Guias)
-                .Where(g => !guiasRendidasNumeros.Contains(g.NumeroGuia)) // Filtro por exclusión
+                .Where(g => !guiasRendidasNumeros.Contains(g.NumeroGuia)
+                    && g.Estado == EstadoEncomiendaEnum.AdmitidoCDDestino)
                 .ToList();
 
+            // Actualiza las propiedades para el form
             EncomiendasEntrantes = resultado.Admision;
             EncomiendasSalientes = resultado.Retiro;
 
             return resultado;
         }
-
 
         public List<GuiaEntidad> ObtenerGuiasSeleccionadas(ListView listView, List<GuiaEntidad> fuenteGuias)
         {
