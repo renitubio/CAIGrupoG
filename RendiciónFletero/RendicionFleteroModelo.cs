@@ -72,7 +72,7 @@ namespace CAIGrupoG.Modelos
 
             // Guías Entrantes (Admisión)
             resultado.Admision = _hojasDeRutaPendientes
-                .Where(hdr => hdr.Tipo == TipoHDREnum.ENTRANTE)
+                .Where(hdr => hdr.Tipo == TipoHDREnum.Retiro)
                 .SelectMany(hdr => hdr.Guias)
                 .Where(g => !guiasRendidasNumeros.Contains(g.NumeroGuia)) // Filtro por exclusión
                 .ToList();

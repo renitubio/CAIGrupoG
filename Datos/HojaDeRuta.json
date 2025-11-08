@@ -3,12 +3,30 @@
     "HDR_ID": 4567,
     "ServicioID": 1234567,
     "FechaCreacion": "2025-07-10T09:00:00",
-    "FleteroDNI": "30123456",
+    "FleteroDNI": "",
     "TipoHDREnum": 2,
     "Completada": false,
     "Guias": [
       "GUI001",
       "GUI002"
     ]
+  },
+  {
+    "HDR_ID": 4568,
+    "ServicioID": 0,
+    "FechaCreacion": "2025-07-11T10:30:00",
+    "FleteroDNI": "12345678",
+    "TipoHDREnum": 1,
+    "Completada": false,
+    "Guias": ["GUI004"]
+  },
+  {
+    "HDR_ID": 4569,
+    "ServicioID": 0,
+    "FechaCreacion": "2025-07-11T11:00:00",
+    "FleteroDNI": "12345678",
+    "TipoHDREnum": 3,
+    "Completada": false,
+    "Guias": ["GUI006"]
   }
 ]

@@ -12,14 +12,13 @@ namespace CAIGrupoG.Almacenes
         ImpuestoAgencia = 2,
         EnCaminoARetirarDomicilio = 3,
         EnCaminoARetirarAgencia = 4,
-        PendienteDeRetiroEnAgencia = 5,
-        AdmitidoCDOrigen = 6,
-        EnTransito = 7,
-        AdmitidoCDDestino = 8,
-        DistribucionUltimaMillaDomicilio = 9,
-        DistribucionUltimaMillaAgencia = 10,
-        PrimerIntentoDeEntrega = 11,
-        Rechazado = 12,
-        Entregado = 13
+        AdmitidoCDOrigen = 5,
+        EnTransito = 6,
+        AdmitidoCDDestino = 7,
+        DistribucionUltimaMillaDomicilio = 8,
+        DistribucionUltimaMillaAgencia = 9,
+        PrimerIntentoDeEntrega = 10,
+        Rechazado = 11,
+        Entregado = 12
     }
 }

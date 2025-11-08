@@ -29,7 +29,7 @@ namespace CAIGrupoG.EntregaGuíaAgencia
 
             // 2. Definir el estado que buscamos
             // (Estado 5)
-            EstadoEncomiendaEnum estadoRequerido = EstadoEncomiendaEnum.PendienteDeRetiroEnAgencia;
+            EstadoEncomiendaEnum estadoRequerido = EstadoEncomiendaEnum.EnCaminoARetirarAgencia;
 
             // 3. Buscar en el Almacén (la fuente real 'GuiaEntidad')
             var guiasEntidad = GuiaAlmacen.Guias

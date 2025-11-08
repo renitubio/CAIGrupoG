@@ -169,7 +169,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
         #region Lógica de Confirmación (Crear Guía y Hoja de Ruta)
 
-        public List<string> ConfirmarImposicion(int cantidadTotalCajas, string codigoDestino)
+        public List<string> ConfirmarAdmision(int cantidadTotalCajas)
         {
             if (_clienteActual == null)
             {

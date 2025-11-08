@@ -10,7 +10,6 @@ namespace CAIGrupoG.Almacenes
     {
         Retiro = 1,
         Transporte = 2,
-        Distribucion = 3,
-        ENTRANTE = 4
+        Distribucion = 3
     }
 }
