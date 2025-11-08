@@ -7,8 +7,8 @@
     "TipoHDREnum": 2,
     "Completada": false,
     "Guias": [
-      "GUI001",
-      "GUI002"
+      { "NumeroGuia": "GUI001" },
+      { "NumeroGuia": "GUI002" }
     ]
   },
   {
@@ -18,7 +18,9 @@
     "FleteroDNI": "12345678",
     "TipoHDREnum": 1,
     "Completada": false,
-    "Guias": ["GUI004"]
+    "Guias": [
+      { "NumeroGuia": "GUI004" }
+    ]
   },
   {
     "HDR_ID": 4569,
@@ -27,6 +29,9 @@
     "FleteroDNI": "12345678",
     "TipoHDREnum": 3,
     "Completada": false,
-    "Guias": ["GUI006"]
+    "Guias": [
+      { "NumeroGuia": "GUI006" }
+    ]
   }
 ]
+  

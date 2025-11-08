@@ -42,11 +42,12 @@ namespace CAIGrupoG.Modelos
 
             const EstadoEncomiendaEnum ESTADO_EXCLUIDO = EstadoEncomiendaEnum.Entregado;
 
+            // 1. Verificar si existe el fletero
             var fleteroExiste = FleteroAlmacen.Fleteros.Any(f => f.FleteroDNI == dniFletero);
-
             if (!fleteroExiste)
                 throw new KeyNotFoundException($"No se encontró un fletero con DNI: {dniFletero}.");
 
+            // 2. Filtrar las hojas de ruta pendientes del fletero
             _hojasDeRutaPendientes = HojaDeRutaAlmacen.HojasDeRuta
                 .Where(hdr => hdr.FleteroDNI == dniFletero && !hdr.Completada)
                 .ToList();
@@ -54,41 +55,51 @@ namespace CAIGrupoG.Modelos
             var resultado = new GuiasPorDNIResultado();
 
             if (!_hojasDeRutaPendientes.Any())
-            {
-                EncomiendasEntrantes = new List<GuiaEntidad>();
-                EncomiendasSalientes = new List<GuiaEntidad>();
                 return resultado;
-            }
 
-            var guiasRendidasNumeros = GuiaAlmacen.Guias
+            // 3. Buscar las guías correspondientes en GuiaAlmacen
+            var todasLasGuias = GuiaAlmacen.Guias.ToList();
+            var guiasRendidasNumeros = todasLasGuias
                 .Where(g => g.Estado == ESTADO_EXCLUIDO)
                 .Select(g => g.NumeroGuia)
                 .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-            // Estados válidos para guías entrantes (según el enum)
             var estadosEntrantes = new[]
             {
-                EstadoEncomiendaEnum.EnCaminoARetirarDomicilio,
-                EstadoEncomiendaEnum.EnCaminoARetirarAgencia,
-                EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio,
-                EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia,
-                EstadoEncomiendaEnum.PrimerIntentoDeEntrega
-            };
+        EstadoEncomiendaEnum.EnCaminoARetirarDomicilio,
+        EstadoEncomiendaEnum.EnCaminoARetirarAgencia,
+        EstadoEncomiendaEnum.PrimerIntentoDeEntrega,
+        EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio,
+        EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia
+    };
 
-            // Guías Entrantes: HDR de tipo Retiro y Distribucion, y estado válido
-            resultado.Admision = _hojasDeRutaPendientes
-                .Where(hdr => hdr.Tipo == TipoHDREnum.Retiro || hdr.Tipo == TipoHDREnum.Distribucion)
-                .SelectMany(hdr => hdr.Guias)
-                .Where(g => !guiasRendidasNumeros.Contains(g.NumeroGuia)
-                    && estadosEntrantes.Contains(g.Estado))
+            // 4. Buscar guías según HDR
+            var guiasDeHDR = new List<GuiaEntidad>();
+
+            foreach (var hdr in _hojasDeRutaPendientes)
+            {
+                foreach (var guiaHDR in hdr.Guias) // acá cada guía ya es un objeto GuiaEntidad
+                {
+                    if (guiaHDR == null || string.IsNullOrWhiteSpace(guiaHDR.NumeroGuia))
+                        continue;
+
+                    var guia = todasLasGuias.FirstOrDefault(g =>
+                        string.Equals(g.NumeroGuia, guiaHDR.NumeroGuia, StringComparison.OrdinalIgnoreCase));
+
+                    if (guia != null && !guiasRendidasNumeros.Contains(guia.NumeroGuia))
+                    {
+                        guiasDeHDR.Add(guia);
+                    }
+                }
+            }
+
+            // 5. Separar admisión y retiro
+            resultado.Admision = guiasDeHDR
+                .Where(g => estadosEntrantes.Contains(g.Estado))
                 .ToList();
 
-            // Guías Salientes: solo HDR de tipo Distribucion y estado AdmitidoCDDestino
-            resultado.Retiro = _hojasDeRutaPendientes
-                .Where(hdr => hdr.Tipo == TipoHDREnum.Distribucion)
-                .SelectMany(hdr => hdr.Guias)
-                .Where(g => !guiasRendidasNumeros.Contains(g.NumeroGuia)
-                    && g.Estado == EstadoEncomiendaEnum.AdmitidoCDDestino)
+            resultado.Retiro = guiasDeHDR
+                .Where(g => g.Estado == EstadoEncomiendaEnum.AdmitidoCDDestino)
                 .ToList();
 
             EncomiendasEntrantes = resultado.Admision;
