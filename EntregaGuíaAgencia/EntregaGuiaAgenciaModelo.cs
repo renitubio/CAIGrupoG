@@ -13,10 +13,10 @@ namespace CAIGrupoG.EntregaGuíaAgencia
         {
         }
 
-        /// <summary>
+
         /// Busca guías en el GuiaAlmacen que coincidan con la regla de negocio.
-        /// </summary>
-        public List<Guia> BuscarGuiasPorDNI(string dni)
+
+        public List<GuiaEntidad> BuscarGuiasPorDNI(string dni)
         {
             // 1. Obtener el ID de la Agencia "logueada" (como vimos en MenuPrincipal.cs)
             if (AgenciaAlmacen.AgenciaActual == null)
@@ -34,31 +34,38 @@ namespace CAIGrupoG.EntregaGuíaAgencia
             // 3. Buscar en el Almacén (la fuente real 'GuiaEntidad')
             var guiasEntidad = GuiaAlmacen.Guias
                 .Where(g =>
-                    g.DNIAutorizadoRetirar == dni &&
-                    g.Estado == estadoRequerido &&
-                    g.AgenciaDestinoID == agenciaActualID // <--- Esta es la nueva regla
+                    g.AgenciaDestinoID ==10 &&
+                    g.DNIAutorizadoRetirar == dni
                 )
                 .ToList();
 
             // 4. Mapear de la lista de 'GuiaEntidad' (Datos) 
             //    a la lista de 'Guia' (el View Model que espera el Form)
-            var guiasViewModel = guiasEntidad.Select(g => new Guia
+            var guiasViewModel = guiasEntidad.Select(g => new GuiaEntidad
             {
                 NumeroGuia = g.NumeroGuia,
-                DniDestinatario = g.DNIAutorizadoRetirar,
-                // Hacemos un "cast" directo de los enums
-                TipoPaquete = (TipoPaquete)g.TipoPaquete,
-                // El estado es el que espera el Form para mostrar
-                Estado = EstadoGuia.PendienteDeRetiroEnAgencia
+                TipoPaquete = g.TipoPaquete,
+                Estado = g.Estado,
+                CDDestinoID = g.CDDestinoID,
+                ClienteCUIT = g.ClienteCUIT,
+                CDOrigenID = g.CDOrigenID,
+                Importe = g.Importe,
+                DNIAutorizadoRetirar = g.DNIAutorizadoRetirar,
+                DomicilioDestino = g.DomicilioDestino,
+                EntregaDomicilio = g.EntregaDomicilio,
+                FechaAdmision = g.FechaAdmision,
+                RetiroDomicilio = g.RetiroDomicilio,
+                EntregaAgencia = g.EntregaAgencia,
+                NumeroFactura = g.NumeroFactura,
+                AgenciaDestinoID = g.AgenciaDestinoID
             }).ToList();
 
             return guiasViewModel;
         }
 
-        /// <summary>
         /// Confirma el retiro, actualizando las entidades reales en el Almacén.
-        /// </summary>
-        public void ConfirmarRetiro(List<Guia> guiasARetirar)
+
+        public void ConfirmarRetiro(List<GuiaEntidad> guiasARetirar)
         {
             // 'guiasARetirar' es la lista de View Models (Guia)
             // Debemos encontrar las entidades reales (GuiaEntidad) y modificarlas.

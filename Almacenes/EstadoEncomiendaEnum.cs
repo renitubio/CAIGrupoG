@@ -17,8 +17,9 @@ namespace CAIGrupoG.Almacenes
         AdmitidoCDDestino = 7,
         DistribucionUltimaMillaDomicilio = 8,
         DistribucionUltimaMillaAgencia = 9,
-        PrimerIntentoDeEntrega = 10,
-        Rechazado = 11,
-        Entregado = 12
+        AgenciaDestino = 10,
+        PrimerIntentoDeEntrega = 11,
+        Rechazado = 12,
+        Entregado = 13
     }
 }

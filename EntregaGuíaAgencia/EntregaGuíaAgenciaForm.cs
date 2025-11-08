@@ -8,13 +8,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CAIGrupoG.Almacenes;
 
 namespace CAIGrupoG.EntregaGuíaAgencia
 {
     public partial class EntregaGuíaAgenciaForm : Form
     {
         private readonly EntregaGuiaAgenciaModelo modelo = new();
-        private List<Guia> guiasEncontradas = new List<Guia>();
+        private List<GuiaEntidad> guiasEncontradas = new List<GuiaEntidad>();
 
         public EntregaGuíaAgenciaForm()
         {
@@ -70,7 +71,7 @@ namespace CAIGrupoG.EntregaGuíaAgencia
             return Regex.IsMatch(dni, @"^\d{7,8}$");
         }
 
-        private void PoblarListView(List<Guia> guias)
+        private void PoblarListView(List<GuiaEntidad> guias)
         {
             GuiasListView.Items.Clear();
             if (guias == null) return;
