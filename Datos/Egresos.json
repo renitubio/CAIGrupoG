@@ -1,27 +1,38 @@
 ﻿[
     
-        {
-            "MontoPago": 1500.00,
-            "NumeroGuia": "GUI012",
-            "FechaPago": "2025-10-16T12:00:00",
-            "NumeroFactura": 50,
-            "TipoEgreso": 2,
-            "AgenciaID": 1,
-            "FleteroDNI": "30000000",
-            "CUITEmpresaTransporte": "30-99887766-0",
-            "Fecha": "2025-10-16T00:00:00"
-        },
-        {
-            "MontoPago": 2000.00,
-            "NumeroGuia": "GUI013",
-            "FechaPago": "2025-10-23T10:00:00",
-            "NumeroFactura": 52,
-            "TipoEgreso": 2,
-            "AgenciaID": 3,
-            "FleteroDNI": "30000000",
-            "CUITEmpresaTransporte": "30-99887766-0",
-            "Fecha": "2025-10-23T00:00:00"
-        }
+    {
+        "MontoPago": 1500.00,
+        "NumeroGuia": "GUI012",
+        "FechaPago": "2025-10-16T12:00:00",
+        "NumeroFactura": 50,
+        "TipoEgreso": 2,
+        "AgenciaID": 0,
+        "FleteroDNI": "",
+        "CUITEmpresaTransporte": "30-99887766-0",
+        "Fecha": "2025-10-16T00:00:00"
+    },
+    {
+        "MontoPago": 2000.00,
+        "NumeroGuia": "GUI013",
+        "FechaPago": "2025-10-23T10:00:00",
+        "NumeroFactura": 52,
+        "TipoEgreso": 2,
+        "AgenciaID": 0,
+        "FleteroDNI": "",
+        "CUITEmpresaTransporte": "30-99887766-0",
+        "Fecha": "2025-10-23T00:00:00"
+    },
+    {
+        "MontoPago": 3000.00,
+        "NumeroGuia": "GUI013",
+        "FechaPago": "2025-10-23T10:00:00",
+        "NumeroFactura": 52,
+        "TipoEgreso": 1,
+        "AgenciaID": 3,
+        "FleteroDNI": "",
+        "CUITEmpresaTransporte": "",
+        "Fecha": "2025-10-23T00:00:00"
+    }
         
         
 

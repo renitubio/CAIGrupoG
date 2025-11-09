@@ -215,7 +215,7 @@
         "DNIAutorizadoRetirar": "87654321",
         "DomicilioDestino": "Avenida Siempre Viva456",
         "EntregaDomicilio": true,
-        "FechaAdmision": "2025-10-15T14:30:00",
+        "FechaAdmision": "2025-10-16T14:30:00",
         "RetiroDomicilio": false,
         "EntregaAgencia": false,
         "NumeroFactura": 4,
