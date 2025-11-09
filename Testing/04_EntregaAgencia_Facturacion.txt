@@ -1,0 +1,38 @@
+﻿// Entrega en Agencia_Facturacion del cliente.
+
+01: Pantalla "Entrega Encomienda - Agencia"
+
+ 1 - DNI: 35721855
+ 2 - Botón: Buscar
+ 3 - VERIFICAR: Lista Guías Asociadas muestra
+	- N° Guía: GUI018, GUI019
+	- Estado: AdmitidoCDDestino
+	- Tipo Paquete: XL, XL,
+ 4 - Botón: Retirar
+ 5 - Mensaje: "Operación exitosa".
+ 6 - Finalizar sistema
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "Entregada"
+	- Verificar guía GUI019 estado "Entregada"
+
+02: Pantalla "EmitirFactura"
+ 1 - CUIT: 20123456789
+ 2 - Botón: Buscar 
+ 3 - VERIFICAR: Lista Encomiendas muestra
+	- N° Guía: GUI018, GUI019
+	- Tipo Paquete: XL, XL
+	- Estado: Entregada, Entregada
+ 4 - Botón: Generar Factura
+ 5 - Mensaje: "Factura generada exitosamente. N° Factura: FAC12345".
+ 6 - Finalizar sistema
+
+ ARCHIVOS
+ - Facturas:
+ - Verificar factura FAC12345 contiene:
+		- CUIT: 20123456789
+		- Guías: GUI018, GUI019
+		- Total: $XXXX.XX
+
+ //FALTA REVISAR QUE SE GENERE LA FACTURA EN EL SISTEMA CON LOS DATOS CORRECTOS
