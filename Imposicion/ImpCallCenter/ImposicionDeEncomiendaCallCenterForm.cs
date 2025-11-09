@@ -176,8 +176,8 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                 MessageBox.Show("Debe añadir al menos una encomienda a la lista antes de confirmar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            // Las validaciones de DNI y destino ya se hicieron en el botón Añadir,
-            // pero se mantienen aquí como una última capa de seguridad.
+            // Las validaciones de DNI y destino ya se hicieron en el botón Añadir,pero se mantienen aca como una última capa de seguridad.
+
             if (!Regex.IsMatch(DNIText.Text, @"^\d{7,8}$"))
             {
                 MessageBox.Show("El DNI debe ser numérico y tener entre 7 y 8 dígitos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);

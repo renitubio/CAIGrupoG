@@ -189,9 +189,8 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                     ClienteCUIT = _clienteActual.ClienteCUIT,
                     CDOrigenID = _clienteActual.CDOrigen,
                     FechaAdmision = DateTime.Now,
-                    Estado = EstadoEncomiendaEnum.ImpuestoCallCenter, // Estado 1
-                    RetiroDomicilio = true,
-                    // Se quita DNIFletero (no existe en GuiaEntidad)
+                    Estado = EstadoEncomiendaEnum.AdmitidoCDOrigen, 
+                    RetiroDomicilio = false,
                 };
 
                 GuiaAlmacen.Nuevo(entidad);
