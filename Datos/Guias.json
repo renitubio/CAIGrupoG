@@ -13,7 +13,7 @@
         "FechaAdmision": "2024-10-11T00:00:00",
         "RetiroDomicilio": true,
         "EntregaGuíaAgencia": true,
-        "NumeroFactura": 1010,
+        "NumeroFactura": 0,
         "AgenciaDestinoID": 20
     },
     {
@@ -30,7 +30,7 @@
         "FechaAdmision": "2024-10-11T00:00:00",
         "RetiroDomicilio": true,
         "EntregaGuíaAgencia": true,
-        "NumeroFactura": 1010,
+        "NumeroFactura": 0,
         "AgenciaDestinoID": 20
     },
     {
@@ -47,7 +47,7 @@
         "FechaAdmision": "2024-10-11T00:00:00",
         "RetiroDomicilio": true,
         "EntregaGuíaAgencia": false,
-        "NumeroFactura": 1011,
+        "NumeroFactura": 0,
         "AgenciaDestinoID": 0
     },
     {
@@ -64,7 +64,7 @@
         "FechaAdmision": "2024-10-11T00:00:00",
         "RetiroDomicilio": true,
         "EntregaGuíaAgencia": false,
-        "NumeroFactura": 1011,
+        "NumeroFactura": 0,
         "AgenciaDestinoID": 0
     },
     {
@@ -76,12 +76,12 @@
         "CDOrigenID": 2,
         "Importe": 5500.00,
         "DNIAutorizadoRetirar": "9987678",
-        "DomicilioDestino": "Moreno 146",
+        "DomicilioDestino": "Moreno146",
         "EntregaDomicilio": true,
         "FechaAdmision": "2024-10-11T00:00:00",
         "RetiroDomicilio": false,
         "EntregaGuíaAgencia": false,
-        "NumeroFactura": 1012,
+        "NumeroFactura": 0,
         "AgenciaDestinoID": 0
     },
     {
@@ -93,12 +93,12 @@
         "CDOrigenID": 2,
         "Importe": 5500.00,
         "DNIAutorizadoRetirar": "9987678",
-        "DomicilioDestino": "Moreno 146",
+        "DomicilioDestino": "Moreno146",
         "EntregaDomicilio": true,
         "FechaAdmision": "2024-10-11T00:00:00",
         "RetiroDomicilio": false,
         "EntregaGuíaAgencia": false,
-        "NumeroFactura": 1012,
+        "NumeroFactura": 0,
         "AgenciaDestinoID": 0
     },
     {
@@ -110,12 +110,12 @@
         "CDOrigenID": 2,
         "Importe": 5500.00,
         "DNIAutorizadoRetirar": "9987678",
-        "DomicilioDestino": "Moreno 146",
+        "DomicilioDestino": "Moreno146",
         "EntregaDomicilio": true,
         "FechaAdmision": "2024-10-11T00:00:00",
         "RetiroDomicilio": false,
         "EntregaGuíaAgencia": false,
-        "NumeroFactura": 1012,
+        "NumeroFactura": 0,
         "AgenciaDestinoID": 0
     },
     {
@@ -127,12 +127,12 @@
         "CDOrigenID": 2,
         "Importe": 5500.00,
         "DNIAutorizadoRetirar": "9987678",
-        "DomicilioDestino": "Moreno 146",
+        "DomicilioDestino": "Moreno146",
         "EntregaDomicilio": true,
         "FechaAdmision": "2024-10-11T00:00:00",
         "RetiroDomicilio": false,
         "EntregaGuíaAgencia": false,
-        "NumeroFactura": 1012,
+        "NumeroFactura": 0,
         "AgenciaDestinoID": 0
     },
     {
@@ -144,12 +144,12 @@
         "CDOrigenID": 2,
         "Importe": 5500.00,
         "DNIAutorizadoRetirar": "9987678",
-        "DomicilioDestino": "Moreno 146",
+        "DomicilioDestino": "Moreno146",
         "EntregaDomicilio": true,
         "FechaAdmision": "2024-10-11T00:00:00",
         "RetiroDomicilio": false,
         "EntregaGuíaAgencia": false,
-        "NumeroFactura": 1012,
+        "NumeroFactura": 0,
         "AgenciaDestinoID": 0
     },
     {
@@ -161,7 +161,7 @@
         "CDOrigenID": 2,
         "Importe": 5500.00,
         "DNIAutorizadoRetirar": "9987678",
-        "DomicilioDestino": "Moreno 146",
+        "DomicilioDestino": "Moreno146",
         "EntregaDomicilio": true,
         "FechaAdmision": "2024-10-11T00:00:00",
         "RetiroDomicilio": false,
@@ -178,7 +178,7 @@
         "CDOrigenID": 2,
         "Importe": 7800.00,
         "DNIAutorizadoRetirar": "39621054",
-        "DomicilioDestino": "Gonzalez 1020",
+        "DomicilioDestino": "Gonzalez1020",
         "EntregaDomicilio": false,
         "FechaAdmision": "2025-10-22T00:00:00",
         "RetiroDomicilio": false,
@@ -187,7 +187,6 @@
         "AgenciaDestinoID": 0
     },
     {
-        
         "NumeroGuia": "GUI012",
         "TipoPaquete": 1,
         "Estado": 13,
@@ -196,7 +195,7 @@
         "CDOrigenID": 5,
         "Importe": 5000.00,
         "DNIAutorizadoRetirar": "12345678",
-        "DomicilioDestino": "Calle Falsa 123",
+        "DomicilioDestino": "Calle Falsa123",
         "EntregaDomicilio": true,
         "FechaAdmision": "2025-10-15T10:00:00",
         "RetiroDomicilio": false,
@@ -214,7 +213,7 @@
         "CDOrigenID": 2,
         "Importe": 7000.00,
         "DNIAutorizadoRetirar": "87654321",
-        "DomicilioDestino": "Avenida Siempre Viva 456",
+        "DomicilioDestino": "Avenida Siempre Viva456",
         "EntregaDomicilio": true,
         "FechaAdmision": "2025-10-15T14:30:00",
         "RetiroDomicilio": false,
@@ -250,15 +249,14 @@
         "CDOrigenID": 3,
         "Importe": 3000.00,
         "DNIAutorizadoRetirar": "12345678",
-        "DomicilioDestino": "Av. Siempreviva 742",
+        "DomicilioDestino": "Av. Siempreviva742",
         "EntregaDomicilio": true,
         "FechaAdmision": "2025-10-20T11:00:00",
         "RetiroDomicilio": false,
         "EntregaAgencia": false,
-        "NumeroFactura": 2,
+        "NumeroFactura": 0,
         "AgenciaDestinoID": 1,
         "Fecha": "2025-10-20T00:00:00"
     }    
 
 ]
-    
