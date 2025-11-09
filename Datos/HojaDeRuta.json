@@ -1,20 +1,19 @@
 ﻿[
   {
     "HDR_ID": 4567,
-    "ServicioID":1234567,
+    "ServicioID": 1234567,
     "FechaCreacion": "2026-07-10T09:00:00",
     "FleteroDNI": "",
     "TipoHDREnum": 2,
     "Completada": false,
     "Guias": [
       { "NumeroGuia": "GUI001" },
-      { "NumeroGuia": "GUI002" },
-      { "NumeroGuia": "GUI016" }
+      { "NumeroGuia": "GUI002" }
     ]
   },
   {
     "HDR_ID": 4568,
-    "ServicioID":2233445,
+    "ServicioID": 2233445,
     "FechaCreacion": "2026-07-11T10:30:00",
     "FleteroDNI": "12345678",
     "TipoHDREnum": 1,
@@ -25,7 +24,7 @@
   },
   {
     "HDR_ID": 4569,
-    "ServicioID":3344556,
+    "ServicioID": 3344556,
     "FechaCreacion": "2025-07-11T11:00:00",
     "FleteroDNI": "12345678",
     "TipoHDREnum": 3,
@@ -33,6 +32,18 @@
     "Guias": [
       { "NumeroGuia": "GUI006" }
     ]
+  },
+  {
+    "HDR_ID": 4570,
+    "ServicioID": 9999999,
+    "FechaCreacion": "2025-06-10T09:00:00",
+    "FleteroDNI": "",
+    "TipoHDREnum": 2,
+    "Completada": false,
+    "Guias": [
+      { "NumeroGuia": "GUI016" }
+    ]
   }
+
 ]
   

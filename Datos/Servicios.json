@@ -1,92 +1,102 @@
 [
  {
- "ServicioID":1234567,
- "Patente": "XYZ234",
- "CUITEmpresaTransporte": "11456765432",
- "CDOrigen":1,
- "CDDestino":2,
- "FechaHoraSalida": "2026-12-10T10:30:00",
- "FechaHoraLlegada": "2026-12-11T15:45:00"
- },
- {
- "ServicioID":2233445,
- "Patente": "ABC123",
- "CUITEmpresaTransporte": "30876543217",
- "CDOrigen":3,
- "CDDestino":4,
- "FechaHoraSalida": "2026-08-01T08:00:00",
- "FechaHoraLlegada": "2026-08-01T18:30:00"
- },
- {
- "ServicioID":3344556,
- "Patente": "LMN987",
- "CUITEmpresaTransporte": "20112233445",
- "CDOrigen":2,
- "CDDestino":5,
- "FechaHoraSalida": "2026-07-20T22:15:00",
- "FechaHoraLlegada": "2026-07-21T06:45:00"
- },
- {
- "ServicioID":4455667,
- "Patente": "QWE456",
- "CUITEmpresaTransporte": "27556677883",
- "CDOrigen":5,
- "CDDestino":1,
- "FechaHoraSalida": "2026-09-10T12:00:00",
- "FechaHoraLlegada": "2026-09-10T16:00:00"
- },
- {
- "ServicioID":5566778,
- "Patente": "AD123GG",
- "CUITEmpresaTransporte": "33998877661",
- "CDOrigen":4,
- "CDDestino":6,
- "FechaHoraSalida": "2026-10-05T05:30:00",
- "FechaHoraLlegada": "2026-10-05T14:20:00"
- },
- {
- "ServicioID":6677889,
- "Patente": "PLT555",
- "CUITEmpresaTransporte": "20554433229",
- "CDOrigen":6,
- "CDDestino":2,
- "FechaHoraSalida": "2026-11-12T07:45:00",
- "FechaHoraLlegada": "2026-11-12T19:10:00"
- },
- {
- "ServicioID":7788990,
- "Patente": "ZZZ999",
- "CUITEmpresaTransporte": "23334455664",
- "CDOrigen":1,
- "CDDestino":3,
- "FechaHoraSalida": "2026-12-01T23:00:00",
- "FechaHoraLlegada": "2026-12-02T05:30:00"
- },
- {
- "ServicioID":8899001,
- "Patente": "AA678GH",
- "CUITEmpresaTransporte": "30123456780",
- "CDOrigen":2,
- "CDDestino":1,
- "FechaHoraSalida": "2026-01-15T09:20:00",
- "FechaHoraLlegada": "2026-01-15T16:45:00"
- },
- {
- "ServicioID":9900112,
- "Patente": "UIO321",
- "CUITEmpresaTransporte": "27667788996",
- "CDOrigen":4,
- "CDDestino":5,
- "FechaHoraSalida": "2026-02-20T14:00:00",
- "FechaHoraLlegada": "2026-02-20T20:15:00"
- },
- {
- "ServicioID":10111213,
- "Patente": "AB444NM",
- "CUITEmpresaTransporte": "30445566772",
- "CDOrigen":5,
- "CDDestino":3,
- "FechaHoraSalida": "2026-03-05T02:30:00",
- "FechaHoraLlegada": "2026-03-05T09:50:00"
- }
+    "ServicioID": 1234567,
+    "Patente": "XYZ234",
+    "CUITEmpresaTransporte": "11456765432",
+    "CDOrigen": 1,
+    "CDDestino": 2,
+    "FechaHoraSalida": "2026-12-10T10:30:00",
+    "FechaHoraLlegada": "2026-12-11T15:45:00"
+  },
+  {
+    "ServicioID": 2233445,
+    "Patente": "ABC123",
+    "CUITEmpresaTransporte": "30876543217",
+    "CDOrigen": 3,
+    "CDDestino": 4,
+    "FechaHoraSalida": "2026-08-01T08:00:00",
+    "FechaHoraLlegada": "2026-08-01T18:30:00"
+  },
+  {
+    "ServicioID": 3344556,
+    "Patente": "LMN987",
+    "CUITEmpresaTransporte": "20112233445",
+    "CDOrigen": 2,
+    "CDDestino": 5,
+    "FechaHoraSalida": "2026-07-20T22:15:00",
+    "FechaHoraLlegada": "2026-07-21T06:45:00"
+  },
+  {
+    "ServicioID": 4455667,
+    "Patente": "QWE456",
+    "CUITEmpresaTransporte": "27556677883",
+    "CDOrigen": 5,
+    "CDDestino": 1,
+    "FechaHoraSalida": "2026-09-10T12:00:00",
+    "FechaHoraLlegada": "2026-09-10T16:00:00"
+  },
+  {
+    "ServicioID": 5566778,
+    "Patente": "AD123GG",
+    "CUITEmpresaTransporte": "33998877661",
+    "CDOrigen": 4,
+    "CDDestino": 6,
+    "FechaHoraSalida": "2026-10-05T05:30:00",
+    "FechaHoraLlegada": "2026-10-05T14:20:00"
+  },
+  {
+    "ServicioID": 6677889,
+    "Patente": "PLT555",
+    "CUITEmpresaTransporte": "20554433229",
+    "CDOrigen": 6,
+    "CDDestino": 2,
+    "FechaHoraSalida": "2026-11-12T07:45:00",
+    "FechaHoraLlegada": "2026-11-12T19:10:00"
+  },
+  {
+    "ServicioID": 7788990,
+    "Patente": "ZZZ999",
+    "CUITEmpresaTransporte": "23334455664",
+    "CDOrigen": 1,
+    "CDDestino": 3,
+    "FechaHoraSalida": "2026-12-01T23:00:00",
+    "FechaHoraLlegada": "2026-12-02T05:30:00"
+  },
+  {
+    "ServicioID": 8899001,
+    "Patente": "AA678GH",
+    "CUITEmpresaTransporte": "30123456780",
+    "CDOrigen": 2,
+    "CDDestino": 1,
+    "FechaHoraSalida": "2026-01-15T09:20:00",
+    "FechaHoraLlegada": "2026-01-15T16:45:00"
+  },
+  {
+    "ServicioID": 9900112,
+    "Patente": "UIO321",
+    "CUITEmpresaTransporte": "27667788996",
+    "CDOrigen": 4,
+    "CDDestino": 5,
+    "FechaHoraSalida": "2026-02-20T14:00:00",
+    "FechaHoraLlegada": "2026-02-20T20:15:00"
+  },
+  {
+    "ServicioID": 10111213,
+    "Patente": "AB444NM",
+    "CUITEmpresaTransporte": "30445566772",
+    "CDOrigen": 5,
+    "CDDestino": 3,
+    "FechaHoraSalida": "2026-03-05T02:30:00",
+    "FechaHoraLlegada": "2026-03-05T09:50:00"
+  },
+
+  {
+    "ServicioID": 9999999,
+    "Patente": "XYZ234",
+    "CUITEmpresaTransporte": "11456765432",
+    "CDOrigen": 2,
+    "CDDestino": 5,
+    "FechaHoraSalida": "2026-12-10T10:30:00",
+    "FechaHoraLlegada": "2026-12-11T10:30:00"
+  }
 ]

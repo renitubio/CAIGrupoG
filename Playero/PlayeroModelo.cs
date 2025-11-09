@@ -172,7 +172,6 @@ namespace CAIGrupoG.Playero
                     FleteroDNI = fleteroDNI,
                     Tipo = TipoHDREnum.Distribucion, // Tipo 3 para Distribución
                     Completada = false,
-                    // CS0029 CORREGIDO: Mapeamos de GuiaEntidad a GuiaSimple
                     Guias = grupo.Value.Select(g => new GuiaEntidad { NumeroGuia = g.NumeroGuia }).ToList()
                 };
 
