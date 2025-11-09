@@ -5,8 +5,8 @@
  "CUITEmpresaTransporte": "11456765432",
  "CDOrigen":1,
  "CDDestino":2,
- "FechaHoraSalida": "2026-07-15T10:30:00",
- "FechaHoraLlegada": "2026-07-16T15:45:00"
+ "FechaHoraSalida": "2026-12-10T10:30:00",
+ "FechaHoraLlegada": "2026-12-11T15:45:00"
  },
  {
  "ServicioID":2233445,

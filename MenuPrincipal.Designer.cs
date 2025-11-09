@@ -1,4 +1,8 @@
-﻿namespace CAIGrupoG;
+﻿using CAIGrupoG.Almacenes;
+using CAIGrupoG.Playero;
+using System.Linq;
+using System.Windows.Forms;
+namespace CAIGrupoG;
 
 partial class MenuPrincipal
 {
@@ -119,7 +123,7 @@ partial class MenuPrincipal
         PlayeroButton.Text = "Playero";
         PlayeroButton.UseVisualStyleBackColor = true;
         PlayeroButton.Click += PlayeroButton_Click;
-        // 
+        //
         // CostosVentasButton
         // 
         CostosVentasButton.Location = new Point(238, 290);

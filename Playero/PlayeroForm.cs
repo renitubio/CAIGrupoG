@@ -14,20 +14,39 @@ namespace CAIGrupoG.Playero
 {
     public partial class PlayeroForm : Form
     {
-        private readonly PlayeroModelo modelo = new();
+        // 1. Declarar el modelo sin inicializarlo aquí.
+        private readonly PlayeroModelo modelo;
 
-        //TODO: Estas dos variables se tienen que ir. Pedirle los datos al modelo en donde se necesiten, las veces q haga falta.
-        // private List<Guia> guiasCargaActuales;
-        // private List<Guia> guiasDescargaActuales;
+        private List<GuiaEntidad> _guiasCargaDisponibles;
+        private List<GuiaEntidad> _guiasDescargaDisponibles;
 
-        public PlayeroForm()
+        // 2. Constructor principal: Acepta el ID del CD
+        public PlayeroForm(int cdSeleccionado)
         {
             InitializeComponent();
-            // Asociar los eventos a los manejadores
+            this.modelo = new PlayeroModelo(cdSeleccionado);
+
+            CargaListView.MultiSelect = true;
+            DescargarListView.MultiSelect = true;
+            CargaListView.FullRowSelect = true;
+            DescargarListView.FullRowSelect = true;
+
+            CargaListView.CheckBoxes = true;
+            DescargarListView.CheckBoxes = true;
+            // Asociar los eventos aquí si el diseñador no lo hace
             this.BuscarGuiasAsociadasBttn.Click += new System.EventHandler(this.BuscarGuiasAsociadasBttn_Click);
             this.AceptarBttn.Click += new System.EventHandler(this.AceptarBttn_Click);
         }
 
+        // 4. Constructor para el diseñador (sin parámetros): 
+        // ¡Único constructor sin parámetros! Llama al constructor principal con un ID seguro (0).
+        public PlayeroForm() : this(0)
+        {
+            // La lógica de InitializeComponent() y asociación de eventos
+            // ahora ocurre en el constructor de arriba que recibe el CDID.
+        }
+
+        // El resto de los métodos se mantiene igual:
         private void BuscarGuiasAsociadasBttn_Click(object sender, EventArgs e)
         {
             string patente = PatenteTxt.Text.Trim();
@@ -42,10 +61,12 @@ namespace CAIGrupoG.Playero
             // Suponiendo que BuscarGuiasPorPatente ahora retorna una tupla (List<Guia> Cargas, List<Guia> Descargas)
             var resultado = modelo.BuscarGuiasPorPatente(patente);
 
+            _guiasCargaDisponibles = resultado.Cargas;
+            _guiasDescargaDisponibles = resultado.Descargas;
 
             // 3. Limpiar y poblar los ListViews
-            PoblarListView(CargaListView, resultado.Cargas);
-            PoblarListView(DescargarListView, resultado.Descargas);
+            PoblarListView(CargaListView, _guiasCargaDisponibles);
+            PoblarListView(DescargarListView, _guiasDescargaDisponibles);
 
             if (!resultado.Cargas.Any() && !resultado.Descargas.Any())
             {
@@ -55,24 +76,50 @@ namespace CAIGrupoG.Playero
 
         private void AceptarBttn_Click(object sender, EventArgs e)
         {
-            string patente = PatenteTxt.Text.Trim();
-            var resultado = modelo.BuscarGuiasPorPatente(patente);
+            // 1. Obtener los NÚMEROS DE GUÍA MARCADOS (Checked) de cada ListView
+            var numerosCargaSeleccionados = CargaListView.Items.Cast<ListViewItem>()
+                // 🚨 CAMBIO CLAVE: Usar .Checked en lugar de .SelectedItems
+                .Where(item => item.Checked)
+                .Select(item => item.SubItems[0].Text) // El N° Guía está en la columna 0
+                .ToList();
 
-            // Validar si hay guías para procesar
-            if ((resultado.Cargas == null || !resultado.Cargas.Any()) &&
-                (resultado.Descargas == null || !resultado.Descargas.Any()))
+            var numerosDescargaSeleccionados = DescargarListView.Items.Cast<ListViewItem>()
+                // 🚨 CAMBIO CLAVE: Usar .Checked en lugar de .SelectedItems
+                .Where(item => item.Checked)
+                .Select(item => item.SubItems[0].Text)
+                .ToList();
+
+            // 2. Verificar si se marcó algo
+            if (!numerosCargaSeleccionados.Any() && !numerosDescargaSeleccionados.Any())
             {
-                MessageBox.Show("No hay guías para procesar. Por favor, busque una patente primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe MARCAR al menos una guía para confirmar la operación.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Llamar al modelo para confirmar la operación
-            modelo.ConfirmarOperacion(resultado.Cargas, resultado.Descargas);
+            // 3. Obtener las ENTIDADES COMPLETAS a partir de los números marcados
+            var cargasAProcesar = _guiasCargaDisponibles
+                .Where(g => numerosCargaSeleccionados.Contains(g.NumeroGuia))
+                .ToList();
 
-            MessageBox.Show("Operación Exitosa.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var descargasAProcesar = _guiasDescargaDisponibles
+                .Where(g => numerosDescargaSeleccionados.Contains(g.NumeroGuia))
+                .ToList();
 
-            // Limpiar la pantalla para la siguiente operación
-            LimpiarFormulario();
+            // 4. Llamar al modelo para confirmar la operación
+            try
+            {
+                var resultadoDistribucion = modelo.ConfirmarOperacion(cargasAProcesar, descargasAProcesar);
+
+                MessageBox.Show("Operación Exitosa. Estados de guías actualizados y Hoja(s) de Ruta de Distribución creada(s).", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // 5. Limpiar y refrescar la pantalla
+                LimpiarFormulario();
+
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Error de Operación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private bool ValidarPatente(string patente)

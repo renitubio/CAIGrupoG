@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO; // ⬅️ NECESARIO para Directory, Path, File
 
 namespace CAIGrupoG.Almacenes
 {
@@ -15,18 +16,27 @@ namespace CAIGrupoG.Almacenes
 
         static CiudadAlmacen()
         {
-            if (File.Exists(@"Datos\Ciudades.json"))
+            // 1. Definir la ruta absoluta
+            string rutaBase = Directory.GetCurrentDirectory();
+            string rutaCompleta = Path.Combine(rutaBase, @"Datos\Ciudades.json");
+
+            // 2. Usar la ruta completa para la verificación y lectura
+            if (File.Exists(rutaCompleta))
             {
-                var ciudadJson = File.ReadAllText(@"Datos\Ciudades.json");
+                var ciudadJson = File.ReadAllText(rutaCompleta); // ⬅️ Usar rutaCompleta
                 ciudades = System.Text.Json.JsonSerializer.Deserialize<List<CiudadEntidad>>(ciudadJson) ?? new List<CiudadEntidad>();
             }
         }
 
         public static void Grabar()
         {
+            // 1. Definir la ruta absoluta para grabar
+            string rutaBase = Directory.GetCurrentDirectory();
+            string rutaCompleta = Path.Combine(rutaBase, @"Datos\Ciudades.json");
 
+            // 2. Usar la ruta completa para la escritura
             var ciudadJson = System.Text.Json.JsonSerializer.Serialize(ciudades);
-            File.WriteAllText(@"Datos\Ciudades.json", ciudadJson);
+            File.WriteAllText(rutaCompleta, ciudadJson); // ⬅️ Usar rutaCompleta
         }
     }
 }
