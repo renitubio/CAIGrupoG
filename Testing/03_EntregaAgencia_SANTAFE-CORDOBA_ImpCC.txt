@@ -1,0 +1,128 @@
+﻿// Entrega en Agencia Córdoba a través de imposición en CC, levantando la encomienda desde el domicilio del cliente Santa Fe
+
+CD Actual: vacío?
+Agencia Actual: vacío?
+
+01: Pantalla Imposición de Encomienda - Call Center
+
+ 1 - CUIT: 20123456789
+ 2 - Botón: Buscar Cliente
+ 3 - Mensaje: "Cliente encontrado: Logística del Litoral S.R.L. Proceda a ingresar la encomienda".
+
+// Deberíamos tener una sección de "Retiro en Origen"? O algo que nos permita ir a buscar la encomienda al domicilio del Cliente que está llamando y luego viaje a la Agencia.
+
+ 4 - Ciudad Destino: Córdoba
+ 5 - Tipo retiro: Agencia/CD
+ 6 - VERIFICAR: Lista Opciones de entrega muestra "Córdoba (Centro de distribución)", "Agencia Leones", "Agencia Oeste".
+ 7 - Selección: Agencia Leones
+ 8 - DNI autorizado a retirar: 35721855
+ 9 - Tipo de caja: L
+ 10 - Cantidad: 2
+ 11 - Botón: Añadir
+ 12 - Mensaje: "Se añadió un tipo de caja XL a la lista".
+ 13 - Botón: Confirmar
+ 14 - VERIFICAR: Lista Guías Generadas muestra "GUI018, GUI019".
+ 15 - Botón "Finalizar".
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "Impuesto Call Center"
+	- Verificar guía GUI019 estado "Impuesto Call Center"
+
+// CD Actual: Santa Fe
+
+02: Pantalla "Carga/Descarga Playero"
+
+ 1 - Patente XXXXXX
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Carga muestra
+	- N° Guía: GUI018, GUI019
+	- Tipo Paquete: XL, XL
+	- CUIT: 20123456789
+	- CD Origen: Santa Fe
+	- CD Destino: Córdoba // ¿Debería poder decir también AgenciaDestino?
+ 4 - Botón: Aceptar
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "EnCaminoARetirarDomicilio"
+	- Verificar guía GUI019 estado "EnCaminoARetirarDomicilio"
+
+// CD Actual: Santa Fe
+
+03: Pantalla "Rendición de Fletero"
+ 1 - DNI Fletero: XXXXXXXX // Asociar un DNI a una patente?
+ 2 - Botón "Buscar Guías"
+ 3 - VERIFICAR: Lista Encomiendas Entrantes muestra:
+	- N° Guía: GUI018, GUI019
+	- Estado encomienda: EnCaminoARetirarDomicilio
+	- Tipo paquete: XL, XL
+	- CUIT: 20123456789
+	- DNI autorizado a retirar: 35721855
+ 4 - Botón: Aceptar
+ 5 - Mensaje: Operación Exitosa
+ 6 - Finalizar sistema
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "AdmitidoCDOrigen"
+	- Verificar guía GUI019 estado "AdmitidoCDOrigen"
+
+// CD Actual: Santa Fe
+
+04: Pantalla "Carga/Descarga Playero"
+
+ 1 - Patente XXXXXX
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Carga muestra
+	- N° Guía: GUI018, GUI019
+	- Tipo Paquete: XL, XL
+	- CUIT: 20123456789
+	- CD Origen: Santa Fe
+	- CD Destino: Córdoba // ¿Debería poder decir también AgenciaDestino?
+ 4 - Botón: Aceptar
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "EnTransito"
+	- Verificar guía GUI019 estado "EnTransito"
+
+
+// CD Actual: Cordoba
+
+05: Pantalla "Carga/Descarga Playero"
+
+ 1 - Patente XXXXXX
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Descarga muestra
+	- N° Guía: GUI018, GUI019
+	- Tipo Paquete: XL, XL
+	- CUIT: 20123456789
+	- CD Origen: Santa Fe
+	- CD Destino: Córdoba // ¿Debería poder decir también AgenciaDestino?
+ 4 - Botón: Aceptar
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "AdmitidoCDDestino"
+	- Verificar guía GUI019 estado "AdmitidoCDDestino"
+
+
+// 06: Desde "Carga/Descarga Playero" cargaríamos las encomiendas con destino a la Agencia?
+
+07: Pantalla "Entrega Encomienda - Agencia"
+
+ 1 - DNI: 35721855
+ 2 - Botón: Buscar
+ 3 - VERIFICAR: Lista Guías Asociadas muestra
+	- N° Guía: GUI018, GUI019
+	- Estado: AdmitidoCDDestino
+	- Tipo Paquete: XL, XL,
+ 4 - Botón: Retirar
+ 5 - Mensaje: "Operación exitosa".
+ 6 - Finalizar sistema
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "Entregada"
+	- Verificar guía GUI019 estado "Entregada"

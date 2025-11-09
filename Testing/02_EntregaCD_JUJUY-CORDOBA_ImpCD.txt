@@ -1,0 +1,83 @@
+﻿// Entrega a CD Jujuy desde CD Cordoba (Pantalla Imposición en CD)
+
+CD Actual: Córdoba
+
+01: Pantalla Imposición de Encomienda - CD
+
+ 1 - CUIT: 33654321097
+ 2 - Botón: Buscar Cliente
+ 3 - Mensaje: "Cliente encontrado: Comercial del Centro S.R.L. Proceda a ingresar la encomienda".
+ 4 - Ciudad Destino: Jujuy
+ 5 - Tipo retiro: CD
+ 6 - VERIFICAR: Lista Opciones de entrega muestra "Jujuy (Centro de distribución)".
+ 7 - DNI autorizado a retirar: 32456987
+ 8 - Tipo de caja: L
+ 9 - Cantidad: 2
+ 10 - Botón: Añadir
+ 10 - Mensaje: "Se añadió un tipo de caja L a la lista".
+ 11 - Botón: Confirmar
+ 12 - VERIFICAR: Lista Guías Generadas muestra "GUI016, GUI017".
+ 13 - Botón "Finalizar".
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI016 estado "Admitido en CD Origen"
+	- Verificar guía GUI017 estado "Admitido en CD Origen"
+
+
+// CD Actual: Córdoba
+
+02: Pantalla "Carga/Descarga Playero"
+
+ 1 - Patente XXXXXX
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Carga muestra
+	- N° Guía: GUI016, GUI017
+	- Tipo Paquete: L, L,
+	- CUIT: 33654321097
+	- CD Origen: Córdoba
+	- CD Destino: Jujuy
+ 4 - Botón: Aceptar
+
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI016 estado "En tránsito"
+	- Verificar guía GUI017 estado "En tránsito"
+
+// CD Actual: Jujuy
+
+03: Pantalla "Carga/Descarga Playero"
+
+ 1 - Patente XXXXXX
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Descarga muestra
+	- N° Guía: GUI016, GUI017
+	- Tipo Paquete: L, L,
+	- CUIT: 33654321097
+	- CD Origen: Córdoba
+	- CD Destino: Jujuy
+ 4 - Botón: Aceptar
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI016 estado "AdmitidoCDDestino"
+	- Verificar guía GUI017 estado "AdmitidoCDDestino"
+
+// CD Actual: Jujuy
+
+04: Pantalla "Entrega Encomienda - CD"
+ 1 - DNI: 32456987
+ 2 - Botón: Buscar
+ 3 - VERIFICAR: Lista Guías Asociadas muestra
+	- N° Guía: GUI016, GUI017
+	- Estado: AdmitidoCDDestino
+	- Tipo Paquete: L, L,
+ 4 - Botón: Retirar
+ 5 - Mensaje: "Operación exitosa".
+ 6 - Finalizar sistema
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI016 estado "Entregada"
+	- Verificar guía GUI017 estado "Entregada"

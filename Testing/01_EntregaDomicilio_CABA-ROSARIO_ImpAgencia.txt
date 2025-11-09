@@ -1,0 +1,95 @@
+﻿// Entrega a Domicilio (CABA - Rosario) desde una Agencia (Pantalla: Imposición Agencia)
+
+CD Actual: CABA
+Agencia Actual: Agencia del centro
+
+
+01: Pantalla Imposición de Encomienda - Agencia
+
+ 1 - CUIT 30701234565
+ 2 - Botón: Buscar Cliente
+ 3 - Mensaje: "Cliente encontrado: Tech Soluciones S.A. Proceda a ingresar la encomienda".
+ 4 - Ciudad Destino: Rosario
+ 5 - Tipo retiro: Domicilio
+ 6 - Domicilio: Av. San Martin 1234
+ 7 - DNI autorizado a retirar: 28222111 // ¿No alcanzaría solo con la dirección? Tampoco veo que debamos poner "DNI autorizado a recibir".
+ 8 - Tipo de caja: S
+ 9 - Cantidad: 1
+ 10 - Mensaje: "Se añadió un tipo de caja S a la lista".
+ 11 - Tipo de caja: M
+ 12 - Cantidad: 2
+ 13 - Mensaje: "Se añadió una caja tipo M a la lista".
+ 14 - Botón "Confirmar"
+ 15 - VERIFICAR: Lista número de tracking generados muestra "GUI012, GUI013, GUI014".
+ 16 - Botón "Finalizar".
+
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI012 estado "Impuesto en Agencia"
+	- Verificar guía GUI013 estado "Impuesto en Agencia"
+	- Verificar guía GUI014 estado "Impuesto en Agencia"
+
+// CD Actual: Rosario
+// Trae los paquetes desde CABA a Rosario
+
+
+02: Pantalla "Carga/Descarga - Playero".
+ 1 - Patente LMN987
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Descarga muestra
+  - N° Guía: GUI012, GUI013, GUI014
+  - Tipo Paquete: S, M, M
+  - CUIT: 30701234565
+  - CD Origen: CABA
+  - CD Destino: Rosario
+ 4 - Botón: Aceptar
+
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI012 estado "Admitido CD Destino"
+	- Verificar guía GUI013 estado "Admitido CD Destino"
+	- Verificar guía GUI014 estado "Admitido CD Destino"
+
+
+// CD Actual: Rosario
+// Misma pantalla? El playero carga en el Fletero local? Despacha la mercadería.
+
+03: Pantalla "Carga/Descarga - Playero".
+ 1 - Patente XXXXXX
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Carga muestra
+	- N° Guía: GUI012, GUI013, GUI014
+	- Tipo Paquete: S, M, M
+	- CUIT: 30701234565
+	- CD Origen: CABA
+	- CD Destino: Rosario
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI012 estado "DistribucionUltimaMillaDomicilio"
+	- Verificar guía GUI013 estado "DistribucionUltimaMillaDomicilio"
+	- Verificar guía GUI014 estado "DistribucionUltimaMillaDomicilio"
+
+
+// CD Actual: Rosario
+
+04: Pantalla "Rendición de Fletero"
+ 1 - DNI Fletero: XXXXXXXX // Asociar un DNI a una patente?
+ 2 - Botón "Buscar Guías"
+ 3 - VERIFICAR: Lista Encomiendas salientes muestra:
+	- N° Guía: GUI012, GUI013, GUI014
+	- Estado encomienda: DistribucionUltimaMillaDomiciio
+	- Tipo paquete: S, M, M
+	- CUIT: 30701234565
+	- DNI autorizado a retirar: 28222111 // Sujeto a si es necesario en la pantalla 01
+ 4 - Botón: Aceptar
+ 5 - Mensaje: Operación Exitosa
+ 6 - Finalizar sistema
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI012 estado "Entregada"
+	- Verificar guía GUI013 estado "Entregada"
+	- Verificar guía GUI014 estado "Entregada"
