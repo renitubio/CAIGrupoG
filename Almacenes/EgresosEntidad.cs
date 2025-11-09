@@ -22,6 +22,6 @@ namespace CAIGrupoG.Almacenes
         public string FleteroDNI { get; set; }
 
         public string CUITEmpresaTransporte { get; set; }
-
+        public DateTime Fecha { get; internal set; }
     }
 }

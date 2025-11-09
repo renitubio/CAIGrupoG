@@ -45,37 +45,33 @@
             // 
             // CancelarBttn
             // 
-            CancelarBttn.Location = new Point(1003, 600);
-            CancelarBttn.Margin = new Padding(4, 5, 4, 5);
+            CancelarBttn.Location = new Point(702, 360);
             CancelarBttn.Name = "CancelarBttn";
-            CancelarBttn.Size = new Size(107, 38);
+            CancelarBttn.Size = new Size(75, 23);
             CancelarBttn.TabIndex = 16;
             CancelarBttn.Text = "Cancelar";
             CancelarBttn.UseVisualStyleBackColor = true;
             // 
             // DesdeTimePicker
             // 
-            DesdeTimePicker.Location = new Point(73, 73);
-            DesdeTimePicker.Margin = new Padding(4, 5, 4, 5);
+            DesdeTimePicker.Location = new Point(51, 44);
             DesdeTimePicker.Name = "DesdeTimePicker";
-            DesdeTimePicker.Size = new Size(318, 31);
+            DesdeTimePicker.Size = new Size(224, 23);
             DesdeTimePicker.TabIndex = 2;
             // 
             // HastaTimePicker
             // 
-            HastaTimePicker.Location = new Point(401, 73);
-            HastaTimePicker.Margin = new Padding(4, 5, 4, 5);
+            HastaTimePicker.Location = new Point(281, 44);
             HastaTimePicker.Name = "HastaTimePicker";
-            HastaTimePicker.Size = new Size(311, 31);
+            HastaTimePicker.Size = new Size(219, 23);
             HastaTimePicker.TabIndex = 3;
             // 
             // ResultadoListView
             // 
             ResultadoListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2, columnHeader3, columnHeader5 });
-            ResultadoListView.Location = new Point(73, 141);
-            ResultadoListView.Margin = new Padding(4, 5, 4, 5);
+            ResultadoListView.Location = new Point(50, 86);
             ResultadoListView.Name = "ResultadoListView";
-            ResultadoListView.Size = new Size(777, 286);
+            ResultadoListView.Size = new Size(657, 173);
             ResultadoListView.TabIndex = 4;
             ResultadoListView.UseCompatibleStateImageBehavior = false;
             ResultadoListView.View = View.Details;
@@ -108,18 +104,19 @@
             groupBox2.Controls.Add(ResultadoListView);
             groupBox2.Controls.Add(HastaTimePicker);
             groupBox2.Controls.Add(DesdeTimePicker);
-            groupBox2.Location = new Point(50, 18);
+            groupBox2.Location = new Point(35, 11);
+            groupBox2.Margin = new Padding(2);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1060, 543);
+            groupBox2.Padding = new Padding(2);
+            groupBox2.Size = new Size(742, 326);
             groupBox2.TabIndex = 15;
             groupBox2.TabStop = false;
             // 
             // BuscarBttn
             // 
-            BuscarBttn.Location = new Point(743, 66);
-            BuscarBttn.Margin = new Padding(4, 5, 4, 5);
+            BuscarBttn.Location = new Point(520, 40);
             BuscarBttn.Name = "BuscarBttn";
-            BuscarBttn.Size = new Size(107, 38);
+            BuscarBttn.Size = new Size(75, 23);
             BuscarBttn.TabIndex = 7;
             BuscarBttn.Text = "Buscar";
             BuscarBttn.UseVisualStyleBackColor = true;
@@ -127,30 +124,29 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(401, 30);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(281, 18);
             label2.Name = "label2";
-            label2.Size = new Size(61, 25);
+            label2.Size = new Size(40, 15);
             label2.TabIndex = 6;
             label2.Text = "Hasta:";
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(73, 30);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(51, 18);
             label1.Name = "label1";
-            label1.Size = new Size(66, 25);
+            label1.Size = new Size(42, 15);
             label1.TabIndex = 5;
             label1.Text = "Desde:";
             // 
             // CostosVsVentasForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1163, 668);
+            ClientSize = new Size(814, 401);
             Controls.Add(CancelarBttn);
             Controls.Add(groupBox2);
+            Margin = new Padding(2);
             Name = "CostosVsVentasForm";
             Text = "Resultado Económico Tutasa";
             groupBox2.ResumeLayout(false);

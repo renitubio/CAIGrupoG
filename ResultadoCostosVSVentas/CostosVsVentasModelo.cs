@@ -3,45 +3,51 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CAIGrupoG.Almacenes;
 
 namespace CAIGrupoG.ResultadoCostosVSVentas
 {
     public class CostosVsVentasModelo
     {
-        private readonly List<ResultadoEconomico> _resultados;
-
-        public CostosVsVentasModelo()
-        {
-            _resultados = new List<ResultadoEconomico>();
-            CargarDatosFicticios();
-        }
-
-        /// Busca y devuelve una lista de resultados económicos dentro de un rango de fechas.
         public List<ResultadoEconomico> BuscarResultados(DateTime fechaDesde, DateTime fechaHasta)
         {
-            // Nos aseguramos de incluir el día completo en la fecha "Hasta"
-            return _resultados
-                .Where(r => r.Fecha.Date >= fechaDesde.Date && r.Fecha.Date <= fechaHasta.Date)
-                .OrderBy(r => r.Fecha) // Opcional: ordenamos los resultados por fecha
+           
+            DateTime inicioDia = fechaDesde.Date;
+            
+            DateTime finDia = fechaHasta.Date.AddDays(1).AddTicks(-1);
+ 
+            var estadoEntregado = EstadoEncomiendaEnum.Entregado; // Asumo EstadoEncomiendaEnum.Entregado
+
+            var guiasFiltradas = GuiaAlmacen.Guias
+             
+                .Where(g => g.FechaAdmision >= inicioDia && g.FechaAdmision <= finDia)
+                .Where(g => g.Estado == estadoEntregado)
                 .ToList();
-        }
 
-        /// Genera datos de prueba en ARS para diferentes fechas.
-      
-        
-        //               ¡ CORRESPONDE A PROTOTIPO; MODELO AUN NO TERMINADO !
-        private void CargarDatosFicticios()
-        {
-            // Datos de Septiembre 2025
-            _resultados.Add(new ResultadoEconomico { Fecha = new DateTime(2025, 9, 15), Ventas = 1200000.50m, Costos = 750000.20m });
-            _resultados.Add(new ResultadoEconomico { Fecha = new DateTime(2025, 9, 30), Ventas = 980000.00m, Costos = 620000.75m });
+            
+            var numeroGuiasEntregadas = guiasFiltradas.Select(g => g.NumeroGuia).ToList();
+ 
+            decimal ventasTotales = guiasFiltradas
+                .Sum(g => g.Importe);
 
-            // Datos de Octubre 2025
-            _resultados.Add(new ResultadoEconomico { Fecha = new DateTime(2025, 10, 1), Ventas = 1500000.00m, Costos = 900000.00m });
-            _resultados.Add(new ResultadoEconomico { Fecha = new DateTime(2025, 10, 15), Ventas = 2100000.30m, Costos = 1300000.10m });
+            decimal costosTotales = EgresosAlmacen.Egresos
+                
+                .Where(e => numeroGuiasEntregadas.Contains(e.NumeroGuia))
+                
+                .Sum(e => e.MontoPago);
 
-            // Datos de Noviembre 2025
-            _resultados.Add(new ResultadoEconomico { Fecha = new DateTime(2025, 11, 5), Ventas = 1850000.00m, Costos = 1100000.00m });
+            var resultadoGlobal = new ResultadoEconomico
+            {
+                Fecha = inicioDia,
+                Ventas = ventasTotales,
+                Costos = costosTotales
+                
+            };
+
+            
+            return new List<ResultadoEconomico> { resultadoGlobal };
         }
     }
 }
+
+

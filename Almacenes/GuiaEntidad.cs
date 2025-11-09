@@ -36,6 +36,6 @@ namespace CAIGrupoG.Almacenes
         public int NumeroFactura { get; set; }
 
         public int AgenciaDestinoID { get; set; }
-
+        public DateTime Fecha { get; internal set; }
     }
 }
