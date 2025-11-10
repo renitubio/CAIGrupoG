@@ -28,18 +28,18 @@ namespace CAIGrupoG.Almacenes
         
         static EgresosAlmacen()
         {
-            if (File.Exists(@"Datos\Clientes.json"))
+            if (File.Exists(@"Datos\Egresos.json"))
             {
-                var clienteJson = File.ReadAllText(@"Datos\Egresos.json");
-                egresos = System.Text.Json.JsonSerializer.Deserialize<List<EgresosEntidad>>(clienteJson) ?? new List<EgresosEntidad>();
+                var egresosJson = File.ReadAllText(@"Datos\Egresos.json");
+                egresos = System.Text.Json.JsonSerializer.Deserialize<List<EgresosEntidad>>(egresosJson) ?? new List<EgresosEntidad>();
             }
         }
 
         public static void Grabar()
         {
 
-            var clienteJson = System.Text.Json.JsonSerializer.Serialize(egresos);
-            File.WriteAllText(@"Datos\Egresos.json", clienteJson);
+            var egresosJson = System.Text.Json.JsonSerializer.Serialize(egresos);
+            File.WriteAllText(@"Datos\Egresos.json", egresosJson);
         }
     }
 }

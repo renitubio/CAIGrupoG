@@ -9,34 +9,23 @@ namespace CAIGrupoG.Almacenes
 {
     static class CiudadAlmacen
     {
-
         private static List<CiudadEntidad> ciudades = new List<CiudadEntidad>();
 
         public static IReadOnlyCollection<CiudadEntidad> Ciudades => ciudades.AsReadOnly();
 
         static CiudadAlmacen()
         {
-            // 1. Definir la ruta absoluta
-            string rutaBase = Directory.GetCurrentDirectory();
-            string rutaCompleta = Path.Combine(rutaBase, @"Datos\Ciudades.json");
-
-            // 2. Usar la ruta completa para la verificación y lectura
-            if (File.Exists(rutaCompleta))
+            if (File.Exists(@"Datos\Ciudades.json"))
             {
-                var ciudadJson = File.ReadAllText(rutaCompleta); // ⬅️ Usar rutaCompleta
+                var ciudadJson = File.ReadAllText(@"Datos\Ciudades.json");
                 ciudades = System.Text.Json.JsonSerializer.Deserialize<List<CiudadEntidad>>(ciudadJson) ?? new List<CiudadEntidad>();
             }
         }
 
         public static void Grabar()
         {
-            // 1. Definir la ruta absoluta para grabar
-            string rutaBase = Directory.GetCurrentDirectory();
-            string rutaCompleta = Path.Combine(rutaBase, @"Datos\Ciudades.json");
-
-            // 2. Usar la ruta completa para la escritura
             var ciudadJson = System.Text.Json.JsonSerializer.Serialize(ciudades);
-            File.WriteAllText(rutaCompleta, ciudadJson); // ⬅️ Usar rutaCompleta
+            File.WriteAllText(@"Datos\Ciudades.json", ciudadJson);
         }
     }
 }
