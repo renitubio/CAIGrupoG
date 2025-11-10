@@ -158,7 +158,7 @@ namespace CAIGrupoG.Modelos
 
 
         /// Realiza la rendición: actualiza el estado de las guías a Entregado y marca las HDRs como completadas.
-        public void Rendir()
+        public void Rendir(List<string> admisionesSeleccionadas, List<string> retirosSeleccionados)
         {
             if (_hojasDeRutaPendientes == null || !_hojasDeRutaPendientes.Any())
             {

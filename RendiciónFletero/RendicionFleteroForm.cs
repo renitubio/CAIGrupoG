@@ -71,6 +71,18 @@ namespace CAIGrupoG.Admisión
             }
 
             // Aquí iría la lógica para procesar las guías seleccionadas (opcional según requerimiento)
+            List<string> admisionesSeleccionadas = this.AdmisionListView.CheckedItems
+                                                       .Cast<ListViewItem>()
+                                                       .Select(l => l.Text)
+                                                       .ToList(); //Talvez funciona.
+
+            List<string> retirosSeleccionados = this.RetiroListView.CheckedItems
+                                                    .Cast<ListViewItem>()
+                                                    .Select(l => l.Text)
+                                                    .ToList(); //Talvez funciona.
+            
+            modelo.Rendir(admisionesSeleccionadas, retirosSeleccionados);
+
 
             MessageBox.Show("Operación Exitosa.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
