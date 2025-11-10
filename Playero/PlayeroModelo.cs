@@ -43,16 +43,13 @@ namespace CAIGrupoG.Playero
                     h.ServicioID == servicioCarga.ServicioID &&
                     //h.Tipo == TipoHDREnum.Transporte && // Asumo Tipo=2 para Transporte
                     h.Completada == false); // El servicio está pendiente de realizar
-                    
+
                 if (hojaCarga != null && hojaCarga.Guias != null)
                 {
                     var numerosGuiaCarga = hojaCarga.Guias.Select(g => g.NumeroGuia);
 
                     cargas = GuiaAlmacen.Guias
-                        .Where(g =>
-                            numerosGuiaCarga.Contains(g.NumeroGuia) &&
-                            g.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen && // Estado 5
-                            g.CDOrigenID == NuestroCD)
+                        .Where(g => numerosGuiaCarga.Contains(g.NumeroGuia))
                         .ToList();
                 }
             }
@@ -65,16 +62,13 @@ namespace CAIGrupoG.Playero
                     h.ServicioID == servicioDescarga.ServicioID &&
                     //h.Tipo == TipoHDREnum.Transporte && // Tipo=2 para Transporte
                     h.Completada == false); // El servicio está pendiente de realizar
-           
+
                 if (hojaDescarga != null && hojaDescarga.Guias != null)
                 {
                     var numerosGuiaDescarga = hojaDescarga.Guias.Select(g => g.NumeroGuia);
 
                     descargas = GuiaAlmacen.Guias
-                        .Where(g =>
-                            numerosGuiaDescarga.Contains(g.NumeroGuia) &&
-                            g.Estado == EstadoEncomiendaEnum.EnTransito && // Estado 6
-                            g.CDDestinoID == NuestroCD)
+                        .Where(g => numerosGuiaDescarga.Contains(g.NumeroGuia))
                         .ToList();
                 }
             }
