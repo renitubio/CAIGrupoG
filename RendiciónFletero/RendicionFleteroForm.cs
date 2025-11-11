@@ -1,4 +1,5 @@
 ﻿using CAIGrupoG.Modelos;
+using CAIGrupoG.RendiciónFletero;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CAIGrupoG.Admisión
 {
@@ -43,12 +45,13 @@ namespace CAIGrupoG.Admisión
 
             // 2. Llamada al modelo para buscar las guías
             var resultado = modelo.BuscarGuiasPorDNI(dni);
-            var guiasAdmisionPresentacion = modelo.ObtenerGuiasPresentacion(resultado.Admision);
-            var guiasRetiroPresentacion = modelo.ObtenerGuiasPresentacion(resultado.Retiro);
+
+            guíasAdmisionActuales = resultado.Admision;
+            guiasRetiroActuales = resultado.Retiro;
 
             // 3. Poblar los ListViews
-            PoblarListView(AdmisionListView, guiasAdmisionPresentacion);
-            PoblarListView(RetiroListView, guiasRetiroPresentacion);
+            PoblarListView(AdmisionListView, guíasAdmisionActuales);
+            PoblarListView(RetiroListView, guiasRetiroActuales);
 
             if (guíasAdmisionActuales.Count == 0 && guiasRetiroActuales.Count == 0)
             {
@@ -70,29 +73,18 @@ namespace CAIGrupoG.Admisión
                 return;
             }
 
-            // Aquí iría la lógica para procesar las guías seleccionadas (opcional según requerimiento)
-            List<string> admisionesSeleccionadas = this.AdmisionListView.CheckedItems
-                                                       .Cast<ListViewItem>()
-                                                       .Select(l => l.Text)
-                                                       .ToList(); //Talvez funciona.
+            List<Guia> admisiconesSeleccionadas = modelo.ObtenerGuiasSeleccionadas(AdmisionListView, guíasAdmisionActuales);
+            List<Guia> retirosSeleccionados = modelo.ObtenerGuiasSeleccionadas(RetiroListView, guiasRetiroActuales);
 
-            List<string> retirosSeleccionados = this.RetiroListView.CheckedItems
-                                                    .Cast<ListViewItem>()
-                                                    .Select(l => l.Text)
-                                                    .ToList(); //Talvez funciona.
-
-            modelo.Rendir(admisionesSeleccionadas, retirosSeleccionados);
-
+            modelo.Rendir(admisiconesSeleccionadas, retirosSeleccionados);
 
             MessageBox.Show("Operación Exitosa.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            // 4. Limpiar y refrescar la interfaz
+            // Limpiar la pantalla para la siguiente operación
             LimpiarFormulario();
         }
 
-        /// <summary>
         /// Valida que el DNI ingresado tenga un formato correcto (7 u 8 dígitos).
-        /// </summary>
         private bool ValidarDNI(string dni)
         {
             if (string.IsNullOrWhiteSpace(dni))
@@ -102,10 +94,8 @@ namespace CAIGrupoG.Admisión
             return Regex.IsMatch(dni, @"^\d{7,8}$");
         }
 
-        /// <summary>
         /// Rellena un control ListView con la lista de guías correspondiente.
-        /// </summary>
-        private void PoblarListView(ListView listView, List<GuiaPresentacionDTO> guias)
+        private void PoblarListView(System.Windows.Forms.ListView listView, List<Guia> guias)
         {
             listView.Items.Clear();
             if (guias == null) return;
@@ -115,20 +105,40 @@ namespace CAIGrupoG.Admisión
                 var row = new string[]
                 {
                     guia.NumeroGuia,
-                    guia.EstadoDescripcion,
-                    guia.TipoPaquete,
+                    FormatearEstado(guia.Estado),
+                    guia.TipoPaquete.ToString(),
                     guia.CUIT,
                     guia.DniAutorizadoRetirar,
                     guia.Destino
                 };
-                var item = new ListViewItem(row);
+                var item = new System.Windows.Forms.ListViewItem(row);
                 listView.Items.Add(item);
             }
         }
 
-        /// <summary>
+        /// Convierte un valor del enum EstadoEncomienda a un string legible.
+        private string FormatearEstado(EstadoEncomienda estado)
+        {
+            switch (estado)
+            {
+                case EstadoEncomienda.DistribucionUltimaMillaAgencia:
+                    return "Distribución última milla - Agencia";
+                case EstadoEncomienda.DistribucionUltimaMillaDomicilio:
+                    return "Distribución última milla - Domicilio";
+                case EstadoEncomienda.PrimerIntentoDeEntrega:
+                    return "Primer Intento de Entrega";
+                case EstadoEncomienda.EnCaminoARetirarDomicilio:
+                    return "En camino a retirar (Dom)";
+                case EstadoEncomienda.EnCaminoARetirarAgencia:
+                    return "En camino a retirar (Age)";
+                case EstadoEncomienda.AdmitidoCDDestino:
+                    return "En CD destino";
+                default:
+                    return estado.ToString();
+            }
+        }
+
         /// Limpia todos los controles del formulario.
-        /// </summary>
         private void LimpiarFormulario()
         {
             DNIText.Clear();

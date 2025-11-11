@@ -3,26 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using CAIGrupoG.Almacenes;
-// using CAIGrupoG.RendiciónFletero; // Deberías eliminar o corregir esta línea
-// Necesitas que GuiaEntidad, TipoHDREnum y EstadoEncomiendaEnum estén definidos y accesibles.
+using CAIGrupoG.RendiciónFletero;
+
 
 namespace CAIGrupoG.Modelos
 {
-    public class GuiaPresentacionDTO
-    {
-        public string NumeroGuia { get; set; }
-        public string EstadoDescripcion { get; set; }
-        public string TipoPaquete { get; set; }
-        public string CUIT { get; set; }
-        public string DniAutorizadoRetirar { get; set; }
-        public string Destino { get; set; }
-    }
-
     public class RendicionFleteroModelo
     {
         // Propiedades para la información que se mostrará en la vista
-        public List<GuiaEntidad> EncomiendasEntrantes { get; private set; } = new();
-        public List<GuiaEntidad> EncomiendasSalientes { get; private set; } = new();
+        public List<Guia> EncomiendasEntrantes { get; private set; } = new();
+        public List<Guia> EncomiendasSalientes { get; private set; } = new();
 
         // Campo para almacenar las hojas de ruta encontradas, necesarias para la rendición
         private List<HojaDeRutaEntidad> _hojasDeRutaPendientes;
@@ -30,16 +20,14 @@ namespace CAIGrupoG.Modelos
 
         public class GuiasPorDNIResultado
         {
-            public List<GuiaEntidad> Admision { get; set; } = new();
-            public List<GuiaEntidad> Retiro { get; set; } = new();
+            public List<Guia> Admision { get; set; } = new();
+            public List<Guia> Retiro { get; set; } = new();
         }
 
         /// Busca el fletero por DNI y obtiene SOLO las guías que su estado en GuiaAlmacen NO es Entregado.
 
         public GuiasPorDNIResultado BuscarGuiasPorDNI(string dniFletero)
         {
-            // GuiaAlmacen.Recargar(); NO ES NECESARIO
-
             const EstadoEncomiendaEnum ESTADO_EXCLUIDO = EstadoEncomiendaEnum.Entregado;
 
             // 1. Verificar si existe el fletero
@@ -66,19 +54,19 @@ namespace CAIGrupoG.Modelos
 
             var estadosEntrantes = new[]
             {
-        EstadoEncomiendaEnum.EnCaminoARetirarDomicilio,
-        EstadoEncomiendaEnum.EnCaminoARetirarAgencia,
-        EstadoEncomiendaEnum.PrimerIntentoDeEntrega,
-        EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio,
-        EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia
-    };
+                EstadoEncomiendaEnum.EnCaminoARetirarDomicilio,
+                EstadoEncomiendaEnum.EnCaminoARetirarAgencia,
+                EstadoEncomiendaEnum.PrimerIntentoDeEntrega,
+                EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio,
+                EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia,
+                EstadoEncomiendaEnum.AdmitidoCDOrigen
+            };
 
             // 4. Buscar guías según HDR
             var guiasDeHDR = new List<GuiaEntidad>();
-
             foreach (var hdr in _hojasDeRutaPendientes)
             {
-                foreach (var guiaHDR in hdr.Guias) // acá cada guía ya es un objeto GuiaEntidad
+                foreach (var guiaHDR in hdr.Guias)
                 {
                     if (guiaHDR == null || string.IsNullOrWhiteSpace(guiaHDR.NumeroGuia))
                         continue;
@@ -93,24 +81,39 @@ namespace CAIGrupoG.Modelos
                 }
             }
 
-            // 5. Separar admisión y retiro
+            // 5. Separar guías en admisión y retiro
             resultado.Admision = guiasDeHDR
                 .Where(g => estadosEntrantes.Contains(g.Estado))
+                .Select(g => new Guia
+                {
+                    NumeroGuia = g.NumeroGuia,
+                    TipoPaquete = (TipoPaquete)g.TipoPaquete,
+                    Estado = (EstadoEncomienda)g.Estado,
+                    CUIT = g.ClienteCUIT,
+                    DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
+                    Destino = g.DomicilioDestino
+                })
                 .ToList();
 
             resultado.Retiro = guiasDeHDR
                 .Where(g => g.Estado == EstadoEncomiendaEnum.AdmitidoCDDestino)
+                .Select(g => new Guia
+                {
+                    NumeroGuia = g.NumeroGuia,
+                    TipoPaquete = (TipoPaquete)g.TipoPaquete,
+                    Estado = (EstadoEncomienda)g.Estado,
+                    CUIT = g.ClienteCUIT,
+                    DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
+                    Destino = g.DomicilioDestino
+                })
                 .ToList();
-
-            EncomiendasEntrantes = resultado.Admision;
-            EncomiendasSalientes = resultado.Retiro;
 
             return resultado;
         }
 
-        public List<GuiaEntidad> ObtenerGuiasSeleccionadas(ListView listView, List<GuiaEntidad> fuenteGuias)
+        public List<Guia> ObtenerGuiasSeleccionadas(ListView listView, List<Guia> fuenteGuias)
         {
-            var seleccion = new List<GuiaEntidad>();
+            var seleccion = new List<Guia>();
             if (listView == null || fuenteGuias == null) return seleccion;
 
             var agregados = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -121,7 +124,15 @@ namespace CAIGrupoG.Modelos
                 if (item.Tag is GuiaEntidad guiaFromTag)
                 {
                     if (!string.IsNullOrWhiteSpace(guiaFromTag.NumeroGuia) && agregados.Add(guiaFromTag.NumeroGuia.Trim()))
-                        seleccion.Add(guiaFromTag);
+                        seleccion.Add(new Guia
+                        {
+                            NumeroGuia = guiaFromTag.NumeroGuia,
+                            TipoPaquete = (TipoPaquete)guiaFromTag.TipoPaquete,
+                            Estado = (EstadoEncomienda)guiaFromTag.Estado,
+                            CUIT = guiaFromTag.ClienteCUIT,
+                            DniAutorizadoRetirar = guiaFromTag.DNIAutorizadoRetirar,
+                            Destino = guiaFromTag.DomicilioDestino
+                        });
                     continue;
                 }
 
@@ -139,7 +150,15 @@ namespace CAIGrupoG.Modelos
                 if (item.Tag is GuiaEntidad guiaFromTag)
                 {
                     if (!string.IsNullOrWhiteSpace(guiaFromTag.NumeroGuia) && agregados.Add(guiaFromTag.NumeroGuia.Trim()))
-                        seleccion.Add(guiaFromTag);
+                        seleccion.Add(new Guia
+                        {
+                            NumeroGuia = guiaFromTag.NumeroGuia,
+                            TipoPaquete = (TipoPaquete)guiaFromTag.TipoPaquete,
+                            Estado = (EstadoEncomienda)guiaFromTag.Estado,
+                            CUIT = guiaFromTag.ClienteCUIT,
+                            DniAutorizadoRetirar = guiaFromTag.DNIAutorizadoRetirar,
+                            Destino = guiaFromTag.DomicilioDestino
+                        });
                     continue;
                 }
 
@@ -154,25 +173,22 @@ namespace CAIGrupoG.Modelos
             return seleccion;
         }
 
-        // ---------------------------------------------------------------------------------------------------
-
 
         /// Realiza la rendición: actualiza el estado de las guías a Entregado y marca las HDRs como completadas.
-        public void Rendir(List<string> admisionesSeleccionadas, List<string> retirosSeleccionados)
+        public void Rendir(List<Guia> admisionesSeleccionadas, List<Guia> retirosSeleccionados)
         {
             if (_hojasDeRutaPendientes == null || !_hojasDeRutaPendientes.Any())
             {
                 throw new InvalidOperationException("No hay hojas de ruta pendientes para rendir.");
             }
 
-            // 1. ⚠️ ARREGLO: Combinamos AMBAS listas (Entrantes y Salientes) 
-            //    que nos manda el Formulario.
+
             var guiasSeleccionadasNumeros = new HashSet<string>(
-                admisionesSeleccionadas.Concat(retirosSeleccionados), // <-- USA AMBOS PARÁMETROS
+                admisionesSeleccionadas.Concat(retirosSeleccionados).Select(g => g.NumeroGuia),
                 StringComparer.OrdinalIgnoreCase
             );
 
-            // 2. ⚠️ ARREGLO: Identificamos las NO seleccionadas
+
             var todasLasGuiasEnPantalla = EncomiendasEntrantes.Concat(EncomiendasSalientes)
                                             .Select(g => g.NumeroGuia);
 
@@ -181,30 +197,39 @@ namespace CAIGrupoG.Modelos
                 StringComparer.OrdinalIgnoreCase
             );
 
-            // 3. Aplicar reglas de negocio (Tu Switch)
             foreach (var guia in GuiaAlmacen.Guias)
             {
                 // Esta lógica ahora funciona para AMBAS listas
                 bool fueSeleccionada = guiasSeleccionadasNumeros.Contains(guia.NumeroGuia);
                 bool noFueSeleccionada = guiasNoSeleccionadasNumeros.Contains(guia.NumeroGuia);
 
-                // ⚠️ Pega aquí tu lógica de SWITCH completa (la que tenías antes) ⚠️
                 switch (guia.Estado)
                 {
-                    // Caso "ENTRANTE" (Ahora 'fueSeleccionada' será TRUE)
+                    // ENTRANTES
                     case EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio:
                         if (fueSeleccionada)
                             guia.Estado = EstadoEncomiendaEnum.Entregado;
                         else if (noFueSeleccionada)
                             guia.Estado = EstadoEncomiendaEnum.PrimerIntentoDeEntrega;
                         break;
-                    // Caso "ENTRANTE"
+
+                    case EstadoEncomiendaEnum.PrimerIntentoDeEntrega:
+                        if (noFueSeleccionada)
+                            guia.Estado = EstadoEncomiendaEnum.Rechazado;
+                        break;
+
                     case EstadoEncomiendaEnum.EnCaminoARetirarDomicilio:
                     case EstadoEncomiendaEnum.EnCaminoARetirarAgencia:
                         if (fueSeleccionada)
                             guia.Estado = EstadoEncomiendaEnum.AdmitidoCDOrigen;
                         break;
-                    // Caso "SALIENTE"
+
+                    case EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia:
+                        if (fueSeleccionada)
+                            guia.Estado = EstadoEncomiendaEnum.AgenciaDestino;
+                        break;
+
+                    // SALIENTES
                     case EstadoEncomiendaEnum.AdmitidoCDDestino:
                         if (fueSeleccionada)
                         {
@@ -214,21 +239,20 @@ namespace CAIGrupoG.Modelos
                                 guia.Estado = EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia;
                         }
                         break;
-                        // ... (Pega el resto de tus 'case' aquí) ...
+                    
                 }
             }
 
-            // 4. Grabar los cambios de las Guías PRIMERO
+
             GuiaAlmacen.Grabar();
 
-            // 5. ⚠️ LÓGICA DE HDR CORREGIDA (para rendiciones parciales)
-            var estadosFinales = new HashSet<EstadoEncomiendaEnum>
-        {
-            EstadoEncomiendaEnum.Entregado,
-            EstadoEncomiendaEnum.Rechazado,
-            EstadoEncomiendaEnum.AdmitidoCDOrigen,
-            EstadoEncomiendaEnum.AgenciaDestino
-        };
+            var estadosFinales = new[]
+            {
+                EstadoEncomiendaEnum.Entregado,
+                EstadoEncomiendaEnum.AdmitidoCDOrigen,
+                EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio,
+                EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia
+            };
 
             foreach (var hdrPendiente in _hojasDeRutaPendientes)
             {
@@ -250,46 +274,8 @@ namespace CAIGrupoG.Modelos
                 }
             }
 
-            // 6. Grabar los cambios de las HDRs
             HojaDeRutaAlmacen.Grabar();
 
-            // 7. ⚠️ NO LIMPIAR las listas internas del modelo
-            // (Las líneas que limpian _hojasDeRutaPendientes, etc., fueron eliminadas)
-        }
-
-        public static string ObtenerDescripcionEstado(EstadoEncomiendaEnum estado)
-        {
-            return estado switch
-            {
-                EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia => "Distribución última milla - Agencia",
-                EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio => "Distribución última milla - Domicilio",
-                EstadoEncomiendaEnum.PrimerIntentoDeEntrega => "Primer Intento de Entrega",
-                EstadoEncomiendaEnum.EnCaminoARetirarDomicilio => "En camino a retirar (Dom)",
-                EstadoEncomiendaEnum.EnCaminoARetirarAgencia => "En camino a retirar (Age)",
-                EstadoEncomiendaEnum.AdmitidoCDDestino => "En CD destino",
-                EstadoEncomiendaEnum.Entregado => "Entregado",
-                _ => estado.ToString()
-            };
-        }
-
-        public List<GuiaPresentacionDTO> ObtenerGuiasPresentacion(List<GuiaEntidad> guias)
-        {
-            var lista = new List<GuiaPresentacionDTO>();
-            if (guias == null) return lista;
-
-            foreach (var g in guias)
-            {
-                lista.Add(new GuiaPresentacionDTO
-                {
-                    NumeroGuia = g.NumeroGuia,
-                    EstadoDescripcion = g.Estado.ToString(),
-                    TipoPaquete = g.TipoPaquete.ToString(),
-                    CUIT = g.ClienteCUIT,
-                    DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
-                    Destino = g.DomicilioDestino
-                });
-            }
-            return lista;
         }
     }
 }
