@@ -8,14 +8,13 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CAIGrupoG.Almacenes;
 
 namespace CAIGrupoG.EntregaGuíaAgencia
 {
     public partial class EntregaGuíaAgenciaForm : Form
     {
         private readonly EntregaGuiaAgenciaModelo modelo = new();
-        private List<GuiaEntidad> guiasEncontradas = new List<GuiaEntidad>();
+        private List<Guia> guiasEncontradas = new List<Guia>();
 
         public EntregaGuíaAgenciaForm()
         {
@@ -46,7 +45,6 @@ namespace CAIGrupoG.EntregaGuíaAgencia
 
         private void RetirarBttn_Click(object sender, EventArgs e)
         {
-            // CORRECCIÓN: Como la lista nunca es nula, solo necesitamos chequear si está vacía.
             if (guiasEncontradas.Count == 0)
             {
                 MessageBox.Show("No hay guías para retirar. Por favor, realice una búsqueda primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -71,7 +69,7 @@ namespace CAIGrupoG.EntregaGuíaAgencia
             return Regex.IsMatch(dni, @"^\d{7,8}$");
         }
 
-        private void PoblarListView(List<GuiaEntidad> guias)
+        private void PoblarListView(List<Guia> guias)
         {
             GuiasListView.Items.Clear();
             if (guias == null) return;
@@ -92,7 +90,6 @@ namespace CAIGrupoG.EntregaGuíaAgencia
         {
             DNIText.Clear();
             GuiasListView.Items.Clear();
-            // CORRECCIÓN: Se vacía la lista en lugar de asignarle null.
             guiasEncontradas.Clear();
             DNIText.Focus();
         }
