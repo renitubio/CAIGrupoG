@@ -46,7 +46,7 @@
   {
     "AgenciaID": 80,
     "Nombre": "Agencia Leones",
-    "CiudadID": 4,
+    "CiudadID": 3,
     "Comisiones": {
       "1": 10.0,
       "2": 15.5,
@@ -58,6 +58,50 @@
     "AgenciaID": 100,
     "Nombre": "Agencia Oeste",
     "CiudadID": 4,
+    "Comisiones": {
+      "1": 10.0,
+      "2": 15.5,
+      "3": 18.0,
+      "4": 20.9
+    }
+  },
+  {
+    "AgenciaID": 80,
+    "Nombre": "Agencia Leones",
+    "CiudadID": 3,
+    "Comisiones": {
+      "1": 10.0,
+      "2": 15.5,
+      "3": 18.0,
+      "4": 20.9
+    }
+  },
+  {
+    "AgenciaID": 100,
+    "Nombre": "Agencia Oeste",
+    "CiudadID": 4,
+    "Comisiones": {
+      "1": 10.0,
+      "2": 15.5,
+      "3": 18.0,
+      "4": 20.9
+    }
+  },
+  {
+    "AgenciaID": 30,
+    "Nombre": "Agencia Juan",
+    "CiudadID": 5,
+    "Comisiones": {
+      "1": 10.0,
+      "2": 15.5,
+      "3": 18.0,
+      "4": 20.9
+    }
+  },
+  {
+    "AgenciaID": 32,
+    "Nombre": "Agencia Carlos",
+    "CiudadID": 6,
     "Comisiones": {
       "1": 10.0,
       "2": 15.5,

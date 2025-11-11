@@ -32,19 +32,19 @@
     "CDOrigen": 2,
     "Tarifas": [
       {
-        "TipoPaquete": 2,
+        "TipoPaquete": 1,
         "CDOrigen": 2,
         "CDDestino": 201,
         "Precio": 1800.75
       },
       {
-        "TipoPaquete": 3,
+        "TipoPaquete": 2,
         "CDOrigen": 2,
         "CDDestino": 201,
         "Precio": 2500.00
       },
       {
-        "TipoPaquete": 4,
+        "TipoPaquete": 3,
         "CDOrigen": 2,
         "CDDestino": 101,
         "Precio": 3000.00
@@ -64,7 +64,7 @@
         "Precio": 400.00
       },
       {
-        "TipoPaquete": 3,
+        "TipoPaquete": 2,
         "CDOrigen": 3,
         "CDDestino": 302,
         "Precio": 1900.50
@@ -78,7 +78,7 @@
     "CDOrigen": 4,
     "Tarifas": [
       {
-        "TipoPaquete": 4,
+        "TipoPaquete": 1,
         "CDOrigen": 4,
         "CDDestino": 401,
         "Precio": 2800.00
@@ -98,13 +98,13 @@
     "CDOrigen": 5,
     "Tarifas": [
       {
-        "TipoPaquete": 3,
+        "TipoPaquete": 2,
         "CDOrigen": 5,
         "CDDestino": 501,
         "Precio": 3500.00
       },
       {
-        "TipoPaquete": 4,
+        "TipoPaquete": 3,
         "CDOrigen": 5,
         "CDDestino": 101,
         "Precio": 4200.00

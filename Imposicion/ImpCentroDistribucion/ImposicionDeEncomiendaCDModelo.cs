@@ -1,4 +1,5 @@
 ﻿using CAIGrupoG.Almacenes;
+using CAIGrupoG.Imposicion.ImpAgencia;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -169,41 +170,60 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
         #region Lógica de Confirmación (Crear Guía y Hoja de Ruta)
 
-        public List<string> ConfirmarAdmision(int cantidadTotalCajas)
+        public List<string> ConfirmarAdmision(DatosImposicion datosImposicion)
         {
             if (_clienteActual == null)
             {
-                throw new InvalidOperationException("Cliente no encontrado.");
+                throw new InvalidOperationException("Cliente no encontrado. Se debe buscar un cliente válido primero.");
             }
-
+            int cdOrigenID = _clienteActual.CDOrigen;
+            var guiasGeneradas = new List<GuiaEntidad>();
             var fleteroAsignado = BuscarFletero(_clienteActual.CDOrigen);
-            var guiasEntidadCreadas = new List<GuiaEntidad>();
 
-            for (int i = 0; i < cantidadTotalCajas; i++)
+            foreach (var item in datosImposicion.Items)
             {
-                string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
+                // Convertimos el string "S" de nuevo al Enum S
+                TipoPaqueteEnum tipoPaquete = (TipoPaqueteEnum)Enum.Parse(typeof(TipoPaqueteEnum), item.Key);
+                int cantidad = item.Value;
 
-                var entidad = new GuiaEntidad
+                // Creamos 'cantidad' guías de este 'tipoPaquete'
+                for (int i = 0; i < cantidad; i++)
                 {
-                    NumeroGuia = numeroGuia,
-                    ClienteCUIT = _clienteActual.ClienteCUIT,
-                    CDOrigenID = _clienteActual.CDOrigen,
-                    FechaAdmision = DateTime.Now,
-                    Estado = EstadoEncomiendaEnum.AdmitidoCDOrigen, 
-                    RetiroDomicilio = false,
-                };
+                    string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
 
-                GuiaAlmacen.Nuevo(entidad);
-                guiasEntidadCreadas.Add(entidad);
+                    var entidad = new GuiaEntidad
+                    {
+                        NumeroGuia = numeroGuia,
+                        ClienteCUIT = _clienteActual.ClienteCUIT,
+                        FechaAdmision = DateTime.Now,
+
+                        // Lógica de Imposición en Agencia
+                        Estado = EstadoEncomiendaEnum.ImpuestoAgencia, // Estado 2
+                        RetiroDomicilio = false, // Se entrega en agencia
+                        EntregaAgencia = !datosImposicion.EntregaDomicilio, // Es true si NO es a domicilio
+
+                        CDOrigenID = cdOrigenID,
+                        TipoPaquete = tipoPaquete,
+                        DNIAutorizadoRetirar = datosImposicion.DNIAutorizadoRetirar,
+                        EntregaDomicilio = datosImposicion.EntregaDomicilio,
+                        DomicilioDestino = datosImposicion.EntregaDomicilio ? datosImposicion.DomicilioDestino : "",
+                        AgenciaDestinoID = datosImposicion.AgenciaDestinoID,
+                        CDDestinoID = datosImposicion.CDDestinoID,
+
+                        Importe = 0, // El precio se calculará después
+                        NumeroFactura = 0,
+                        Fecha = DateTime.Now // Asignamos la propiedad 'Fecha'
+                    };
+
+                    GuiaAlmacen.Nuevo(entidad);
+                    guiasGeneradas.Add(entidad);
+                }
             }
 
             GuiaAlmacen.Grabar();
-
-            CrearHojaDeRuta(guiasEntidadCreadas, fleteroAsignado, TipoHDREnum.Retiro);
-
-            return guiasEntidadCreadas.Select(g => g.NumeroGuia).ToList();
+            CrearHojaDeRuta(guiasGeneradas, fleteroAsignado, TipoHDREnum.Transporte);
+            return guiasGeneradas.Select(g => g.NumeroGuia).ToList();
         }
-
         private void CrearHojaDeRuta(List<GuiaEntidad> guias, FleteroEntidad fletero, TipoHDREnum tipo)
         {
             if (guias == null || guias.Count == 0 || fletero == null)

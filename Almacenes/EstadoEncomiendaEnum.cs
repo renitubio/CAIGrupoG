@@ -20,6 +20,7 @@ namespace CAIGrupoG.Almacenes
         AgenciaDestino = 10,
         PrimerIntentoDeEntrega = 11,
         Rechazado = 12,
-        Entregado = 13
+        Entregado = 13,
+        Facturada = 14
     }
 }

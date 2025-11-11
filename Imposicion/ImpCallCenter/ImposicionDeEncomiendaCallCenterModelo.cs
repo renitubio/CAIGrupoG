@@ -152,76 +152,61 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
             };
         }
 
-        private FleteroEntidad BuscarFletero(int cdOrigen)
-        {
-            // ASUMO que FleteroEntidad.cs está corregida
-            var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.CD_ID == cdOrigen);
-            if (fletero == null)
-            {
-                throw new InvalidOperationException($"No se encontró un fletero para el CD Origen ID: {cdOrigen}");
-            }
-            return fletero;
-        }
-
         #endregion
 
         #region Lógica de Confirmación (Crear Guía y Hoja de Ruta)
 
-        public List<string> ConfirmarImposicion(int cantidadTotalCajas, string codigoDestino)
+        public List<string> ConfirmarImposicion(DatosImposicion datosImposicion)
         {
             if (_clienteActual == null)
             {
                 throw new InvalidOperationException("Cliente no encontrado.");
             }
 
-            var fleteroAsignado = BuscarFletero(_clienteActual.CDOrigen);
+            int cdOrigenID = _clienteActual.CDOrigen;
             var guiasEntidadCreadas = new List<GuiaEntidad>();
 
-            for (int i = 0; i < cantidadTotalCajas; i++)
+            foreach (var item in datosImposicion.Items)
             {
-                string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
+                // Convertimos el string "S" de nuevo al Enum S
+                TipoPaqueteEnum tipoPaquete = (TipoPaqueteEnum)Enum.Parse(typeof(TipoPaqueteEnum), item.Key);
+                int cantidad = item.Value;
 
-                var entidad = new GuiaEntidad
+                // Creamos 'cantidad' guías de este 'tipoPaquete'
+                for (int i = 0; i < cantidad; i++)
                 {
-                    NumeroGuia = numeroGuia,
-                    ClienteCUIT = _clienteActual.ClienteCUIT,
-                    CDOrigenID = _clienteActual.CDOrigen,
-                    FechaAdmision = DateTime.Now,
-                    Estado = EstadoEncomiendaEnum.ImpuestoCallCenter, // Estado 1
-                    RetiroDomicilio = true,
-                    // Se quita DNIFletero (no existe en GuiaEntidad)
-                };
+                    string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
 
-                GuiaAlmacen.Nuevo(entidad);
-                guiasEntidadCreadas.Add(entidad);
+                    var entidad = new GuiaEntidad
+                    {
+                        NumeroGuia = numeroGuia,
+                        ClienteCUIT = _clienteActual.ClienteCUIT,
+                        FechaAdmision = DateTime.Now,
+
+                        // Lógica de Imposición en Agencia
+                        Estado = EstadoEncomiendaEnum.ImpuestoCallCenter,
+                        RetiroDomicilio = false, // Se entrega en agencia
+                        EntregaAgencia = !datosImposicion.EntregaDomicilio, // Es true si NO es a domicilio
+                        TipoPaquete = tipoPaquete,
+                        CDOrigenID = cdOrigenID,
+                        DNIAutorizadoRetirar = datosImposicion.DNIAutorizadoRetirar,
+                        EntregaDomicilio = datosImposicion.EntregaDomicilio,
+                        DomicilioDestino = datosImposicion.EntregaDomicilio ? datosImposicion.DomicilioDestino : "",
+                        AgenciaDestinoID = datosImposicion.AgenciaDestinoID,
+                        CDDestinoID = datosImposicion.CDDestinoID,
+
+                        Importe = 0, // El precio se calculará después
+                        NumeroFactura = 0,
+                        Fecha = DateTime.Now // Asignamos la propiedad 'Fecha'
+                    };
+
+                    GuiaAlmacen.Nuevo(entidad);
+                    guiasEntidadCreadas.Add(entidad);
+                }
             }
 
             GuiaAlmacen.Grabar();
-
-            CrearHojaDeRuta(guiasEntidadCreadas, fleteroAsignado, TipoHDREnum.Retiro);
-
             return guiasEntidadCreadas.Select(g => g.NumeroGuia).ToList();
-        }
-
-        private void CrearHojaDeRuta(List<GuiaEntidad> guias, FleteroEntidad fletero, TipoHDREnum tipo)
-        {
-            if (guias == null || guias.Count == 0 || fletero == null)
-                return;
-
-            var nuevaHdr = new HojaDeRutaEntidad
-            {
-                HDR_ID = _proximoIdHDR++,
-                FechaCreacion = DateTime.Now,
-                FleteroDNI = fletero.FleteroDNI,
-                Tipo = tipo,
-                Completada = false,
-                Guias = guias,
-
-                ServicioID = 0
-            };
-
-            HojaDeRutaAlmacen.Nuevo(nuevaHdr);
-            HojaDeRutaAlmacen.Grabar();
         }
 
         #endregion

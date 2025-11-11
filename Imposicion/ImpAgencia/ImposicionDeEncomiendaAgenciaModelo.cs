@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CAIGrupoG.Imposicion.ImpAgencia
 {
@@ -148,32 +149,53 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                 _proximoNumeroGuia = 1; // Fallback en caso de error
             }
         }
-        public List<string> ConfirmarImposicion(int cantidadTotalCajas, string codigoDestino)
+        public List<string> ConfirmarImposicion(DatosImposicion datosImposicion)
         {
             if (_clienteActual == null)
             {
                 throw new InvalidOperationException("Cliente no encontrado. Se debe buscar un cliente válido primero.");
             }
-
+            int cdOrigenID = _clienteActual.CDOrigen;
             var guiasGeneradas = new List<string>();
 
-            for (int i = 0; i < cantidadTotalCajas; i++)
+            foreach (var item in datosImposicion.Items)
             {
-                string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
-                guiasGeneradas.Add(numeroGuia);
+                // Convertimos el string "S" de nuevo al Enum S
+                TipoPaqueteEnum tipoPaquete = (TipoPaqueteEnum)Enum.Parse(typeof(TipoPaqueteEnum), item.Key);
+                int cantidad = item.Value;
 
-                var entidad = new GuiaEntidad
+                // Creamos 'cantidad' guías de este 'tipoPaquete'
+                for (int i = 0; i < cantidad; i++)
                 {
-                    NumeroGuia = numeroGuia,
-                    Estado = EstadoEncomiendaEnum.ImpuestoAgencia, // ASUMO Enum existe
-                    ClienteCUIT = _clienteActual.ClienteCUIT,
-                    CDOrigenID = _clienteActual.CDOrigen, // ASUMO ClienteEntidad tiene CDOrigen
-                    FechaAdmision = DateTime.Now,
-                    EntregaAgencia = true,
-                    // TODO: Faltan DNI, Domicilio, etc. que el Form no pasa.
-                };
+                    string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
 
-                GuiaAlmacen.Nuevo(entidad);
+                    var entidad = new GuiaEntidad
+                    {
+                        NumeroGuia = numeroGuia,
+                        ClienteCUIT = _clienteActual.ClienteCUIT,
+                        FechaAdmision = DateTime.Now,
+
+                        // Lógica de Imposición en Agencia
+                        Estado = EstadoEncomiendaEnum.ImpuestoAgencia, // Estado 2
+                        RetiroDomicilio = false, // Se entrega en agencia
+                        EntregaAgencia = !datosImposicion.EntregaDomicilio, // Es true si NO es a domicilio
+
+                        CDOrigenID = cdOrigenID,
+                        TipoPaquete = tipoPaquete,
+                        DNIAutorizadoRetirar = datosImposicion.DNIAutorizadoRetirar,
+                        EntregaDomicilio = datosImposicion.EntregaDomicilio,
+                        DomicilioDestino = datosImposicion.EntregaDomicilio ? datosImposicion.DomicilioDestino : "",
+                        AgenciaDestinoID = datosImposicion.AgenciaDestinoID,
+                        CDDestinoID = datosImposicion.CDDestinoID,
+
+                        Importe = 0, // El precio se calculará después
+                        NumeroFactura = 0,
+                        Fecha = DateTime.Now // Asignamos la propiedad 'Fecha'
+                    };
+
+                    GuiaAlmacen.Nuevo(entidad);
+                    guiasGeneradas.Add(numeroGuia);
+                }
             }
 
             GuiaAlmacen.Grabar();

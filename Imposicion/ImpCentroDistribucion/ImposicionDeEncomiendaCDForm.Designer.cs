@@ -210,6 +210,7 @@
             OpcionesDeEntregaCmb.Name = "OpcionesDeEntregaCmb";
             OpcionesDeEntregaCmb.Size = new Size(110, 23);
             OpcionesDeEntregaCmb.TabIndex = 18;
+            OpcionesDeEntregaCmb.SelectedIndexChanged += OpcionesDeEntregaCmb_SelectedIndexChanged;
             // 
             // EncomiendasListView
             // 

@@ -231,41 +231,54 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
         private void ConfirmarBttn_Click(object sender, EventArgs e)
         {
+            string dni = DNITxtBox.Text.Trim();
+            bool esDomicilio = DomicilioRadioBttn.Checked;
+            string domicilio = DomicilioTxtBox.Text.Trim();
+            int agenciaDestinoID = 0;
+            var ciudadDestino = (Ciudad)CiudadCmb.SelectedItem;
+            int cdDestinoID = ciudadDestino.CD_ID;
+
+            if (!esDomicilio)
+            {
+                var destinoSeleccionado = (AgenciaCD)OpcionesDeEntregaCmb.SelectedItem;
+                agenciaDestinoID = destinoSeleccionado.Id;
+            }
             if (EncomiendasListView.Items.Count == 0)
             {
-                MessageBox.Show("Debe añadir al menos una encomienda a la lista antes de confirmar/admitir.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Debe añadir al menos una encomienda a la lista antes de confirmar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Calcular la cantidad total de encomiendas sumando la columna 'Cantidad'
-            int totalEncomiendas = 0;
-
-            // Recorremos todos los ítems del ListView de Encomiendas
+            var itemsAgrupados = new Dictionary<string, int>();
             foreach (ListViewItem item in EncomiendasListView.Items)
             {
-                // La cantidad está en el SubItem[1] (el SubItem[0] es el Tipo de Caja)
-                if (int.TryParse(item.SubItems[1].Text, out int cantidadPorLinea))
+                string tipoCaja = item.SubItems[0].Text; // "S", "M", etc.
+                int cantidad = int.Parse(item.SubItems[1].Text);
+
+                if (itemsAgrupados.ContainsKey(tipoCaja))
                 {
-                    totalEncomiendas += cantidadPorLinea;
+                    itemsAgrupados[tipoCaja] += cantidad;
                 }
                 else
                 {
-                    // Esto es una validación extra por si los datos fueran inconsistentes
-                    MessageBox.Show("Error de formato en la columna Cantidad del listado. Por favor, revise la información.", "Error de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    itemsAgrupados.Add(tipoCaja, cantidad);
                 }
             }
 
-            // Si la suma total es 0, no continuamos.
-            if (totalEncomiendas == 0)
+            string codigoDestino = AgenciaRadioBttn.Checked ? ((AgenciaCD)OpcionesDeEntregaCmb.SelectedItem).Id.ToString() : "DOM";
+
+            var datosImposicion = new DatosImposicion
             {
-                MessageBox.Show("La cantidad total de encomiendas debe ser mayor a cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                Items = itemsAgrupados,
+                DNIAutorizadoRetirar = DNITxtBox.Text,
+                EntregaDomicilio = esDomicilio,
+                DomicilioDestino = domicilio,
+                AgenciaDestinoID = agenciaDestinoID,
+                CDDestinoID = cdDestinoID
+            };
 
 
-            // Llama al modelo para obtener una guía ficticia por el TOTAL de encomiendas
-            List<string> guiasGeneradas = modelo.ConfirmarAdmision(totalEncomiendas);
+            List<string> guiasGeneradas = modelo.ConfirmarAdmision(datosImposicion);
 
             // 1. Llenar el ListView de guías generadas 
             GuiasGeneradasListView.Items.Clear();
@@ -320,6 +333,11 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
         private void CancelarBttn_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void OpcionesDeEntregaCmb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

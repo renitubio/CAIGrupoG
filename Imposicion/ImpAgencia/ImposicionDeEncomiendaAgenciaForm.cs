@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -171,26 +172,54 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
 
         private void ConfirmarBttn_Click(object sender, EventArgs e)
         {
+            string dni = DNIText.Text.Trim();
+            bool esDomicilio = DomicilioRdBttn.Checked;
+            string domicilio = DomicilioText.Text.Trim();
+            int agenciaDestinoID = 0;
+            var ciudadDestino = (Ciudad)CiudadCmb.SelectedItem;
+            int cdDestinoID = ciudadDestino.CD_ID;
+
+            if (!esDomicilio)
+            {
+                var destinoSeleccionado = (AgenciaCD)EntregaCmb.SelectedItem;
+                agenciaDestinoID = destinoSeleccionado.Id;
+            }
             if (EncomiendasListView.Items.Count == 0)
             {
                 MessageBox.Show("Debe añadir al menos una encomienda a la lista antes de confirmar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            int totalCajas = 0;
+            var itemsAgrupados = new Dictionary<string, int>();
             foreach (ListViewItem item in EncomiendasListView.Items)
             {
-                totalCajas += int.Parse(item.SubItems[1].Text);
-            }
+                string tipoCaja = item.SubItems[0].Text; // "S", "M", etc.
+                int cantidad = int.Parse(item.SubItems[1].Text);
 
-            if (totalCajas == 0)
-            {
-                MessageBox.Show("La cantidad total de encomiendas debe ser mayor a cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (itemsAgrupados.ContainsKey(tipoCaja))
+                {
+                    itemsAgrupados[tipoCaja] += cantidad;
+                }
+                else
+                {
+                    itemsAgrupados.Add(tipoCaja, cantidad);
+                }
             }
 
             string codigoDestino = AgenciaRdBttn.Checked ? ((AgenciaCD)EntregaCmb.SelectedItem).Id.ToString() : "DOM";
-            List<string> guiasGeneradas = modelo.ConfirmarImposicion(totalCajas, codigoDestino);
+
+            var datosImposicion = new DatosImposicion
+            {
+                Items = itemsAgrupados,
+                DNIAutorizadoRetirar = DNIText.Text,
+                EntregaDomicilio = esDomicilio,
+                DomicilioDestino = domicilio,
+                AgenciaDestinoID = agenciaDestinoID,
+                CDDestinoID = cdDestinoID
+            };
+
+            
+            List<string> guiasGeneradas = modelo.ConfirmarImposicion(datosImposicion);
 
             GuíasGeneradasListView.DataSource = guiasGeneradas;
             DatosClienteGpBox.Visible = false;
