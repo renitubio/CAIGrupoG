@@ -11,17 +11,14 @@ namespace CAIGrupoG.EmitirFactura
  
     public class EmitirFacturaModelo
     {
-        // El lock es crucial ya que GuiaAlmacen.Guias es un recurso estático (compartido).
         private static readonly object _guiaAlmacenLock = new object();
 
         public EmitirFacturaModelo()
         {
-            // El constructor queda simple. La carga se hace en cada método.
+            
         }
 
-        // --- Lógica de Búsqueda (Diagrama de Secuencia: Buscar) ---
-
-        /// Implementa la lógica de búsqueda de guías aptas para facturar (Entregado=13, NumFactura=0).
+        /// Guías aptas para facturar (Estado Entregado=13, NumFactura=0).
         public List<Guia> BuscarGuiasPorCUIT(string cuit)
         {
             lock (_guiaAlmacenLock)
@@ -32,8 +29,8 @@ namespace CAIGrupoG.EmitirFactura
                 // 1. Filtrar por CUIT, Estado=Entregado (13) y NumFactura==0
                 var guiasEncontradas = guiasActuales
                     .Where(g => g.ClienteCUIT == cuit)
-                    .Where(g => g.Estado == EstadoEncomiendaEnum.Entregado)
                     .Where(g => g.NumeroFactura == 0)
+                    .Where(g => g.Estado == EstadoEncomiendaEnum.Entregado || g.Estado == EstadoEncomiendaEnum.Rechazado)
                     .ToList();
 
                 if (!guiasEncontradas.Any())
@@ -47,12 +44,7 @@ namespace CAIGrupoG.EmitirFactura
                 return guiasEncontradas.Select(g => new Guia
                 {
                     NumeroGuia = g.NumeroGuia,
-                    // FIX: Convert EstadoEncomiendaEnum to EstadoGuia using a mapping.
-                    Estado = g.Estado == EstadoEncomiendaEnum.Entregado ? EstadoGuia.Entregada
-                            : g.Estado == EstadoEncomiendaEnum.Rechazado ? EstadoGuia.Devuelta
-                            : g.NumeroFactura != 0 ? EstadoGuia.Facturada
-                            : EstadoGuia.Entregada, // Default/fallback, adjust as needed
-
+                    Estado = g.Estado == EstadoEncomiendaEnum.Entregado ? EstadoGuia.Entregado : EstadoGuia.Rechazado,
                     RazonSocial = razonSocial,
                     Importe = g.Importe,
                     CUIT = g.ClienteCUIT
@@ -60,9 +52,7 @@ namespace CAIGrupoG.EmitirFactura
             }
         }
 
-        // --- Lógica de Emisión de Factura (Diagrama de Secuencia: Emitir) ---
 
-        /// Cambia el estado de las guías, genera una nueva factura y persiste ambos cambios.
         public int EmitirFacturas(List<Guia> guiasAFacturar)
         {
             if (!guiasAFacturar.Any()) return 0;

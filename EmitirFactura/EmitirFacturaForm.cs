@@ -26,6 +26,7 @@ namespace CAIGrupoG.EmitirFactura
             this.CancelarBttn.Click += new System.EventHandler(this.CancelarBttn_Click);
         }
 
+        List<Guia> guiasEncontradas = new List<Guia>();
         private void BuscarBttn_Click(object sender, EventArgs e)
         {
             string cuit = CuitText.Text;
@@ -35,8 +36,9 @@ namespace CAIGrupoG.EmitirFactura
                 MessageBox.Show("El CUIT ingresado no es válido.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            
 
-            var guiasEncontradas = modelo.BuscarGuiasPorCUIT(cuit);
+            guiasEncontradas = modelo.BuscarGuiasPorCUIT(cuit);
             PoblarListView(guiasEncontradas);
 
             if (guiasEncontradas.Count == 0)
@@ -47,15 +49,7 @@ namespace CAIGrupoG.EmitirFactura
 
         private void EmitirBttn_Click(object sender, EventArgs e)
         {
-            string cuit = CuitText.Text;
 
-            if (!ValidarCUIT(cuit))
-            {
-                MessageBox.Show("El CUIT ingresado no es válido.", "Error de Validación", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            var guiasEncontradas = modelo.BuscarGuiasPorCUIT(cuit);
             if (guiasEncontradas.Count == 0)
             {
                 MessageBox.Show("No hay guías para facturar. Por favor, realice una búsqueda primero.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -91,6 +85,7 @@ namespace CAIGrupoG.EmitirFactura
 
         private void LimpiarFormulario()
         {
+
             CuitText.Clear();
             GuiasListView.Items.Clear();
             CuitText.Focus();
@@ -105,9 +100,6 @@ namespace CAIGrupoG.EmitirFactura
             cuit = cuit.Replace("-", "").Replace(" ", "");
 
             if (cuit.Length != 11 || !cuit.All(char.IsDigit)) return false;
-            //TODO: Pueden cortar acá por comodidad. Después lo descomentan en la version final
-            return true;
-
 
             var digitos = cuit.Select(c => int.Parse(c.ToString())).ToArray();
             var secuencia = new int[] { 5, 4, 3, 2, 7, 6, 5, 4, 3, 2 };

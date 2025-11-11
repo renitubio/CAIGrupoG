@@ -8,9 +8,19 @@ namespace CAIGrupoG.EmitirFactura
 {
     public enum EstadoGuia
     {
-        Entregada,
-        Devuelta,
-        Facturada // Estado final después de emitir
+        ImpuestoCallCenter,
+        ImpuestoAgencia,
+        EnCaminoARetirarDomicilio,
+        EnCaminoARetirarAgencia,
+        AdmitidoCDOrigen,
+        EnTransito,
+        AdmitidoCDDestino,
+        DistribucionUltimaMillaDomicilio,
+        DistribucionUltimaMillaAgencia,
+        AgenciaDestino,
+        PrimerIntentoDeEntrega,
+        Rechazado,
+        Entregado 
     }
 
     public class Guia
