@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,43 +10,57 @@ namespace CAIGrupoG.ConsultaTracking
 {
     public class ConsultarTrackingModelo
     {
-
-
         public ConsultarTrackingModelo()
         {
 
         }
 
-        public GuiaEntidad BuscarGuia(string numeroGuia)
-        { 
-        
-            // Solución: Buscar en la colección Guias de GuiaAlmacen
-            return CAIGrupoG.Almacenes.GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == numeroGuia);
-        }
-
-        public EstadoEncomiendaEnum? ObtenerEstadoGuia(string numeroGuia)
+        /// Busca el estado de una guía por su número de seguimiento.
+        public Guia BuscarGuia(string numeroGuia)
         {
-            var guia = BuscarGuia(numeroGuia);
-            return guia?.Estado;
+        
+            var guiaEntidad = GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == numeroGuia);
+            if (guiaEntidad == null)
+                return null;
+            return new Guia
+            {
+                NumeroGuia = guiaEntidad.NumeroGuia,
+                Estado = ConvertirEstado(guiaEntidad.Estado)
+            };
         }
 
-        public string ObtenerDescripcionEstado(EstadoEncomiendaEnum estado)
+        private EstadoGuia ConvertirEstado(EstadoEncomiendaEnum estado)
         {
             switch (estado)
             {
-                case EstadoEncomiendaEnum.ImpuestoCallCenter: return "Impuesto Call Center";
-                case EstadoEncomiendaEnum.ImpuestoAgencia: return "Impuesto Agencia";
-                case EstadoEncomiendaEnum.EnCaminoARetirarDomicilio: return "En camino a retirar (Domicilio)";
-                case EstadoEncomiendaEnum.EnCaminoARetirarAgencia: return "En camino a retirar (Agencia)";
-                case EstadoEncomiendaEnum.AdmitidoCDOrigen: return "Admitido en CD Origen";
-                case EstadoEncomiendaEnum.EnTransito: return "En tránsito";
-                case EstadoEncomiendaEnum.AdmitidoCDDestino: return "Admitido en CD Destino";
-                case EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio: return "Distribución última milla (domicilio)";
-                case EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia: return "Distribución última milla (agencia)";
-                case EstadoEncomiendaEnum.PrimerIntentoDeEntrega: return "Primer intento de entrega";
-                case EstadoEncomiendaEnum.Rechazado: return "Rechazado";
-                case EstadoEncomiendaEnum.Entregado: return "Entregado";
-                default: return estado.ToString();
+                case EstadoEncomiendaEnum.ImpuestoCallCenter:
+                    return EstadoGuia.ImpuestoCallCenter;
+                case EstadoEncomiendaEnum.ImpuestoAgencia:
+                    return EstadoGuia.ImpuestoAgencia;
+                case EstadoEncomiendaEnum.EnCaminoARetirarDomicilio:
+                    return EstadoGuia.EnCaminoARetirarDomicilio;
+                case EstadoEncomiendaEnum.EnCaminoARetirarAgencia:
+                    return EstadoGuia.EnCaminoARetirarAgencia;
+                case EstadoEncomiendaEnum.AdmitidoCDOrigen:
+                    return EstadoGuia.AdmitidoCDOrigen;
+                case EstadoEncomiendaEnum.EnTransito:
+                    return EstadoGuia.EnTransito;
+                case EstadoEncomiendaEnum.AdmitidoCDDestino:
+                    return EstadoGuia.AdmitidoCDDestino;
+                case EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio:
+                    return EstadoGuia.DistribucionUltimaMillaDomicilio;
+                case EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia:
+                    return EstadoGuia.DistribucionUltimaMillaAgencia;
+                case EstadoEncomiendaEnum.AgenciaDestino:
+                    return EstadoGuia.AgenciaDestino;
+                case EstadoEncomiendaEnum.PrimerIntentoDeEntrega:
+                    return EstadoGuia.PrimerIntentoDeEntrega;
+                case EstadoEncomiendaEnum.Rechazado:
+                    return EstadoGuia.Rechazado;
+                case EstadoEncomiendaEnum.Entregado:
+                    return EstadoGuia.Entregado;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(estado), $"Estado no soportado: {estado}");
             }
         }
     }

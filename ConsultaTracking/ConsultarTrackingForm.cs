@@ -1,5 +1,4 @@
-﻿using CAIGrupoG.Almacenes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -65,11 +64,25 @@ namespace CAIGrupoG.ConsultaTracking
         }
 
         /// Convierte un valor del enum EstadoGuia a un string más legible para el usuario.
-        private string FormatearEstado(EstadoEncomiendaEnum estado)
+        private string FormatearEstado(EstadoGuia estado)
         {
-            string descripcion = modelo.ObtenerDescripcionEstado(estado);
-
-            return descripcion;
+            switch (estado)
+            {
+                case EstadoGuia.ImpuestoCallCenter: return "Impuesto Call Center";
+                case EstadoGuia.ImpuestoAgencia: return "Impuesto Agencia";
+                case EstadoGuia.EnCaminoARetirarDomicilio: return "En camino a retirar (Domicilio)";
+                case EstadoGuia.EnCaminoARetirarAgencia: return "En camino a retirar (Agencia)";
+                case EstadoGuia.AdmitidoCDOrigen: return "Admitido en CD Origen";
+                case EstadoGuia.EnTransito: return "En Tránsito";
+                case EstadoGuia.AdmitidoCDDestino: return "En CD Destino";
+                case EstadoGuia.DistribucionUltimaMillaDomicilio: return "En distribución a domicilio";
+                case EstadoGuia.PrimerIntentoDeEntrega: return "Primer intento de entrega";
+                case EstadoGuia.Rechazado: return "Rechazado";
+                case EstadoGuia.DistribucionUltimaMillaAgencia: return "En distribución a agencia";
+                case EstadoGuia.AgenciaDestino: return "Pendiente de retiro en agencia";
+                case EstadoGuia.Entregado: return "Entregado";
+                default: return estado.ToString();
+            }
         }
     }
 }
