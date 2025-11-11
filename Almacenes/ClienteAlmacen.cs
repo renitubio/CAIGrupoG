@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
-using System.Text.Json;
 
 namespace CAIGrupoG.Almacenes
 {
@@ -17,7 +15,7 @@ namespace CAIGrupoG.Almacenes
 
         static ClienteAlmacen()
         {
-            if(File.Exists(@"Datos\Clientes.json"))
+            if (File.Exists(@"Datos\Clientes.json"))
             {
                 var clienteJson = File.ReadAllText(@"Datos\Clientes.json");
                 clientes = System.Text.Json.JsonSerializer.Deserialize<List<ClienteEntidad>>(clienteJson) ?? new List<ClienteEntidad>();

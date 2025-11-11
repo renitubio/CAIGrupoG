@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CAIGrupoG.EntregaGuíaCD
 {
@@ -11,10 +12,9 @@ namespace CAIGrupoG.EntregaGuíaCD
     {
         public EntregaGuiaCDModelo()
         {
-            // Utiliza GuiaEntidad y CentroDistribucionEntidad del Almacenes
         }
 
-        public List<GuiaEntidad> BuscarGuiasPorDNI(string dni)
+        public List<Guia> BuscarGuiasPorDNI(string dni)
         {
             if (CentroDistribucionAlmacen.CentroDistribucionActual == null)
             {
@@ -23,16 +23,24 @@ namespace CAIGrupoG.EntregaGuíaCD
             int cdActualID = CentroDistribucionAlmacen.CentroDistribucionActual.CD_ID;
             EstadoEncomiendaEnum estadoRequerido = EstadoEncomiendaEnum.AdmitidoCDDestino;
 
-            return GuiaAlmacen.Guias
+            var guiasEntidad = GuiaAlmacen.Guias
                 .Where(g =>
                     g.DNIAutorizadoRetirar == dni &&
                     g.Estado == estadoRequerido &&
                     g.CDDestinoID == cdActualID
-                )
-                .ToList();
+                ).ToList();
+
+            var guiasEncontradas = guiasEntidad.Select(g => new Guia
+            {
+                NumeroGuia = g.NumeroGuia,
+                TipoPaquete = (TipoPaquete)g.TipoPaquete,
+                Estado = (EstadoGuia)g.Estado
+            }).ToList();
+
+            return guiasEncontradas;
         }
 
-        public void ConfirmarRetiro(List<GuiaEntidad> guiasARetirar)
+        public void ConfirmarRetiro(List<Guia> guiasARetirar)
         {
             EstadoEncomiendaEnum nuevoEstado = EstadoEncomiendaEnum.Entregado;
 
