@@ -72,7 +72,6 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
         #endregion
 
         #region Métodos de Búsqueda (Clientes, Ciudades, Agencias y CD)
-
         public Cliente BuscarCliente(string cuit)
         {
             var clienteEntidad = ClienteAlmacen.Clientes.FirstOrDefault(c => c.ClienteCUIT == cuit);
@@ -166,6 +165,30 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             return fletero;
         }
 
+        private decimal CalcularImporte(TipoPaqueteEnum tipoPaquete, int cdOrigen, int cdDestino)
+        {
+            if (_clienteActual == null || _clienteActual.Tarifas == null)
+            {
+                throw new InvalidOperationException("Cliente o tarifario no cargado.");
+            }
+
+            // Busca en el tarifario específico del cliente
+            var tarifaEncontrada = _clienteActual.Tarifas.FirstOrDefault(t =>
+                t.TipoPaquete == tipoPaquete &&
+                t.CDOrigen == cdOrigen &&
+                t.CDDestino == cdDestino);
+
+            if (tarifaEncontrada != null)
+            {
+                // Si encuentra la tarifa, devuelve el precio
+                return tarifaEncontrada.Precio;
+            }
+
+            // Si no encuentra una tarifa, lanza un error.
+            // Es mejor que devolver 0, para no permitir envíos gratis por error.
+            throw new InvalidOperationException($"No se encontró una tarifa para el cliente {_clienteActual.ClienteCUIT}, Paquete: {tipoPaquete}, Origen: {cdOrigen}, Destino: {cdDestino}");
+        }
+
         #endregion
 
         #region Lógica de Confirmación (Crear Guía y Hoja de Ruta)
@@ -190,7 +213,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 for (int i = 0; i < cantidad; i++)
                 {
                     string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
-
+                    decimal importeCalculado = CalcularImporte(tipoPaquete, cdOrigenID,cdDestinoID);
                     var entidad = new GuiaEntidad
                     {
                         NumeroGuia = numeroGuia,
@@ -210,7 +233,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                         AgenciaDestinoID = datosImposicion.AgenciaDestinoID,
                         CDDestinoID = datosImposicion.CDDestinoID,
 
-                        Importe = 0, // El precio se calculará después
+                        Importe = importeCalculado,
                         NumeroFactura = 0,
                         Fecha = DateTime.Now // Asignamos la propiedad 'Fecha'
                     };
