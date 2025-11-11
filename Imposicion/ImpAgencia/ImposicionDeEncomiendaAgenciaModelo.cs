@@ -149,6 +149,30 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                 _proximoNumeroGuia = 1; // Fallback en caso de error
             }
         }
+
+        private decimal CalcularImporte(TipoPaqueteEnum tipoPaquete, int cdOrigen, int cdDestino)
+        {
+            if (_clienteActual == null || _clienteActual.Tarifas == null)
+            {
+                throw new InvalidOperationException("Cliente o tarifario no cargado.");
+            }
+
+            // Busca en el tarifario específico del cliente
+            var tarifaEncontrada = _clienteActual.Tarifas.FirstOrDefault(t =>
+                t.TipoPaquete == tipoPaquete &&
+                t.CDOrigen == cdOrigen &&
+                t.CDDestino == cdDestino);
+
+            if (tarifaEncontrada != null)
+            {
+                // Si encuentra la tarifa, devuelve el precio
+                return tarifaEncontrada.Precio;
+            }
+
+            // Si no encuentra una tarifa, lanza un error.
+            // Es mejor que devolver 0, para no permitir envíos gratis por error.
+            throw new InvalidOperationException($"No se encontró una tarifa para el cliente {_clienteActual.ClienteCUIT}, Paquete: {tipoPaquete}, Origen: {cdOrigen}, Destino: {cdDestino}");
+        }
         public List<string> ConfirmarImposicion(DatosImposicion datosImposicion)
         {
             if (_clienteActual == null)
@@ -168,6 +192,9 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                 for (int i = 0; i < cantidad; i++)
                 {
                     string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
+                    int cdDestinoReal = ObtenerCDPorCiudad(datosImposicion.CDDestinoID)?.Id
+                    ?? datosImposicion.CDDestinoID;
+                    decimal importeCalculado = CalcularImporte(tipoPaquete, cdOrigenID, cdDestinoReal);
 
                     var entidad = new GuiaEntidad
                     {
@@ -188,7 +215,7 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                         AgenciaDestinoID = datosImposicion.AgenciaDestinoID,
                         CDDestinoID = datosImposicion.CDDestinoID,
 
-                        Importe = 0, // El precio se calculará después
+                        Importe = importeCalculado, // El precio se calculará después
                         NumeroFactura = 0,
                         Fecha = DateTime.Now // Asignamos la propiedad 'Fecha'
                     };
