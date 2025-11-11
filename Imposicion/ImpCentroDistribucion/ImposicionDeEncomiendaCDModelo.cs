@@ -186,7 +186,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
             // Si no encuentra una tarifa, lanza un error.
             // Es mejor que devolver 0, para no permitir envíos gratis por error.
-            throw new InvalidOperationException($"No se encontró una tarifa para el cliente {_clienteActual.ClienteCUIT}, Paquete: {tipoPaquete}, Origen: {cdOrigen}, Destino: {cdDestino}");
+                throw new InvalidOperationException($"No se encontró una tarifa para el cliente {_clienteActual.ClienteCUIT}, Paquete: {tipoPaquete}, Origen: {cdOrigen}, Destino: {cdDestino}");
         }
 
         #endregion
@@ -213,7 +213,9 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 for (int i = 0; i < cantidad; i++)
                 {
                     string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
-                    decimal importeCalculado = CalcularImporte(tipoPaquete, cdOrigenID,cdDestinoID);
+                    int cdDestinoReal = ObtenerCDPorCiudad(datosImposicion.CDDestinoID)?.Id
+                                        ?? datosImposicion.CDDestinoID;
+                    decimal importeCalculado = CalcularImporte(tipoPaquete, cdOrigenID, cdDestinoReal);
                     var entidad = new GuiaEntidad
                     {
                         NumeroGuia = numeroGuia,
@@ -224,7 +226,6 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                         Estado = EstadoEncomiendaEnum.ImpuestoAgencia, // Estado 2
                         RetiroDomicilio = false, // Se entrega en agencia
                         EntregaAgencia = !datosImposicion.EntregaDomicilio, // Es true si NO es a domicilio
-
                         CDOrigenID = cdOrigenID,
                         TipoPaquete = tipoPaquete,
                         DNIAutorizadoRetirar = datosImposicion.DNIAutorizadoRetirar,
