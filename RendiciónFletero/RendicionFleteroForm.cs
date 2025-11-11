@@ -80,13 +80,13 @@ namespace CAIGrupoG.Admisión
                                                     .Cast<ListViewItem>()
                                                     .Select(l => l.Text)
                                                     .ToList(); //Talvez funciona.
-            
+
             modelo.Rendir(admisionesSeleccionadas, retirosSeleccionados);
 
 
             MessageBox.Show("Operación Exitosa.", "Confirmación", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            // Limpiar la pantalla para la siguiente operación
+            // 4. Limpiar y refrescar la interfaz
             LimpiarFormulario();
         }
 

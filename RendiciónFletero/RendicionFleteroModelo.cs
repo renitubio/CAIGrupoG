@@ -38,7 +38,7 @@ namespace CAIGrupoG.Modelos
 
         public GuiasPorDNIResultado BuscarGuiasPorDNI(string dniFletero)
         {
-            GuiaAlmacen.Recargar();
+            // GuiaAlmacen.Recargar(); NO ES NECESARIO
 
             const EstadoEncomiendaEnum ESTADO_EXCLUIDO = EstadoEncomiendaEnum.Entregado;
 
@@ -165,46 +165,96 @@ namespace CAIGrupoG.Modelos
                 throw new InvalidOperationException("No hay hojas de ruta pendientes para rendir.");
             }
 
-            // 1. Actualizar el estado de las guías asociadas a Entregado
-            const EstadoEncomiendaEnum ESTADO_FINAL = EstadoEncomiendaEnum.Entregado;
+            // 1. ⚠️ ARREGLO: Combinamos AMBAS listas (Entrantes y Salientes) 
+            //    que nos manda el Formulario.
+            var guiasSeleccionadasNumeros = new HashSet<string>(
+                admisionesSeleccionadas.Concat(retirosSeleccionados), // <-- USA AMBOS PARÁMETROS
+                StringComparer.OrdinalIgnoreCase
+            );
 
-            var guiasARendir = EncomiendasEntrantes.Concat(EncomiendasSalientes).ToList();
-            // Obtener todos los números de guía a rendir
-            var guiasNumerosARendir = EncomiendasEntrantes
-                .Concat(EncomiendasSalientes)
-                .Select(g => g.NumeroGuia)
-                .ToHashSet(StringComparer.OrdinalIgnoreCase);
+            // 2. ⚠️ ARREGLO: Identificamos las NO seleccionadas
+            var todasLasGuiasEnPantalla = EncomiendasEntrantes.Concat(EncomiendasSalientes)
+                                            .Select(g => g.NumeroGuia);
 
-            // ⚠️ EL AJUSTE CLAVE ESTÁ AQUÍ: Iteramos sobre GuiaAlmacen.Guias para modificar la referencia que se va a grabar.
-            // Esto es crucial porque IReadOnlyCollection<T> expone la misma lista que GuiaAlmacen serializa.
-            foreach (var guiaOriginal in GuiaAlmacen.Guias)
+            var guiasNoSeleccionadasNumeros = new HashSet<string>(
+                todasLasGuiasEnPantalla.Where(num => !guiasSeleccionadasNumeros.Contains(num)),
+                StringComparer.OrdinalIgnoreCase
+            );
+
+            // 3. Aplicar reglas de negocio (Tu Switch)
+            foreach (var guia in GuiaAlmacen.Guias)
             {
-                if (guiasNumerosARendir.Contains(guiaOriginal.NumeroGuia))
+                // Esta lógica ahora funciona para AMBAS listas
+                bool fueSeleccionada = guiasSeleccionadasNumeros.Contains(guia.NumeroGuia);
+                bool noFueSeleccionada = guiasNoSeleccionadasNumeros.Contains(guia.NumeroGuia);
+
+                // ⚠️ Pega aquí tu lógica de SWITCH completa (la que tenías antes) ⚠️
+                switch (guia.Estado)
                 {
-                    // Modificamos el estado en el objeto de referencia que está en el almacén.
-                    guiaOriginal.Estado = ESTADO_FINAL;
+                    // Caso "ENTRANTE" (Ahora 'fueSeleccionada' será TRUE)
+                    case EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio:
+                        if (fueSeleccionada)
+                            guia.Estado = EstadoEncomiendaEnum.Entregado;
+                        else if (noFueSeleccionada)
+                            guia.Estado = EstadoEncomiendaEnum.PrimerIntentoDeEntrega;
+                        break;
+                    // Caso "ENTRANTE"
+                    case EstadoEncomiendaEnum.EnCaminoARetirarDomicilio:
+                    case EstadoEncomiendaEnum.EnCaminoARetirarAgencia:
+                        if (fueSeleccionada)
+                            guia.Estado = EstadoEncomiendaEnum.AdmitidoCDOrigen;
+                        break;
+                    // Caso "SALIENTE"
+                    case EstadoEncomiendaEnum.AdmitidoCDDestino:
+                        if (fueSeleccionada)
+                        {
+                            if (guia.EntregaDomicilio)
+                                guia.Estado = EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio;
+                            else if (guia.EntregaAgencia)
+                                guia.Estado = EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia;
+                        }
+                        break;
+                        // ... (Pega el resto de tus 'case' aquí) ...
                 }
             }
-            // ---------------------------------------------------------------------------------------------------
 
-            // 2. Actualizar las Hojas de Ruta como completadas
+            // 4. Grabar los cambios de las Guías PRIMERO
+            GuiaAlmacen.Grabar();
+
+            // 5. ⚠️ LÓGICA DE HDR CORREGIDA (para rendiciones parciales)
+            var estadosFinales = new HashSet<EstadoEncomiendaEnum>
+        {
+            EstadoEncomiendaEnum.Entregado,
+            EstadoEncomiendaEnum.Rechazado,
+            EstadoEncomiendaEnum.AdmitidoCDOrigen,
+            EstadoEncomiendaEnum.AgenciaDestino
+        };
+
             foreach (var hdrPendiente in _hojasDeRutaPendientes)
             {
-                var hdrOriginal = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h => h.HDR_ID == hdrPendiente.HDR_ID);
-                if (hdrOriginal != null)
+                var numerosDeGuiaEnHDR = hdrPendiente.Guias.Select(g => g.NumeroGuia).ToHashSet();
+                var guiasEnHDR = GuiaAlmacen.Guias
+                          .Where(g => numerosDeGuiaEnHDR.Contains(g.NumeroGuia))
+                          .ToList();
+
+                bool todasLasGuiasFinalizadas = guiasEnHDR.Any() &&
+                                                      guiasEnHDR.All(g => estadosFinales.Contains(g.Estado));
+
+                if (todasLasGuiasFinalizadas)
                 {
-                    hdrOriginal.Completada = true;
+                    var hdrOriginal = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h => h.HDR_ID == hdrPendiente.HDR_ID);
+                    if (hdrOriginal != null)
+                    {
+                        hdrOriginal.Completada = true;
+                    }
                 }
             }
 
-            // 3. Grabar todos los cambios
-            GuiaAlmacen.Grabar();       // Graba las guías con el nuevo estado (ESTE DEBE SER EL ARCHIVO CONSULTADO)
-            HojaDeRutaAlmacen.Grabar(); // Graba las HDRs como completadas
+            // 6. Grabar los cambios de las HDRs
+            HojaDeRutaAlmacen.Grabar();
 
-            // Limpieza interna del modelo después de la rendición
-            EncomiendasEntrantes = new List<GuiaEntidad>();
-            EncomiendasSalientes = new List<GuiaEntidad>();
-            _hojasDeRutaPendientes = new List<HojaDeRutaEntidad>();
+            // 7. ⚠️ NO LIMPIAR las listas internas del modelo
+            // (Las líneas que limpian _hojasDeRutaPendientes, etc., fueron eliminadas)
         }
 
         public static string ObtenerDescripcionEstado(EstadoEncomiendaEnum estado)
