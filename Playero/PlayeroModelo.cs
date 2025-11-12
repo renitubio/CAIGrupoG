@@ -8,19 +8,26 @@ namespace CAIGrupoG.Playero
     public class PlayeroModelo
     {
         public int NuestroCD { get; set; }
-
-        public int cdSeleccionado = CentroDistribucionAlmacen.CentroDistribucionActual.CD_ID;
-
         public PlayeroModelo()
         {
+            // Verifica si CentroDistribucionActual es null antes de intentar acceder a CD_ID.
+            if (CentroDistribucionAlmacen.CentroDistribucionActual != null)
+            {
+                NuestroCD = CentroDistribucionAlmacen.CentroDistribucionActual.CD_ID;
+            }
+            else
+            {
+                // Si es null, NuestroCD se mantiene en 0 (valor por defecto de int)
+                // o puedes asignarle explícitamente 0, aunque ya es 0 por defecto si no se asigna.
+                NuestroCD = 0;
+            }
             // Si se llama al constructor vacío, usa el valor mock inicializado.
-            NuestroCD = cdSeleccionado;
             if (NuestroCD == 0)
             {
                 throw new InvalidOperationException("No se ha seleccionado un Centro de Distribución en el Menú Principal.");
             }
         }
-       
+
         // Si se mantiene el constructor con parámetro, se usa este:
         public PlayeroModelo(int cdSeleccionado)
         {
@@ -64,8 +71,11 @@ namespace CAIGrupoG.Playero
                         .Select(g => new Guia
                         {
                             NumeroGuia = g.NumeroGuia,
-                            Estado = (EstadoGuia)(int)g.Estado // Conversión explícita de enum si es necesario
-                            // Agregar otros campos si la clase Guia lo requiere
+                            TipoPaquete = (TipoPaquete)((int)g.TipoPaquete - 1), // Map TipoPaqueteEnum (1-4) to TipoPaquete (0-3)
+                            CUIT = g.ClienteCUIT, // Asumo que el CUIT del cliente es lo que quieres mostrar
+                            CDOrigen = g.CDOrigenID.ToString(),
+                            CDDestino = g.CDDestinoID.ToString(),
+                            Estado = (EstadoGuia)(int)g.Estado
                         })
                         .ToList();
                 }
@@ -90,8 +100,11 @@ namespace CAIGrupoG.Playero
                         .Select(g => new Guia
                         {
                             NumeroGuia = g.NumeroGuia,
+                            TipoPaquete = (TipoPaquete)((int)g.TipoPaquete - 1), // Map TipoPaqueteEnum (1-4) to TipoPaquete (0-3)
+                            CUIT = g.ClienteCUIT, // Asumo que el CUIT del cliente es lo que quieres mostrar
+                            CDOrigen = g.CDOrigenID.ToString(),
+                            CDDestino = g.CDDestinoID.ToString(),
                             Estado = (EstadoGuia)(int)g.Estado
-                            // Agrega otros campos si la clase Guia lo requiere
                         })
                         .ToList();
                 }
@@ -108,6 +121,7 @@ namespace CAIGrupoG.Playero
                 throw new ArgumentException("Debe seleccionar al menos una guía para Cargar o Descargar.");
             }
 
+            var serviciosAfectados = new HashSet<int>();
             // 1. Actualización de Estados para Cargas (Estado 5 -> 6: EnTransito)
             if (cargasSeleccionadas != null)
             {
@@ -118,6 +132,15 @@ namespace CAIGrupoG.Playero
                     {
                         guiaEnAlmacen.Estado = EstadoEncomiendaEnum.EnTransito; // Estado 6
                         GuiaAlmacen.Actualizar(guiaEnAlmacen);
+
+                        var hoja = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h =>
+                        h.Guias.Any(g => g.NumeroGuia == guia.NumeroGuia) &&
+                        h.Completada == false);
+
+                        if (hoja != null && hoja.ServicioID > 0)
+                        {
+                            serviciosAfectados.Add(hoja.ServicioID);
+                        }
                     }
                 }
             }
@@ -137,6 +160,16 @@ namespace CAIGrupoG.Playero
                 {
                     guiaEntidad.Estado = EstadoEncomiendaEnum.AdmitidoCDDestino; // Estado 7
                     GuiaAlmacen.Actualizar(guiaEntidad);
+                    var hoja = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h =>
+                    h.Guias.Any(g => g.NumeroGuia == guiaEntidad.NumeroGuia) &&
+                    h.Completada == false);
+
+                    if (hoja != null && hoja.ServicioID > 0)
+                    {
+                        // Un servicio de descarga es el que tiene CDDestino == NuestroCD
+                        // Si la guía estaba en este servicio, se marca como afectado.
+                        serviciosAfectados.Add(hoja.ServicioID);
+                    }
                 }
 
                 // 3. Agrupar Descargas para la futura Hoja de Ruta de Distribución
@@ -167,11 +200,56 @@ namespace CAIGrupoG.Playero
                     CrearHojasDeRutaDistribucion(agrupadasParaDistribucion);
                 }
             }
-
+            foreach (var servicioID in serviciosAfectados)
+            {
+                MarcarHojaDeRutaComoCompletaSiEsNecesario(servicioID);
+            }
             // 5. Persistencia de datos
             GuiaAlmacen.Grabar();
+            HojaDeRutaAlmacen.Grabar();
 
             return agrupadasParaDistribucion;
+        }
+        public void MarcarHojaDeRutaComoCompletaSiEsNecesario(int servicioID)
+        {
+            var hojaDeRuta = HojaDeRutaAlmacen.HojasDeRuta
+                .FirstOrDefault(h => h.ServicioID == servicioID && h.Completada == false);
+
+            if (hojaDeRuta != null)
+            {
+                var servicio = ServicioAlmacen.servicios.FirstOrDefault(s => s.ServicioID == servicioID);
+
+                EstadoEncomiendaEnum estadoFinalRequerido;
+
+                if (servicio != null)
+                {
+                    if (servicio.CDOrigen == NuestroCD)
+                    {
+                        // Es un servicio de CARGA: la guía debe estar en EnTransito (Estado 6).
+                        estadoFinalRequerido = EstadoEncomiendaEnum.EnTransito;
+                    }
+                    else if (servicio.CDDestino == NuestroCD)
+                    {
+                        // Es un servicio de DESCARGA: la guía debe estar en AdmitidoCDDestino (Estado 7).
+                        estadoFinalRequerido = EstadoEncomiendaEnum.AdmitidoCDDestino;
+                    }
+                    else
+                    {
+                        return; // Si no es ni origen ni destino de nuestro CD, no debe afectar.
+                    }
+
+                    // 2. Verificar si TODAS las guías de esta HDR han alcanzado el estado final REQUERIDO.
+                    bool todasCompletadas = hojaDeRuta.Guias.All(guiaHDR =>
+                        GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == guiaHDR.NumeroGuia)?.Estado == estadoFinalRequerido);
+
+                    // 3. Si todas las guías de la HDR están listas, marcamos la HDR como Completa.
+                    if (todasCompletadas)
+                    {
+                        hojaDeRuta.Completada = true;
+                        // La persistencia se realiza con HojaDeRutaAlmacen.Grabar() al final de ConfirmarOperacion.
+                    }
+                }
+            }
         }
 
         // Método para crear las Hojas de Ruta de Distribución
