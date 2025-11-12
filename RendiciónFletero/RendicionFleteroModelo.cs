@@ -91,27 +91,52 @@ namespace CAIGrupoG.Modelos
             // 5. Separar guías en admisión y retiro
             resultado.Admision = guiasDeHDR
                 .Where(g => estadosEntrantes.Contains(g.Estado))
-                .Select(g => new Guia
-                {
-                    NumeroGuia = g.NumeroGuia,
-                    TipoPaquete = (TipoPaquete)g.TipoPaquete,
-                    Estado = (EstadoEncomienda)g.Estado,
-                    CUIT = g.ClienteCUIT,
-                    DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
-                    Destino = g.DomicilioDestino
+                .Select(g => {
+                    // Convertir por valor numérico
+                    int tipoPaqueteValue = (int)g.TipoPaquete;
+                    TipoPaquete tipoPaqueteDestino = Enum.IsDefined(typeof(TipoPaquete), tipoPaqueteValue)
+                        ? (TipoPaquete)tipoPaqueteValue
+                        : TipoPaquete.S;
+
+                    int estadoValue = (int)g.Estado;
+                    EstadoEncomienda estadoDestino = Enum.IsDefined(typeof(EstadoEncomienda), estadoValue)
+                        ? (EstadoEncomienda)estadoValue
+                        : EstadoEncomienda.PrimerIntentoDeEntrega;
+
+                    return new Guia
+                    {
+                        NumeroGuia = g.NumeroGuia,
+                        TipoPaquete = tipoPaqueteDestino,
+                        Estado = estadoDestino,
+                        CUIT = g.ClienteCUIT,
+                        DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
+                        Destino = g.DomicilioDestino
+                    };
                 })
                 .ToList();
 
             resultado.Retiro = guiasDeHDR
                 .Where(g => estadosSalientes.Contains(g.Estado))
-                .Select(g => new Guia
-                {
-                    NumeroGuia = g.NumeroGuia,
-                    TipoPaquete = (TipoPaquete)g.TipoPaquete,
-                    Estado = (EstadoEncomienda)g.Estado,
-                    CUIT = g.ClienteCUIT,
-                    DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
-                    Destino = g.DomicilioDestino
+                .Select(g => {
+                    int tipoPaqueteValue = (int)g.TipoPaquete;
+                    TipoPaquete tipoPaqueteDestino = Enum.IsDefined(typeof(TipoPaquete), tipoPaqueteValue)
+                        ? (TipoPaquete)tipoPaqueteValue
+                        : TipoPaquete.S;
+
+                    int estadoValue = (int)g.Estado;
+                    EstadoEncomienda estadoDestino = Enum.IsDefined(typeof(EstadoEncomienda), estadoValue)
+                        ? (EstadoEncomienda)estadoValue
+                        : EstadoEncomienda.AdmitidoCDDestino;
+
+                    return new Guia
+                    {
+                        NumeroGuia = g.NumeroGuia,
+                        TipoPaquete = tipoPaqueteDestino,
+                        Estado = estadoDestino,
+                        CUIT = g.ClienteCUIT,
+                        DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
+                        Destino = g.DomicilioDestino
+                    };
                 })
                 .ToList();
 
