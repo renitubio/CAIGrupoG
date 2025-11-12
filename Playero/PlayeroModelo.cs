@@ -17,14 +17,7 @@ namespace CAIGrupoG.Playero
             }
             else
             {
-                // Si es null, NuestroCD se mantiene en 0 (valor por defecto de int)
-                // o puedes asignarle explícitamente 0, aunque ya es 0 por defecto si no se asigna.
-                NuestroCD = 0;
-            }
-            // Si se llama al constructor vacío, usa el valor mock inicializado.
-            if (NuestroCD == 0)
-            {
-                throw new InvalidOperationException("No se ha seleccionado un Centro de Distribución en el Menú Principal.");
+                NuestroCD = 0; // No lanzar excepción
             }
         }
 
@@ -36,6 +29,9 @@ namespace CAIGrupoG.Playero
 
         public (List<Guia> Cargas, List<Guia> Descargas) BuscarGuiasPorPatente(string patente)
         {
+            if (NuestroCD == 0)
+                return (new List<Guia>(), new List<Guia>()); // No hay CD seleccionado, devolver vacío
+
             var patenteUpper = patente.ToUpper();
 
             // 1. Identificar el Servicio de CARGA PENDIENTE (Salida desde NuestroCD)
@@ -116,6 +112,9 @@ namespace CAIGrupoG.Playero
         // Método principal para confirmar y procesar la operación
         public Dictionary<string, List<GuiaEntidad>> ConfirmarOperacion(List<Guia> cargasSeleccionadas, List<Guia> descargasSeleccionadas)
         {
+            if (NuestroCD == 0)
+                return new Dictionary<string, List<GuiaEntidad>>(); // No hay CD seleccionado, no procesar
+
             if ((cargasSeleccionadas == null || !cargasSeleccionadas.Any()) && (descargasSeleccionadas == null || !descargasSeleccionadas.Any()))
             {
                 throw new ArgumentException("Debe seleccionar al menos una guía para Cargar o Descargar.");
