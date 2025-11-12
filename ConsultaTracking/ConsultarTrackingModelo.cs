@@ -18,7 +18,7 @@ namespace CAIGrupoG.ConsultaTracking
         /// Busca el estado de una guía por su número de seguimiento.
         public Guia BuscarGuia(string numeroGuia)
         {
-        
+            numeroGuia = numeroGuia.ToUpper();
             var guiaEntidad = GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == numeroGuia);
             if (guiaEntidad == null)
                 return null;
