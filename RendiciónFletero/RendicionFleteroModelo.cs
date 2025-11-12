@@ -17,6 +17,47 @@ namespace CAIGrupoG.Modelos
         // Campo para almacenar las hojas de ruta encontradas, necesarias para la rendición
         private List<HojaDeRutaEntidad> _hojasDeRutaPendientes;
 
+        /// <summary>
+                /// Traduce el enum de TipoPaquete del Almacén al enum de la Vista.
+                /// </summary>
+        private TipoPaquete MapearTipoPaquete(Almacenes.TipoPaqueteEnum tipoAlmacen)
+        {
+            
+            return tipoAlmacen switch
+            {
+                Almacenes.TipoPaqueteEnum.S => TipoPaquete.S,
+                Almacenes.TipoPaqueteEnum.M => TipoPaquete.M,
+                Almacenes.TipoPaqueteEnum.L => TipoPaquete.L,
+                Almacenes.TipoPaqueteEnum.XL => TipoPaquete.XL,
+                _ => TipoPaquete.S
+            };
+        }
+
+        /// <summary>
+        /// Traduce el enum de Estado del Almacén al enum de la Vista.
+        /// </summary>
+        private EstadoEncomienda MapearEstado(Almacenes.EstadoEncomiendaEnum estadoAlmacen)
+        {
+          
+            return estadoAlmacen switch
+            {
+                Almacenes.EstadoEncomiendaEnum.ImpuestoCallCenter => EstadoEncomienda.ImpuestoCallCenter,
+                Almacenes.EstadoEncomiendaEnum.ImpuestoAgencia => EstadoEncomienda.ImpuestoAgencia,
+                Almacenes.EstadoEncomiendaEnum.EnCaminoARetirarDomicilio => EstadoEncomienda.EnCaminoARetirarDomicilio,
+                Almacenes.EstadoEncomiendaEnum.EnCaminoARetirarAgencia => EstadoEncomienda.EnCaminoARetirarAgencia,
+                Almacenes.EstadoEncomiendaEnum.AdmitidoCDOrigen => EstadoEncomienda.AdmitidoCDOrigen,
+                Almacenes.EstadoEncomiendaEnum.EnTransito => EstadoEncomienda.EnTransito,
+                Almacenes.EstadoEncomiendaEnum.AdmitidoCDDestino => EstadoEncomienda.AdmitidoCDDestino,
+                Almacenes.EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio => EstadoEncomienda.DistribucionUltimaMillaDomicilio,
+                Almacenes.EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia => EstadoEncomienda.DistribucionUltimaMillaAgencia,
+                Almacenes.EstadoEncomiendaEnum.AgenciaDestino => EstadoEncomienda.AgenciaDestino,
+                Almacenes.EstadoEncomiendaEnum.PrimerIntentoDeEntrega => EstadoEncomienda.PrimerIntentoDeEntrega,
+                Almacenes.EstadoEncomiendaEnum.Rechazado => EstadoEncomienda.Rechazado,
+                Almacenes.EstadoEncomiendaEnum.Entregado => EstadoEncomienda.Entregado,
+                Almacenes.EstadoEncomiendaEnum.Facturada => EstadoEncomienda.Facturada,
+                _ => EstadoEncomienda.PrimerIntentoDeEntrega // Un default seguro
+            };
+        }
 
         public class GuiasPorDNIResultado
         {
@@ -90,55 +131,35 @@ namespace CAIGrupoG.Modelos
 
             // 5. Separar guías en admisión y retiro
             resultado.Admision = guiasDeHDR
-                .Where(g => estadosEntrantes.Contains(g.Estado))
-                .Select(g => {
-                    // Convertir por valor numérico
-                    int tipoPaqueteValue = (int)g.TipoPaquete;
-                    TipoPaquete tipoPaqueteDestino = Enum.IsDefined(typeof(TipoPaquete), tipoPaqueteValue)
-                        ? (TipoPaquete)tipoPaqueteValue
-                        : TipoPaquete.S;
-
-                    int estadoValue = (int)g.Estado;
-                    EstadoEncomienda estadoDestino = Enum.IsDefined(typeof(EstadoEncomienda), estadoValue)
-                        ? (EstadoEncomienda)estadoValue
-                        : EstadoEncomienda.PrimerIntentoDeEntrega;
-
-                    return new Guia
-                    {
-                        NumeroGuia = g.NumeroGuia,
-                        TipoPaquete = tipoPaqueteDestino,
-                        Estado = estadoDestino,
-                        CUIT = g.ClienteCUIT,
-                        DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
-                        Destino = g.DomicilioDestino
-                    };
-                })
-                .ToList();
+        .Where(g => estadosEntrantes.Contains(g.Estado))
+        .Select(g => new Guia
+        {
+            NumeroGuia = g.NumeroGuia,
+            CUIT = g.ClienteCUIT,
+            DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
+            Destino = g.DomicilioDestino,
+            TipoPaquete = MapearTipoPaquete(g.TipoPaquete),
+            Estado = MapearEstado(g.Estado)              
+        })
+        .ToList();
 
             resultado.Retiro = guiasDeHDR
-                .Where(g => estadosSalientes.Contains(g.Estado))
-                .Select(g => {
-                    int tipoPaqueteValue = (int)g.TipoPaquete;
-                    TipoPaquete tipoPaqueteDestino = Enum.IsDefined(typeof(TipoPaquete), tipoPaqueteValue)
-                        ? (TipoPaquete)tipoPaqueteValue
-                        : TipoPaquete.S;
+              .Where(g => estadosSalientes.Contains(g.Estado))
+              .Select(g => new Guia
+              {
+                  NumeroGuia = g.NumeroGuia,
+                  CUIT = g.ClienteCUIT,
+                  DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
+                  Destino = g.DomicilioDestino,
+                  TipoPaquete = MapearTipoPaquete(g.TipoPaquete),
+                  Estado = MapearEstado(g.Estado)              
+              })
+              .ToList();
 
-                    int estadoValue = (int)g.Estado;
-                    EstadoEncomienda estadoDestino = Enum.IsDefined(typeof(EstadoEncomienda), estadoValue)
-                        ? (EstadoEncomienda)estadoValue
-                        : EstadoEncomienda.AdmitidoCDDestino;
-
-                    return new Guia
-                    {
-                        NumeroGuia = g.NumeroGuia,
-                        TipoPaquete = tipoPaqueteDestino,
-                        Estado = estadoDestino,
-                        CUIT = g.ClienteCUIT,
-                        DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
-                        Destino = g.DomicilioDestino
-                    };
-                })
-                .ToList();
+            // *** ¡¡ARREGLO IMPORTANTE!! ***
+            // Faltaba esto: guarda las listas para que 'Rendir' funcione
+            this.EncomiendasEntrantes = resultado.Admision;
+            this.EncomiendasSalientes = resultado.Retiro;
 
             return resultado;
         }
@@ -159,7 +180,7 @@ namespace CAIGrupoG.Modelos
                         seleccion.Add(new Guia
                         {
                             NumeroGuia = guiaFromTag.NumeroGuia,
-                            TipoPaquete = (TipoPaquete)guiaFromTag.TipoPaquete,
+                            TipoPaquete = MapearTipoPaquete(guiaFromTag.TipoPaquete),
                             Estado = (EstadoEncomienda)guiaFromTag.Estado,
                             CUIT = guiaFromTag.ClienteCUIT,
                             DniAutorizadoRetirar = guiaFromTag.DNIAutorizadoRetirar,
@@ -185,7 +206,7 @@ namespace CAIGrupoG.Modelos
                         seleccion.Add(new Guia
                         {
                             NumeroGuia = guiaFromTag.NumeroGuia,
-                            TipoPaquete = (TipoPaquete)guiaFromTag.TipoPaquete,
+                            TipoPaquete = MapearTipoPaquete(guiaFromTag.TipoPaquete),
                             Estado = (EstadoEncomienda)guiaFromTag.Estado,
                             CUIT = guiaFromTag.ClienteCUIT,
                             DniAutorizadoRetirar = guiaFromTag.DNIAutorizadoRetirar,
@@ -212,7 +233,7 @@ namespace CAIGrupoG.Modelos
             if (_hojasDeRutaPendientes == null || !_hojasDeRutaPendientes.Any())
             {
                 throw new InvalidOperationException("No hay hojas de ruta pendientes para rendir.");
-            } 
+            }
 
 
             var guiasSeleccionadasNumeros = new HashSet<string>(
@@ -282,7 +303,7 @@ namespace CAIGrupoG.Modelos
                                 guia.Estado = EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia;
                         }
                         break;
-                    
+
                 }
             }
 

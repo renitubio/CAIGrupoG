@@ -28,7 +28,15 @@ namespace CAIGrupoG.RendiciónFletero
         EnCaminoARetirarAgencia,
 
         // Estado para el retiro (el fletero retira del CD)
-        AdmitidoCDDestino
+        AdmitidoCDDestino,
+        ImpuestoCallCenter,
+        ImpuestoAgencia,
+        AdmitidoCDOrigen,
+        EnTransito,
+        AgenciaDestino,
+        Rechazado,
+        Entregado,
+        Facturada
     }
     public enum TipoPaquete
     {
