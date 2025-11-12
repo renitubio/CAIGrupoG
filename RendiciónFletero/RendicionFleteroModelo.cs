@@ -62,6 +62,13 @@ namespace CAIGrupoG.Modelos
                 EstadoEncomiendaEnum.AdmitidoCDOrigen
             };
 
+            var estadosSalientes = new[]
+            {
+                EstadoEncomiendaEnum.ImpuestoCallCenter,
+                EstadoEncomiendaEnum.ImpuestoAgencia,
+                EstadoEncomiendaEnum.AdmitidoCDDestino
+            };
+
             // 4. Buscar guías según HDR
             var guiasDeHDR = new List<GuiaEntidad>();
             foreach (var hdr in _hojasDeRutaPendientes)
@@ -96,7 +103,7 @@ namespace CAIGrupoG.Modelos
                 .ToList();
 
             resultado.Retiro = guiasDeHDR
-                .Where(g => g.Estado == EstadoEncomiendaEnum.AdmitidoCDDestino)
+                .Where(g => estadosSalientes.Contains(g.Estado))
                 .Select(g => new Guia
                 {
                     NumeroGuia = g.NumeroGuia,
@@ -174,13 +181,13 @@ namespace CAIGrupoG.Modelos
         }
 
 
-        /// Realiza la rendición: actualiza el estado de las guías a Entregado y marca las HDRs como completadas.
+        /// Realiza la rendición: actualiza el estado de las guías y marca las HDRs como completadas.
         public void Rendir(List<Guia> admisionesSeleccionadas, List<Guia> retirosSeleccionados)
         {
             if (_hojasDeRutaPendientes == null || !_hojasDeRutaPendientes.Any())
             {
                 throw new InvalidOperationException("No hay hojas de ruta pendientes para rendir.");
-            }
+            } 
 
 
             var guiasSeleccionadasNumeros = new HashSet<string>(
@@ -230,6 +237,17 @@ namespace CAIGrupoG.Modelos
                         break;
 
                     // SALIENTES
+
+                    case EstadoEncomiendaEnum.ImpuestoCallCenter:
+                        if (fueSeleccionada)
+                            guia.Estado = EstadoEncomiendaEnum.EnCaminoARetirarDomicilio;
+                        break;
+
+                    case EstadoEncomiendaEnum.ImpuestoAgencia:
+                        if (fueSeleccionada)
+                            guia.Estado = EstadoEncomiendaEnum.EnCaminoARetirarAgencia;
+                        break;
+
                     case EstadoEncomiendaEnum.AdmitidoCDDestino:
                         if (fueSeleccionada)
                         {
@@ -249,9 +267,9 @@ namespace CAIGrupoG.Modelos
             var estadosFinales = new[]
             {
                 EstadoEncomiendaEnum.Entregado,
+                EstadoEncomiendaEnum.Rechazado,
                 EstadoEncomiendaEnum.AdmitidoCDOrigen,
-                EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio,
-                EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia
+                EstadoEncomiendaEnum.AgenciaDestino,
             };
 
             foreach (var hdrPendiente in _hojasDeRutaPendientes)
