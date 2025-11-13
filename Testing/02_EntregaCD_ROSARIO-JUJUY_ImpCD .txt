@@ -1,6 +1,6 @@
-﻿// Entrega a CD Jujuy desde CD Cordoba (Pantalla Imposición en CD)
+﻿// Entrega a CD Jujuy desde CD Rosario (Pantalla Imposición en CD)
 
-CD Actual: Córdoba
+CD Actual: Rosario
 
 01: Pantalla Imposición de Encomienda - CD
 
@@ -16,46 +16,46 @@ CD Actual: Córdoba
  10 - Botón: Añadir
  10 - Mensaje: "Se añadió un tipo de caja L a la lista".
  11 - Botón: Confirmar
- 12 - VERIFICAR: Lista Guías Generadas muestra "GUI016, GUI017".
+ 12 - VERIFICAR: Lista Guías Generadas muestra "GUI017, GUI018".
  13 - Botón "Finalizar".
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI016 estado "Admitido en CD Origen"
 	- Verificar guía GUI017 estado "Admitido en CD Origen"
+	- Verificar guía GUI018 estado "Admitido en CD Origen"
 
 
-// CD Actual: Córdoba
+// CD Actual: Rosario
 
 02: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente XXXXXX
+ 1 - Patente: ABC123 // Dato de prueba candidato a funcionar, ver en json Servicio.
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Carga muestra
-	- N° Guía: GUI016, GUI017
+	- N° Guía: GUI017, GUI018
 	- Tipo Paquete: L, L,
 	- CUIT: 33654321097
-	- CD Origen: Córdoba
+	- CD Origen: Rosario
 	- CD Destino: Jujuy
  4 - Botón: Aceptar
 
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI016 estado "En tránsito"
 	- Verificar guía GUI017 estado "En tránsito"
+	- Verificar guía GUI018 estado "En tránsito"
 
 // CD Actual: Jujuy
 
 03: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente XXXXXX
+ 1 - Patente PLT555 // // Dato de prueba candidato a funcionar, ver en json Servicio.
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Descarga muestra
-	- N° Guía: GUI016, GUI017
+	- N° Guía: GUI017, GUI018
 	- Tipo Paquete: L, L,
 	- CUIT: 33654321097
-	- CD Origen: Córdoba
+	- CD Origen: Rosario
 	- CD Destino: Jujuy
  4 - Botón: Aceptar
 
@@ -79,5 +79,5 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI016 estado "Entregada"
 	- Verificar guía GUI017 estado "Entregada"
+	- Verificar guía GUI018 estado "Entregada"

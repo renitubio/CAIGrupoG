@@ -70,9 +70,9 @@
         "Precio": 400.00
       },
       {
-        "TipoPaquete": 2,
+        "TipoPaquete": 3,
         "CDOrigen": 3,
-        "CDDestino": 1,
+        "CDDestino": 6,
         "Precio": 1900.50
       }
     ]
