@@ -12,7 +12,7 @@
     "EntregaDomicilio": false,
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": true,
-    "EntregaGuíaAgencia": true,
+    "EntregaAgencia": true,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 20
   },
@@ -29,7 +29,7 @@
     "EntregaDomicilio": false,
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": true,
-    "EntregaGuíaAgencia": true,
+    "EntregaAgencia": true,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 20
   },
@@ -46,7 +46,7 @@
     "EntregaDomicilio": false,
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": true,
-    "EntregaGuíaAgencia": false,
+    "EntregaAgencia": false,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 0
   },
@@ -63,7 +63,7 @@
     "EntregaDomicilio": false,
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": true,
-    "EntregaGuíaAgencia": false,
+    "EntregaAgencia": false,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 0
   },
@@ -80,7 +80,7 @@
     "EntregaDomicilio": true,
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": false,
-    "EntregaGuíaAgencia": false,
+    "EntregaAgencia": false,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 0
   },
@@ -97,7 +97,7 @@
     "EntregaDomicilio": true,
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": false,
-    "EntregaGuíaAgencia": false,
+    "EntregaAgencia": false,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 0
   },
@@ -114,7 +114,7 @@
     "EntregaDomicilio": true,
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": false,
-    "EntregaGuíaAgencia": false,
+    "EntregaAgencia": false,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 0
   },
@@ -131,7 +131,7 @@
     "EntregaDomicilio": true,
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": false,
-    "EntregaGuíaAgencia": false,
+    "EntregaAgencia": false,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 0
   },
@@ -148,7 +148,7 @@
     "EntregaDomicilio": true,
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": false,
-    "EntregaGuíaAgencia": false,
+    "EntregaAgencia": false,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 0
   },
@@ -165,7 +165,7 @@
     "EntregaDomicilio": true,
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": false,
-    "EntregaGuíaAgencia": false,
+    "EntregaAgencia": false,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 20
   },
@@ -182,7 +182,7 @@
     "EntregaDomicilio": false,
     "FechaAdmision": "2025-10-22T00:00:00",
     "RetiroDomicilio": false,
-    "EntregaGuíaAgencia": false,
+    "EntregaAgencia": false,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 0
   },
@@ -270,7 +270,7 @@
     "EntregaDomicilio": false,
     "FechaAdmision": "2024-10-11T00:00:00",
     "RetiroDomicilio": true,
-    "EntregaGuíaAgencia": true,
+    "EntregaAgencia": true,
     "NumeroFactura": 0,
     "AgenciaDestinoID": 20
   }

@@ -179,18 +179,22 @@ namespace CAIGrupoG.Modelos
             // 5. Separar guías en admisión y retiro
             // --- ⚠️ ARREGLO 3: Usamos 'guiasParaMostrar' y 'ObtenerNombreDestino' ---
             resultado.Admision = guiasParaMostrar
-        .Where(g => estadosEntrantes.Contains(g.Estado))
-        .Select(g => new Guia
-        {
-            NumeroGuia = g.NumeroGuia,
-            CUIT = g.ClienteCUIT,
-            DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
-            //                    Destino = ObtenerNombreDestino(g), // Asegúrate de tener este método pegado
-            Destino = g.DomicilioDestino, // <-- Temporal: si ObtenerNombreDestino no compila
-            TipoPaquete = MapearTipoPaquete(g.TipoPaquete),
-            Estado = MapearEstado(g.Estado)
-        })
-        .ToList();
+             .Where(g => estadosEntrantes.Contains(g.Estado))
+               .Select(g => new Guia
+               {
+                      NumeroGuia = g.NumeroGuia,
+                      CUIT = g.ClienteCUIT,
+                      DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
+                   Destino = g.EntregaDomicilio
+                   ? g.DomicilioDestino
+                   : (g.EntregaAgencia
+                   ? AgenciaAlmacen.Agencias
+                   .FirstOrDefault(a => a.AgenciaID == g.AgenciaDestinoID)?.Nombre ?? string.Empty
+                   : string.Empty),
+                   TipoPaquete = MapearTipoPaquete(g.TipoPaquete),
+                      Estado = MapearEstado(g.Estado)
+               })
+             .ToList();
 
             resultado.Retiro = guiasParaMostrar
               .Where(g => estadosSalientes.Contains(g.Estado)) // <-- Ahora incluye 'Impuesto...'
@@ -199,8 +203,12 @@ namespace CAIGrupoG.Modelos
                           NumeroGuia = g.NumeroGuia,
                           CUIT = g.ClienteCUIT,
                           DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
-                          //                    Destino = ObtenerNombreDestino(g), // Asegúrate de tener este método pegado
-                          Destino = g.DomicilioDestino, // <-- Temporal: si ObtenerNombreDestino no compila
+                          Destino = g.EntregaDomicilio
+                          ? g.DomicilioDestino
+                          : (g.EntregaAgencia
+                          ? AgenciaAlmacen.Agencias
+                          .FirstOrDefault(a => a.AgenciaID == g.AgenciaDestinoID)?.Nombre ?? string.Empty
+                          : string.Empty),
                           TipoPaquete = MapearTipoPaquete(g.TipoPaquete),
                           Estado = MapearEstado(g.Estado)
                       })
@@ -232,7 +240,12 @@ namespace CAIGrupoG.Modelos
                             Estado = (EstadoEncomienda)guiaFromTag.Estado,
                             CUIT = guiaFromTag.ClienteCUIT,
                             DniAutorizadoRetirar = guiaFromTag.DNIAutorizadoRetirar,
-                            Destino = guiaFromTag.DomicilioDestino
+                            Destino = guiaFromTag.EntregaDomicilio
+                            ? guiaFromTag.DomicilioDestino
+                            : (guiaFromTag.EntregaAgencia
+                            ? AgenciaAlmacen.Agencias
+                            .FirstOrDefault(a => a.AgenciaID == guiaFromTag.AgenciaDestinoID)?.Nombre ?? string.Empty
+                            : string.Empty)
                         });
                     continue;
                 }
@@ -258,7 +271,12 @@ namespace CAIGrupoG.Modelos
                             Estado = (EstadoEncomienda)guiaFromTag.Estado,
                             CUIT = guiaFromTag.ClienteCUIT,
                             DniAutorizadoRetirar = guiaFromTag.DNIAutorizadoRetirar,
-                            Destino = guiaFromTag.DomicilioDestino
+                            Destino = guiaFromTag.EntregaDomicilio
+                            ? guiaFromTag.DomicilioDestino
+                            : (guiaFromTag.EntregaAgencia
+                            ? AgenciaAlmacen.Agencias
+                            .FirstOrDefault(a => a.AgenciaID == guiaFromTag.AgenciaDestinoID)?.Nombre ?? string.Empty
+                            : string.Empty)
                         });
                     continue;
                 }
