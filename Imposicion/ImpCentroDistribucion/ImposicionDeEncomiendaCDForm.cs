@@ -75,6 +75,9 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 DomicilioTxtBox.Enabled = true;
                 OpcionesDeEntregaCmb.Enabled = false;
                 OpcionesDeEntregaCmb.DataSource = null;
+                DNITxtBox.Enabled = false; // Deshabilitamos el DNI ya que no es necesario para Domicilio
+                DNITxtBox.Clear(); // Limpiamos el DNI ya que no es necesario para Domicilio
+
             }
         }
 
@@ -88,6 +91,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                     DomicilioTxtBox.Enabled = false;
                     DomicilioTxtBox.Clear();
                     OpcionesDeEntregaCmb.Enabled = true;
+                    DNITxtBox.Enabled = true; // Habilitamos el DNI ya que es necesario para Agencia/CD
 
                     //Asumiendo que Ciudad es una clase con propiedad 'Id' (Int32)
                     var agenciasFiltradas = modelo.ObtenerAgenciasPorCiudad(ciudadSeleccionada.Id);

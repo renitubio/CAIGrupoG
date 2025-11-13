@@ -101,12 +101,15 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                     DomicilioText.Enabled = true;
                     EntregaCmb.Enabled = false;
                     EntregaCmb.DataSource = null;
+                    DNIText.Enabled = false; // El DNI no es necesario para entrega a domicilio
+                    DNIText.Clear(); // El DNI no es necesario para entrega a domicilio
                 }
                 else // AgenciaRdBttn
                 {
                     DomicilioText.Enabled = false;
                     DomicilioText.Clear();
                     EntregaCmb.Enabled = true;
+                    DNIText.Enabled = true; // El DNI es necesario para retiro en agencia/CD
                     if (CiudadCmb.SelectedItem == null)
                     {
                         MessageBox.Show("Primero debe seleccionar una Ciudad.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);

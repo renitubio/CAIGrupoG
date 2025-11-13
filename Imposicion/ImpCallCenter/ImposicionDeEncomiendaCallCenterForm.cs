@@ -101,12 +101,15 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                     DomicilioText.Enabled = true;
                     EntregaCmb.Enabled = false;
                     EntregaCmb.DataSource = null;
+                    DNIText.Enabled = false; // Deshabilita el campo DNI si es entrega a domicilio
+                    DNIText.Clear(); // Limpia el campo DNI si es entrega a domicilio
                 }
                 else // AgenciaRdBttn
                 {
                     DomicilioText.Enabled = false;
                     DomicilioText.Clear();
                     EntregaCmb.Enabled = true;
+                    DNIText.Enabled = true; // Habilita el campo DNI si es entrega en agencia/CD
                     if (CiudadCmb.SelectedItem == null)
                     {
                         MessageBox.Show("Primero debe seleccionar una Ciudad.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
