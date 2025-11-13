@@ -70,7 +70,7 @@ ARCHIVOS
 	- DNI autorizado a retirar: 35721855
  4 - Selección de ambas guias (GUI017 y GUI018) 
  5 - Botón: Aceptar 
- 6 - Finalizar sistema
+ 6 - Cerrar pantalla
 
 ARCHIVOS
  - Guías:
@@ -78,7 +78,7 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "AdmitidoCDOrigen"
 
  - HDR:
-	- Verificar HojaDeRuta 4572, ServicioID = 0, FleteroDNI = 0, TipoHDREnum= 2, contiene guías GUI017 y GUI018
+	- Verificar HojaDeRuta 4572, ServicioID = 4455611, FleteroDNI = 0, TipoHDREnum= 2, contiene guías GUI017 y GUI018
 
 
 
@@ -87,20 +87,26 @@ ARCHIVOS
 
 04: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente QWE456 
+ 1 - Patente AA667HJ 
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Carga muestra
 	- N° Guía: GUI017, GUI018
 	- Tipo Paquete: XL, XL
 	- CUIT: 20123456789
 	- CD Origen: Santa Fe
-	- CD Destino: Córdoba // ¿Debería poder decir también AgenciaDestino?
+	- CD Destino: Córdoba
  4 - Botón: Aceptar
+ 5 - Cerrar Pantalla
 
 ARCHIVOS
  - Guías:
 	- Verificar guía GUI017 estado "EnTransito"
 	- Verificar guía GUI018 estado "EnTransito"
+
+
+
+
+
 
 
 // CD Actual: Cordoba
