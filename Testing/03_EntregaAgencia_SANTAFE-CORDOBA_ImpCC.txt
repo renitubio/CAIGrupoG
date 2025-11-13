@@ -1,5 +1,6 @@
 ﻿// Entrega en Agencia Córdoba a través de imposición en CC, levantando la encomienda desde el domicilio del cliente Santa Fe
 
+
 // CD Actual: vacío
 // Agencia Actual: vacío
 
@@ -31,7 +32,7 @@ ARCHIVOS
 	- Verificar HojaDeRuta 4571, ServicioID = 0, FleteroDNI = 34567890, TipoHDREnum= 1, contiene guías GUI017 y GUI018
 
 
-
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 // CD Actual: Santa Fe
 
@@ -55,7 +56,7 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "EnCaminoARetirarDomicilio"
 
 
-
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 // CD Actual: Santa Fe
 
@@ -81,6 +82,7 @@ ARCHIVOS
 	- Verificar HojaDeRuta 4572, ServicioID = 4455611, FleteroDNI = 0, TipoHDREnum= 2, contiene guías GUI017 y GUI018
 
 
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 
 // CD Actual: Santa Fe
@@ -105,7 +107,7 @@ ARCHIVOS
 
 
 
-
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -129,10 +131,15 @@ ARCHIVOS
 	- Verificar guía GUI019 estado "AdmitidoCDDestino"
 
 
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 // CD Actual: Cordoba
 
 06: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: 34567890 // Candidato a funcionar según datos de prueba en json
+ 1 - DNI Fletero: 34567890 
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas Salientes muestra:
 	- N° Guía: GUI018, GUI019
@@ -147,6 +154,10 @@ ARCHIVOS
  - Guías:
 	- Verificar guía GUI018 estado "DistribucionUltimaMillaAgencia"
 	- Verificar guía GUI019 estado "DistribucionUltimaMillaAgencia"
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
 
 // CD Actual: Cordoba
 
@@ -166,6 +177,11 @@ ARCHIVOS
  - Guías:
 	- Verificar guía GUI018 estado "AgenciaDestino"
 	- Verificar guía GUI019 estado "AgenciaDestino"
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 //Agencia: Agencia Leones
 
