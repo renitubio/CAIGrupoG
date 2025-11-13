@@ -27,6 +27,19 @@ namespace CAIGrupoG.Playero
             NuestroCD = cdSeleccionado;
         }
 
+        /// <summary>
+        /// Busca el nombre de un CD a partir de su ID.
+        /// </summary>
+        private string ObtenerNombreCD(int cdId)
+        {
+            // Asumo que tu almacén se llama 'CentroDistribucionAlmacen' 
+            // y la lista 'CentrosDistribucion'
+            var cd = CentroDistribucionAlmacen.CentrosDistribucion
+           .FirstOrDefault(c => c.CD_ID == cdId);
+
+            return cd != null ? cd.Nombre : cdId.ToString(); // Devuelve el nombre o el ID si no lo encuentra
+        }
+
         public (List<Guia> Cargas, List<Guia> Descargas) BuscarGuiasPorPatente(string patente)
         {
             if (NuestroCD == 0)
@@ -50,31 +63,30 @@ namespace CAIGrupoG.Playero
             var descargas = new List<Guia>();
 
             // 3. Obtener Guías de Carga
-            if (servicioCarga != null)
+            if (servicioCarga != null)
             {
-                var hojaCarga = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h =>
-                    h.ServicioID == servicioCarga.ServicioID &&
-                    //h.Tipo == TipoHDREnum.Transporte && // Asumo Tipo=2 para Transporte
-                    h.Completada == false); // El servicio está pendiente de realizar
+                // ⚠️ ARREGLO: La pantalla de Carga no busca una HDR, 
+                // busca guías "sueltas" que coincidan con la ruta del camión.
 
-                if (hojaCarga != null && hojaCarga.Guias != null)
-                {
-                    var numerosGuiaCarga = hojaCarga.Guias.Select(g => g.NumeroGuia);
+                // Buscamos guías que:
+                // 1. Estén en el CD de Origen (Estado 5: AdmitidoCDOrigen)
+                // 2. Tengan el mismo CD de Origen que el camión (NuestroCD)
+                // 3. Tengan el mismo CD de Destino que el camión (servicioCarga.CDDestino)
 
-                    // Reemplazar la asignación de 'cargas' para convertir de GuiaEntidad a Guia
-                    cargas = GuiaAlmacen.Guias
-                        .Where(g => numerosGuiaCarga.Contains(g.NumeroGuia))
-                        .Select(g => new Guia
-                        {
-                            NumeroGuia = g.NumeroGuia,
-                            TipoPaquete = (TipoPaquete)((int)g.TipoPaquete - 1), // Map TipoPaqueteEnum (1-4) to TipoPaquete (0-3)
-                            CUIT = g.ClienteCUIT, // Asumo que el CUIT del cliente es lo que quieres mostrar
-                            CDOrigen = g.CDOrigenID.ToString(),
-                            CDDestino = g.CDDestinoID.ToString(),
-                            Estado = (EstadoGuia)(int)g.Estado
-                        })
-                        .ToList();
-                }
+                cargas = GuiaAlmacen.Guias
+            .Where(g => g.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen &&
+                  g.CDOrigenID == NuestroCD &&
+                  g.CDDestinoID == servicioCarga.CDDestino)
+            .Select(g => new Guia
+            {
+                NumeroGuia = g.NumeroGuia,
+                TipoPaquete = (TipoPaquete)((int)g.TipoPaquete - 1), // O tu lógica de Mapeo
+                CUIT = g.ClienteCUIT,
+                CDOrigen = ObtenerNombreCD(g.CDOrigenID),
+                CDDestino = ObtenerNombreCD(g.CDDestinoID),
+                Estado = (EstadoGuia)(int)g.Estado,
+            })
+            .ToList();
             }
 
             // 4. Obtener Guías de Descarga
@@ -98,8 +110,8 @@ namespace CAIGrupoG.Playero
                             NumeroGuia = g.NumeroGuia,
                             TipoPaquete = (TipoPaquete)((int)g.TipoPaquete - 1), // Map TipoPaqueteEnum (1-4) to TipoPaquete (0-3)
                             CUIT = g.ClienteCUIT, // Asumo que el CUIT del cliente es lo que quieres mostrar
-                            CDOrigen = g.CDOrigenID.ToString(),
-                            CDDestino = g.CDDestinoID.ToString(),
+                            CDOrigen = ObtenerNombreCD(g.CDOrigenID),
+                            CDDestino = ObtenerNombreCD(g.CDDestinoID),
                             Estado = (EstadoGuia)(int)g.Estado
                         })
                         .ToList();

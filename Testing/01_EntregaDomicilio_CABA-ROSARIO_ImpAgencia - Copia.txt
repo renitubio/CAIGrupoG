@@ -68,7 +68,7 @@ ARCHIVOS
 
 
 04: Pantalla "Carga/Descarga - Playero".
- 1 - Patente LMN987 // Se debe corresponder con una Patente de un servicio que cubra el trayecto 02 (CABA) a 03 (Rosario)
+ 1 - Patente AEL096 // Patente de un servicio que cubre el trayecto 02 (CABA) a 03 (Rosario)
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Carga muestra
   - Estado encomienda: AdmitidoCDOrigen
@@ -92,7 +92,7 @@ ARCHIVOS
 
 
 05: Pantalla "Carga/Descarga - Playero".
- 1 - Patente LMN987 // Idem pantalla 04, puede ser otra la patente
+ 1 - Patente Patente de un servicio que cubre el trayecto 02 (CABA) a 03 (Rosario)
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Descarga muestra
   - Estado encomienda: EnTransito
