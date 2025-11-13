@@ -3,18 +3,18 @@
     "ClienteCUIT": "30701234565",
     "Direccion": "Av. Corrientes 1234, CABA",
     "RazonSocial": "Tech Soluciones S.A.",
-    "CDOrigen": 1,
+    "CDOrigen": 2,
     "Tarifas": [
       {
         "TipoPaquete": 1,
-        "CDOrigen": 1,
+        "CDOrigen": 2,
         "CDDestino": 3,
         "Precio": 550.00
       },
       {
         "TipoPaquete": 2,
-        "CDOrigen": 1,
-        "CDDestino": 1,
+        "CDOrigen": 2,
+        "CDDestino": 3,
         "Precio": 1500.50
       },
       {

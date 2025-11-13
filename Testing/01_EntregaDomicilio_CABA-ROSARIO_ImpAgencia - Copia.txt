@@ -1,8 +1,6 @@
 ﻿// Entrega a Domicilio (CABA - Rosario) desde una Agencia (Pantalla: Imposición Agencia)
 
 CD Actual: CABA
-Agencia Actual: Agencia del centro
-
 
 01: Pantalla Imposición de Encomienda - Agencia
 
@@ -10,71 +8,70 @@ Agencia Actual: Agencia del centro
  2 - Botón: Buscar Cliente
  3 - Mensaje: "Cliente encontrado: Tech Soluciones S.A. Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Rosario
- 5 - Tipo retiro: Domicilio
+ 5 - Tipo de entrega: Domicilio
  6 - Domicilio: Av. San Martin 1234
- 7 - DNI autorizado a retirar: 28222111 // ¿No alcanzaría solo con la dirección? SI cuando es a domicilio. Tampoco veo que debamos poner "DNI autorizado a recibir".
- 8 - Tipo de caja: S
- 9 - Cantidad: 1
+ 7 - Tipo de caja: S
+ 8 - Cantidad: 1
+ 9 - Botón: Añadir
  10 - Mensaje: "Se añadió un tipo de caja S a la lista".
  11 - Tipo de caja: M
  12 - Cantidad: 2
  13 - Mensaje: "Se añadió una caja tipo M a la lista".
- 14 - Botón "Confirmar"
- 15 - VERIFICAR: Lista número de tracking generados muestra "GUI012, GUI013, GUI014".
- 16 - Botón "Finalizar".
+ 14 - Botón: Añadir
+ 15 - Botón: Confirmar
+ 16 - VERIFICAR: Lista número de tracking generados muestra "GUI017, GUI018, GUI019".
+ 17 - Botón "Finalizar".
 
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI012 estado "Impuesto en Agencia"
-	- Verificar guía GUI013 estado "Impuesto en Agencia"
-	- Verificar guía GUI014 estado "Impuesto en Agencia"
+	- Verificar guía GUI017 estado "Impuesto en Agencia"
+	- Verificar guía GUI018 estado "Impuesto en Agencia"
+	- Verificar guía GUI019 estado "Impuesto en Agencia"
 
 
 02: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: XXXXXXXX 
+ 1 - DNI Fletero: 23456789 // Ver de ajustar el json correspondiente para que funcione.
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas salientes muestra:
-	- N° Guía: GUI012, GUI013, GUI014
+	- N° Guía: GUI017, GUI018, GUI019
 	- Estado encomienda: ImpuestoAgencia
 	- Tipo paquete: S, M, M
 	- CUIT: 30701234565
-	- DNI autorizado a retirar: 28222111 // Sujeto a si es necesario en la pantalla 01 - NO
  4 - Botón: Aceptar
  5 - Mensaje: Operación Exitosa
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI012 estado "EnCaminoARetirarAgencia"
-	- Verificar guía GUI013 estado "EnCaminoARetirarAgencia"
-	- Verificar guía GUI014 estado "EnCaminoARetirarAgencia"
+	- Verificar guía GUI017 estado "EnCaminoARetirarAgencia"
+	- Verificar guía GUI018 estado "EnCaminoARetirarAgencia"
+	- Verificar guía GUI019 estado "EnCaminoARetirarAgencia"
 
 
 03: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: XXXXXXXX 
+ 1 - DNI Fletero: 23456789 // Ver de ajustar el json correspondiente para que funcione.
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas entrantes muestra:
-	- N° Guía: GUI012, GUI013, GUI014
+	- N° Guía: GUI017, GUI018, GUI019
 	- Estado encomienda: EnCaminoARetirarAgencia
 	- Tipo paquete: S, M, M
 	- CUIT: 30701234565
-	- DNI autorizado a retirar: 28222111 // Sujeto a si es necesario en la pantalla 01 - NO
  4 - Botón: Aceptar
  5 - Mensaje: Operación Exitosa
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI012 estado "AdmitidoCDOrigen"
-	- Verificar guía GUI013 estado "AdmitidoCDOrigen"
-	- Verificar guía GUI014 estado "AdmitidoCDOrigen"
+	- Verificar guía GUI017 estado "AdmitidoCDOrigen"
+	- Verificar guía GUI018 estado "AdmitidoCDOrigen"
+	- Verificar guía GUI019 estado "AdmitidoCDOrigen"
 
 
 04: Pantalla "Carga/Descarga - Playero".
- 1 - Patente LMN987
+ 1 - Patente LMN987 // Ver de ajustar el json correspondiente para que funcione.
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Descarga muestra
   - Estado encomienda: AdmitidoCDOrigen
-  - N° Guía: GUI012, GUI013, GUI014
+  - N° Guía: GUI017, GUI018, GUI019
   - Tipo Paquete: S, M, M
   - CUIT: 30701234565
   - CD Origen: CABA
@@ -84,9 +81,9 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI012 estado "EnTransito"
-	- Verificar guía GUI013 estado "EnTransito"
-	- Verificar guía GUI014 estado "EnTransito"
+	- Verificar guía GUI017 estado "EnTransito"
+	- Verificar guía GUI018 estado "EnTransito"
+	- Verificar guía GUI019 estado "EnTransito"
 
 
 // CD Actual: Rosario
@@ -98,7 +95,7 @@ ARCHIVOS
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Descarga muestra
   - Estado encomienda: EnTransito
-  - N° Guía: GUI012, GUI013, GUI014
+  - N° Guía: GUI017, GUI018, GUI019
   - Tipo Paquete: S, M, M
   - CUIT: 30701234565
   - CD Origen: CABA
@@ -108,47 +105,45 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI012 estado "Admitido CD Destino"
-	- Verificar guía GUI013 estado "Admitido CD Destino"
-	- Verificar guía GUI014 estado "Admitido CD Destino"
+	- Verificar guía GUI017 estado "Admitido CD Destino"
+	- Verificar guía GUI018 estado "Admitido CD Destino"
+	- Verificar guía GUI019 estado "Admitido CD Destino"
 
 
 // CD Actual: Rosario
 
 06: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: XXXXXXXX 
+ 1 - DNI Fletero: XXXXXXXX // Sujeto al que pongamos en el json como datos de prueba
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas salientes muestra:
 	- N° Guía: GUI012, GUI013, GUI014
 	- Estado encomienda: AdmitidoCDDestino
 	- Tipo paquete: S, M, M
 	- CUIT: 30701234565
-	- DNI autorizado a retirar: 28222111 // Sujeto a si es necesario en la pantalla 01
  4 - Botón: Aceptar
  5 - Mensaje: Operación Exitosa
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI012 estado "DistribucionUltimaMillaDomicilio"
-	- Verificar guía GUI013 estado "DistribucionUltimaMillaDomicilio"
-	- Verificar guía GUI014 estado "DistribucionUltimaMillaDomicilio"
+	- Verificar guía GUI017 estado "DistribucionUltimaMillaDomicilio"
+	- Verificar guía GUI018 estado "DistribucionUltimaMillaDomicilio"
+	- Verificar guía GUI019 estado "DistribucionUltimaMillaDomicilio"
 
 
 07: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: XXXXXXXX 
+ 1 - DNI Fletero: XXXXXXXX // Sujeto al que pongamos en el json como datos de prueba
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas entrantes muestra:
-	- N° Guía: GUI012, GUI013, GUI014
+	- N° Guía: GUI017, GUI018, GUI019
 	- Estado encomienda: DistribucionUltimaMillaDomicilio
 	- Tipo paquete: S, M, M
 	- CUIT: 30701234565
-	- DNI autorizado a retirar: 28222111 // Sujeto a si es necesario en la pantalla 01
  4 - Botón: Aceptar
  5 - Mensaje: Operación Exitosa
  6 - Finalizar sistema
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI012 estado "Entregado"
-	- Verificar guía GUI013 estado "Entregado"
-	- Verificar guía GUI014 estado "Entregado"
+	- Verificar guía GUI017 estado "Entregado"
+	- Verificar guía GUI018 estado "Entregado"
+	- Verificar guía GUI019 estado "Entregado"
