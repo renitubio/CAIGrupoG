@@ -1,6 +1,6 @@
 ﻿// Entrega en Agencia Córdoba a través de imposición en CC, levantando la encomienda desde el domicilio del cliente Santa Fe
 
-// CD Actual: 2 (CABA)
+// CD Actual: vacío
 // Agencia Actual: vacío
 
 01: Pantalla Imposición de Encomienda - Call Center
@@ -18,8 +18,9 @@
  11 - Botón: Añadir
  12 - Mensaje: "Se añadió un tipo de caja XL a la lista".
  13 - Botón: Confirmar
- 14 - VERIFICAR: Lista Guías Generadas muestra "GUI018, GUI019".
+ 14 - VERIFICAR: Lista Guías Generadas muestra "GUI017, GUI018".
  15 - Botón "Finalizar".
+ 16 - Cerrar pantalla
 
 ARCHIVOS
  - Guías:
@@ -27,56 +28,69 @@ ARCHIVOS
 	- Verificar guía GUI019 estado "Impuesto Call Center"
 
 - HDR:
-	- Verificar HojaDeRuta 4571, ServicioID = 0, FleteroDNI = 34567890, TipoHDREnum= 1, contiene guías GUI018 y GUI019
+	- Verificar HojaDeRuta 4571, ServicioID = 0, FleteroDNI = 34567890, TipoHDREnum= 1, contiene guías GUI017 y GUI018
 
-// CD Actual: CABA
 
-02: Pantalla "Rendición de Fletero" // No debería ser la pantalla de Playero? Se mezclaron los campos.
+
+
+// CD Actual: Santa Fe
+
+02: Pantalla "Rendición de Fletero" 
 
  1 - DNI Fletero: 34567890 
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Encomiendas Salientes muestra:
-	- N° Guía: GUI018, GUI019
+	- N° Guía: GUI017, GUI018
 	- Estado encomienda: ImpuestoCallCenter
 	- Tipo Paquete: XL, XL
-	- CUIT: 20123456789
-	- CD Origen: Santa Fe
-	- CD Destino: Córdoba 
- 4 - Botón: Aceptar
+	- Autorizado a Retirar: 35721855
+	- Destino: "Agencia Leones"
+ 4 - Selecciona ambas guias (GUI017 y GUI018) 
+ 5 - Botón: Aceptar
+ 6 - Cerrar pantalla
 
 ARCHIVOS
  - Guías:
+	- Verificar guía GUI017 estado "EnCaminoARetirarDomicilio"
 	- Verificar guía GUI018 estado "EnCaminoARetirarDomicilio"
-	- Verificar guía GUI019 estado "EnCaminoARetirarDomicilio"
+
+
+
 
 // CD Actual: Santa Fe
 
 03: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: 34567890 // Candidato a funcionar según datos de prueba en json
+ 1 - DNI Fletero: 34567890 
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas Entrantes muestra:
-	- N° Guía: GUI018, GUI019
+	- N° Guía: GUI017, GUI018
 	- Estado encomienda: EnCaminoARetirarDomicilio
 	- Tipo paquete: XL, XL
 	- CUIT: 20123456789
 	- DNI autorizado a retirar: 35721855
- 4 - Botón: Aceptar
- 5 - Mensaje: Operación Exitosa
+ 4 - Selección de ambas guias (GUI017 y GUI018) 
+ 5 - Botón: Aceptar 
  6 - Finalizar sistema
 
 ARCHIVOS
  - Guías:
+	- Verificar guía GUI017 estado "AdmitidoCDOrigen"
 	- Verificar guía GUI018 estado "AdmitidoCDOrigen"
-	- Verificar guía GUI019 estado "AdmitidoCDOrigen"
+
+ - HDR:
+	- Verificar HojaDeRuta 4572, ServicioID = 0, FleteroDNI = 0, TipoHDREnum= 2, contiene guías GUI017 y GUI018
+
+
+
 
 // CD Actual: Santa Fe
 
 04: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente QWE456 // Candidato a funcionar según datos de prueba en json
+ 1 - Patente QWE456 
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Carga muestra
-	- N° Guía: GUI018, GUI019
+	- N° Guía: GUI017, GUI018
 	- Tipo Paquete: XL, XL
 	- CUIT: 20123456789
 	- CD Origen: Santa Fe
@@ -85,8 +99,8 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
+	- Verificar guía GUI017 estado "EnTransito"
 	- Verificar guía GUI018 estado "EnTransito"
-	- Verificar guía GUI019 estado "EnTransito"
 
 
 // CD Actual: Cordoba
