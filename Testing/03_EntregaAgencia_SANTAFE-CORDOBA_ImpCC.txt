@@ -1,6 +1,6 @@
 ﻿// Entrega en Agencia Córdoba a través de imposición en CC, levantando la encomienda desde el domicilio del cliente Santa Fe
 
-// CD Actual: vacío
+// CD Actual: 2 (CABA)
 // Agencia Actual: vacío
 
 01: Pantalla Imposición de Encomienda - Call Center
@@ -8,7 +8,7 @@
  1 - CUIT: 20123456789
  2 - Botón: Buscar Cliente
  3 - Mensaje: "Cliente encontrado: Logística del Litoral S.R.L. Proceda a ingresar la encomienda".
- 4 - Ciudad Destino: Córdoba
+ 4 - Ciudad Destino: Córdoba (4)
  5 - Tipo de entrega: Agencia/CD
  6 - VERIFICAR: Lista Opciones de entrega muestra "Córdoba (Centro de distribución)", "Agencia Leones", "Agencia Oeste".
  7 - Selección: Agencia Leones
