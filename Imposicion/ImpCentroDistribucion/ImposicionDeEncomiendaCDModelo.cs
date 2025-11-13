@@ -223,7 +223,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                         FechaAdmision = DateTime.Now,
 
                         // Lógica de Imposición en Agencia
-                        Estado = EstadoEncomiendaEnum.ImpuestoAgencia, // Estado 2
+                        Estado = EstadoEncomiendaEnum.AdmitidoCDOrigen, // Estado 2
                         RetiroDomicilio = false, // Se entrega en agencia
                         EntregaAgencia = !datosImposicion.EntregaDomicilio, // Es true si NO es a domicilio
                         CDOrigenID = cdOrigenID,

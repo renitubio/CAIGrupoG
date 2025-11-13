@@ -1,0 +1,110 @@
+﻿// Entrega a CD Jujuy desde CD Cordoba (Pantalla Imposición en CD)
+
+CD Actual: Córdoba
+
+00: Pantalla Menu Principal
+	Centro distribución actual: Gran Buenos Aires 
+
+01: Pantalla Imposición de Encomienda - CD
+
+ 1 - CUIT: 30987654321
+ 2 - Botón: Buscar Cliente
+ 3 - Mensaje: "Cliente encontrado. Proceda a ingresar la encomienda".
+ 4 - Ciudad Destino: CABA
+ 5 - Tipo retiro: Agencia/CD
+ 6 - VERIFICAR: Lista Opciones de entrega muestra "Agencia Rapiditas".
+ 7 - DNI autorizado a retirar: 44006228
+ 8 - Tipo de caja: S
+ 9 - Cantidad: 1
+ 10 - Botón: Añadir
+ 10 - Mensaje: "Se añadió un tipo de caja S a la lista".
+ 11 - Botón: Confirmar
+ 12 - VERIFICAR: Lista Guías Generadas muestra "GUI017".
+ 13 - Botón "Finalizar".
+
+ARCHIVOS
+ - Guías:
+	- VERIFICAR: Guías.json 
+	- GUIA017 
+	- "TipoPaquete" 1,
+	- "Estado":2,
+	- "CDDestinoID":2
+	- "ClienteCUIT":"30987654321"
+	- "CDOrigenID":5,
+	- "Importe":3500.00,
+	- "DNIAutorizadoRetirar":"44006228",
+	- "DomicilioDestino":"",
+	- "EntregaDomicilio":false,
+	- "FechaAdmision":"2025-11-12T20:33:13.6354526-03:00",
+	- "RetiroDomicilio":false,
+	- "EntregaAgencia":true,
+	- "NumeroFactura":0,
+	- "AgenciaDestinoID":40,
+	- "Fecha": Verificar que la fecha sea la actual.
+
+- Hojas de Ruta:
+	-VERIFICAR: HojasDeRuta.json
+	- "HDR_ID":4571,
+	- "ServicioID":0,
+	- "FechaCreacion":"2025-11-12T21:18:14.8327647-03:00",
+	- "FleteroDNI":"34567890"
+	- "Tipo":2
+	- "Completada":false,
+	- "Guias": VERIFICAR QUE LOS DATOS DE LA GUIA COINCIDAN CON LA GUIA AÑADIDA EN EL PASO PREVIO.
+
+// CD Actual: Gran Buenos Aires
+
+02: Pantalla "Carga/Descarga Playero"
+
+ 1 - Patente XXXXXX
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Carga muestra
+	- N° Guía: GUI016, GUI017
+	- Tipo Paquete: L, L,
+	- CUIT: 33654321097
+	- CD Origen: Córdoba
+	- CD Destino: Jujuy
+ 4 - Botón: Aceptar
+
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI016 estado "En tránsito"
+	- Verificar guía GUI017 estado "En tránsito"
+
+// CD Actual: Jujuy
+
+03: Pantalla "Carga/Descarga Playero"
+
+ 1 - Patente XXXXXX
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Descarga muestra
+	- N° Guía: GUI016, GUI017
+	- Tipo Paquete: L, L,
+	- CUIT: 33654321097
+	- CD Origen: Córdoba
+	- CD Destino: Jujuy
+ 4 - Botón: Aceptar
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI016 estado "AdmitidoCDDestino"
+	- Verificar guía GUI017 estado "AdmitidoCDDestino"
+
+// CD Actual: Jujuy
+
+04: Pantalla "Entrega Encomienda - CD"
+ 1 - DNI: 32456987
+ 2 - Botón: Buscar
+ 3 - VERIFICAR: Lista Guías Asociadas muestra
+	- N° Guía: GUI016, GUI017
+	- Estado: AdmitidoCDDestino
+	- Tipo Paquete: L, L,
+ 4 - Botón: Retirar
+ 5 - Mensaje: "Operación exitosa".
+ 6 - Finalizar sistema
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI016 estado "Entregada"
+	- Verificar guía GUI017 estado "Entregada"
