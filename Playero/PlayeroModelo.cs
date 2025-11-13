@@ -48,13 +48,13 @@ namespace CAIGrupoG.Playero
             var patenteUpper = patente.ToUpper();
 
             // 1. Identificar el Servicio de CARGA PENDIENTE (Salida desde NuestroCD)
-            var servicioCarga = ServicioAlmacen.servicios
+            var servicioCarga = ServicioAlmacen.Servicios
                 .Where(s => s.Patente.ToUpper() == patenteUpper && s.CDOrigen == NuestroCD)
                 .OrderBy(s => s.FechaHoraSalida)
                 .FirstOrDefault();
 
             // 2. Identificar el Servicio de DESCARGA PENDIENTE (Llegada a NuestroCD)
-            var servicioDescarga = ServicioAlmacen.servicios
+            var servicioDescarga = ServicioAlmacen.Servicios
                 .Where(s => s.Patente.ToUpper() == patenteUpper && s.CDDestino == NuestroCD)
                 .OrderBy(s => s.FechaHoraLlegada)
                 .FirstOrDefault();
@@ -228,7 +228,7 @@ namespace CAIGrupoG.Playero
 
             if (hojaDeRuta != null)
             {
-                var servicio = ServicioAlmacen.servicios.FirstOrDefault(s => s.ServicioID == servicioID);
+                var servicio = ServicioAlmacen.Servicios.FirstOrDefault(s => s.ServicioID == servicioID);
 
                 EstadoEncomiendaEnum estadoFinalRequerido;
 
