@@ -29,7 +29,7 @@
     "ClienteCUIT": "20123456789",
     "Direccion": "San Martin 500, Rosario, Santa Fe",
     "RazonSocial": "Logística del Litoral SRL",
-    "CDOrigen": 2,
+    "CDOrigen": 5,
     "Tarifas": [
       {
         "TipoPaquete": 1,
@@ -51,8 +51,8 @@
       },
       {
         "TipoPaquete": 4,
-        "CDOrigen": 2,
-        "CDDestino": 1,
+        "CDOrigen": 5,
+        "CDDestino": 4,
         "Precio": 3000.00
       }
     ]

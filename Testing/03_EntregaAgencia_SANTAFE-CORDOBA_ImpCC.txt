@@ -1,7 +1,7 @@
 ﻿// Entrega en Agencia Córdoba a través de imposición en CC, levantando la encomienda desde el domicilio del cliente Santa Fe
 
-CD Actual: vacío?
-Agencia Actual: vacío?
+// CD Actual: vacío
+// Agencia Actual: vacío
 
 01: Pantalla Imposición de Encomienda - Call Center
 
@@ -9,7 +9,7 @@ Agencia Actual: vacío?
  2 - Botón: Buscar Cliente
  3 - Mensaje: "Cliente encontrado: Logística del Litoral S.R.L. Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Córdoba
- 5 - Tipo retiro: Agencia/CD
+ 5 - Tipo de entrega: Agencia/CD
  6 - VERIFICAR: Lista Opciones de entrega muestra "Córdoba (Centro de distribución)", "Agencia Leones", "Agencia Oeste".
  7 - Selección: Agencia Leones
  8 - DNI autorizado a retirar: 35721855
@@ -30,7 +30,7 @@ ARCHIVOS
 
 02: Pantalla "Rendición de Fletero"
 
- 1 - Patente XXXXXX
+ 1 - DNI Fletero: 34567890 // Candidato a funcionar según datos de prueba en json
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Encomiendas Salientes muestra:
 	- N° Guía: GUI018, GUI019
@@ -38,7 +38,7 @@ ARCHIVOS
 	- Tipo Paquete: XL, XL
 	- CUIT: 20123456789
 	- CD Origen: Santa Fe
-	- CD Destino: Córdoba // ¿Debería poder decir también AgenciaDestino?
+	- CD Destino: Córdoba // ¿Debería poder decir también AgenciaDestino? Dejo en DS el código propuesto para solucionar esto.
  4 - Botón: Aceptar
 
 ARCHIVOS
@@ -49,7 +49,7 @@ ARCHIVOS
 // CD Actual: Santa Fe
 
 03: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: XXXXXXXX 
+ 1 - DNI Fletero: 34567890 // Candidato a funcionar según datos de prueba en json
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas Entrantes muestra:
 	- N° Guía: GUI018, GUI019
@@ -70,7 +70,7 @@ ARCHIVOS
 
 04: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente XXXXXX
+ 1 - Patente QWE456 // Candidato a funcionar según datos de prueba en json
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Carga muestra
 	- N° Guía: GUI018, GUI019
@@ -90,7 +90,7 @@ ARCHIVOS
 
 05: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente XXXXXX
+ 1 - Patente AD123GG // Candidato a funcionar según datos de prueba en json
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Descarga muestra
 	- N° Guía: GUI018, GUI019
@@ -109,7 +109,7 @@ ARCHIVOS
 // CD Actual: Cordoba
 
 06: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: XXXXXXXX 
+ 1 - DNI Fletero: 34567890 // Candidato a funcionar según datos de prueba en json
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas Salientes muestra:
 	- N° Guía: GUI018, GUI019
@@ -128,7 +128,7 @@ ARCHIVOS
 // CD Actual: Cordoba
 
 07: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: XXXXXXXX 
+ 1 - DNI Fletero: 34567890 // Candidato a funcionar según datos de prueba en json
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas entrantes muestra:
 	- N° Guía: GUI018, GUI019
