@@ -71,7 +71,6 @@ ARCHIVOS
  1 - Patente AEL096 // Patente de un servicio que cubre el trayecto 02 (CABA) a 03 (Rosario)
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Carga muestra
-  - Estado encomienda: AdmitidoCDOrigen
   - N° Guía: GUI017, GUI018, GUI019
   - Tipo Paquete: S, M, M
   - CUIT: 30701234565
@@ -82,9 +81,9 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI017 estado "EnTransito"
-	- Verificar guía GUI018 estado "EnTransito"
-	- Verificar guía GUI019 estado "EnTransito"
+	- Verificar guía GUI017 estado "En Transito"
+	- Verificar guía GUI018 estado "En Transito"
+	- Verificar guía GUI019 estado "En Transito"
 
 
 // CD Actual: Rosario
@@ -92,10 +91,9 @@ ARCHIVOS
 
 
 05: Pantalla "Carga/Descarga - Playero".
- 1 - Patente Patente de un servicio que cubre el trayecto 02 (CABA) a 03 (Rosario)
+ 1 - Patente: AEL096 // Patente de un servicio que cubre el trayecto 02 (CABA) a 03 (Rosario)
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Descarga muestra
-  - Estado encomienda: EnTransito
   - N° Guía: GUI017, GUI018, GUI019
   - Tipo Paquete: S, M, M
   - CUIT: 30701234565
@@ -106,9 +104,9 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI017 estado "Admitido CD Destino"
-	- Verificar guía GUI018 estado "Admitido CD Destino"
-	- Verificar guía GUI019 estado "Admitido CD Destino"
+	- Verificar guía GUI017 estado "En CD Destino"
+	- Verificar guía GUI018 estado "En CD Destino"
+	- Verificar guía GUI019 estado "En CD Destino"
 
 
 // CD Actual: Rosario

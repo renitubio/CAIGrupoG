@@ -120,102 +120,120 @@ namespace CAIGrupoG.Playero
 
             return (cargas, descargas);
         }
-
         // Método principal para confirmar y procesar la operación
         public Dictionary<string, List<GuiaEntidad>> ConfirmarOperacion(List<Guia> cargasSeleccionadas, List<Guia> descargasSeleccionadas)
         {
             if (NuestroCD == 0)
                 return new Dictionary<string, List<GuiaEntidad>>(); // No hay CD seleccionado, no procesar
 
-            if ((cargasSeleccionadas == null || !cargasSeleccionadas.Any()) && (descargasSeleccionadas == null || !descargasSeleccionadas.Any()))
+            if ((cargasSeleccionadas == null || !cargasSeleccionadas.Any()) && (descargasSeleccionadas == null || !descargasSeleccionadas.Any()))
             {
                 throw new ArgumentException("Debe seleccionar al menos una guía para Cargar o Descargar.");
             }
 
             var serviciosAfectados = new HashSet<int>();
-            // 1. Actualización de Estados para Cargas (Estado 5 -> 6: EnTransito)
-            if (cargasSeleccionadas != null)
+            var agrupadasParaDistribucion = new Dictionary<string, List<GuiaEntidad>>();
+
+            // 1. Actualización de Estados para Cargas (Estado 5 -> 6: EnTransito)
+            if (cargasSeleccionadas != null && cargasSeleccionadas.Any())
             {
-                foreach (var guia in cargasSeleccionadas)
+                // Convertir Guia (Vista) a GuiaEntidad (Almacén)
+                var cargasSeleccionadasEntidad = cargasSeleccionadas
+          .Select(g => GuiaAlmacen.Guias.FirstOrDefault(ge => ge.NumeroGuia == g.NumeroGuia))
+          .Where(ge => ge != null)
+          .ToList();
+
+                // Encontrar el ServicioID basado en la primera guía
+                // (Asumimos que todas las guías en la carga van al mismo destino)
+                var primeraGuiaCarga = cargasSeleccionadasEntidad.First();
+                var servicioCarga = ServicioAlmacen.Servicios.FirstOrDefault(s =>
+                  s.CDOrigen == primeraGuiaCarga.CDOrigenID &&
+                  s.CDDestino == primeraGuiaCarga.CDDestinoID);
+
+                if (servicioCarga != null)
                 {
-                    var guiaEnAlmacen = GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == guia.NumeroGuia);
-                    if (guiaEnAlmacen != null)
+                    // ⚠️ ARREGLO: Crear la Hoja de Ruta para este servicio
+                    int ultimoId = HojaDeRutaAlmacen.HojasDeRuta.Any() ? HojaDeRutaAlmacen.HojasDeRuta.Max(h => h.HDR_ID) : 0;
+                    var nuevaHDR = new HojaDeRutaEntidad
                     {
-                        guiaEnAlmacen.Estado = EstadoEncomiendaEnum.EnTransito; // Estado 6
-                        GuiaAlmacen.Actualizar(guiaEnAlmacen);
+                        HDR_ID = ++ultimoId,
+                        ServicioID = servicioCarga.ServicioID, // <-- Asocia al camión
+                        FechaCreacion = DateTime.Now,
+                        FleteroDNI = string.Empty, // No es de fletero, es de transporte
+                        Tipo = TipoHDREnum.Transporte, // Asumo que tienes un Enum para esto (ej. Tipo 2)
+                        Completada = false,
+                        Guias = cargasSeleccionadasEntidad.Select(g => new GuiaEntidad { NumeroGuia = g.NumeroGuia }).ToList()
+                    };
+                    HojaDeRutaAlmacen.Nuevo(nuevaHDR); // Usa el método 'Nuevo' de tu almacén
+                    serviciosAfectados.Add(servicioCarga.ServicioID);
+                }
 
-                        var hoja = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h =>
-                        h.Guias.Any(g => g.NumeroGuia == guia.NumeroGuia) &&
-                        h.Completada == false);
-
-                        if (hoja != null && hoja.ServicioID > 0)
-                        {
-                            serviciosAfectados.Add(hoja.ServicioID);
-                        }
-                    }
+                // Ahora sí, cambiar el estado
+                foreach (var guiaEntidad in cargasSeleccionadasEntidad)
+                {
+                    guiaEntidad.Estado = EstadoEncomiendaEnum.EnTransito; // Estado 6
+                    GuiaAlmacen.Actualizar(guiaEntidad);
                 }
             }
 
-            var agrupadasParaDistribucion = new Dictionary<string, List<GuiaEntidad>>();
-
-            // 2. Actualización de Estados para Descargas (Estado 6 -> 7: AdmitidoCDDestino)
-            if (descargasSeleccionadas != null)
+            // 2. Actualización de Estados para Descargas (Estado 6 -> 7: AdmitidoCDDestino)
+            if (descargasSeleccionadas != null && descargasSeleccionadas.Any())
             {
-                // Casteo de descargasSeleccionadas a GuiaEntidad
                 var descargasSeleccionadasEntidad = descargasSeleccionadas
-                    .Select(g => GuiaAlmacen.Guias.FirstOrDefault(ge => ge.NumeroGuia == g.NumeroGuia))
-                    .Where(ge => ge != null)
-                    .ToList();
+                  .Select(g => GuiaAlmacen.Guias.FirstOrDefault(ge => ge.NumeroGuia == g.NumeroGuia))
+                  .Where(ge => ge != null)
+                  .ToList();
 
                 foreach (var guiaEntidad in descargasSeleccionadasEntidad)
                 {
                     guiaEntidad.Estado = EstadoEncomiendaEnum.AdmitidoCDDestino; // Estado 7
-                    GuiaAlmacen.Actualizar(guiaEntidad);
+                    GuiaAlmacen.Actualizar(guiaEntidad);
                     var hoja = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h =>
                     h.Guias.Any(g => g.NumeroGuia == guiaEntidad.NumeroGuia) &&
                     h.Completada == false);
 
                     if (hoja != null && hoja.ServicioID > 0)
                     {
-                        // Un servicio de descarga es el que tiene CDDestino == NuestroCD
-                        // Si la guía estaba en este servicio, se marca como afectado.
                         serviciosAfectados.Add(hoja.ServicioID);
                     }
                 }
 
-                // 3. Agrupar Descargas para la futura Hoja de Ruta de Distribución
-
-                var porDomicilio = descargasSeleccionadasEntidad
-                    .Where(g => g.EntregaDomicilio)
-                    .GroupBy(g => g.DomicilioDestino)
-                    .ToDictionary(g => $"Domicilio: {g.Key}", g => g.ToList());
+                // 3. Agrupar Descargas para la futura Hoja de Ruta de Distribución
+                var porDomicilio = descargasSeleccionadasEntidad
+          .Where(g => g.EntregaDomicilio)
+          .GroupBy(g => g.DomicilioDestino)
+          .ToDictionary(g => $"Domicilio: {g.Key}", g => g.ToList());
                 foreach (var kvp in porDomicilio)
                     agrupadasParaDistribucion[kvp.Key] = kvp.Value;
 
                 var porAgencia = descargasSeleccionadasEntidad
-                    .Where(g => g.EntregaAgencia)
-                    .GroupBy(g => g.AgenciaDestinoID)
-                    .ToDictionary(g => $"Agencia: {g.Key}", g => g.ToList());
+                  .Where(g => g.EntregaAgencia)
+                  .GroupBy(g => g.AgenciaDestinoID)
+                  .ToDictionary(g => $"Agencia: {g.Key}", g => g.ToList());
                 foreach (var kvp in porAgencia)
                     agrupadasParaDistribucion[kvp.Key] = kvp.Value;
 
                 var enCD = descargasSeleccionadasEntidad
-                    .Where(g => !g.EntregaDomicilio && !g.EntregaAgencia)
-                    .ToList();
+                  .Where(g => !g.EntregaDomicilio && !g.EntregaAgencia)
+                  .ToList();
                 if (enCD.Any())
                     agrupadasParaDistribucion["Entrega en CD"] = enCD;
 
                 // 4. Crear Hoja de Ruta de Distribución solo si hay guías para descargar/distribuir
+
                 if (agrupadasParaDistribucion.Any())
                 {
                     CrearHojasDeRutaDistribucion(agrupadasParaDistribucion);
                 }
             }
-            foreach (var servicioID in serviciosAfectados)
+
+            // 5. Marcar Hojas de Ruta como completadas
+            foreach (var servicioID in serviciosAfectados)
             {
                 MarcarHojaDeRutaComoCompletaSiEsNecesario(servicioID);
             }
-            // 5. Persistencia de datos
+
+            // 6. Persistencia de datos
             GuiaAlmacen.Grabar();
             HojaDeRutaAlmacen.Grabar();
 
@@ -224,7 +242,7 @@ namespace CAIGrupoG.Playero
         public void MarcarHojaDeRutaComoCompletaSiEsNecesario(int servicioID)
         {
             var hojaDeRuta = HojaDeRutaAlmacen.HojasDeRuta
-                .FirstOrDefault(h => h.ServicioID == servicioID && h.Completada == false);
+              .FirstOrDefault(h => h.ServicioID == servicioID && h.Completada == false);
 
             if (hojaDeRuta != null)
             {
@@ -234,32 +252,25 @@ namespace CAIGrupoG.Playero
 
                 if (servicio != null)
                 {
-                    if (servicio.CDOrigen == NuestroCD)
+                    // ⚠️ ARREGLO: Solo nos importa si es un servicio de DESCARGA
+                    if (servicio.CDDestino == NuestroCD)
                     {
-                        // Es un servicio de CARGA: la guía debe estar en EnTransito (Estado 6).
-                        estadoFinalRequerido = EstadoEncomiendaEnum.EnTransito;
-                    }
-                    else if (servicio.CDDestino == NuestroCD)
-                    {
-                        // Es un servicio de DESCARGA: la guía debe estar en AdmitidoCDDestino (Estado 7).
-                        estadoFinalRequerido = EstadoEncomiendaEnum.AdmitidoCDDestino;
-                    }
-                    else
-                    {
-                        return; // Si no es ni origen ni destino de nuestro CD, no debe afectar.
-                    }
+                        // Es un servicio de DESCARGA: la guía debe estar en AdmitidoCDDestino (Estado 7).
+                        estadoFinalRequerido = EstadoEncomiendaEnum.AdmitidoCDDestino;
 
-                    // 2. Verificar si TODAS las guías de esta HDR han alcanzado el estado final REQUERIDO.
-                    bool todasCompletadas = hojaDeRuta.Guias.All(guiaHDR =>
+                        // 2. Verificar si TODAS las guías de esta HDR han alcanzado el estado final REQUERIDO.
+                        bool todasCompletadas = hojaDeRuta.Guias.All(guiaHDR =>
                         GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == guiaHDR.NumeroGuia)?.Estado == estadoFinalRequerido);
 
-                    // 3. Si todas las guías de la HDR están listas, marcamos la HDR como Completa.
-                    if (todasCompletadas)
-                    {
-                        hojaDeRuta.Completada = true;
-                        // La persistencia se realiza con HojaDeRutaAlmacen.Grabar() al final de ConfirmarOperacion.
+                        // 3. Si todas las guías de la HDR están listas, marcamos la HDR como Completa.
+                        if (todasCompletadas)
+                        {
+                            hojaDeRuta.Completada = true;
+                        }
                     }
-                }
+                    // Si es un servicio de CARGA (CDOrigen == NuestroCD), no hacemos nada.
+                    // La HDR debe permanecer "Completada": false hasta que llegue a destino.
+                }
             }
         }
 
