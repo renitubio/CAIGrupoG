@@ -8,15 +8,12 @@ Agencia Actual: vacío?
  1 - CUIT: 20123456789
  2 - Botón: Buscar Cliente
  3 - Mensaje: "Cliente encontrado: Logística del Litoral S.R.L. Proceda a ingresar la encomienda".
-
-// Deberíamos tener una sección de "Retiro en Origen"? O algo que nos permita ir a buscar la encomienda al domicilio del Cliente que está llamando y luego viaje a la Agencia.
-
  4 - Ciudad Destino: Córdoba
  5 - Tipo retiro: Agencia/CD
  6 - VERIFICAR: Lista Opciones de entrega muestra "Córdoba (Centro de distribución)", "Agencia Leones", "Agencia Oeste".
  7 - Selección: Agencia Leones
  8 - DNI autorizado a retirar: 35721855
- 9 - Tipo de caja: L
+ 9 - Tipo de caja: XL
  10 - Cantidad: 2
  11 - Botón: Añadir
  12 - Mensaje: "Se añadió un tipo de caja XL a la lista".
@@ -31,12 +28,13 @@ ARCHIVOS
 
 // CD Actual: Santa Fe
 
-02: Pantalla "Carga/Descarga Playero"
+02: Pantalla "Rendición de Fletero"
 
  1 - Patente XXXXXX
  2 - Botón: Buscar Guías
- 3 - VERIFICAR: Lista Carga muestra
+ 3 - VERIFICAR: Lista Encomiendas Salientes muestra:
 	- N° Guía: GUI018, GUI019
+	- Estado encomienda: ImpuestoCallCenter
 	- Tipo Paquete: XL, XL
 	- CUIT: 20123456789
 	- CD Origen: Santa Fe
@@ -51,7 +49,7 @@ ARCHIVOS
 // CD Actual: Santa Fe
 
 03: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: XXXXXXXX // Asociar un DNI a una patente?
+ 1 - DNI Fletero: XXXXXXXX 
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas Entrantes muestra:
 	- N° Guía: GUI018, GUI019
@@ -108,15 +106,53 @@ ARCHIVOS
 	- Verificar guía GUI019 estado "AdmitidoCDDestino"
 
 
-// 06: Desde "Carga/Descarga Playero" cargaríamos las encomiendas con destino a la Agencia?
+// CD Actual: Cordoba
 
-07: Pantalla "Entrega Encomienda - Agencia"
+06: Pantalla "Rendición de Fletero"
+ 1 - DNI Fletero: XXXXXXXX 
+ 2 - Botón "Buscar Guías"
+ 3 - VERIFICAR: Lista Encomiendas Salientes muestra:
+	- N° Guía: GUI018, GUI019
+	- Estado encomienda: AdmitidoCDDestino
+	- Tipo paquete: XL, XL
+	- CUIT: 20123456789
+	- DNI autorizado a retirar: 35721855
+ 4 - Botón: Aceptar
+ 5 - Mensaje: Operación Exitosa
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "DistribucionUltimaMillaAgencia"
+	- Verificar guía GUI019 estado "DistribucionUltimaMillaAgencia"
+
+// CD Actual: Cordoba
+
+07: Pantalla "Rendición de Fletero"
+ 1 - DNI Fletero: XXXXXXXX 
+ 2 - Botón "Buscar Guías"
+ 3 - VERIFICAR: Lista Encomiendas entrantes muestra:
+	- N° Guía: GUI018, GUI019
+	- Estado encomienda: DistribucionUltimaMillaAgencia
+	- Tipo paquete: XL, XL
+	- CUIT: 20123456789
+	- DNI autorizado a retirar: 35721855
+ 4 - Botón: Aceptar
+ 5 - Mensaje: Operación Exitosa
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "AgenciaDestino"
+	- Verificar guía GUI019 estado "AgenciaDestino"
+
+//Agencia: Agencia Leones
+
+08: Pantalla "Entrega Encomienda - Agencia"
 
  1 - DNI: 35721855
  2 - Botón: Buscar
  3 - VERIFICAR: Lista Guías Asociadas muestra
 	- N° Guía: GUI018, GUI019
-	- Estado: AdmitidoCDDestino
+	- Estado: AgenciaDestino
 	- Tipo Paquete: XL, XL,
  4 - Botón: Retirar
  5 - Mensaje: "Operación exitosa".

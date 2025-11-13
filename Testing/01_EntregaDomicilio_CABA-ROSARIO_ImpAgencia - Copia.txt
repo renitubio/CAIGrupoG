@@ -42,7 +42,6 @@ ARCHIVOS
 	- DNI autorizado a retirar: 28222111 // Sujeto a si es necesario en la pantalla 01 - NO
  4 - Botón: Aceptar
  5 - Mensaje: Operación Exitosa
- 6 - Finalizar sistema
 
 ARCHIVOS
  - Guías:
@@ -54,7 +53,7 @@ ARCHIVOS
 03: Pantalla "Rendición de Fletero"
  1 - DNI Fletero: XXXXXXXX 
  2 - Botón "Buscar Guías"
- 3 - VERIFICAR: Lista Encomiendas salientes muestra:
+ 3 - VERIFICAR: Lista Encomiendas entrantes muestra:
 	- N° Guía: GUI012, GUI013, GUI014
 	- Estado encomienda: EnCaminoARetirarAgencia
 	- Tipo paquete: S, M, M
@@ -62,7 +61,6 @@ ARCHIVOS
 	- DNI autorizado a retirar: 28222111 // Sujeto a si es necesario en la pantalla 01 - NO
  4 - Botón: Aceptar
  5 - Mensaje: Operación Exitosa
- 6 - Finalizar sistema
 
 ARCHIVOS
  - Guías:
@@ -128,7 +126,6 @@ ARCHIVOS
 	- DNI autorizado a retirar: 28222111 // Sujeto a si es necesario en la pantalla 01
  4 - Botón: Aceptar
  5 - Mensaje: Operación Exitosa
- 6 - Finalizar sistema
 
 ARCHIVOS
  - Guías:
@@ -140,7 +137,7 @@ ARCHIVOS
 07: Pantalla "Rendición de Fletero"
  1 - DNI Fletero: XXXXXXXX 
  2 - Botón "Buscar Guías"
- 3 - VERIFICAR: Lista Encomiendas salientes muestra:
+ 3 - VERIFICAR: Lista Encomiendas entrantes muestra:
 	- N° Guía: GUI012, GUI013, GUI014
 	- Estado encomienda: DistribucionUltimaMillaDomicilio
 	- Tipo paquete: S, M, M
