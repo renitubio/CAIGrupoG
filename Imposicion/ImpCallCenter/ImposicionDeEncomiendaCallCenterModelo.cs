@@ -174,7 +174,15 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
             // Es mejor que devolver 0, para no permitir envíos gratis por error.
             throw new InvalidOperationException($"No se encontró una tarifa para el cliente {_clienteActual.ClienteCUIT}, Paquete: {tipoPaquete}, Origen: {cdOrigen}, Destino: {cdDestino}");
         }
-
+        private FleteroEntidad BuscarFletero(int cdOrigen)
+        {
+            var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.CD_ID == cdOrigen);
+            if (fletero == null)
+            {
+                throw new InvalidOperationException($"No se encontró un fletero para el CD Origen ID: {cdOrigen}");
+            }
+            return fletero;
+        }
         #endregion
 
         #region Lógica de Confirmación (Crear Guía y Hoja de Ruta)
@@ -182,26 +190,32 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
         public List<string> ConfirmarImposicion(DatosImposicion datosImposicion)
         {
             if (_clienteActual == null)
-            {
                 throw new InvalidOperationException("Cliente no encontrado.");
-            }
 
             int cdOrigenID = _clienteActual.CDOrigen;
+
+            // Se buscan todas las guías generadas para crear una sola HojaDeRuta
             var guiasEntidadCreadas = new List<GuiaEntidad>();
+
+            // Buscar el fletero del CD
+            var fleteroAsignado = BuscarFletero(cdOrigenID);
 
             foreach (var item in datosImposicion.Items)
             {
-                // Convertimos el string "S" de nuevo al Enum S
-                TipoPaqueteEnum tipoPaquete = (TipoPaqueteEnum)Enum.Parse(typeof(TipoPaqueteEnum), item.Key);
+                TipoPaqueteEnum tipoPaquete =
+                    (TipoPaqueteEnum)Enum.Parse(typeof(TipoPaqueteEnum), item.Key);
+
                 int cantidad = item.Value;
 
-                // Creamos 'cantidad' guías de este 'tipoPaquete'
                 for (int i = 0; i < cantidad; i++)
                 {
                     string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
-                    int cdDestinoReal = ObtenerCDPorCiudad(datosImposicion.CDDestinoID)?.Id
-                    ?? datosImposicion.CDDestinoID;
-                    decimal importeCalculado = CalcularImporte(tipoPaquete, cdOrigenID, cdDestinoReal);
+
+                    int cdDestinoReal =
+                        ObtenerCDPorCiudad(datosImposicion.CDDestinoID)?.Id
+                        ?? datosImposicion.CDDestinoID;
+
+                    decimal importe = CalcularImporte(tipoPaquete, cdOrigenID, cdDestinoReal);
 
                     var entidad = new GuiaEntidad
                     {
@@ -209,21 +223,21 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                         ClienteCUIT = _clienteActual.ClienteCUIT,
                         FechaAdmision = DateTime.Now,
 
-                        // Lógica de Imposición en Agencia
                         Estado = EstadoEncomiendaEnum.ImpuestoCallCenter,
-                        RetiroDomicilio = false, // Se entrega en agencia
-                        EntregaAgencia = !datosImposicion.EntregaDomicilio, // Es true si NO es a domicilio
+                        RetiroDomicilio = false,
+                        EntregaAgencia = !datosImposicion.EntregaDomicilio,
                         TipoPaquete = tipoPaquete,
                         CDOrigenID = cdOrigenID,
+
                         DNIAutorizadoRetirar = datosImposicion.DNIAutorizadoRetirar,
                         EntregaDomicilio = datosImposicion.EntregaDomicilio,
                         DomicilioDestino = datosImposicion.EntregaDomicilio ? datosImposicion.DomicilioDestino : "",
                         AgenciaDestinoID = datosImposicion.AgenciaDestinoID,
                         CDDestinoID = datosImposicion.CDDestinoID,
 
-                        Importe = importeCalculado, // El precio se calculará después
+                        Importe = importe,
                         NumeroFactura = 0,
-                        Fecha = DateTime.Now // Asignamos la propiedad 'Fecha'
+                        Fecha = DateTime.Now
                     };
 
                     GuiaAlmacen.Nuevo(entidad);
@@ -231,9 +245,35 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                 }
             }
 
+            // Guardar guías
             GuiaAlmacen.Grabar();
+
+            // Crear UNA sola HDR con TODAS las guías
+            CrearHojaDeRuta(guiasEntidadCreadas, fleteroAsignado, TipoHDREnum.Retiro);
+
             return guiasEntidadCreadas.Select(g => g.NumeroGuia).ToList();
         }
+
+        private void CrearHojaDeRuta(List<GuiaEntidad> guias, FleteroEntidad fletero, TipoHDREnum tipo)
+        {
+            if (guias == null || guias.Count == 0 || fletero == null)
+                return;
+
+            var nuevaHdr = new HojaDeRutaEntidad
+            {
+                HDR_ID = _proximoIdHDR++,
+                FechaCreacion = DateTime.Now,
+                FleteroDNI = fletero.FleteroDNI,   // ← fletero asignado
+                Tipo = tipo,                       // ← ahora es RETIRO
+                Completada = false,
+                Guias = guias,
+                ServicioID = 0                     // no aplica en RETIRO
+            };
+
+            HojaDeRutaAlmacen.Nuevo(nuevaHdr);
+            HojaDeRutaAlmacen.Grabar();
+        }
+
 
         #endregion
     }

@@ -38,6 +38,24 @@
         "Precio": 1800.75
       },
       {
+        "TipoPaquete": 1,
+        "CDOrigen": 5,
+        "CDDestino": 3,
+        "Precio": 3000.00
+      },
+      {
+        "TipoPaquete": 1,
+        "CDOrigen": 5,
+        "CDDestino": 4,
+        "Precio": 3000.00
+      },
+      {
+        "TipoPaquete": 4,
+        "CDOrigen": 5,
+        "CDDestino": 4,
+        "Precio": 3000.00
+      },
+      {
         "TipoPaquete": 2,
         "CDOrigen": 5,
         "CDDestino": 3,
