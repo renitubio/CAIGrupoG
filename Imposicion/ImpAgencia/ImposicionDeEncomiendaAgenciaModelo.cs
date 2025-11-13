@@ -13,13 +13,14 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
     public class ImposicionDeEncomiendaAgenciaModelo
     {
         private ClienteEntidad ?_clienteActual;
-
+        private static int _proximoIdHDR = 1;
         private static int _proximoNumeroGuia = 1;
 
         //Preguntar a andres.
         public ImposicionDeEncomiendaAgenciaModelo()
         {
             BuscarUltimaGuia();
+            BuscarUltimoIdHDR();
         }
 
         public Cliente BuscarCliente(string cuit)
@@ -149,6 +150,25 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                 _proximoNumeroGuia = 1; // Fallback en caso de error
             }
         }
+        private static void BuscarUltimoIdHDR()
+        {
+            var hdrs = HojaDeRutaAlmacen.HojasDeRuta;
+
+            if (hdrs == null || hdrs.Count == 0)
+            {
+                _proximoIdHDR = 4568;
+                return;
+            }
+            try
+            {
+                int maxId = hdrs.Max(h => h.HDR_ID);
+                _proximoIdHDR = maxId + 1;
+            }
+            catch
+            {
+                _proximoIdHDR = 4568;
+            }
+        }
 
         private decimal CalcularImporte(TipoPaqueteEnum tipoPaquete, int cdOrigen, int cdDestino)
         {
@@ -176,25 +196,36 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
         public List<string> ConfirmarImposicion(DatosImposicion datosImposicion)
         {
             if (_clienteActual == null)
-            {
-                throw new InvalidOperationException("Cliente no encontrado. Se debe buscar un cliente válido primero.");
-            }
+                throw new InvalidOperationException("Cliente no encontrado.");
+
             int cdOrigenID = _clienteActual.CDOrigen;
+
+            var guiasEntidadCreadas = new List<GuiaEntidad>();
             var guiasGeneradas = new List<string>();
+
+            // Buscar fletero asignado al CD
+            var fleteroAsignado = FleteroAlmacen.Fleteros
+                .FirstOrDefault(f => f.CD_ID == cdOrigenID);
+
+            if (fleteroAsignado == null)
+                throw new InvalidOperationException($"No existe fletero asignado al CD {cdOrigenID}.");
 
             foreach (var item in datosImposicion.Items)
             {
-                // Convertimos el string "S" de nuevo al Enum S
-                TipoPaqueteEnum tipoPaquete = (TipoPaqueteEnum)Enum.Parse(typeof(TipoPaqueteEnum), item.Key);
+                TipoPaqueteEnum tipoPaquete =
+                    (TipoPaqueteEnum)Enum.Parse(typeof(TipoPaqueteEnum), item.Key);
+
                 int cantidad = item.Value;
 
-                // Creamos 'cantidad' guías de este 'tipoPaquete'
                 for (int i = 0; i < cantidad; i++)
                 {
                     string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
-                    int cdDestinoReal = ObtenerCDPorCiudad(datosImposicion.CDDestinoID)?.Id
-                    ?? datosImposicion.CDDestinoID;
-                    decimal importeCalculado = CalcularImporte(tipoPaquete, cdOrigenID, cdDestinoReal);
+
+                    int cdDestinoReal =
+                        ObtenerCDPorCiudad(datosImposicion.CDDestinoID)?.Id
+                        ?? datosImposicion.CDDestinoID;
+
+                    decimal importe = CalcularImporte(tipoPaquete, cdOrigenID, cdDestinoReal);
 
                     var entidad = new GuiaEntidad
                     {
@@ -202,33 +233,60 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                         ClienteCUIT = _clienteActual.ClienteCUIT,
                         FechaAdmision = DateTime.Now,
 
-                        // Lógica de Imposición en Agencia
-                        Estado = EstadoEncomiendaEnum.ImpuestoAgencia, // Estado 2
-                        RetiroDomicilio = false, // Se entrega en agencia
-                        EntregaAgencia = !datosImposicion.EntregaDomicilio, // Es true si NO es a domicilio
-
-                        CDOrigenID = cdOrigenID,
+                        // Imposición en agencia
+                        Estado = EstadoEncomiendaEnum.ImpuestoAgencia,
+                        RetiroDomicilio = false,
+                        EntregaAgencia = !datosImposicion.EntregaDomicilio,
                         TipoPaquete = tipoPaquete,
+                        CDOrigenID = cdOrigenID,
+
                         DNIAutorizadoRetirar = datosImposicion.DNIAutorizadoRetirar,
                         EntregaDomicilio = datosImposicion.EntregaDomicilio,
                         DomicilioDestino = datosImposicion.EntregaDomicilio ? datosImposicion.DomicilioDestino : "",
                         AgenciaDestinoID = datosImposicion.AgenciaDestinoID,
                         CDDestinoID = datosImposicion.CDDestinoID,
 
-                        Importe = importeCalculado, // El precio se calculará después
+                        Importe = importe,
                         NumeroFactura = 0,
-                        Fecha = DateTime.Now // Asignamos la propiedad 'Fecha'
+                        Fecha = DateTime.Now
                     };
 
                     GuiaAlmacen.Nuevo(entidad);
+                    guiasEntidadCreadas.Add(entidad);
                     guiasGeneradas.Add(numeroGuia);
                 }
             }
 
+            // Guardar guías
             GuiaAlmacen.Grabar();
+
+            // Crear UNA sola HDR con TODAS las guías
+            CrearHojaDeRuta(guiasEntidadCreadas, fleteroAsignado, TipoHDREnum.Retiro);
 
             return guiasGeneradas;
         }
+
+        private void CrearHojaDeRuta(List<GuiaEntidad> guias, FleteroEntidad fletero, TipoHDREnum tipo)
+        {
+            if (guias == null || guias.Count == 0 || fletero == null)
+                return;
+
+            var nuevaHdr = new HojaDeRutaEntidad
+            {
+                HDR_ID = _proximoIdHDR++,
+                FechaCreacion = DateTime.Now,
+                FleteroDNI = fletero.FleteroDNI,
+                Tipo = tipo, // RETIRO
+                Completada = false,
+                Guias = guias,
+                ServicioID = 0 // No se usa en Retiro
+            };
+
+            HojaDeRutaAlmacen.Nuevo(nuevaHdr);
+            HojaDeRutaAlmacen.Grabar();
+        }
+
+
 
     }
 
