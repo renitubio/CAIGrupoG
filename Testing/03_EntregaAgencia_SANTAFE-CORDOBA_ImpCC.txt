@@ -28,7 +28,7 @@ ARCHIVOS
 
 // CD Actual: Santa Fe
 
-02: Pantalla "Rendición de Fletero"
+02: Pantalla "Rendición de Fletero" // No debería ser la pantalla de Playero? Se mezclaron los campos.
 
  1 - DNI Fletero: 34567890 // Candidato a funcionar según datos de prueba en json
  2 - Botón: Buscar Guías
@@ -38,7 +38,7 @@ ARCHIVOS
 	- Tipo Paquete: XL, XL
 	- CUIT: 20123456789
 	- CD Origen: Santa Fe
-	- CD Destino: Córdoba // ¿Debería poder decir también AgenciaDestino? Dejo en DS el código propuesto para solucionar esto.
+	- CD Destino: Córdoba 
  4 - Botón: Aceptar
 
 ARCHIVOS
