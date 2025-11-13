@@ -253,6 +253,30 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             if (guias == null || guias.Count == 0 || fletero == null)
                 return;
 
+            int cdOrigen = guias.First().CDOrigenID;
+            int cdDestino = guias.First().CDDestinoID;
+            int servicioIdAsignado = 0;
+
+            try
+            {
+                // Usamos el ServicioAlmacen que ya cargó el JSON
+                var servicioDisponible = ServicioAlmacen.Servicios
+                    .FirstOrDefault(s => s.CDOrigen == cdOrigen && s.CDDestino == cdDestino);
+
+                if (servicioDisponible != null)
+                {
+                    servicioIdAsignado = servicioDisponible.ServicioID;
+                }
+                else
+                {
+                    Debug.WriteLine($"⚠ No se encontró servicio para Origen {cdOrigen} y Destino {cdDestino}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error buscando servicio: {ex.Message}");
+            }
+
             var nuevaHdr = new HojaDeRutaEntidad
             {
                 HDR_ID = _proximoIdHDR++,
@@ -261,13 +285,13 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 Tipo = tipo,
                 Completada = false,
                 Guias = guias,
-
-                ServicioID = 0
+                ServicioID = servicioIdAsignado
             };
 
             HojaDeRutaAlmacen.Nuevo(nuevaHdr);
             HojaDeRutaAlmacen.Grabar();
         }
+
 
         #endregion
     }

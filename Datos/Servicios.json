@@ -1,5 +1,5 @@
 [
- {
+  {
     "ServicioID": 1234567,
     "Patente": "XYZ234",
     "CUITEmpresaTransporte": "11456765432",
@@ -108,5 +108,14 @@
     "CDDestino": 3,
     "FechaHoraSalida": "2026-10-01T10:00:00",
     "FechaHoraLlegada": "2026-10-01T15:00:00"
+  },
+  {
+    "ServicioID": 3123334,
+    "Patente": "MHZ234",
+    "CUITEmpresaTransporte": "11456765432",
+    "CDOrigen": 5,
+    "CDDestino": 2,
+    "FechaHoraSalida": "2026-12-10T10:30:00",
+    "FechaHoraLlegada": "2026-12-11T10:30:00"
   }
 ]
