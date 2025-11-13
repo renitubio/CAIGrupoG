@@ -26,11 +26,14 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "Impuesto Call Center"
 	- Verificar guía GUI019 estado "Impuesto Call Center"
 
-// CD Actual: Santa Fe
+- HDR:
+	- Verificar HojaDeRuta 4571, ServicioID = 0, FleteroDNI = 34567890, TipoHDREnum= 1, contiene guías GUI018 y GUI019
+
+// CD Actual: CABA
 
 02: Pantalla "Rendición de Fletero" // No debería ser la pantalla de Playero? Se mezclaron los campos.
 
- 1 - DNI Fletero: 34567890 // Candidato a funcionar según datos de prueba en json
+ 1 - DNI Fletero: 34567890 
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Encomiendas Salientes muestra:
 	- N° Guía: GUI018, GUI019
