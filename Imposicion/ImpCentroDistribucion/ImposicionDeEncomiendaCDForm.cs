@@ -164,7 +164,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 MessageBox.Show("Debe completar todos los campos de destino y encomienda.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (!int.TryParse(dni, out _) || dni.Length < 7 || dni.Length > 8)
+            if (AgenciaRadioBttn.Checked && (!int.TryParse(dni, out _) || dni.Length < 7 || dni.Length > 8))
             {
                 MessageBox.Show("El DNI debe ser numérico y tener entre 7 y 8 dígitos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;

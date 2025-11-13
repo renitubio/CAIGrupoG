@@ -134,7 +134,7 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                 MessageBox.Show("Debe completar todos los campos de destino y encomienda.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (!Regex.IsMatch(dni, @"^\d{7,8}$"))
+            if (AgenciaRdBttn.Checked && !Regex.IsMatch(dni, @"^\d{7,8}$")) // Validación de DNI solo si es entrega en agencia/CD
             {
                 MessageBox.Show("El DNI debe ser numérico y tener entre 7 y 8 dígitos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
