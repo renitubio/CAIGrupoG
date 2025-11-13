@@ -84,8 +84,8 @@
     "ServicioID": 10111213,
     "Patente": "AB444NM",
     "CUITEmpresaTransporte": "30445566772",
-    "CDOrigen": 5,
-    "CDDestino": 3,
+    "CDOrigen": 3,
+    "CDDestino": 5,
     "FechaHoraSalida": "2026-03-05T02:30:00",
     "FechaHoraLlegada": "2026-03-05T09:50:00"
   },

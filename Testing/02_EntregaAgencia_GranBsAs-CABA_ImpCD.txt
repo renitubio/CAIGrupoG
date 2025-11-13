@@ -13,7 +13,7 @@ CD Actual: Córdoba
  4 - Ciudad Destino: CABA
  5 - Tipo retiro: Agencia/CD
  6 - VERIFICAR: Lista Opciones de entrega muestra "Agencia Rapiditas".
- 7 - DNI autorizado a retirar: 44006228
+ 7 - DNI autorizado a retirar: 44006228,
  8 - Tipo de caja: S
  9 - Cantidad: 1
  10 - Botón: Añadir
@@ -56,55 +56,51 @@ ARCHIVOS
 
 02: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente XXXXXX
+ 1 - Patente XYZ234,
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Carga muestra
-	- N° Guía: GUI016, GUI017
-	- Tipo Paquete: L, L,
+	- N° Guía: GUI016
+	- Tipo Paquete: L,
 	- CUIT: 33654321097
-	- CD Origen: Córdoba
-	- CD Destino: Jujuy
+	- CD Origen: 2
+	- CD Destino: 5
  4 - Botón: Aceptar
-
 
 ARCHIVOS
  - Guías:
 	- Verificar guía GUI016 estado "En tránsito"
-	- Verificar guía GUI017 estado "En tránsito"
 
-// CD Actual: Jujuy
+// CD Actual: Gran Buenos Aires	
 
 03: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente XXXXXX
+ 1 - Patente XYZ234
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Descarga muestra
-	- N° Guía: GUI016, GUI017
-	- Tipo Paquete: L, L,
+	- N° Guía: GUI016
+	- Tipo Paquete: L,
 	- CUIT: 33654321097
-	- CD Origen: Córdoba
-	- CD Destino: Jujuy
+	- CD Origen: 2,
+	- CD Destino: 5
  4 - Botón: Aceptar
 
 ARCHIVOS
  - Guías:
 	- Verificar guía GUI016 estado "AdmitidoCDDestino"
-	- Verificar guía GUI017 estado "AdmitidoCDDestino"
 
-// CD Actual: Jujuy
+// CD Actual: CABA
 
 04: Pantalla "Entrega Encomienda - CD"
- 1 - DNI: 32456987
+ 1 - DNI: 44006228
  2 - Botón: Buscar
  3 - VERIFICAR: Lista Guías Asociadas muestra
-	- N° Guía: GUI016, GUI017
+	- N° Guía: GUI017, 
 	- Estado: AdmitidoCDDestino
-	- Tipo Paquete: L, L,
+	- Tipo Paquete: S,
  4 - Botón: Retirar
  5 - Mensaje: "Operación exitosa".
  6 - Finalizar sistema
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI016 estado "Entregada"
 	- Verificar guía GUI017 estado "Entregada"
