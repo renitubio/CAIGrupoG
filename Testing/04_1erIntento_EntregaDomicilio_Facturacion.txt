@@ -1,37 +1,68 @@
 ﻿
-01: Pantalla "Entrega Encomienda - Agencia"
+01: Pantalla "RendicionFletero"
 
- 1 - DNI: 35721855
+ 1 - FleteroDNI: 12345678
  2 - Botón: Buscar
- 3 - VERIFICAR: Lista Guías Asociadas muestra
-	- N° Guía: GUI018, GUI019
-	- Estado: AdmitidoCDDestino
-	- Tipo Paquete: XL, XL,
- 4 - Botón: Retirar
+ 3 - VERIFICAR: Admision - Encomiendas Entrantes desde Domicilios/ Agencias
+	- N° Guía: GUI008
+	- Estado: Distribucion ultima milla
+	- Tipo Paquete: L,
+	- CUIT 20633554987
+	- Autorizado a Retirar 9987678
+	- Destino Moreno146
+ 4 - Botón: Aceptar
  5 - Mensaje: "Operación exitosa".
- 6 - Finalizar sistema
+ 6 - FleteroDNI
+ 7 - Botón: Buscar
+ 8 - VERIFICAR: Admision - Encomiendas Entrantes desde Domicilios/ Agencias
+	- N° Guía: GUI008
+	- Estado: Primer intento de Entrega
+	- Tipo Paquete: L,
+	- CUIT 20633554987
+	- Autorizado a Retirar 9987678
+	- Destino Moreno146
+ 9 - Marcar numero de Guia
+ 10 - Botón: Aceptar
+ 11 - Finalizar sistema
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI018 estado "Entregada"
-	- Verificar guía GUI019 estado "Entregada"
+	- Verificar guía GUI008 estado "Entregada"
+		"NumeroGuia": "GUI008",
+		"TipoPaquete": 3,
+		"Estado": 11,
+		"CDDestinoID": 1,
+		"ClienteCUIT": "20633554987",
+		"CDOrigenID": 2,
+		"Importe": 5500.00,
+		"DNIAutorizadoRetirar": "9987678",
+		"DomicilioDestino": "Moreno146",
+		"EntregaDomicilio": true,
+		"FechaAdmision": "2024-10-11T00:00:00",
+		"RetiroDomicilio": false,
+		"EntregaAgencia": false,
+		"NumeroFactura": 0,
+		"AgenciaDestinoID": 0,
+		"Fecha": "0001-01-01T00:00:00"
 
 02: Pantalla "EmitirFactura"
- 1 - CUIT: 20123456789
+ 1 - CUIT: 20633554987
  2 - Botón: Buscar 
  3 - VERIFICAR: Lista Encomiendas muestra
-	- N° Guía: GUI018, GUI019
-	- Tipo Paquete: XL, XL
-	- Estado: Entregada, Entregada
+	- N° Guía: GUI008
+	- Tipo Paquete: L
+	- Estado: Entregada
  4 - Botón: Generar Factura
  5 - Mensaje: "Factura generada exitosamente. N° Factura: FAC12345".
  6 - Finalizar sistema
 
  ARCHIVOS
+  - Guías:
+	- Verificar guía GUI008 estado "Facturada"
  - Facturas:
  - Verificar factura FAC12345 contiene:
-		- CUIT: 20123456789
-		- Guías: GUI018, GUI019
-		- Total: $XXXX.XX
+	"NumeroFactura": 3,
+	"Monto": $5500.00
+	"FechaEmision": "2025-09-08T00:00:00",
+	"ClienteCUIT": "20633554987"
 
- //FALTA REVISAR QUE SE GENERE LA FACTURA EN EL SISTEMA CON LOS DATOS CORRECTOS

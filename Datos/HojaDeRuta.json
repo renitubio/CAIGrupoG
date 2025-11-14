@@ -43,7 +43,17 @@
     "Guias": [
       { "NumeroGuia": "GUI016" }
     ]
+  },
+  {
+    "HDR_ID": 4571,
+    "ServicioID": 6677889,
+    "FechaCreacion": "2025-06-10T09:00:00",
+    "FleteroDNI": "35555789",
+    "TipoHDREnum": 3,
+    "Completada": false,
+    "Guias": [
+      { "NumeroGuia": "GUI008" }
+    ]
   }
-
 ]
   
