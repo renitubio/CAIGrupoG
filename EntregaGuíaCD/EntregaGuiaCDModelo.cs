@@ -25,7 +25,7 @@ namespace CAIGrupoG.EntregaGuíaCD
 
             var guiasEntidad = GuiaAlmacen.Guias
                 .Where(g =>
-                    g.DNIAutorizadoRetirar == dni &&
+                    g.DNIAutorizadoRetirar == dni && // Usar propiedad de GuiaEntidad
                     g.Estado == estadoRequerido &&
                     g.CDDestinoID == cdActualID
                 ).ToList();
