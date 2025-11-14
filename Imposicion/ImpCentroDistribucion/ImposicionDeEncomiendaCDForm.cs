@@ -274,7 +274,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             var datosImposicion = new DatosImposicion
             {
                 Items = itemsAgrupados,
-                DNIAutorizadoRetirar = DNITxtBox.Text,
+                DNIAutorizadoRetirar = EncomiendasListView.Items[0].SubItems[5].Text,
                 EntregaDomicilio = esDomicilio,
                 DomicilioDestino = domicilio,
                 AgenciaDestinoID = agenciaDestinoID,
