@@ -39,7 +39,7 @@
   },
   {
     "ClienteCUIT": "20123456789",
-    "Direccion": "San Martin 500, Rosario, Santa Fe",
+    "Direccion": "San Martin 500, Santa Fe",
     "RazonSocial": "Logística del Litoral SRL",
     "CDOrigen": 5,
     "Tarifas": [
@@ -89,8 +89,8 @@
   },
   {
     "ClienteCUIT": "33654321097",
-    "Direccion": "Av. Colón 800, Córdoba",
-    "RazonSocial": "Comercial del Centro S.R.L.",
+    "Direccion": "Av. Los Hincas 1150, Rosario",
+    "RazonSocial": "Distribucion La Rosarina S.R.L.",
     "CDOrigen": 3,
     "Tarifas": [
       {
@@ -109,8 +109,8 @@
   },
   {
     "ClienteCUIT": "27223344551",
-    "Direccion": "9 de Julio 100, Mendoza",
-    "RazonSocial": "Distribuidora Cuyo S.A.",
+    "Direccion": "Av. Colón 800, Córdoba",
+    "RazonSocial": "Comercial del Centro S.R.L.",
     "CDOrigen": 4,
     "Tarifas": [
       {
@@ -124,14 +124,20 @@
         "CDOrigen": 4,
         "CDDestino": 2,
         "Precio": 1950.00
+      },
+      {
+        "TipoPaquete": 4,
+        "CDOrigen": 4,
+        "CDDestino": 6,
+        "Precio": 3250.00
       }
     ]
   },
   {
     "ClienteCUIT": "30987654321",
-    "Direccion": "Rivadavia 2020, Salta",
-    "RazonSocial": "Norte Envíos",
-    "CDOrigen": 5,
+    "Direccion": "Rivadavia 15000, Buenos Aires",
+    "RazonSocial": "Bs As Envíos",
+    "CDOrigen": 1,
     "Tarifas": [
       {
         "TipoPaquete": 1,

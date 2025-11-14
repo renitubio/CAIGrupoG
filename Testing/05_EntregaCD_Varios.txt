@@ -81,9 +81,9 @@ ARCHIVOS
 
 05:  Pantalla Imposición de Encomienda - CD
 
- 1 - CUIT: 30701234565
+ 1 - CUIT: 27223344551
  2 - Botón: Buscar Cliente
- 3 - Mensaje: "Cliente encontrado: Tech Soluciones S.A. Proceda a ingresar la encomienda".
+ 3 - Mensaje: "Cliente encontrado: Comercial del Centro S.R.L. Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Jujuy
  5 - Tipo retiro: Domicilio
  6 - VERIFICAR: DNI autorizado a retirar no es necesario para retiro a Domicilio.
@@ -109,7 +109,7 @@ ARCHIVOS
  3 - VERIFICAR: Lista Carga muestra:
 	- N° Guía: GUI018
 	- Tipo Paquete: XL,
-	- CUIT: 30701234565
+	- CUIT: 27223344551
 	- CD Origen: Cordoba
 	- CD Destino: Jujuy
  4 - Botón: Aceptar
@@ -127,7 +127,7 @@ ARCHIVOS
  3 - VERIFICAR: Lista Descarga muestra
 	- N° Guía: GUI018
 	- Tipo Paquete: XL,
-	- CUIT: 30701234565
+	- CUIT: 27223344551
 	- CD Origen: Cordoba
 	- CD Destino: Jujuy
  4 - Botón: Aceptar
@@ -145,7 +145,7 @@ ARCHIVOS
 	- N° Guía: GUI018
 	- Estado encomienda: AdmitidoCDDestino
 	- Tipo paquete: XL
-	- CUIT: 30701234565
+	- CUIT: 27223344551
  4 - Botón: Aceptar
  5 - Mensaje: Operación Exitosa
 
@@ -153,18 +153,23 @@ ARCHIVOS
  - Guías:
 	- Verificar guía GUI018 estado "DistribucionUltimaMillaDomicilio"
 
-07: Pantalla "Rendición de Fletero" // Falta hacerlo. Tiene que ser que no se encontro nadie en domicilio.
- 1 - DNI Fletero: XXXXXXXX // Sujeto al que pongamos en el json como datos de prueba
+	// CD Actual: Jujuy
+
+07: Pantalla "Rendición de Fletero"
+ 1 - DNI Fletero: 20155602 // Sujeto al que pongamos en el json como datos de prueba
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas entrantes muestra:
-	- N° Guía: GUI017, GUI018, GUI019
+	- N° Guía: GUI018
 	- Estado encomienda: DistribucionUltimaMillaDomicilio
-	- Tipo paquete: S, M, M
-	- CUIT: 30701234565
+	- Tipo paquete: XL
+	- CUIT: 27223344551
  4 - Botón: Aceptar
  5 - Mensaje: Operación Exitosa
  6 - Finalizar sistema
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI018 estado "Entregado"
+	- Verificar guía GUI018 estado "PrimerIntentoDeEntrega"
+
+
+	// Se lo rechaza? o se lo entrega en la segunda?
