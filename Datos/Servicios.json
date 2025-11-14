@@ -44,7 +44,7 @@
     "FechaHoraSalida": "2026-10-05T05:30:00",
     "FechaHoraLlegada": "2026-10-05T14:20:00"
   },
-{
+  {
     "ServicioID": 6677889,
     "Patente": "PLT555",
     "CUITEmpresaTransporte": "20554433229",
@@ -52,7 +52,7 @@
     "CDDestino": 6,
     "FechaHoraSalida": "2026-11-12T07:45:00",
     "FechaHoraLlegada": "2026-11-12T19:10:00"
-},
+  },
   {
     "ServicioID": 7788990,
     "Patente": "ZZZ999",
@@ -124,14 +124,5 @@
     "CDDestino": 4,
     "FechaHoraSalida": "2026-09-10T12:00:00",
     "FechaHoraLlegada": "2026-09-10T22:00:00"
-  },
-  {
-    "ServicioID": 4455613,
-    "Patente": "AG666PP",
-    "CUITEmpresaTransporte": "30123456789",
-    "CDOrigen": 4,
-    "CDDestino": 6,
-    "FechaHoraSalida": "2026-09-10T22:00:00",
-    "FechaHoraLlegada": "2026-10-10T11:00:00"
   }
 ]
