@@ -22,6 +22,18 @@
         "CDOrigen": 1,
         "CDDestino": 2,
         "Precio": 2200.00
+      },
+      {
+        "TipoPaquete": 4,
+        "CDOrigen": 2,
+        "CDDestino": 4,
+        "Precio": 4000.00
+      },
+      {
+        "TipoPaquete": 4,
+        "CDOrigen": 2,
+        "CDDestino": 6,
+        "Precio": 6000.00
       }
     ]
   },
