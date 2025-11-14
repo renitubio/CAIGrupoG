@@ -26,13 +26,13 @@ Agencia actual: Rapiditas
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI017 estado "Impuesto en Agencia"
-	- Verificar guía GUI018 estado "Impuesto en Agencia"
-	- Verificar guía GUI019 estado "Impuesto en Agencia"
+	- Verificar guía GUI017 estado "Impuesto Agencia"
+	- Verificar guía GUI018 estado "Impuesto Agencia"
+	- Verificar guía GUI019 estado "Impuesto Agencia"
 
 
 02: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: 23456789 // Ver de ajustar el json correspondiente para que funcione.
+ 1 - DNI Fletero: 23456789
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas salientes muestra:
 	- N° Guía: GUI017, GUI018, GUI019
@@ -44,13 +44,13 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI017 estado "EnCaminoARetirarAgencia"
-	- Verificar guía GUI018 estado "EnCaminoARetirarAgencia"
-	- Verificar guía GUI019 estado "EnCaminoARetirarAgencia"
+	- Verificar guía GUI017 estado "En Camino A Retirar Agencia"
+	- Verificar guía GUI018 estado "En Camino A Retirar Agencia"
+	- Verificar guía GUI019 estado "En Camino A Retirar Agencia"
 
 
 03: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: 23456789 // Pendiente subir ajustes en Modelo para probar su funcionamiento.
+ 1 - DNI Fletero: 23456789
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas entrantes muestra:
 	- N° Guía: GUI017, GUI018, GUI019
@@ -58,17 +58,17 @@ ARCHIVOS
 	- Tipo paquete: S, M, M
 	- CUIT: 30701234565
  4 - Botón: Aceptar
- 5 - Mensaje: Operación Exitosa
+ 5 - Mensaje: "Operación Exitosa"
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI017 estado "AdmitidoCDOrigen"
-	- Verificar guía GUI018 estado "AdmitidoCDOrigen"
-	- Verificar guía GUI019 estado "AdmitidoCDOrigen"
+	- Verificar guía GUI017 estado "Admitido en CD Origen"
+	- Verificar guía GUI018 estado "Admitido en CD Origen"
+	- Verificar guía GUI019 estado "Admitido en CD Origen"
 
 
 04: Pantalla "Carga/Descarga - Playero".
- 1 - Patente AEL096 // Patente de un servicio que cubre el trayecto 02 (CABA) a 03 (Rosario)
+ 1 - Patente AEL096
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Carga muestra
   - N° Guía: GUI017, GUI018, GUI019
@@ -77,6 +77,7 @@ ARCHIVOS
   - CD Origen: CABA
   - CD Destino: Rosario
  4 - Botón: Aceptar
+ 5 - Mensaje: "Operación Exitosa"
 
 
 ARCHIVOS
@@ -87,11 +88,11 @@ ARCHIVOS
 
 
 // CD Actual: Rosario
-// Trae los paquetes desde CABA a Rosario
+// LLega con los paquetes desde CABA a Rosario
 
 
 05: Pantalla "Carga/Descarga - Playero".
- 1 - Patente: AEL096 // Patente de un servicio que cubre el trayecto 02 (CABA) a 03 (Rosario)
+ 1 - Patente: AEL096
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Descarga muestra
   - N° Guía: GUI017, GUI018, GUI019
@@ -100,6 +101,7 @@ ARCHIVOS
   - CD Origen: CABA
   - CD Destino: Rosario
  4 - Botón: Aceptar
+ 5 - Mensaje: "Operación Exitosa"
 
 
 ARCHIVOS
@@ -112,11 +114,11 @@ ARCHIVOS
 // CD Actual: Rosario
 
 06: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: XXXXXXXX // Sujeto al que pongamos en el json como datos de prueba
+ 1 - DNI Fletero: 35555789
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas salientes muestra:
-	- N° Guía: GUI012, GUI013, GUI014
-	- Estado encomienda: AdmitidoCDDestino
+	- N° Guía: GUI017, GUI018, GUI019
+	- Estado encomienda: En CD Destino
 	- Tipo paquete: S, M, M
 	- CUIT: 30701234565
  4 - Botón: Aceptar
@@ -124,17 +126,16 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI017 estado "DistribucionUltimaMillaDomicilio"
-	- Verificar guía GUI018 estado "DistribucionUltimaMillaDomicilio"
-	- Verificar guía GUI019 estado "DistribucionUltimaMillaDomicilio"
+	- Verificar guía GUI017 estado "En Distribucion A Domicilio"
+	- Verificar guía GUI018 estado "En Distribucion A Domicilio"
+	- Verificar guía GUI019 estado "En Distribucion A Domicilio"
 
 
 07: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: XXXXXXXX // Sujeto al que pongamos en el json como datos de prueba
+ 1 - DNI Fletero: 35555789
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas entrantes muestra:
 	- N° Guía: GUI017, GUI018, GUI019
-	- Estado encomienda: DistribucionUltimaMillaDomicilio
 	- Tipo paquete: S, M, M
 	- CUIT: 30701234565
  4 - Botón: Aceptar
