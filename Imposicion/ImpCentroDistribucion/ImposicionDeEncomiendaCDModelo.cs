@@ -14,11 +14,9 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
         private ClienteEntidad _clienteActual;
         private static int _proximoNumeroGuia = 1;
         private static int _proximoIdHDR = 1;
-        private int _cdOrigenIDSeleccionado;
 
-        public ImposicionDeEncomiendaCDModelo(int cdOrigenIDSeleccionado)
+        public ImposicionDeEncomiendaCDModelo()
         {
-            _cdOrigenIDSeleccionado = cdOrigenIDSeleccionado;
             BuscarUltimaGuia();
             BuscarUltimoIdHDR();
         }
@@ -193,7 +191,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
 
             // Si no encuentra una tarifa, lanza un error.
             // Es mejor que devolver 0, para no permitir envíos gratis por error.
-            throw new InvalidOperationException($"No se encontró una tarifa para el cliente {_clienteActual.ClienteCUIT}, Paquete: {tipoPaquete}, Origen: {cdOrigen}, Destino: {cdDestino}");
+                throw new InvalidOperationException($"No se encontró una tarifa para el cliente {_clienteActual.ClienteCUIT}, Paquete: {tipoPaquete}, Origen: {cdOrigen}, Destino: {cdDestino}");
         }
 
         #endregion
@@ -206,9 +204,9 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             {
                 throw new InvalidOperationException("Cliente no encontrado. Se debe buscar un cliente válido primero.");
             }
-            int cdOrigenID = _cdOrigenIDSeleccionado;
+            int cdOrigenID = _clienteActual.CDOrigen;
             var guiasGeneradas = new List<GuiaEntidad>();
-            var fleteroAsignado = BuscarFletero(cdOrigenID);
+            var fleteroAsignado = BuscarFletero(_clienteActual.CDOrigen);
 
             foreach (var item in datosImposicion.Items)
             {
@@ -221,7 +219,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 {
                     string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
                     int cdDestinoReal = ObtenerCDPorCiudad(datosImposicion.CDDestinoID)?.Id
-                                       ?? datosImposicion.CDDestinoID;
+                                        ?? datosImposicion.CDDestinoID;
                     decimal importeCalculado = CalcularImporte(tipoPaquete, cdOrigenID, cdDestinoReal);
                     var entidad = new GuiaEntidad
                     {
@@ -230,7 +228,7 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                         FechaAdmision = DateTime.Now,
 
                         // Lógica de Imposición en Agencia
-                        Estado = EstadoEncomiendaEnum.AdmitidoCDOrigen, // Estado2
+                        Estado = EstadoEncomiendaEnum.AdmitidoCDOrigen, // Estado 2
                         RetiroDomicilio = false, // Se entrega en agencia
                         EntregaAgencia = !datosImposicion.EntregaDomicilio, // Es true si NO es a domicilio
                         CDOrigenID = cdOrigenID,
