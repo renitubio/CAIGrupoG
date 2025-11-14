@@ -25,7 +25,7 @@ namespace CAIGrupoG.EntregaGuíaCD
 
             var guiasEntidad = GuiaAlmacen.Guias
                 .Where(g =>
-                    g.DNIAutorizadoRetirar == dni &&
+                    g.DNIAutorizadoRetirar == dni && // Usar propiedad de GuiaEntidad
                     g.Estado == estadoRequerido &&
                     g.CDDestinoID == cdActualID
                 ).ToList();
@@ -34,7 +34,8 @@ namespace CAIGrupoG.EntregaGuíaCD
             {
                 NumeroGuia = g.NumeroGuia,
                 TipoPaquete = (TipoPaquete)g.TipoPaquete,
-                Estado = (EstadoGuia)g.Estado
+                Estado = (EstadoGuia)g.Estado,
+                TipoPaqueteTexto = Enum.GetName(typeof(TipoPaquete), (TipoPaquete)g.TipoPaquete)
             }).ToList();
 
             return guiasEncontradas;

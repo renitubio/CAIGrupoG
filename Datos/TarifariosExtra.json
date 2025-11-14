@@ -1,7 +1,17 @@
 ﻿[
   {
-    "ID del tarifario": 3456,
-    "Tipo de extra": 2,
-    "Precio":  347.87
+    "Id": 1,
+    "Tipo": 1,
+    "Precio": 450
+  },
+  {
+    "Id": 2,
+    "Tipo": 2,
+    "Precio": 340
+  },
+  {
+    "Id": 3,
+    "Tipo": 3,
+    "Precio": 300
   }
 ]

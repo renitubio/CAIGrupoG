@@ -6,7 +6,7 @@ CD Actual: Rosario
 
  1 - CUIT: 33654321097
  2 - Botón: Buscar Cliente
- 3 - Mensaje: "Cliente encontrado: Comercial del Centro S.R.L. Proceda a ingresar la encomienda".
+ 3 - Mensaje: "Cliente encontrado.Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Jujuy
  5 - Tipo retiro: CD
  6 - VERIFICAR: Lista Opciones de entrega muestra "Jujuy (Centro de distribución)".
@@ -19,7 +19,7 @@ CD Actual: Rosario
  12 - VERIFICAR: Lista Guías Generadas muestra "GUI017, GUI018".
  13 - Botón "Finalizar".
 
-ARCHIVOS
+ARCHIVOS 
  - Guías:
 	- Verificar guía GUI017 estado "Admitido en CD Origen"
 	- Verificar guía GUI018 estado "Admitido en CD Origen"

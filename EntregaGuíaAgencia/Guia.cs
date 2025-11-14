@@ -26,5 +26,6 @@ namespace CAIGrupoG.EntregaGuíaAgencia
         public EstadoGuia Estado { get; set; }
         public TipoPaquete TipoPaquete { get; set; }
         public string DniDestinatario { get; set; }
+        public string TipoPaqueteTexto { get; set; }
     }
 }
