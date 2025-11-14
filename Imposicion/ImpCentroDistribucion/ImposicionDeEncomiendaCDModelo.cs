@@ -23,6 +23,11 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             BuscarUltimoIdHDR();
         }
 
+        public ImposicionDeEncomiendaCDModelo() : this(0)
+        {
+            // Constructor por defecto para compatibilidad con formularios existentes
+        }
+
         #region Lógica de Contadores (Guía y HDR)
 
         private static void BuscarUltimaGuia()
