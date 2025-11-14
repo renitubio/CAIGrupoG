@@ -90,6 +90,7 @@ namespace CAIGrupoG.Modelos
             public List<Guia> Retiro { get; set; } = new();
         }
 
+        private bool _fleteroErrorMostrado = false;
         /// Busca el fletero por DNI y obtiene SOLO las guías que su estado en GuiaAlmacen NO es Entregado.
 
         /// Busca el fletero por DNI y obtiene guías de HDRs Y guías "nuevas" (Impuesto...).
@@ -100,10 +101,29 @@ namespace CAIGrupoG.Modelos
 
             // 1. Verificar si existe el fletero Y OBTENER SU CD
             var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.FleteroDNI == dniFletero);
-            if (fletero == null)
-                throw new KeyNotFoundException($"No se encontró un fletero con DNI: {dniFletero}.");
 
-            var cdDelFletero = fletero.CD_ID; // <-- El CD del Fletero (ej: 2 para María)
+            if (fletero == null)
+            {
+                if (!_fleteroErrorMostrado)
+                {
+                    _fleteroErrorMostrado = true;
+                    MessageBox.Show($"No se encontró un fletero con DNI: {dniFletero}.",
+                        "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                return new GuiasPorDNIResultado
+                {
+                    Admision = new List<Guia>(),
+                    Retiro = new List<Guia>()
+                };
+            }
+            else
+            {
+               
+                _fleteroErrorMostrado = false;
+            }
+
+            var cdDelFletero = fletero.CD_ID; 
 
             // 2. Filtrar las hojas de ruta PENDIENTES (trabajos ya iniciados)
             _hojasDeRutaPendientes = HojaDeRutaAlmacen.HojasDeRuta
