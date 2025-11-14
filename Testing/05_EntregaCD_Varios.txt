@@ -1,0 +1,176 @@
+﻿// Entrega desde CABA a Jujuy pasando por Cordoba (Imposicion CD)
+
+CD Actual: CABA
+
+01: Pantalla Imposición de Encomienda - CD
+
+ 1 - CUIT: 30701234565
+ 2 - Botón: Buscar Cliente
+ 3 - Mensaje: "Cliente encontrado: Tech Soluciones S.A. Proceda a ingresar la encomienda".
+ 4 - Ciudad Destino: Cordoba
+ 5 - Tipo retiro: CD
+ 6 - VERIFICAR: Lista Opciones de entrega muestra "Cordoba (Centro de distribución)".
+ 7 - DNI autorizado a retirar: 20405030
+ 8 - Tipo de caja: XL
+ 9 - Cantidad: 1
+ 10 - Botón: Añadir
+ 10 - Mensaje: "Se añadió un tipo de caja XL a la lista".
+ 11 - Botón: Confirmar
+ 12 - VERIFICAR: Lista Guías Generadas muestra "GUI017".
+ 13 - Botón "Finalizar".
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI017 estado "Admitido en CD Origen"
+
+// CD Actual: CABA
+
+02: Pantalla "Carga/Descarga Playero"
+
+ 1 - Patente: AF255MM // Dato de prueba candidato a funcionar, ver en json Servicio.
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Carga muestra:
+	- N° Guía: GUI017
+	- Tipo Paquete: XL,
+	- CUIT: 30701234565
+	- CD Origen: CABA
+	- CD Destino: Cordoba
+
+	- N° Guía: GUI018
+	- Tipo Paquete: XL,
+	- CUIT: 30701234565
+	- CD Origen: CABA
+	- CD Destino: Jujuy
+ 4 - Botón: Aceptar
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI017 estado "En tránsito"
+	- Verificar guía GUI018 estado "En tránsito"
+
+// CD Actual: Cordoba
+
+03: Pantalla "Carga/Descarga Playero"
+
+ 1 - Patente AF255MM // // Dato de prueba candidato a funcionar, ver en json Servicio.
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Descarga muestra
+	- N° Guía: GUI017
+	- Tipo Paquete: XL,
+	- CUIT: 30701234565
+	- CD Origen: CABA
+	- CD Destino: Cordoba
+ 4 - Botón: Aceptar
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI017 estado "AdmitidoCDDestino"
+
+// CD Actual: Cordoba
+
+04: Pantalla "Entrega Encomienda - CD"
+ 1 - DNI: 20405030
+ 2 - Botón: Buscar
+ 3 - VERIFICAR: Lista Guías Asociadas muestra
+	- N° Guía: GUI017
+	- Estado: AdmitidoCDDestino
+	- Tipo Paquete: XL,
+ 4 - Botón: Retirar
+ 5 - Mensaje: "Operación exitosa".
+ 6 - Finalizar sistema
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI017 estado "Entregada"
+
+// CD Actual: Cordoba
+
+05:  Pantalla Imposición de Encomienda - CD
+
+ 1 - CUIT: 30701234565
+ 2 - Botón: Buscar Cliente
+ 3 - Mensaje: "Cliente encontrado: Tech Soluciones S.A. Proceda a ingresar la encomienda".
+ 4 - Ciudad Destino: Jujuy
+ 5 - Tipo retiro: Domicilio
+ 6 - VERIFICAR: DNI autorizado a retirar no es necesario para retiro a Domicilio.
+ 7 - Domicilio: Maria de los Angeles 500, Jujuy
+ 8 - Tipo de caja: XL
+ 9 - Cantidad: 1
+ 10 - Botón: Añadir
+ 10 - Mensaje: "Se añadió un tipo de caja XL a la lista".
+ 11 - Botón: Confirmar
+ 12 - VERIFICAR: Lista Guías Generadas muestra "GUI018".
+ 13 - Botón "Finalizar".
+
+ ARCHIVOS
+   - Guías:
+	  - Verificar guía GUI018 estado "Admitido en CD Origen"
+
+// CD Actual: Cordoba
+
+06: Pantalla "Carga/Descarga Playero"
+
+ 1 - Patente: AG666PP // Dato de prueba candidato a funcionar, ver en json Servicio.
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Carga muestra:
+	- N° Guía: GUI018
+	- Tipo Paquete: XL,
+	- CUIT: 30701234565
+	- CD Origen: Cordoba
+	- CD Destino: Jujuy
+ 4 - Botón: Aceptar
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "En tránsito"
+
+// CD Actual: Jujuy
+
+07: Pantalla "Carga/Descarga Playero"
+
+ 1 - Patente AG666PP // // Dato de prueba candidato a funcionar, ver en json Servicio.
+ 2 - Botón: Buscar Guías
+ 3 - VERIFICAR: Lista Descarga muestra
+	- N° Guía: GUI018
+	- Tipo Paquete: XL,
+	- CUIT: 30701234565
+	- CD Origen: Cordoba
+	- CD Destino: Jujuy
+ 4 - Botón: Aceptar
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "AdmitidoCDDestino"
+
+	// CD Actual: Jujuy
+
+06: Pantalla "Rendición de Fletero"
+ 1 - DNI Fletero: 20155602
+ 2 - Botón "Buscar Guías"
+ 3 - VERIFICAR: Lista Encomiendas salientes muestra:
+	- N° Guía: GUI018
+	- Estado encomienda: AdmitidoCDDestino
+	- Tipo paquete: XL
+	- CUIT: 30701234565
+ 4 - Botón: Aceptar
+ 5 - Mensaje: Operación Exitosa
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "DistribucionUltimaMillaDomicilio"
+
+07: Pantalla "Rendición de Fletero"
+ 1 - DNI Fletero: XXXXXXXX // Sujeto al que pongamos en el json como datos de prueba
+ 2 - Botón "Buscar Guías"
+ 3 - VERIFICAR: Lista Encomiendas entrantes muestra:
+	- N° Guía: GUI017, GUI018, GUI019
+	- Estado encomienda: DistribucionUltimaMillaDomicilio
+	- Tipo paquete: S, M, M
+	- CUIT: 30701234565
+ 4 - Botón: Aceptar
+ 5 - Mensaje: Operación Exitosa
+ 6 - Finalizar sistema
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI018 estado "Entregado"

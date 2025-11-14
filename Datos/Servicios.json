@@ -115,5 +115,23 @@
     "CDDestino": 4,
     "FechaHoraSalida": "2026-09-10T12:00:00",
     "FechaHoraLlegada": "2026-09-10T16:00:00"
+  },
+  {
+    "ServicioID": 4455612,
+    "Patente": "AF255MM",
+    "CUITEmpresaTransporte": "30123456789",
+    "CDOrigen": 2,
+    "CDDestino": 4,
+    "FechaHoraSalida": "2026-09-10T12:00:00",
+    "FechaHoraLlegada": "2026-09-10T22:00:00"
+  },
+  {
+    "ServicioID": 4455613,
+    "Patente": "AG666PP",
+    "CUITEmpresaTransporte": "30123456789",
+    "CDOrigen": 4,
+    "CDDestino": 6,
+    "FechaHoraSalida": "2026-09-10T22:00:00",
+    "FechaHoraLlegada": "2026-10-10T11:00:00"
   }
 ]
