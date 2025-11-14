@@ -49,7 +49,7 @@ ARCHIVOS
 
 03: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente PLT555 // // Dato de prueba candidato a funcionar, ver en json Servicio.
+ 1 - Patente ABC123 // // Dato de prueba candidato a funcionar, ver en json Servicio.
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Descarga muestra
 	- N° Guía: GUI017, GUI018
