@@ -79,6 +79,7 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "AdmitidoCDOrigen"
 
  - HDR:
+	- Verificar HojaDeRuta 4571 -> completada = true.
 	- Verificar HojaDeRuta 4572, ServicioID = 4455611, FleteroDNI = 0, TipoHDREnum= 2, contiene guías GUI017 y GUI018
 
 
@@ -105,8 +106,6 @@ ARCHIVOS
 	- Verificar guía GUI017 estado "EnTransito"
 	- Verificar guía GUI018 estado "EnTransito"
 
-
-
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -129,31 +128,35 @@ ARCHIVOS
  - Guías:
 	- Verificar guía GUI018 estado "AdmitidoCDDestino"
 	- Verificar guía GUI019 estado "AdmitidoCDDestino"
+ - HDR: 
+	- Verificar HojaDeRuta 4572 -> completada = true.
+	- Verificar HojaDeRuta 4573, ServicioID = 0, FleteroDNI = 4766645, TipoHDREnum= 3, contiene guías GUI017 y GUI018
 
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
 // CD Actual: Cordoba
 
 06: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: 34567890 
+ 1 - DNI Fletero: 4766645 
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas Salientes muestra:
-	- N° Guía: GUI018, GUI019
-	- Estado encomienda: AdmitidoCDDestino
+	- N° Guía: GUI017, GUI018
+	- Estado encomienda: AdmitidoCDDestino (ambas)
 	- Tipo paquete: XL, XL
 	- CUIT: 20123456789
 	- DNI autorizado a retirar: 35721855
- 4 - Botón: Aceptar
- 5 - Mensaje: Operación Exitosa
+ 4 - Selección de ambas guias (GUI017 y GUI018) 
+ 5 - Botón: Aceptar
+ 6 - Mensaje: Operación Exitosa
 
 ARCHIVOS
  - Guías:
+	- Verificar guía GUI017 estado "DistribucionUltimaMillaAgencia"
 	- Verificar guía GUI018 estado "DistribucionUltimaMillaAgencia"
-	- Verificar guía GUI019 estado "DistribucionUltimaMillaAgencia"
+
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
@@ -162,10 +165,10 @@ ARCHIVOS
 // CD Actual: Cordoba
 
 07: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: 34567890 // Candidato a funcionar según datos de prueba en json
+ 1 - DNI Fletero: 4766645 // Candidato a funcionar según datos de prueba en json
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas entrantes muestra:
-	- N° Guía: GUI018, GUI019
+	- N° Guía: GUI017, GUI018
 	- Estado encomienda: DistribucionUltimaMillaAgencia
 	- Tipo paquete: XL, XL
 	- CUIT: 20123456789
@@ -175,12 +178,13 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
+	- Verificar guía GUI017 estado "AgenciaDestino"
 	- Verificar guía GUI018 estado "AgenciaDestino"
-	- Verificar guía GUI019 estado "AgenciaDestino"
+ - HDR:
+	- Verificar HojaDeRuta 4573 -> completada = true.
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-
 
 
 //Agencia: Agencia Leones
@@ -190,7 +194,7 @@ ARCHIVOS
  1 - DNI: 35721855
  2 - Botón: Buscar
  3 - VERIFICAR: Lista Guías Asociadas muestra
-	- N° Guía: GUI018, GUI019
+	- N° Guía: GUI017, GUI018
 	- Estado: AgenciaDestino
 	- Tipo Paquete: XL, XL,
  4 - Botón: Retirar
@@ -199,5 +203,5 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
+	- Verificar guía GUI017 estado "Entregada"
 	- Verificar guía GUI018 estado "Entregada"
-	- Verificar guía GUI019 estado "Entregada"

@@ -66,8 +66,8 @@
     }
   },
   {
-    "AgenciaID": 80,
-    "Nombre": "Agencia Leones",
+    "AgenciaID": 81,
+    "Nombre": "Agencia Horizonte",
     "CiudadID": 3,
     "Comisiones": {
       "1": 10.0,
@@ -77,8 +77,8 @@
     }
   },
   {
-    "AgenciaID": 100,
-    "Nombre": "Agencia Leones",
+    "AgenciaID": 101,
+    "Nombre": "Agencia Sol Naciente",
     "CiudadID": 4,
     "Comisiones": {
       "1": 10.0,
