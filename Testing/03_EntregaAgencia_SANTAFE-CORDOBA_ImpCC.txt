@@ -11,8 +11,8 @@
  3 - Mensaje: "Cliente encontrado: Logística del Litoral S.R.L. Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Córdoba (4)
  5 - Tipo de entrega: Agencia/CD
- 6 - VERIFICAR: Lista Opciones de entrega muestra "Córdoba (Centro de distribución)", "Agencia Leones", "Agencia Oeste".
- 7 - Selección: Agencia Leones
+ 6 - VERIFICAR: Lista Opciones de entrega muestra "Córdoba (Centro de distribución)", "Agencia Sol Naciente", "Agencia Oeste".
+ 7 - Selección: Agencia Sol Naciente
  8 - DNI autorizado a retirar: 35721855
  9 - Tipo de caja: XL
  10 - Cantidad: 2
@@ -29,7 +29,7 @@ ARCHIVOS
 	- Verificar guía GUI019 estado "Impuesto Call Center"
 
 - HDR:
-	- Verificar HojaDeRuta 4571, ServicioID = 0, FleteroDNI = 34567890, TipoHDREnum= 1, contiene guías GUI017 y GUI018
+	- Verificar HojaDeRuta4571, ServicioID =0, FleteroDNI =34567890, TipoHDREnum=1, contiene guías GUI017 y GUI018
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ ARCHIVOS
 	- Estado encomienda: ImpuestoCallCenter
 	- Tipo Paquete: XL, XL
 	- Autorizado a Retirar: 35721855
-	- Destino: "Agencia Leones"
+	- Destino: "Agencia Sol Naciente"
  4 - Selecciona ambas guias (GUI017 y GUI018) 
  5 - Botón: Aceptar
  6 - Cerrar pantalla
@@ -187,7 +187,7 @@ ARCHIVOS
 --------------------------------------------------------------------------------------------------------------------------------------------
 
 
-//Agencia: Agencia Leones
+//Agencia: Agencia Sol Naciente
 
 08: Pantalla "Entrega Encomienda - Agencia"
 

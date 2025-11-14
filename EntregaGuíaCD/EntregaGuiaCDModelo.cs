@@ -34,7 +34,8 @@ namespace CAIGrupoG.EntregaGuíaCD
             {
                 NumeroGuia = g.NumeroGuia,
                 TipoPaquete = (TipoPaquete)g.TipoPaquete,
-                Estado = (EstadoGuia)g.Estado
+                Estado = (EstadoGuia)g.Estado,
+                TipoPaqueteTexto = Enum.GetName(typeof(TipoPaquete), (TipoPaquete)g.TipoPaquete)
             }).ToList();
 
             return guiasEncontradas;
