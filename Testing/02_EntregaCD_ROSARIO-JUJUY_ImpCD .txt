@@ -29,7 +29,7 @@ ARCHIVOS
 
 02: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente: ABC123 // Dato de prueba candidato a funcionar, ver en json Servicio.
+ 1 - Patente: ABC123
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Carga muestra
 	- N° Guía: GUI017, GUI018
@@ -49,7 +49,7 @@ ARCHIVOS
 
 03: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente ABC123 // // Dato de prueba candidato a funcionar, ver en json Servicio.
+ 1 - Patente ABC123
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Descarga muestra
 	- N° Guía: GUI017, GUI018
@@ -61,8 +61,8 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI016 estado "AdmitidoCDDestino"
-	- Verificar guía GUI017 estado "AdmitidoCDDestino"
+	- Verificar guía GUI016 estado "En CD Destino"
+	- Verificar guía GUI017 estado "En CD Destino"
 
 // CD Actual: Jujuy
 
