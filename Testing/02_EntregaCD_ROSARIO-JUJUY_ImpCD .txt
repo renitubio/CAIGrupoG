@@ -9,15 +9,16 @@ CD Actual: Rosario
  3 - Mensaje: "Cliente encontrado.Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Jujuy
  5 - Tipo retiro: CD
- 6 - VERIFICAR: Lista Opciones de entrega muestra "Jujuy (Centro de distribución)".
- 7 - DNI autorizado a retirar: 32456987
- 8 - Tipo de caja: L
- 9 - Cantidad: 2
- 10 - Botón: Añadir
- 10 - Mensaje: "Se añadió un tipo de caja L a la lista".
- 11 - Botón: Confirmar
- 12 - VERIFICAR: Lista Guías Generadas muestra "GUI017, GUI018".
- 13 - Botón "Finalizar".
+ 6 - VERIFICAR: Lista Opciones de entrega muestra "Jujuy (Centro de distribución)", "Agencia Carlos".
+ 7 - Selección: Jujuy (Centro de distribución)
+ 8 - DNI autorizado a retirar: 32456987
+ 9 - Tipo de caja: L
+ 10 - Cantidad: 2
+ 11 - Botón: Añadir
+ 12 - Mensaje: "Se añadió un tipo de caja L a la lista".
+ 13 - Botón: Confirmar
+ 14 - VERIFICAR: Lista Guías Generadas muestra "GUI017, GUI018".
+ 15 - Botón "Finalizar".
 
 ARCHIVOS 
  - Guías:

@@ -44,9 +44,9 @@ ARCHIVOS
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI017 estado "En Camino A Retirar Agencia"
-	- Verificar guía GUI018 estado "En Camino A Retirar Agencia"
-	- Verificar guía GUI019 estado "En Camino A Retirar Agencia"
+	- Verificar guía GUI017 estado "En camino a retirar (Agencia)"
+	- Verificar guía GUI018 estado "En camino a retirar (Agencia)"
+	- Verificar guía GUI019 estado "En camino a retirar (Agencia)"
 
 
 03: Pantalla "Rendición de Fletero"

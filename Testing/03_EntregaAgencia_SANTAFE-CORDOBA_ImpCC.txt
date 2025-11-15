@@ -42,18 +42,18 @@ ARCHIVOS
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Encomiendas Salientes muestra:
 	- N° Guía: GUI017, GUI018
-	- Estado encomienda: ImpuestoCallCenter
+	- Estado encomienda: Impuesto Call Center
 	- Tipo Paquete: XL, XL
 	- Autorizado a Retirar: 35721855
 	- Destino: "Agencia Sol Naciente"
  4 - Selecciona ambas guias (GUI017 y GUI018) 
  5 - Botón: Aceptar
- 6 - Cerrar pantalla
+ 6 - Mensaje: "Operación Exitosa"
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI017 estado "EnCaminoARetirarDomicilio"
-	- Verificar guía GUI018 estado "EnCaminoARetirarDomicilio"
+	- Verificar guía GUI017 estado "En camino a retirar (Domicilio)"
+	- Verificar guía GUI018 estado "En camino a retirar (Domicilio)"
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
@@ -65,18 +65,18 @@ ARCHIVOS
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas Entrantes muestra:
 	- N° Guía: GUI017, GUI018
-	- Estado encomienda: EnCaminoARetirarDomicilio
+	- Estado encomienda: En camino a retirar (Domicilio)
 	- Tipo paquete: XL, XL
 	- CUIT: 20123456789
 	- DNI autorizado a retirar: 35721855
  4 - Selección de ambas guias (GUI017 y GUI018) 
  5 - Botón: Aceptar 
- 6 - Cerrar pantalla
+ 6 - Mensaje: "Operación Exitosa"
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI017 estado "AdmitidoCDOrigen"
-	- Verificar guía GUI018 estado "AdmitidoCDOrigen"
+	- Verificar guía GUI017 estado "Admitido en CD Origen"
+	- Verificar guía GUI018 estado "Admitido en CD Origen"
 
  - HDR:
 	- Verificar HojaDeRuta 4571 -> completada = true.
@@ -99,12 +99,12 @@ ARCHIVOS
 	- CD Origen: Santa Fe
 	- CD Destino: Córdoba
  4 - Botón: Aceptar
- 5 - Cerrar Pantalla
+ 5 - Mensaje: "Operación Exitosa"
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI017 estado "EnTransito"
-	- Verificar guía GUI018 estado "EnTransito"
+	- Verificar guía GUI017 estado "En Tránsito"
+	- Verificar guía GUI018 estado "En Tránsito"
 
 --------------------------------------------------------------------------------------------------------------------------------------------
 
