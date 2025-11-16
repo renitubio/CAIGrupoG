@@ -114,10 +114,10 @@ g.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen)
     .Select(g => new Guia
        {
          NumeroGuia = g.NumeroGuia,
-           TipoPaquete = (TipoPaquete)((int)g.TipoPaquete - 1),
+           TipoPaquete = (TipoPaquete)((int)g.TipoPaquete -1),
    CUIT = g.ClienteCUIT,
-       CDOrigen = ObtenerNombreCD(g.CDOrigenID),
-          CDDestino = ObtenerNombreCD(g.CDDestinoID),
+       CDOrigen = ObtenerNombreCD(servicioDescarga.CDOrigen), // Mostrar origen del servicio
+          CDDestino = ObtenerNombreCD(servicioDescarga.CDDestino), // Mostrar destino del servicio
        Estado = (EstadoGuia)(int)g.Estado
   })
   .ToList();

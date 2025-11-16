@@ -39,9 +39,9 @@ namespace CAIGrupoG.EntregaGuíaCD
             var guiasEncontradas = guiasEntidad.Select(g => new Guia
             {
                 NumeroGuia = g.NumeroGuia,
-                TipoPaquete = (TipoPaquete)g.TipoPaquete,
                 Estado = (EstadoGuia)g.Estado,
-                TipoPaqueteTexto = Enum.GetName(typeof(TipoPaquete), (TipoPaquete)g.TipoPaquete)
+                TipoPaquete = (TipoPaquete)((int)g.TipoPaquete - 1), // Conversión correcta de TipoPaqueteEnum a TipoPaquete
+                TipoPaqueteTexto = Enum.GetName(typeof(TipoPaqueteEnum), g.TipoPaquete)
             }).ToList();
 
             return guiasEncontradas;
