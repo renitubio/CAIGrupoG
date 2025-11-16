@@ -23,32 +23,70 @@ namespace CAIGrupoG.EmitirFactura
         {
             lock (_guiaAlmacenLock)
             {
-                // Cargar la lista fresca para reflejar cambios persistidos.
                 var guiasActuales = GuiaAlmacen.Guias.ToList();
+                var egresosActuales = EgresosAlmacen.Egresos.ToList();
+                var tarifariosExtra = TarifarioExtraAlmacen.TarifariosExtra.ToList();
 
-                // 1. Filtrar por CUIT, Estado=Entregado (13) y NumFactura==0
                 var guiasEncontradas = guiasActuales
                     .Where(g => g.ClienteCUIT == cuit)
-                    .Where(g => g.NumeroFactura == 0)
+                    .Where(g => g.NumeroFactura ==0)
                     .Where(g => g.Estado == EstadoEncomiendaEnum.Entregado || g.Estado == EstadoEncomiendaEnum.Rechazado)
                     .ToList();
 
                 if (!guiasEncontradas.Any())
                     return new List<Guia>();
 
-                // 2. [MODELO] -> [CLIENTE ALMACEN]: Buscar la Razón Social.
                 var cliente = ClienteAlmacen.Clientes.FirstOrDefault(c => c.ClienteCUIT == cuit);
                 string razonSocial = cliente?.RazonSocial ?? $"CUIT {cuit} (Razón Social no encontrada)";
 
-                // 3. Mapear al DTO Guia para la presentación
-                return guiasEncontradas.Select(g => new Guia
+                var resultado = new List<Guia>();
+                foreach (var g in guiasEncontradas)
                 {
-                    NumeroGuia = g.NumeroGuia,
-                    Estado = g.Estado == EstadoEncomiendaEnum.Entregado ? EstadoGuia.Entregado : EstadoGuia.Rechazado,
-                    RazonSocial = razonSocial,
-                    Importe = g.Importe,
-                    CUIT = g.ClienteCUIT
-                }).ToList();
+                    decimal importe = g.Importe;
+                    bool persistirGuia = false;
+                    // Si está Rechazada, duplicar importe y egresos
+                    if (g.Estado == EstadoEncomiendaEnum.Rechazado)
+                    {
+                        importe *=2;
+                        g.Importe = importe; // Persistir en almacén
+                        persistirGuia = true;
+                        var egresosGuia = egresosActuales.Where(e => e.NumeroGuia == g.NumeroGuia).ToList();
+                        foreach (var egreso in egresosGuia)
+                        {
+                            egreso.MontoPago *=2;
+                        }
+                    }
+                    // Si está Entregada y tuvo PrimerIntentoDeEntrega
+                    if (g.Estado == EstadoEncomiendaEnum.Entregado)
+                    {
+                        var extraEntregaDomicilio = tarifariosExtra.FirstOrDefault(t => t.Tipo == TipoExtraEnum.EntregaDomicilio);
+                        if (extraEntregaDomicilio != null)
+                        {
+                            importe += extraEntregaDomicilio.Precio *2;
+                            g.Importe = importe; // Persistir en almacén
+                            persistirGuia = true;
+                        }
+                        var egresosFlete = egresosActuales
+                            .Where(e => e.NumeroGuia == g.NumeroGuia && e.TipoEgreso == TipoEgresoEnum.ComisionFlete)
+                            .ToList();
+                        foreach (var egreso in egresosFlete)
+                        {
+                            egreso.MontoPago *=2;
+                        }
+                    }
+                    resultado.Add(new Guia
+                    {
+                        NumeroGuia = g.NumeroGuia,
+                        Estado = g.Estado == EstadoEncomiendaEnum.Entregado ? EstadoGuia.Entregado : EstadoGuia.Rechazado,
+                        RazonSocial = razonSocial,
+                        Importe = importe,
+                        CUIT = g.ClienteCUIT
+                    });
+                }
+                // Persistir cambios en almacenes
+                GuiaAlmacen.Grabar();
+                EgresosAlmacen.Grabar();
+                return resultado;
             }
         }
 
