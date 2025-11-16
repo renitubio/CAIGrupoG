@@ -7,7 +7,7 @@ Agencia actual: Rapiditas
 
  1 - CUIT 30701234565
  2 - Botón: Buscar Cliente
- 3 - Mensaje: "Cliente encontrado: Tech Soluciones S.A. Proceda a ingresar la encomienda".
+ 3 - Mensaje: "Cliente encontrado. Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Rosario
  5 - Tipo de entrega: Domicilio
  6 - Domicilio: Av. San Martin 1234
@@ -20,7 +20,7 @@ Agencia actual: Rapiditas
  13 - Mensaje: "Se añadió una caja tipo M a la lista".
  14 - Botón: Añadir
  15 - Botón: Confirmar
- 16 - VERIFICAR: Lista número de tracking generados muestra "GUI017, GUI018, GUI019".
+ 16 - VERIFICAR: Lista de guías generadas muestra "GUI017, GUI018, GUI019".
  17 - Botón "Finalizar".
 
 

@@ -11,14 +11,17 @@ CD Actual: CABA
  2 - Botón: Buscar Cliente
  3 - Mensaje: "Cliente encontrado: Tech Soluciones S.A. Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Jujuy
- 5 - Tipo retiro: "Jujuy (Centro de Distribución)"
- 6 - DNI autorizado a retirar: 20405030
- 7 - Tipo de caja: XL
- 8 - Cantidad: 1
- 9 - Botón: Añadir
- 11 - Mensaje: "Se añadió un tipo de caja XL a la lista".
- 12 - Botón: Confirmar
- 13 - Botón "Finalizar".
+ 5 - Tipo de entrega: CD
+ 6 - VERIFICAR: Lista de Opciones de entrega muestra "Jujuy (Centro de Distribución)", "Agencia Carlos"
+ 7 - Selección: Jujuy (Centro de Distribución)
+ 8 - DNI autorizado a retirar: 20405030
+ 9 - Tipo de caja: XL
+ 10 - Cantidad: 1
+ 11 - Botón: Añadir
+ 12 - Mensaje: "Se añadió una caja de tipo XL a la lista".
+ 13 - Botón: Confirmar
+ 14 - VERIFICAR: Lista de guías generadas muestra "GUI017"
+ 15 - Botón "Finalizar".
 
 ARCHIVOS
  - Guías:
@@ -41,6 +44,7 @@ ARCHIVOS
 	- CD Origen: CABA
 	- CD Destino: Cordoba
  4 - Botón: Aceptar
+ 5 - Mensaje: "Operación Exitosa"
 
 ARCHIVOS
  - Guías:
@@ -61,6 +65,7 @@ ARCHIVOS
 	- CD Origen: CABA
 	- CD Destino: Cordoba
  4 - Botón: Aceptar
+ 5 - Mensaje: "Operación Exitosa"
 
 ARCHIVOS
  - Guías:
@@ -82,6 +87,7 @@ ARCHIVOS
 	- CD Origen: Cordoba
 	- CD Destino: Jujuy
  4 - Botón: Aceptar
+ 5 - Mensaje: "Operación Exitosa"
 
 
 ARCHIVOS
@@ -102,6 +108,7 @@ ARCHIVOS
 	- CD Origen: Cordoba
 	- CD Destino: Jujuy
  4 - Botón: Aceptar
+ 5 - Mensaje: "Operación Exitosa"
 
 
 ARCHIVOS

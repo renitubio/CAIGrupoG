@@ -8,7 +8,7 @@ CD Actual: Rosario
  2 - Botón: Buscar Cliente
  3 - Mensaje: "Cliente encontrado.Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Jujuy
- 5 - Tipo retiro: CD
+ 5 - Tipo de entrega: CD
  6 - VERIFICAR: Lista Opciones de entrega muestra "Jujuy (Centro de distribución)", "Agencia Carlos".
  7 - Selección: Jujuy (Centro de distribución)
  8 - DNI autorizado a retirar: 32456987
