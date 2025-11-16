@@ -10,6 +10,7 @@ namespace CAIGrupoG.Almacenes
     {
         RetiroDomicilio = 1,
         EntregaAgencia = 2,
-        EntregaDomicilio = 3
+        EntregaDomicilio = 3,
+        RetiroAgencia = 4
     }
 }

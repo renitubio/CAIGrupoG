@@ -151,28 +151,46 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                 CiudadId = ciudadId
             };
         }
-        private decimal CalcularImporte(TipoPaqueteEnum tipoPaquete, int cdOrigen, int cdDestino)
+        private decimal CalcularImporte(TipoPaqueteEnum tipoPaquete, int cdOrigen, int cdDestino, bool entregaDomicilio, bool entregaAgencia)
         {
             if (_clienteActual == null || _clienteActual.Tarifas == null)
-            {
                 throw new InvalidOperationException("Cliente o tarifario no cargado.");
-            }
 
-            // Busca en el tarifario específico del cliente
+            // Importe base
             var tarifaEncontrada = _clienteActual.Tarifas.FirstOrDefault(t =>
                 t.TipoPaquete == tipoPaquete &&
                 t.CDOrigen == cdOrigen &&
                 t.CDDestino == cdDestino);
 
-            if (tarifaEncontrada != null)
+            if (tarifaEncontrada == null)
+                throw new InvalidOperationException($"No se encontró una tarifa para el cliente {_clienteActual.ClienteCUIT}, Paquete: {tipoPaquete}, Origen: {cdOrigen}, Destino: {cdDestino}");
+
+            decimal importe = tarifaEncontrada.Precio;
+
+            // Sumar siempre el extra de retiro en domicilio (TipoExtraEnum.RetiroDomicilio =1)
+            var extraRetiro = CAIGrupoG.Almacenes.TarifarioExtraAlmacen.TarifariosExtra
+                .FirstOrDefault(e => e.Tipo == TipoExtraEnum.RetiroDomicilio);
+            if (extraRetiro != null)
+                importe += extraRetiro.Precio;
+
+            // Sumar extra por entrega en agencia si corresponde (TipoExtraEnum.EntregaAgencia =2)
+            if (entregaAgencia)
             {
-                // Si encuentra la tarifa, devuelve el precio
-                return tarifaEncontrada.Precio;
+                var extraAgencia = CAIGrupoG.Almacenes.TarifarioExtraAlmacen.TarifariosExtra
+                    .FirstOrDefault(e => e.Tipo == TipoExtraEnum.EntregaAgencia);
+                if (extraAgencia != null)
+                    importe += extraAgencia.Precio;
+            }
+            // Sumar extra por entrega en domicilio si corresponde (TipoExtraEnum.EntregaDomicilio =3)
+            if (entregaDomicilio)
+            {
+                var extraDomicilio = CAIGrupoG.Almacenes.TarifarioExtraAlmacen.TarifariosExtra
+                    .FirstOrDefault(e => e.Tipo == TipoExtraEnum.EntregaDomicilio);
+                if (extraDomicilio != null)
+                    importe += extraDomicilio.Precio;
             }
 
-            // Si no encuentra una tarifa, lanza un error.
-            // Es mejor que devolver 0, para no permitir envíos gratis por error.
-            throw new InvalidOperationException($"No se encontró una tarifa para el cliente {_clienteActual.ClienteCUIT}, Paquete: {tipoPaquete}, Origen: {cdOrigen}, Destino: {cdDestino}");
+            return importe;
         }
         private FleteroEntidad BuscarFletero(int cdOrigen)
         {
@@ -217,7 +235,13 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                         ObtenerCDPorCiudad(datosImposicion.CDDestinoID)?.Id
                         ?? datosImposicion.CDDestinoID;
 
-                    decimal importe = CalcularImporte(tipoPaquete, cdOrigenID, cdDestinoReal);
+                    decimal importe = CalcularImporte(
+                        tipoPaquete,
+                        cdOrigenID,
+                        cdDestinoReal,
+                        datosImposicion.EntregaDomicilio,
+                        datosImposicion.AgenciaDestinoID != cdPrincipalID
+                    );
 
                     var entidad = new GuiaEntidad
                     {
@@ -227,7 +251,6 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
                         Estado = EstadoEncomiendaEnum.ImpuestoCallCenter,
                         RetiroDomicilio = false,
-                        // EntregaAgencia = true solo si NO se seleccionó el CD principal
                         EntregaAgencia = datosImposicion.AgenciaDestinoID != cdPrincipalID,
                         TipoPaquete = tipoPaquete,
                         CDOrigenID = cdOrigenID,
@@ -266,11 +289,11 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
             {
                 HDR_ID = _proximoIdHDR++,
                 FechaCreacion = DateTime.Now,
-                FleteroDNI = fletero.FleteroDNI,   // ← fletero asignado
-                Tipo = tipo,                       // ← ahora es RETIRO
+                FleteroDNI = fletero.FleteroDNI,   
+                Tipo = tipo,                       
                 Completada = false,
                 Guias = guias,
-                ServicioID = 0                     // no aplica en RETIRO
+                ServicioID = 0                     
             };
 
             HojaDeRutaAlmacen.Nuevo(nuevaHdr);
