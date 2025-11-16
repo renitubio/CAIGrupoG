@@ -378,8 +378,14 @@ namespace CAIGrupoG.Modelos
                         break;
 
                     case EstadoEncomiendaEnum.PrimerIntentoDeEntrega:
-                        if (noFueSeleccionada)
+                        if (fueSeleccionada)
+                        {
+                            guia.Estado = EstadoEncomiendaEnum.Entregado;
+                        }
+                        else if (noFueSeleccionada)
+                        {
                             guia.Estado = EstadoEncomiendaEnum.Rechazado;
+                        }
                         break;
 
                     case EstadoEncomiendaEnum.EnCaminoARetirarDomicilio:
