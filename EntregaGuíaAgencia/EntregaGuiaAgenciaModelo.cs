@@ -33,7 +33,7 @@ namespace CAIGrupoG.EntregaGuíaAgencia
                 NumeroGuia = g.NumeroGuia,
                 TipoPaquete = (TipoPaquete)g.TipoPaquete,
                 Estado = (EstadoGuia)g.Estado,
-                TipoPaqueteTexto = Enum.GetName(typeof(TipoPaquete), (TipoPaquete)g.TipoPaquete)
+                TipoPaqueteTexto = ((TipoPaquete)g.TipoPaquete).ToString() // <-- Esto muestra S, M, L, XL
             }).ToList();
 
             return guiasViewModel;
@@ -49,10 +49,37 @@ namespace CAIGrupoG.EntregaGuíaAgencia
                     .FirstOrDefault(g => g.NumeroGuia == guiaVM.NumeroGuia);
 
                 if (guiaEntidad != null)
+                {
                     guiaEntidad.Estado = nuevoEstado;
+                    CrearEgresoPorGuia(guiaEntidad);
+                }
             }
 
             GuiaAlmacen.Grabar();
+            CAIGrupoG.Almacenes.EgresosAlmacen.Grabar();
+        }
+
+        private void CrearEgresoPorGuia(CAIGrupoG.Almacenes.GuiaEntidad guia)
+        {
+            var agencia = CAIGrupoG.Almacenes.AgenciaAlmacen.AgenciaActual;
+            if (agencia == null) return;
+
+            decimal monto = 0;
+            if (agencia.Comisiones != null && agencia.Comisiones.TryGetValue(guia.TipoPaquete, out var comision))
+                monto = comision;
+
+            var egreso = new CAIGrupoG.Almacenes.EgresosEntidad
+            {
+                MontoPago = monto,
+                NumeroGuia = guia.NumeroGuia,
+                FechaPago = default,
+                NumeroFactura = 0,
+                TipoEgreso = CAIGrupoG.Almacenes.TipoEgresoEnum.ComisionAgencia,
+                AgenciaID = agencia.AgenciaID,
+                FleteroDNI = string.Empty,
+                CUITEmpresaTransporte = string.Empty
+            };
+            CAIGrupoG.Almacenes.EgresosAlmacen.Nuevo(egreso);
         }
     }
 }
