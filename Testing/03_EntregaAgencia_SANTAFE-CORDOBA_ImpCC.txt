@@ -114,20 +114,20 @@ ARCHIVOS
 
 05: Pantalla "Carga/Descarga Playero"
 
- 1 - Patente AD123GG // Candidato a funcionar según datos de prueba en json
+ 1 - Patente AA667HJ
  2 - Botón: Buscar Guías
  3 - VERIFICAR: Lista Descarga muestra
 	- N° Guía: GUI018, GUI019
 	- Tipo Paquete: XL, XL
 	- CUIT: 20123456789
 	- CD Origen: Santa Fe
-	- CD Destino: Córdoba // ¿Debería poder decir también AgenciaDestino?
+	- CD Destino: Córdoba
  4 - Botón: Aceptar
 
 ARCHIVOS
  - Guías:
-	- Verificar guía GUI018 estado "AdmitidoCDDestino"
-	- Verificar guía GUI019 estado "AdmitidoCDDestino"
+	- Verificar guía GUI018 estado "En CD Destino"
+	- Verificar guía GUI019 estado "En CD Destino"
  - HDR: 
 	- Verificar HojaDeRuta 4572 -> completada = true.
 	- Verificar HojaDeRuta 4573, ServicioID = 0, FleteroDNI = 4766645, TipoHDREnum= 3, contiene guías GUI017 y GUI018
@@ -144,10 +144,11 @@ ARCHIVOS
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas Salientes muestra:
 	- N° Guía: GUI017, GUI018
-	- Estado encomienda: AdmitidoCDDestino (ambas)
+	- Estado encomienda: En CD Destino
 	- Tipo paquete: XL, XL
 	- CUIT: 20123456789
 	- DNI autorizado a retirar: 35721855
+	- Destino: Agencia Sol Naciente
  4 - Selección de ambas guias (GUI017 y GUI018) 
  5 - Botón: Aceptar
  6 - Mensaje: Operación Exitosa
@@ -165,14 +166,15 @@ ARCHIVOS
 // CD Actual: Cordoba
 
 07: Pantalla "Rendición de Fletero"
- 1 - DNI Fletero: 4766645 // Candidato a funcionar según datos de prueba en json
+ 1 - DNI Fletero: 4766645
  2 - Botón "Buscar Guías"
  3 - VERIFICAR: Lista Encomiendas entrantes muestra:
 	- N° Guía: GUI017, GUI018
-	- Estado encomienda: DistribucionUltimaMillaAgencia
+	- Estado encomienda: Distribucion Ultima Milla - Agencia
 	- Tipo paquete: XL, XL
 	- CUIT: 20123456789
 	- DNI autorizado a retirar: 35721855
+	- Destino: Agencia Sol Naciente
  4 - Botón: Aceptar
  5 - Mensaje: Operación Exitosa
 
