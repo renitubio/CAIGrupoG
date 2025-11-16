@@ -199,72 +199,72 @@ namespace CAIGrupoG.Imposicion.ImpAgencia
                 throw new InvalidOperationException("Cliente no encontrado.");
 
             int cdOrigenID = _clienteActual.CDOrigen;
-
             var guiasEntidadCreadas = new List<GuiaEntidad>();
             var guiasGeneradas = new List<string>();
 
+            // Obtener el ID del CD principal de la ciudad destino
+            var ciudadDestino = CiudadAlmacen.Ciudades.FirstOrDefault(c => c.CiudadID == datosImposicion.CDDestinoID);
+            int cdPrincipalID = ciudadDestino != null ? ciudadDestino.CDID : 0;
+
             // Buscar fletero asignado al CD
             var fleteroAsignado = FleteroAlmacen.Fleteros
-                .FirstOrDefault(f => f.CD_ID == cdOrigenID);
+  .FirstOrDefault(f => f.CD_ID == cdOrigenID);
 
-            if (fleteroAsignado == null)
-                throw new InvalidOperationException($"No existe fletero asignado al CD {cdOrigenID}.");
+    if (fleteroAsignado == null)
+  throw new InvalidOperationException($"No existe fletero asignado al CD {cdOrigenID}.");
 
-            foreach (var item in datosImposicion.Items)
-            {
-                TipoPaqueteEnum tipoPaquete =
-                    (TipoPaqueteEnum)Enum.Parse(typeof(TipoPaqueteEnum), item.Key);
+    foreach (var item in datosImposicion.Items)
+    {
+    TipoPaqueteEnum tipoPaquete =
+  (TipoPaqueteEnum)Enum.Parse(typeof(TipoPaqueteEnum), item.Key);
 
-                int cantidad = item.Value;
+    int cantidad = item.Value;
 
-                for (int i = 0; i < cantidad; i++)
-                {
-                    string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
+        for (int i = 0; i < cantidad; i++)
+        {
+       string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
 
-                    int cdDestinoReal =
-                        ObtenerCDPorCiudad(datosImposicion.CDDestinoID)?.Id
-                        ?? datosImposicion.CDDestinoID;
+        int cdDestinoReal =
+ ObtenerCDPorCiudad(datosImposicion.CDDestinoID)?.Id
+ ?? datosImposicion.CDDestinoID;
 
-                    decimal importe = CalcularImporte(tipoPaquete, cdOrigenID, cdDestinoReal);
+   decimal importe = CalcularImporte(tipoPaquete, cdOrigenID, cdDestinoReal);
 
-                    var entidad = new GuiaEntidad
-                    {
-                        NumeroGuia = numeroGuia,
-                        ClienteCUIT = _clienteActual.ClienteCUIT,
-                        FechaAdmision = DateTime.Now,
+   var entidad = new GuiaEntidad
+   {
+       NumeroGuia = numeroGuia,
+ ClienteCUIT = _clienteActual.ClienteCUIT,
+ FechaAdmision = DateTime.Now,
+       Estado = EstadoEncomiendaEnum.ImpuestoAgencia,
+ RetiroDomicilio = false,
+       // EntregaAgencia = true solo si NO se seleccionó el CD principal
+ EntregaAgencia = datosImposicion.AgenciaDestinoID != cdPrincipalID,
+ TipoPaquete = tipoPaquete,
+       CDOrigenID = cdOrigenID,
+       DNIAutorizadoRetirar = datosImposicion.DNIAutorizadoRetirar,
+       EntregaDomicilio = datosImposicion.EntregaDomicilio,
+ DomicilioDestino = datosImposicion.EntregaDomicilio ? datosImposicion.DomicilioDestino : "",
+ AgenciaDestinoID = datosImposicion.AgenciaDestinoID,
+       CDDestinoID = datosImposicion.CDDestinoID,
+       Importe = importe,
+     NumeroFactura = 0,
+      Fecha = DateTime.Now
+   };
 
-                        // Imposición en agencia
-                        Estado = EstadoEncomiendaEnum.ImpuestoAgencia,
-                        RetiroDomicilio = false,
-                        EntregaAgencia = !datosImposicion.EntregaDomicilio,
-                        TipoPaquete = tipoPaquete,
-                        CDOrigenID = cdOrigenID,
+ GuiaAlmacen.Nuevo(entidad);
+   guiasEntidadCreadas.Add(entidad);
+       guiasGeneradas.Add(numeroGuia);
+   }
+    }
 
-                        DNIAutorizadoRetirar = datosImposicion.DNIAutorizadoRetirar,
-                        EntregaDomicilio = datosImposicion.EntregaDomicilio,
-                        DomicilioDestino = datosImposicion.EntregaDomicilio ? datosImposicion.DomicilioDestino : "",
-                        AgenciaDestinoID = datosImposicion.AgenciaDestinoID,
-                        CDDestinoID = datosImposicion.CDDestinoID,
+    // Guardar guías
+    GuiaAlmacen.Grabar();
 
-                        Importe = importe,
-                        NumeroFactura = 0,
-                        Fecha = DateTime.Now
-                    };
+    // Crear UNA sola HDR con TODAS las guías
+    CrearHojaDeRuta(guiasEntidadCreadas, fleteroAsignado, TipoHDREnum.Retiro);
 
-                    GuiaAlmacen.Nuevo(entidad);
-                    guiasEntidadCreadas.Add(entidad);
-                    guiasGeneradas.Add(numeroGuia);
-                }
-            }
-
-            // Guardar guías
-            GuiaAlmacen.Grabar();
-
-            // Crear UNA sola HDR con TODAS las guías
-            CrearHojaDeRuta(guiasEntidadCreadas, fleteroAsignado, TipoHDREnum.Retiro);
-
-            return guiasGeneradas;
-        }
+    return guiasGeneradas;
+}
 
         private void CrearHojaDeRuta(List<GuiaEntidad> guias, FleteroEntidad fletero, TipoHDREnum tipo)
         {

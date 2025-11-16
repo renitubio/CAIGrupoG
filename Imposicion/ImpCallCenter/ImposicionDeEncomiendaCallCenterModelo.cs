@@ -193,9 +193,11 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
                 throw new InvalidOperationException("Cliente no encontrado.");
 
             int cdOrigenID = _clienteActual.CDOrigen;
-
-            // Se buscan todas las guías generadas para crear una sola HojaDeRuta
             var guiasEntidadCreadas = new List<GuiaEntidad>();
+
+            // Obtener el ID del CD principal de la ciudad destino
+            var ciudadDestino = CiudadAlmacen.Ciudades.FirstOrDefault(c => c.CiudadID == datosImposicion.CDDestinoID);
+            int cdPrincipalID = ciudadDestino != null ? ciudadDestino.CDID : 0;
 
             // Buscar el fletero del CD
             var fleteroAsignado = BuscarFletero(cdOrigenID);
@@ -225,7 +227,8 @@ namespace CAIGrupoG.Imposicion.ImpCallCenter
 
                         Estado = EstadoEncomiendaEnum.ImpuestoCallCenter,
                         RetiroDomicilio = false,
-                        EntregaAgencia = !datosImposicion.EntregaDomicilio,
+                        // EntregaAgencia = true solo si NO se seleccionó el CD principal
+                        EntregaAgencia = datosImposicion.AgenciaDestinoID != cdPrincipalID,
                         TipoPaquete = tipoPaquete,
                         CDOrigenID = cdOrigenID,
 
