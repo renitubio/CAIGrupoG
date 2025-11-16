@@ -316,14 +316,14 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             // Modifica CrearHojaDeRuta para aceptar los parámetros de tramo y servicio
             private void CrearHojaDeRuta(List<GuiaEntidad> guias, FleteroEntidad fletero, TipoHDREnum tipo, int servicioId)
             {
-                if (guias == null || guias.Count == 0 || fletero == null)
+                if (guias == null || guias.Count ==0 || fletero == null)
                     return;
 
                 var nuevaHdr = new HojaDeRutaEntidad
                 {
                     HDR_ID = _proximoIdHDR++,
                     FechaCreacion = DateTime.Now,
-                    FleteroDNI = fletero.FleteroDNI,
+                    FleteroDNI = tipo == TipoHDREnum.Transporte ? "0" : fletero.FleteroDNI,
                     Tipo = tipo,
                     Completada = false,
                     Guias = guias.Select(g => g).ToList(),

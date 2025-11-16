@@ -17,10 +17,6 @@ namespace CAIGrupoG.EntregaGuíaCD
 
         public List<Guia> BuscarGuiasPorDNI(string dni)
         {
-            foreach (var g in GuiaAlmacen.Guias)
-            {
-                Debug.WriteLine($"Guía: {g.NumeroGuia}, Estado: {g.Estado}, CDDestinoID: {g.CDDestinoID}, DNI: {g.DNIAutorizadoRetirar}");
-            }
 
             if (CentroDistribucionAlmacen.CentroDistribucionActual == null)
             {

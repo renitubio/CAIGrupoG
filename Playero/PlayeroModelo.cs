@@ -20,7 +20,6 @@ namespace CAIGrupoG.Playero
             {
                 NuestroCD = 0; // No lanzar excepción
             }
-            PruebaDebug(); // <-- Esto fuerza la ejecución del debug al crear el modelo
         }
 
         // Si se mantiene el constructor con parámetro, se usa este:
@@ -29,106 +28,106 @@ namespace CAIGrupoG.Playero
             NuestroCD = cdSeleccionado;
         }
 
-            /// Busca el nombre de un CD a partir de su ID.
-            private string ObtenerNombreCD(int cdId)
+        /// Busca el nombre de un CD a partir de su ID.
+        private string ObtenerNombreCD(int cdId)
         {
-                // Asumo que tu almacén se llama 'CentroDistribucionAlmacen' 
-                // y la lista 'CentrosDistribucion'
-                var cd = CentroDistribucionAlmacen.CentrosDistribucion
-           .FirstOrDefault(c => c.CD_ID == cdId);
+            // Asumo que tu almacén se llama 'CentroDistribucionAlmacen' 
+            // y la lista 'CentrosDistribucion'
+            var cd = CentroDistribucionAlmacen.CentrosDistribucion
+                .FirstOrDefault(c => c.CD_ID == cdId);
 
             return cd != null ? cd.Nombre : cdId.ToString(); // Devuelve el nombre o el ID si no lo encuentra
-            }
+        }
 
         public (List<Guia> Cargas, List<Guia> Descargas) BuscarGuiasPorPatente(string patente)
         {
             if (NuestroCD == 0)
- return (new List<Guia>(), new List<Guia>()); // No hay CD seleccionado, devolver vacío
+                return (new List<Guia>(), new List<Guia>()); // No hay CD seleccionado, devolver vacío
 
-  var patenteUpper = patente.ToUpper();
-    var cargas = new List<Guia>();
-    var descargas = new List<Guia>();
+            var patenteUpper = patente.ToUpper();
+            var cargas = new List<Guia>();
+            var descargas = new List<Guia>();
 
-    // 1. Buscar TODOS los servicios de CARGA (Salida desde NuestroCD)
-    var serviciosCarga = ServicioAlmacen.Servicios
-        .Where(s => s.Patente.ToUpper() == patenteUpper && s.CDOrigen == NuestroCD)
-        .ToList();
+            // 1. Buscar TODOS los servicios de CARGA (Salida desde NuestroCD)
+            var serviciosCarga = ServicioAlmacen.Servicios
+                .Where(s => s.Patente.ToUpper() == patenteUpper && s.CDOrigen == NuestroCD)
+                .ToList();
 
-    // 2. Buscar TODOS los servicios de DESCARGA (Llegada a NuestroCD)
-    var serviciosDescarga = ServicioAlmacen.Servicios
-  .Where(s => s.Patente.ToUpper() == patenteUpper && s.CDDestino == NuestroCD)
-        .ToList();
+            // 2. Buscar TODOS los servicios de DESCARGA (Llegada a NuestroCD)
+            var serviciosDescarga = ServicioAlmacen.Servicios
+                .Where(s => s.Patente.ToUpper() == patenteUpper && s.CDDestino == NuestroCD)
+                .ToList();
 
-    // 3. Obtener Guías de Carga - Buscar en las HDRs del servicio
-    foreach (var servicioCarga in serviciosCarga)
-    {
-        // Buscar TODAS las HDRs asociadas a este servicio de carga
-   var hojasCarga = HojaDeRutaAlmacen.HojasDeRuta
-  .Where(h => h.ServicioID == servicioCarga.ServicioID && h.Completada == false)
- .ToList();
-
-        foreach (var hojaCarga in hojasCarga)
-      {
-       if (hojaCarga.Guias != null)
+            // 3. Obtener Guías de Carga - Buscar en las HDRs del servicio
+            foreach (var servicioCarga in serviciosCarga)
             {
-     var numerosGuiaCarga = hojaCarga.Guias.Select(g => g.NumeroGuia);
+                // Buscar TODAS las HDRs asociadas a este servicio de carga
+                var hojasCarga = HojaDeRutaAlmacen.HojasDeRuta
+                    .Where(h => h.ServicioID == servicioCarga.ServicioID && h.Completada == false)
+                    .ToList();
 
-         // Buscar guías que estén en la HDR y en estado AdmitidoCDOrigen
-     var guiasCarga = GuiaAlmacen.Guias
-      .Where(g => numerosGuiaCarga.Contains(g.NumeroGuia) &&
-g.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen)
-           .Select(g => new Guia
-          {
-        NumeroGuia = g.NumeroGuia,
-  TipoPaquete = (TipoPaquete)((int)g.TipoPaquete - 1),
-              CUIT = g.ClienteCUIT,
-       CDOrigen = ObtenerNombreCD(g.CDOrigenID),
-        CDDestino = ObtenerNombreCD(servicioCarga.CDDestino), // Mostrar destino del servicio, no destino final
-             Estado = (EstadoGuia)(int)g.Estado,
-         })
-   .ToList();
+                foreach (var hojaCarga in hojasCarga)
+                {
+                    if (hojaCarga.Guias != null)
+                    {
+                        var numerosGuiaCarga = hojaCarga.Guias.Select(g => g.NumeroGuia);
 
-         cargas.AddRange(guiasCarga);
-    }
+                        // Buscar guías que estén en la HDR y en estado AdmitidoCDOrigen
+                        var guiasCarga = GuiaAlmacen.Guias
+                            .Where(g => numerosGuiaCarga.Contains(g.NumeroGuia) &&
+                                    g.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen)
+                            .Select(g => new Guia
+                            {
+                                NumeroGuia = g.NumeroGuia,
+                                TipoPaquete = (TipoPaquete)((int)g.TipoPaquete - 1),
+                                CUIT = g.ClienteCUIT,
+                                CDOrigen = ObtenerNombreCD(g.CDOrigenID),
+                                CDDestino = ObtenerNombreCD(servicioCarga.CDDestino), // Mostrar destino del servicio, no destino final
+                                Estado = (EstadoGuia)(int)g.Estado,
+                            })
+                            .ToList();
+
+                        cargas.AddRange(guiasCarga);
+                    }
+                }
+            }
+
+            // 4. Obtener Guías de Descarga - TODAS las HDRs asociadas a TODOS los servicios
+            foreach (var servicioDescarga in serviciosDescarga)
+            {
+                // Buscar TODAS las HDRs asociadas a este servicio (no solo la primera)
+                var hojasDescarga = HojaDeRutaAlmacen.HojasDeRuta
+                            .Where(h => h.ServicioID == servicioDescarga.ServicioID && h.Completada == false)
+                         .ToList();
+
+                foreach (var hojaDescarga in hojasDescarga)
+                {
+                    if (hojaDescarga.Guias != null)
+                    {
+                        var numerosGuiaDescarga = hojaDescarga.Guias.Select(g => g.NumeroGuia);
+
+                                // Solo guías en estado EnTransito
+                        var guiasDescarga = GuiaAlmacen.Guias
+                               .Where(g => numerosGuiaDescarga.Contains(g.NumeroGuia) &&
+                   g.Estado == EstadoEncomiendaEnum.EnTransito)
+                    .Select(g => new Guia
+                       {
+                         NumeroGuia = g.NumeroGuia,
+                           TipoPaquete = (TipoPaquete)((int)g.TipoPaquete -1),
+                       CUIT = g.ClienteCUIT,
+                           CDOrigen = ObtenerNombreCD(servicioDescarga.CDOrigen), // Mostrar origen del servicio
+                              CDDestino = ObtenerNombreCD(servicioDescarga.CDDestino), // Mostrar destino del servicio
+                           Estado = (EstadoGuia)(int)g.Estado
+                  })
+                  .ToList();
+
+                 descargas.AddRange(guiasDescarga);
+            }
+                }
+            }
+
+            return (cargas, descargas);
         }
-    }
-
-    // 4. Obtener Guías de Descarga - TODAS las HDRs asociadas a TODOS los servicios
-    foreach (var servicioDescarga in serviciosDescarga)
-    {
-        // Buscar TODAS las HDRs asociadas a este servicio (no solo la primera)
- var hojasDescarga = HojaDeRutaAlmacen.HojasDeRuta
-            .Where(h => h.ServicioID == servicioDescarga.ServicioID && h.Completada == false)
-         .ToList();
-
-     foreach (var hojaDescarga in hojasDescarga)
-      {
-      if (hojaDescarga.Guias != null)
-    {
-          var numerosGuiaDescarga = hojaDescarga.Guias.Select(g => g.NumeroGuia);
-
-                // Solo guías en estado EnTransito
-        var guiasDescarga = GuiaAlmacen.Guias
-               .Where(g => numerosGuiaDescarga.Contains(g.NumeroGuia) &&
-   g.Estado == EstadoEncomiendaEnum.EnTransito)
-    .Select(g => new Guia
-       {
-         NumeroGuia = g.NumeroGuia,
-           TipoPaquete = (TipoPaquete)((int)g.TipoPaquete -1),
-   CUIT = g.ClienteCUIT,
-       CDOrigen = ObtenerNombreCD(servicioDescarga.CDOrigen), // Mostrar origen del servicio
-          CDDestino = ObtenerNombreCD(servicioDescarga.CDDestino), // Mostrar destino del servicio
-       Estado = (EstadoGuia)(int)g.Estado
-  })
-  .ToList();
-
-         descargas.AddRange(guiasDescarga);
-    }
-        }
-    }
-
-    return (cargas, descargas);
-}
 
         // Método principal para confirmar y procesar la operación
         public Dictionary<string, List<GuiaEntidad>> ConfirmarOperacion(List<Guia> cargasSeleccionadas, List<Guia> descargasSeleccionadas)
@@ -225,13 +224,13 @@ GuiaAlmacen.Actualizar(guiaEntidad);
         }
     }
 
-// Agrupación para distribución (igual que antes)
+// Agrupación para distribución (solo si EntregaDomicilio o EntregaAgencia son true)
     var porDomicilio = descargasSeleccionadasEntidad
         .Where(g => g.EntregaDomicilio)
         .GroupBy(g => g.DomicilioDestino)
         .ToDictionary(g => $"Domicilio: {g.Key}", g => g.ToList());
-foreach (var kvp in porDomicilio)
-  agrupadasParaDistribucion[kvp.Key] = kvp.Value;
+    foreach (var kvp in porDomicilio)
+      agrupadasParaDistribucion[kvp.Key] = kvp.Value;
 
     var porAgencia = descargasSeleccionadasEntidad
         .Where(g => g.EntregaAgencia)
@@ -240,12 +239,8 @@ foreach (var kvp in porDomicilio)
     foreach (var kvp in porAgencia)
         agrupadasParaDistribucion[kvp.Key] = kvp.Value;
 
-    var enCD = descargasSeleccionadasEntidad
- .Where(g => !g.EntregaDomicilio && !g.EntregaAgencia)
-        .ToList();
-    if (enCD.Any())
-     agrupadasParaDistribucion["Entrega en CD"] = enCD;
 
+    // Solo crear HDR de distribución si hay guías para agencia o domicilio
     if (agrupadasParaDistribucion.Any())
     {
         CrearHojasDeRutaDistribucion(agrupadasParaDistribucion);
@@ -329,13 +324,6 @@ foreach (var kvp in porDomicilio)
             // 3. Persistencia de la Hoja de Ruta
             HojaDeRutaAlmacen.Grabar();
             return hojas;
-        }
-
-        public void PruebaDebug()
-        {
-            var guia = GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == "GUI017");
-            Debug.WriteLine("=== DEBUG DE GUIA ===");
-            Debug.WriteLine($"Guía: {guia.NumeroGuia}, Estado: {guia.Estado}, CDDestinoID: {guia.CDDestinoID}, DNI: {guia.DNIAutorizadoRetirar}");
         }
 
 
