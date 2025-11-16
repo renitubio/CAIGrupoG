@@ -165,28 +165,40 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             return fletero;
         }
 
-        private decimal CalcularImporte(TipoPaqueteEnum tipoPaquete, int cdOrigen, int cdDestino)
+        private decimal CalcularImporte(TipoPaqueteEnum tipoPaquete, int cdOrigen, int cdDestino, bool entregaDomicilio, bool entregaAgencia)
         {
             if (_clienteActual == null || _clienteActual.Tarifas == null)
-            {
                 throw new InvalidOperationException("Cliente o tarifario no cargado.");
-            }
 
-            // Busca en el tarifario específico del cliente
+            // Importe base
             var tarifaEncontrada = _clienteActual.Tarifas.FirstOrDefault(t =>
                 t.TipoPaquete == tipoPaquete &&
                 t.CDOrigen == cdOrigen &&
                 t.CDDestino == cdDestino);
 
-            if (tarifaEncontrada != null)
+            if (tarifaEncontrada == null)
+                throw new InvalidOperationException($"No se encontró una tarifa para el cliente {_clienteActual.ClienteCUIT}, Paquete: {tipoPaquete}, Origen: {cdOrigen}, Destino: {cdDestino}");
+
+            decimal importe = tarifaEncontrada.Precio;
+
+            // Sumar extra por domicilio
+            if (entregaDomicilio)
             {
-                // Si encuentra la tarifa, devuelve el precio
-                return tarifaEncontrada.Precio;
+                var extraDomicilio = CAIGrupoG.Almacenes.TarifarioExtraAlmacen.TarifariosExtra
+                    .FirstOrDefault(e => e.Tipo == TipoExtraEnum.EntregaDomicilio);
+                if (extraDomicilio != null)
+                    importe += extraDomicilio.Precio;
+            }
+            // Sumar extra por agencia
+            else if (entregaAgencia)
+            {
+                var extraAgencia = CAIGrupoG.Almacenes.TarifarioExtraAlmacen.TarifariosExtra
+                    .FirstOrDefault(e => e.Tipo == TipoExtraEnum.EntregaAgencia);
+                if (extraAgencia != null)
+                    importe += extraAgencia.Precio;
             }
 
-            // Si no encuentra una tarifa, lanza un error.
-            // Es mejor que devolver 0, para no permitir envíos gratis por error.
-                throw new InvalidOperationException($"No se encontró una tarifa para el cliente {_clienteActual.ClienteCUIT}, Paquete: {tipoPaquete}, Origen: {cdOrigen}, Destino: {cdDestino}");
+            return importe;
         }
 
         #endregion
@@ -214,7 +226,13 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
                 for (int i =0; i < cantidad; i++)
                 {
                     string numeroGuia = $"GUI{_proximoNumeroGuia++:D3}";
-                    decimal importeCalculado = CalcularImporte(tipoPaquete, cdOrigenID, cdDestinoID);
+                    decimal importeCalculado = CalcularImporte(
+                            tipoPaquete,
+                            cdOrigenID,
+                            cdDestinoID,
+                            datosImposicion.EntregaDomicilio,
+                            datosImposicion.AgenciaDestinoID != cdPrincipalID
+                    );
 
                     var entidad = new GuiaEntidad
                     {
@@ -297,21 +315,21 @@ namespace CAIGrupoG.Imposicion.ImpCentroDistribucion
             {
                 // Buscar el siguiente tramo que conecte con el destino final
                 var siguiente = servicios
-     .Where(s => s.CDOrigen == escala.CDDestino && s.CDDestino == cdDestino)
-            .OrderBy(s => s.FechaHoraSalida)
-            .FirstOrDefault();
+                 .Where(s => s.CDOrigen == escala.CDDestino && s.CDDestino == cdDestino)
+                        .OrderBy(s => s.FechaHoraSalida)
+                        .FirstOrDefault();
    
                 if (siguiente != null)
-  {
-         ruta.Add(new TramoServicio { CDOrigen = escala.CDOrigen, CDDestino = escala.CDDestino, ServicioID = escala.ServicioID });
-            ruta.Add(new TramoServicio { CDOrigen = siguiente.CDOrigen, CDDestino = siguiente.CDDestino, ServicioID = siguiente.ServicioID });
-            return ruta;
-        }
-    }
+                { 
+                     ruta.Add(new TramoServicio { CDOrigen = escala.CDOrigen, CDDestino = escala.CDDestino, ServicioID = escala.ServicioID });
+                        ruta.Add(new TramoServicio { CDOrigen = siguiente.CDOrigen, CDDestino = siguiente.CDDestino, ServicioID = siguiente.ServicioID });
+                        return ruta;
+                }
+            }
 
-    // Si no se encuentra ruta, retorna vacío
- return new List<TramoServicio>();
-}
+            // Si no se encuentra ruta, retorna vacío
+            return new List<TramoServicio>();
+        }
             
             // Modifica CrearHojaDeRuta para aceptar los parámetros de tramo y servicio
             private void CrearHojaDeRuta(List<GuiaEntidad> guias, FleteroEntidad fletero, TipoHDREnum tipo, int servicioId)
