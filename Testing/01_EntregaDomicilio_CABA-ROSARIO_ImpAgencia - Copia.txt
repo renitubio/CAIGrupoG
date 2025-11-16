@@ -148,7 +148,7 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "Entregado"
 	- Verificar guía GUI019 estado "Entregado"
 
-08: Pantalla "Emitir Factura"
+08: Pantalla "Facturación"
  1 - CUIT 30701234568
  2 - Botón: Buscar
  3 - VERIFICAR: Lista Encomiendas muestra:

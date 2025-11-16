@@ -1,27 +1,27 @@
 ﻿
 01: Pantalla "RendicionFletero"
 
- 1 - FleteroDNI: 12345678
+ 1 - DNI Fletero: 35555789
  2 - Botón: Buscar
  3 - VERIFICAR: Admision - Encomiendas Entrantes desde Domicilios/ Agencias
 	- N° Guía: GUI008
 	- Estado: Distribucion ultima milla
 	- Tipo Paquete: L,
-	- CUIT 20633554987
+	- CUIT 30701234568
 	- Autorizado a Retirar 9987678
 	- Destino Moreno146
  4 - Botón: Aceptar
  5 - Mensaje: "Operación exitosa".
- 6 - FleteroDNI
+ 6 - DNI Fletero: 35555789
  7 - Botón: Buscar
  8 - VERIFICAR: Admision - Encomiendas Entrantes desde Domicilios/ Agencias
 	- N° Guía: GUI008
 	- Estado: Primer intento de Entrega
 	- Tipo Paquete: L,
-	- CUIT 20633554987
+	- CUIT 30701234568
 	- Autorizado a Retirar 9987678
-	- Destino Moreno146
- 9 - Marcar numero de Guia
+	- Destino: Moreno146
+ 9 - Seleccionar Guía
  10 - Botón: Aceptar
  11 - Finalizar sistema
 
@@ -32,7 +32,7 @@ ARCHIVOS
 		"TipoPaquete": 3,
 		"Estado": 11,
 		"CDDestinoID": 1,
-		"ClienteCUIT": "20633554987",
+		"ClienteCUIT": "30701234568",
 		"CDOrigenID": 2,
 		"Importe": 5500.00,
 		"DNIAutorizadoRetirar": "9987678",
@@ -45,15 +45,17 @@ ARCHIVOS
 		"AgenciaDestinoID": 0,
 		"Fecha": "0001-01-01T00:00:00"
 
-02: Pantalla "EmitirFactura"
- 1 - CUIT: 20633554987
+02: Pantalla "Facturación"
+ 1 - CUIT: 30701234568
  2 - Botón: Buscar 
  3 - VERIFICAR: Lista Encomiendas muestra
 	- N° Guía: GUI008
+	- Estado: Entregado
 	- Tipo Paquete: L
-	- Estado: Entregada
+	- Razón Social: Tech Soluciones S.A.
+	- Importe: $5500
  4 - Botón: Generar Factura
- 5 - Mensaje: "Factura generada exitosamente. N° Factura: FAC12345".
+ 5 - Mensaje: "Facturas emitidas exitosamente".
  6 - Finalizar sistema
 
  ARCHIVOS
