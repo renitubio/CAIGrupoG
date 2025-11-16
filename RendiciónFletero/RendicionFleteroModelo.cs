@@ -488,6 +488,31 @@ namespace CAIGrupoG.Modelos
                     {
                         hdrOriginal.Completada = true;
                     }
+
+                    // Agregar egresos por comisiones de flete
+                    foreach (var guia in hdrPendiente.Guias)
+                    {
+                        // Buscar el fletero por DNI
+                        var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.FleteroDNI == hdrPendiente.FleteroDNI);
+                        decimal montoComision =0;
+                        if (fletero != null && fletero.comisiones != null && guia.TipoPaquete != null)
+                        {
+                            // Buscar la comisión por tipo de paquete
+                            fletero.comisiones.TryGetValue(guia.TipoPaquete, out montoComision);
+                        }
+                        var egreso = new Almacenes.EgresosEntidad
+                        {
+                            MontoPago = montoComision,
+                            NumeroGuia = guia.NumeroGuia,
+                            FechaPago = DateTime.MinValue,
+                            NumeroFactura =0,
+                            TipoEgreso = Almacenes.TipoEgresoEnum.ComisionFlete,
+                            AgenciaID =0,
+                            FleteroDNI = hdrPendiente.FleteroDNI,
+                            CUITEmpresaTransporte = string.Empty
+                        };
+                        EgresosAlmacen.Nuevo(egreso);
+                    }
                 }
             }
 
