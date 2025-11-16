@@ -11,5 +11,7 @@ namespace CAIGrupoG.Almacenes
         public string CUITEmpresaTransporte { get; set; }
 
         public string RazonSocial { get; set; }
-    }
+
+        public decimal ArrendamientoAcordado {get; set; }
+}
 }

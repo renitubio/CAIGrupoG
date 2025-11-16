@@ -271,27 +271,66 @@ GuiaAlmacen.Actualizar(guiaEntidad);
 
                 if (servicio != null)
                 {
-                      // ⚠️ ARREGLO: Solo nos importa si es un servicio de DESCARGA
-                      if (servicio.CDDestino == NuestroCD)
+                    // ⚠️ ARREGLO: Solo nos importa si es un servicio de DESCARGA
+                    if (servicio.CDDestino == NuestroCD)
                     {
-                        // Es un servicio de DESCARGA: la guía debe estar en AdmitidoCDDestino (Estado 7).
-                        estadoFinalRequerido = EstadoEncomiendaEnum.AdmitidoCDDestino;
+                        // Es un servicio de DESCARGA: la guía debe estar en AdmitidoCDDestino (Estado7).
+                        estadoFinalRequerido = EstadoEncomiendaEnum.AdmitidoCDDestino;
 
-                        // 2. Verificar si TODAS las guías de esta HDR han alcanzado el estado final REQUERIDO.
+                        //2. Verificar si TODAS las guías de esta HDR han alcanzado el estado final REQUERIDO.
                         bool todasCompletadas = hojaDeRuta.Guias.All(guiaHDR =>
                         GuiaAlmacen.Guias.FirstOrDefault(g => g.NumeroGuia == guiaHDR.NumeroGuia)?.Estado == estadoFinalRequerido);
 
-                        // 3. Si todas las guías de la HDR están listas, marcamos la HDR como Completa.
-                        if (todasCompletadas)
+                        //3. Si todas las guías de la HDR están listas, marcamos la HDR como Completa.
+                        if (todasCompletadas)
                         {
                             hojaDeRuta.Completada = true;
+                            // Si la hoja es de transporte, crear egresos
+                            if (hojaDeRuta.Tipo == TipoHDREnum.Transporte)
+                            {
+                                CrearEgresosPorHojaDeRutaTransporteCompleta(hojaDeRuta);
+                            }
                         }
                     }
-                      // Si es un servicio de CARGA (CDOrigen == NuestroCD), no hacemos nada.
-                      // La HDR debe permanecer "Completada": false hasta que llegue a destino.
-                    }
+                    // Si es un servicio de CARGA (CDOrigen == NuestroCD), no hacemos nada.
+                    // La HDR debe permanecer "Completada": false hasta que llegue a destino.
+                }
             }
         }
+
+        // Procedimiento para crear egresos por cada guía de una hoja de ruta de transporte completa
+        private void CrearEgresosPorHojaDeRutaTransporteCompleta(HojaDeRutaEntidad hojaDeRuta)
+        {
+            var servicio = ServicioAlmacen.Servicios.FirstOrDefault(s => s.ServicioID == hojaDeRuta.ServicioID);
+            if (servicio == null) return;
+
+            string cuitEmpresaTransporte = servicio.CUITEmpresaTransporte;
+            decimal montoArrendamiento =0;
+            // Buscar el monto de arrendamiento acordado con la empresa de transporte
+            var empresa = EmpresaTransporteAlmacen.EmpresasTransporte.FirstOrDefault(e => e.CUITEmpresaTransporte == cuitEmpresaTransporte);
+            if (empresa != null)
+            {
+                montoArrendamiento = empresa.ArrendamientoAcordado;
+            }
+
+            foreach (var guia in hojaDeRuta.Guias)
+            {
+                var egreso = new EgresosEntidad
+                {
+                    NumeroGuia = guia.NumeroGuia,
+                    MontoPago = montoArrendamiento,
+                    FechaPago = default,
+                    NumeroFactura =0,
+                    TipoEgreso = TipoEgresoEnum.Arrendamiento, //2
+                    AgenciaID =0,
+                    FleteroDNI = string.Empty,
+                    CUITEmpresaTransporte = cuitEmpresaTransporte
+                };
+                EgresosAlmacen.Nuevo(egreso);
+            }
+            EgresosAlmacen.Grabar();
+        }
+
 
         // Método para crear las Hojas de Ruta de Distribución
         public List<HojaDeRutaEntidad> CrearHojasDeRutaDistribucion(Dictionary<string, List<GuiaEntidad>> agrupadas)

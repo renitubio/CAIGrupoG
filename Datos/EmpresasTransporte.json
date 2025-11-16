@@ -1,18 +1,22 @@
 ﻿[
   {
     "CUIT Empresa de Transporte": "30123456789",
-    "Razón Social": "Transporte Rápido S.A."
+    "Razón Social": "Transporte Rápido S.A.",
+    "ArrendamientoAcordado": 70.5
   },
   {
     "CUIT Empresa de Transporte": "30987654321",
-    "Razón Social": "Logística Global S.R.L."
+    "Razón Social": "Logística Global S.R.L.",
+    "ArrendamientoAcordado": 85.0
   },
   {
     "CUIT Empresa de Transporte": "30765432109",
-    "Razón Social": "Envios Express Cía. Ltda."
+    "Razón Social": "Envios Express Cía. Ltda.",
+    "ArrendamientoAcordado": 60.75
   },
   {
     "CUIT Empresa de Transporte": "30234567890",
-    "Razón Social": "Distribuciones Nacionales S.A."
+    "Razón Social": "Distribuciones Nacionales S.A.",
+    "ArrendamientoAcordado": 90.0
   }
 ]
