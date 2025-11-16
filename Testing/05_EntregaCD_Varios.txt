@@ -126,6 +126,7 @@ ARCHIVOS
  2 - Botón: Buscar
  3 - VERIFICAR: Lista de guías asociadas muestra
 	- N° Guía: GUI017
+	- Estado: Pendiente de retiro en CD
 	- Tipo Paquete: XL,
  4 - Botón: Retirar
  5 - Mensaje: "Operación Exitosa. Las guías han sido marcadas como retiradas".

@@ -323,45 +323,6 @@ namespace CAIGrupoG.Modelos
               StringComparer.OrdinalIgnoreCase
             );
 
-            // --- NUEVO: Crear HDRs de transporte por tramos para guías admitidas en CDOrigen ---
-            var guiasAdmitidas = GuiaAlmacen.Guias
-                 .Where(g => guiasSeleccionadasNumeros.Contains(g.NumeroGuia) && g.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen)
-                 .ToList();
-
-            foreach (var guia in guiasAdmitidas)
-            {
-                // Buscar tramos de servicio entre CD origen y destino
-                var tramos = BuscarRutaDeServicios(guia.CDOrigenID, guia.CDDestinoID);
-                if (tramos != null && tramos.Count > 0)
-                {
-                    foreach (var tramo in tramos)
-                    {
-                        var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.CD_ID == tramo.CDOrigen);
-                        if (fletero != null)
-                        {
-                            // Verificar si ya existe una HDR para este tramo y guía
-                            var hdrExistente = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h => h.ServicioID == tramo.ServicioID && h.FleteroDNI == fletero.FleteroDNI && h.Guias.Any(gx => gx.NumeroGuia == guia.NumeroGuia));
-                            if (hdrExistente == null)
-                            {
-                                var nuevaHDR = new HojaDeRutaEntidad
-                                {
-                                    HDR_ID = (HojaDeRutaAlmacen.HojasDeRuta.Count > 0 ? HojaDeRutaAlmacen.HojasDeRuta.Max(h => h.HDR_ID) : 0) + 1,
-                                    FleteroDNI = fletero.FleteroDNI,
-                                    Completada = false,
-                                    Guias = new List<GuiaEntidad> { guia },
-                                    ServicioID = tramo.ServicioID,
-                                    FechaCreacion = DateTime.Now,
-                                    Tipo = TipoHDREnum.Transporte
-                                };
-                                HojaDeRutaAlmacen.Nuevo(nuevaHDR);
-                                _hojasDeRutaPendientes.Add(nuevaHDR);
-                            }
-                        }
-                    }
-                }
-            }
-            // --- FIN NUEVO ---
-
             var todasLasGuiasEnPantalla = EncomiendasEntrantes.Concat(EncomiendasSalientes)
             .Select(g => g.NumeroGuia);
 
@@ -455,13 +416,52 @@ namespace CAIGrupoG.Modelos
                 }
             }
 
+            // --- NUEVO: Crear HDRs de transporte por tramos para guías admitidas en CDOrigen ---
+            var guiasAdmitidas = GuiaAlmacen.Guias
+                 .Where(g => guiasSeleccionadasNumeros.Contains(g.NumeroGuia) && g.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen)
+                 .ToList();
+
+            foreach (var guia in guiasAdmitidas)
+            {
+                // Buscar tramos de servicio entre CD origen y destino
+                var tramos = BuscarRutaDeServicios(guia.CDOrigenID, guia.CDDestinoID);
+                if (tramos != null && tramos.Count > 0)
+                {
+                    foreach (var tramo in tramos)
+                    {
+                        var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.CD_ID == tramo.CDOrigen);
+                        if (fletero != null)
+                        {
+                            // Verificar si ya existe una HDR para este tramo y guía
+                            var hdrExistente = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h => h.ServicioID == tramo.ServicioID && h.FleteroDNI == fletero.FleteroDNI && h.Guias.Any(gx => gx.NumeroGuia == guia.NumeroGuia));
+                            if (hdrExistente == null)
+                            {
+                                var nuevaHDR = new HojaDeRutaEntidad
+                                {
+                                    HDR_ID = (HojaDeRutaAlmacen.HojasDeRuta.Count > 0 ? HojaDeRutaAlmacen.HojasDeRuta.Max(h => h.HDR_ID) : 0) + 1,
+                                    FleteroDNI = fletero.FleteroDNI,
+                                    Completada = false,
+                                    Guias = new List<GuiaEntidad> { guia },
+                                    ServicioID = tramo.ServicioID,
+                                    FechaCreacion = DateTime.Now,
+                                    Tipo = TipoHDREnum.Transporte
+                                };
+                                HojaDeRutaAlmacen.Nuevo(nuevaHDR);
+                                _hojasDeRutaPendientes.Add(nuevaHDR);
+                            }
+                        }
+                    }
+                }
+            }
+            // --- FIN NUEVO ---
+
             GuiaAlmacen.Grabar();
 
              var estadosFinales = new[]
              {
              EstadoEncomiendaEnum.Entregado,
              EstadoEncomiendaEnum.Rechazado,
-             EstadoEncomiendaEnum.AdmitidoCDOrigen,
+            // EstadoEncomiendaEnum.AdmitidoCDOrigen,
              EstadoEncomiendaEnum.AgenciaDestino,
              };
 

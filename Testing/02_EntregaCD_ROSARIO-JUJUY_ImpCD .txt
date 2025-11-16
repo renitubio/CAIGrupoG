@@ -83,7 +83,7 @@ ARCHIVOS
  2 - Botón: Buscar
  3 - VERIFICAR: Lista Guías Asociadas muestra
 	- N° Guía: GUI016, GUI017
-	- Estado: AdmitidoCDDestino
+	- Estado: Pendiente de retiro en CD
 	- Tipo Paquete: L, L,
  4 - Botón: Retirar
  5 - Mensaje: "Operación Exitosa. Las guías han sido marcadas como retiradas".
