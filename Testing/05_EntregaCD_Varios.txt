@@ -7,7 +7,7 @@ CD Actual: CABA
 
 01: Pantalla Imposición de Encomienda - CD
 
- 1 - CUIT: 30701234565
+ 1 - CUIT: 30701234568
  2 - Botón: Buscar Cliente
  3 - Mensaje: "Cliente encontrado. Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Jujuy

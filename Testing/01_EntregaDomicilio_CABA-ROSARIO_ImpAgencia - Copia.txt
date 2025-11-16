@@ -5,7 +5,7 @@ Agencia actual: Rapiditas
 
 01: Pantalla Imposición de Encomienda - Agencia
 
- 1 - CUIT 30701234565
+ 1 - CUIT 30701234568
  2 - Botón: Buscar Cliente
  3 - Mensaje: "Cliente encontrado. Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Rosario
@@ -147,3 +147,21 @@ ARCHIVOS
 	- Verificar guía GUI017 estado "Entregado"
 	- Verificar guía GUI018 estado "Entregado"
 	- Verificar guía GUI019 estado "Entregado"
+
+08: Pantalla "Emitir Factura"
+ 1 - CUIT 30701234568
+ 2 - Botón: Buscar
+ 3 - VERIFICAR: Lista Encomiendas muestra:
+	- N° Guía: GUI017, GUI018, GUI019
+	- Estado: Entregado
+	- Razón Social: Tech Soluciones S.A.
+	- Importe: $550, $1500.50, $1500.50
+ 4 - Botón: Emitir
+ 5 - Mensaje: "Facturas emitidas exitosamente".
+ 6 - Finalizar sistema
+
+ARCHIVOS
+ - Guías:
+	- Verificar guía GUI017 estado "Facturada"
+	- Verificar guía GUI018 estado "Facturada"
+	- Verificar guía GUI019 estado "Facturada"
