@@ -99,6 +99,7 @@ namespace CAIGrupoG.EmitirFactura
                     if (guiaEnDB != null)
                     {
                         guiaEnDB.NumeroFactura = nuevoNumeroFactura;
+                        guiaEnDB.Estado = EstadoEncomiendaEnum.Facturada;
                     }
                 }
                 // 6. [MODELO] -> [GUIA ALMACEN]: Grabar()

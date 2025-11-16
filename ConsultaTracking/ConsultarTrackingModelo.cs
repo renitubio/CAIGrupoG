@@ -59,6 +59,8 @@ namespace CAIGrupoG.ConsultaTracking
                     return EstadoGuia.Rechazado;
                 case EstadoEncomiendaEnum.Entregado:
                     return EstadoGuia.Entregado;
+                case EstadoEncomiendaEnum.Facturada:
+                    return EstadoGuia.Facturada;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(estado), $"Estado no soportado: {estado}");
             }

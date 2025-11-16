@@ -20,7 +20,8 @@ namespace CAIGrupoG.ConsultaTracking
         AgenciaDestino,
         PrimerIntentoDeEntrega,
         Rechazado,
-        Entregado
+        Entregado,
+        Facturada
     }
     public class Guia
     {
