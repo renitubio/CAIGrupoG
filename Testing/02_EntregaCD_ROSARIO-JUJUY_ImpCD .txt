@@ -75,7 +75,7 @@ ARCHIVOS
 	- Estado: AdmitidoCDDestino
 	- Tipo Paquete: L, L,
  4 - Botón: Retirar
- 5 - Mensaje: "Operación exitosa".
+ 5 - Mensaje: "Operación Exitosa. Las guías han sido marcadas como retiradas".
  6 - Finalizar sistema
 
 ARCHIVOS

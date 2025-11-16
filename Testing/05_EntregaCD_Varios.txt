@@ -9,7 +9,7 @@ CD Actual: CABA
 
  1 - CUIT: 30701234565
  2 - Botón: Buscar Cliente
- 3 - Mensaje: "Cliente encontrado: Tech Soluciones S.A. Proceda a ingresar la encomienda".
+ 3 - Mensaje: "Cliente encontrado. Proceda a ingresar la encomienda".
  4 - Ciudad Destino: Jujuy
  5 - Tipo de entrega: CD
  6 - VERIFICAR: Lista de Opciones de entrega muestra "Jujuy (Centro de Distribución)", "Agencia Carlos"
@@ -63,7 +63,7 @@ ARCHIVOS
 	- Tipo Paquete: XL,
 	- CUIT: 30701234565
 	- CD Origen: CABA
-	- CD Destino: Cordoba
+	- CD Destino: Córdoba
  4 - Botón: Aceptar
  5 - Mensaje: "Operación Exitosa"
 
@@ -121,18 +121,15 @@ ARCHIVOS
 
 // CD Actual: Jujuy
 
-06: Pantalla "Entrega de Encomienda"
- 1 - N° Guía: GUI017
- 2 - DNI autorizado a retirar: 20405030
- 3 - Botón: Buscar Guía
- 4 - VERIFICAR: Datos de la guía
+06: Pantalla "Entrega de Encomienda - CD"
+ 1 - DNI: 20405030
+ 2 - Botón: Buscar
+ 3 - VERIFICAR: Lista de guías asociadas muestra
 	- N° Guía: GUI017
 	- Tipo Paquete: XL,
-	- CUIT: 30701234565
-	- CD Origen: CABA
-	- CD Destino: Jujuy
- 5 - Botón: Entregar
- 6 - Mensaje: "Encomienda entregada con éxito".
+ 4 - Botón: Retirar
+ 5 - Mensaje: "Operación Exitosa. Las guías han sido marcadas como retiradas".
+ 6 - Finalizar sistema
 
  ARCHIVOS
  - Guías:
