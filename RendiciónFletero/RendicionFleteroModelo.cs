@@ -17,9 +17,7 @@ namespace CAIGrupoG.Modelos
         // Campo para almacenar las hojas de ruta encontradas, necesarias para la rendición
         private List<HojaDeRutaEntidad> _hojasDeRutaPendientes;
 
-        /// <summary>
-                /// Traduce el enum de TipoPaquete del Almacén al enum de la Vista.
-                /// </summary>
+         /// Traduce el enum de TipoPaquete del Almacén al enum de la Vista.
         private TipoPaquete MapearTipoPaquete(Almacenes.TipoPaqueteEnum tipoAlmacen)
         {
 
@@ -119,14 +117,14 @@ namespace CAIGrupoG.Modelos
             }
             else
             {
-               
+
                 _fleteroErrorMostrado = false;
             }
 
-            var cdDelFletero = fletero.CD_ID; 
+            var cdDelFletero = fletero.CD_ID;
 
-            // 2. Filtrar las hojas de ruta PENDIENTES (trabajos ya iniciados)
-            _hojasDeRutaPendientes = HojaDeRutaAlmacen.HojasDeRuta
+            // 2. Filtrar las hojas de ruta PENDIENTES (trabajos ya iniciados)
+            _hojasDeRutaPendientes = HojaDeRutaAlmacen.HojasDeRuta
         .Where(hdr => hdr.FleteroDNI == dniFletero && !hdr.Completada)
         .ToList();
 
@@ -202,9 +200,9 @@ namespace CAIGrupoG.Modelos
              .Where(g => estadosEntrantes.Contains(g.Estado))
                .Select(g => new Guia
                {
-                      NumeroGuia = g.NumeroGuia,
-                      CUIT = g.ClienteCUIT,
-                      DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
+                   NumeroGuia = g.NumeroGuia,
+                   CUIT = g.ClienteCUIT,
+                   DniAutorizadoRetirar = g.DNIAutorizadoRetirar,
                    Destino = g.EntregaDomicilio
                    ? g.DomicilioDestino
                    : (g.EntregaAgencia
@@ -212,7 +210,7 @@ namespace CAIGrupoG.Modelos
                    .FirstOrDefault(a => a.AgenciaID == g.AgenciaDestinoID)?.Nombre ?? string.Empty
                    : string.Empty),
                    TipoPaquete = MapearTipoPaquete(g.TipoPaquete),
-                      Estado = MapearEstado(g.Estado)
+                   Estado = MapearEstado(g.Estado)
                })
              .ToList();
 
@@ -312,13 +310,9 @@ namespace CAIGrupoG.Modelos
             return seleccion;
         }
 
-
-        /// Realiza la rendición: actualiza el estado de las guías y marca las HDRs como completadas.
-        /// Realiza la rendición: actualiza el estado de las guías y marca las HDRs como completadas.
         public void Rendir(List<Guia> admisionesSeleccionadas, List<Guia> retirosSeleccionados)
         {
-            // ⚠️ ARREGLO 1: No lanzamos una excepción si la lista está vacía,
-            // la inicializamos, ya que podemos estar creando una HDR nueva.
+
             if (_hojasDeRutaPendientes == null)
             {
                 _hojasDeRutaPendientes = new List<HojaDeRutaEntidad>();
@@ -329,54 +323,93 @@ namespace CAIGrupoG.Modelos
               StringComparer.OrdinalIgnoreCase
             );
 
+            // --- NUEVO: Crear HDRs de transporte por tramos para guías admitidas en CDOrigen ---
+            var guiasAdmitidas = GuiaAlmacen.Guias
+                 .Where(g => guiasSeleccionadasNumeros.Contains(g.NumeroGuia) && g.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen)
+                 .ToList();
+
+            foreach (var guia in guiasAdmitidas)
+            {
+                // Buscar tramos de servicio entre CD origen y destino
+                var tramos = BuscarRutaDeServicios(guia.CDOrigenID, guia.CDDestinoID);
+                if (tramos != null && tramos.Count > 0)
+                {
+                    foreach (var tramo in tramos)
+                    {
+                        var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.CD_ID == tramo.CDOrigen);
+                        if (fletero != null)
+                        {
+                            // Verificar si ya existe una HDR para este tramo y guía
+                            var hdrExistente = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h => h.ServicioID == tramo.ServicioID && h.FleteroDNI == fletero.FleteroDNI && h.Guias.Any(gx => gx.NumeroGuia == guia.NumeroGuia));
+                            if (hdrExistente == null)
+                            {
+                                var nuevaHDR = new HojaDeRutaEntidad
+                                {
+                                    HDR_ID = (HojaDeRutaAlmacen.HojasDeRuta.Count > 0 ? HojaDeRutaAlmacen.HojasDeRuta.Max(h => h.HDR_ID) : 0) + 1,
+                                    FleteroDNI = fletero.FleteroDNI,
+                                    Completada = false,
+                                    Guias = new List<GuiaEntidad> { guia },
+                                    ServicioID = tramo.ServicioID,
+                                    FechaCreacion = DateTime.Now,
+                                    Tipo = TipoHDREnum.Transporte
+                                };
+                                HojaDeRutaAlmacen.Nuevo(nuevaHDR);
+                                _hojasDeRutaPendientes.Add(nuevaHDR);
+                            }
+                        }
+                    }
+                }
+            }
+            // --- FIN NUEVO ---
+
             var todasLasGuiasEnPantalla = EncomiendasEntrantes.Concat(EncomiendasSalientes)
-                            .Select(g => g.NumeroGuia);
+            .Select(g => g.NumeroGuia);
 
             var guiasNoSeleccionadasNumeros = new HashSet<string>(
-              todasLasGuiasEnPantalla.Where(num => !guiasSeleccionadasNumeros.Contains(num)),
-              StringComparer.OrdinalIgnoreCase
+            todasLasGuiasEnPantalla.Where(num => !guiasSeleccionadasNumeros.Contains(num)),
+            StringComparer.OrdinalIgnoreCase
             );
 
-            // ⚠️ ARREGLO 2: Lógica para crear HDRs si estamos aceptando nuevos trabajos
-            var guiasNuevasSeleccionadas = GuiaAlmacen.Guias
-        .Where(g => guiasSeleccionadasNumeros.Contains(g.NumeroGuia) &&
-              (g.Estado == EstadoEncomiendaEnum.ImpuestoCallCenter ||
-               g.Estado == EstadoEncomiendaEnum.ImpuestoAgencia))
-        .ToList();
+            // ⚠️ ARREGLO2: Lógica para crear HDRs si estamos aceptando nuevos trabajos
+            var guiasNuevasSeleccionadas = GuiaAlmacen.Guias
+            .Where(g => guiasSeleccionadasNumeros.Contains(g.NumeroGuia) &&
+            (g.Estado == EstadoEncomiendaEnum.ImpuestoCallCenter ||
+            g.Estado == EstadoEncomiendaEnum.ImpuestoAgencia))
+            .ToList();
 
             if (guiasNuevasSeleccionadas.Any())
             {
-                // Asumimos que todas las guías nuevas son del mismo CD Origen
-                var cdOrigenGuias = guiasNuevasSeleccionadas.First().CDOrigenID;
+                // Asumimos que todas las guías nuevas son del mismo CD Origen
+                var cdOrigenGuias = guiasNuevasSeleccionadas.First().CDOrigenID;
                 var fletero = FleteroAlmacen.Fleteros.FirstOrDefault(f => f.CD_ID == cdOrigenGuias);
 
                 if (fletero != null)
                 {
                     var nuevaHDR = new HojaDeRutaEntidad
                     {
-                        // Generador de ID simple (puedes mejorarlo si es necesario)
-                        HDR_ID = (HojaDeRutaAlmacen.HojasDeRuta.Count > 0 ? HojaDeRutaAlmacen.HojasDeRuta.Max(h => h.HDR_ID) : 0) + 1,
+                        // Generador de ID simple (puedes mejorarlo si es necesario)
+                        HDR_ID = (HojaDeRutaAlmacen.HojasDeRuta.Count > 0 ? HojaDeRutaAlmacen.HojasDeRuta.Max(h => h.HDR_ID) : 0) + 1,
                         FleteroDNI = fletero.FleteroDNI,
                         Completada = false,
                         Guias = guiasNuevasSeleccionadas // Asigna las guías a la nueva HDR
-                    };
+                    };
                     HojaDeRutaAlmacen.Nuevo(nuevaHDR);
                     _hojasDeRutaPendientes.Add(nuevaHDR); // La añadimos a la lista de pendientes
-                }
+                }
             }
-            // --- Fin de la creación de HDR ---
+            // --- Fin de la creación de HDR ---
 
-            foreach (var guia in GuiaAlmacen.Guias)
+            foreach (var guia in GuiaAlmacen.Guias)
             {
-                // Esta lógica ahora funciona para AMBAS listas
-                bool fueSeleccionada = guiasSeleccionadasNumeros.Contains(guia.NumeroGuia);
+                // Esta lógica ahora funciona para AMBAS listas
+                bool fueSeleccionada = guiasSeleccionadasNumeros.Contains(guia.NumeroGuia);
                 bool noFueSeleccionada = guiasNoSeleccionadasNumeros.Contains(guia.NumeroGuia);
 
-                // (Tu lógica de switch es correcta, la pegamos tal cual)
-                switch (guia.Estado)
+                // (Tu lógica de switch es correcta, la pegamos tal cual)
+                switch (guia.Estado)
                 {
-                    // ENTRANTES
-                    case EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio:
+                    // ENTRANTES
+                    case EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio:
                         if (fueSeleccionada)
                             guia.Estado = EstadoEncomiendaEnum.Entregado;
                         else if (noFueSeleccionada)
@@ -399,8 +432,8 @@ namespace CAIGrupoG.Modelos
                             guia.Estado = EstadoEncomiendaEnum.AgenciaDestino;
                         break;
 
-                    // SALIENTES
-                    case EstadoEncomiendaEnum.ImpuestoCallCenter:
+                    // SALIENTES
+                    case EstadoEncomiendaEnum.ImpuestoCallCenter:
                         if (fueSeleccionada)
                             guia.Estado = EstadoEncomiendaEnum.EnCaminoARetirarDomicilio;
                         break;
@@ -424,24 +457,23 @@ namespace CAIGrupoG.Modelos
 
             GuiaAlmacen.Grabar();
 
-            // (Tu lógica de cierre de HDRs es correcta, la pegamos tal cual)
-            var estadosFinales = new[]
-      {
-        EstadoEncomiendaEnum.Entregado,
-        EstadoEncomiendaEnum.Rechazado,
-        EstadoEncomiendaEnum.AdmitidoCDOrigen,
-        EstadoEncomiendaEnum.AgenciaDestino,
-      };
+             var estadosFinales = new[]
+             {
+             EstadoEncomiendaEnum.Entregado,
+             EstadoEncomiendaEnum.Rechazado,
+             EstadoEncomiendaEnum.AdmitidoCDOrigen,
+             EstadoEncomiendaEnum.AgenciaDestino,
+             };
 
             foreach (var hdrPendiente in _hojasDeRutaPendientes)
             {
                 var numerosDeGuiaEnHDR = hdrPendiente.Guias.Select(g => g.NumeroGuia).ToHashSet();
                 var guiasEnHDR = GuiaAlmacen.Guias
-                     .Where(g => numerosDeGuiaEnHDR.Contains(g.NumeroGuia))
-                     .ToList();
+                .Where(g => numerosDeGuiaEnHDR.Contains(g.NumeroGuia))
+                .ToList();
 
                 bool todasLasGuiasFinalizadas = guiasEnHDR.Any() &&
-                                   guiasEnHDR.All(g => estadosFinales.Contains(g.Estado));
+                guiasEnHDR.All(g => estadosFinales.Contains(g.Estado));
 
                 if (todasLasGuiasFinalizadas)
                 {
@@ -454,6 +486,57 @@ namespace CAIGrupoG.Modelos
             }
 
             HojaDeRutaAlmacen.Grabar();
+        }
+
+        // --- Agregado: método para buscar tramos de servicio igual que en ImposicionDeEncomiendaCDModelo ---
+        private class TramoServicio
+        {
+            public int CDOrigen { get; set; }
+            public int CDDestino { get; set; }
+            public int ServicioID { get; set; }
+        }
+
+        private List<TramoServicio> BuscarRutaDeServicios(int cdOrigen, int cdDestino)
+        {
+            var servicios = ServicioAlmacen.Servicios;
+            var ruta = new List<TramoServicio>();
+
+            // Intentar encontrar un servicio directo
+            var directo = servicios
+            .Where(s => s.CDOrigen == cdOrigen && s.CDDestino == cdDestino)
+            .OrderBy(s => s.FechaHoraSalida)
+            .FirstOrDefault();
+
+            if (directo != null)
+            {
+                ruta.Add(new TramoServicio { CDOrigen = cdOrigen, CDDestino = cdDestino, ServicioID = directo.ServicioID });
+                return ruta;
+            }
+
+            // Si no hay directo, buscar escalas ordenadas por fecha de salida
+            var primerosTramos = servicios
+            .Where(s => s.CDOrigen == cdOrigen)
+            .OrderBy(s => s.FechaHoraSalida)
+            .ToList();
+
+            foreach (var escala in primerosTramos)
+            {
+                // Buscar el siguiente tramo que conecte con el destino final
+                var siguiente = servicios
+                .Where(s => s.CDOrigen == escala.CDDestino && s.CDDestino == cdDestino)
+                .OrderBy(s => s.FechaHoraSalida)
+                .FirstOrDefault();
+
+                if (siguiente != null)
+                {
+                    ruta.Add(new TramoServicio { CDOrigen = escala.CDOrigen, CDDestino = escala.CDDestino, ServicioID = escala.ServicioID });
+                    ruta.Add(new TramoServicio { CDOrigen = siguiente.CDOrigen, CDDestino = siguiente.CDDestino, ServicioID = siguiente.ServicioID });
+                    return ruta;
+                }
+            }
+
+            // Si no se encuentra ruta, retorna vacío
+            return new List<TramoServicio>();
         }
     }
 }
