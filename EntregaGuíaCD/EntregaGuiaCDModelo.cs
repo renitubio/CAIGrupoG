@@ -1,6 +1,7 @@
 ﻿using CAIGrupoG.Almacenes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,11 @@ namespace CAIGrupoG.EntregaGuíaCD
 
         public List<Guia> BuscarGuiasPorDNI(string dni)
         {
+            foreach (var g in GuiaAlmacen.Guias)
+            {
+                Debug.WriteLine($"Guía: {g.NumeroGuia}, Estado: {g.Estado}, CDDestinoID: {g.CDDestinoID}, DNI: {g.DNIAutorizadoRetirar}");
+            }
+
             if (CentroDistribucionAlmacen.CentroDistribucionActual == null)
             {
                 throw new InvalidOperationException("No se ha seleccionado un Centro de Distribución en el Menú Principal.");
@@ -59,3 +65,5 @@ namespace CAIGrupoG.EntregaGuíaCD
         }
     }
 }
+
+
