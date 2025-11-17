@@ -30,6 +30,10 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "Impuesto Agencia"
 	- Verificar guía GUI019 estado "Impuesto Agencia"
 
+- HDR:
+	- Verificar HojaDeRuta 4572 contiene las guías GUI017, GUI018 y GUI019.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 02: Pantalla "Rendición de Fletero"
  1 - DNI Fletero: 23456789
@@ -48,6 +52,10 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "En camino a retirar (Agencia)"
 	- Verificar guía GUI019 estado "En camino a retirar (Agencia)"
 
+- HDR:
+	- Verificar HojaDeRuta 4573 contiene las guías GUI017, GUI018 y GUI019.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 03: Pantalla "Rendición de Fletero"
  1 - DNI Fletero: 23456789
@@ -66,6 +74,12 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "Admitido en CD Origen"
 	- Verificar guía GUI019 estado "Admitido en CD Origen"
 
+- HDR:
+	- Verificar HojaDeRuta 4574, ServicioID = 1111111, FleteroDNI = 23456789 contiene la guía GUI017
+	- Verificar HojaDeRuta 4575, ServicioID = 1111111, FleteroDNI = 23456789 contiene la guía GUI018
+	- Verificar HojaDeRuta 4576, ServicioID = 1111111, FleteroDNI = 23456789 contiene la guía GUI019
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 04: Pantalla "Carga/Descarga - Playero".
  1 - Patente AEL096
@@ -86,6 +100,10 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "En Transito"
 	- Verificar guía GUI019 estado "En Transito"
 
+- HDR:
+	- Verificar HojaDeRuta 4577 contiene las guías GUI017, GUI018 y GUI019.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // CD Actual: Rosario
 // LLega con los paquetes desde CABA a Rosario
@@ -110,6 +128,10 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "En CD Destino"
 	- Verificar guía GUI019 estado "En CD Destino"
 
+- HDR:
+	- Verificar HojaDeRuta 4578 contiene las guías GUI017, GUI018 y GUI019.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // CD Actual: Rosario
 
@@ -130,6 +152,10 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "En Distribucion A Domicilio"
 	- Verificar guía GUI019 estado "En Distribucion A Domicilio"
 
+- HDR:
+	- Verificar HojaDeRuta 4578, FleteroDNI = 35555789 contiene las guías GUI017, GUI018 y GUI019.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 07: Pantalla "Rendición de Fletero"
  1 - DNI Fletero: 35555789
@@ -148,6 +174,11 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "Entregado"
 	- Verificar guía GUI019 estado "Entregado"
 
+- HDR:
+	- Verificar HojaDeRuta 4578, Completada = true.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
 08: Pantalla "Facturación"
  1 - CUIT 30701234568
  2 - Botón: Buscar
@@ -165,3 +196,11 @@ ARCHIVOS
 	- Verificar guía GUI017 estado "Facturada"
 	- Verificar guía GUI018 estado "Facturada"
 	- Verificar guía GUI019 estado "Facturada"
+
+- Factura:
+	- Verificar factura:
+		"NumeroFactura": 3,
+		"Monto": 8321.00,
+		"FechaEmision": "2025-11-17T17:09:32.7792152-03:00",
+		"ClienteCUIT": "30701234568"
+

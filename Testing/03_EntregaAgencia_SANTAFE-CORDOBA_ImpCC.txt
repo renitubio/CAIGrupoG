@@ -29,7 +29,7 @@ ARCHIVOS
 	- Verificar guía GUI019 estado "Impuesto Call Center"
 
 - HDR:
-	- Verificar HojaDeRuta4571, ServicioID =0, FleteroDNI =34567890, TipoHDREnum=1, contiene guías GUI017 y GUI018
+	- Verificar HojaDeRuta 4571, ServicioID =0, FleteroDNI =34567890, TipoHDREnum=1, contiene guías GUI017 y GUI018
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
@@ -133,9 +133,7 @@ ARCHIVOS
 	- Verificar HojaDeRuta 4573, ServicioID = 0, FleteroDNI = 4766645, TipoHDREnum= 3, contiene guías GUI017 y GUI018
 
 
-
 --------------------------------------------------------------------------------------------------------------------------------------------
-
 
 // CD Actual: Cordoba
 
@@ -159,9 +157,7 @@ ARCHIVOS
 	- Verificar guía GUI018 estado "DistribucionUltimaMillaAgencia"
 
 
-
 --------------------------------------------------------------------------------------------------------------------------------------------
-
 
 // CD Actual: Cordoba
 
@@ -187,7 +183,6 @@ ARCHIVOS
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------
-
 
 //Agencia: Agencia Sol Naciente
 

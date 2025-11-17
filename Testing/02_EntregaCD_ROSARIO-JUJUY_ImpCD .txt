@@ -25,7 +25,7 @@ ARCHIVOS
 	- Verificar guía GUI017 estado "Admitido en CD Origen"
 	- Verificar guía GUI018 estado "Admitido en CD Origen"
  - HDR:
-	- Verificar: "HDR_ID": 4572, "ServicioID": 2233445, y que contenga las dos guias (GUI017 y GUI018)
+	- Verificar: HojaDeRuta 4572, ServicioID = 2233445 contiene las guías GUI017 y GUI018
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -51,7 +51,6 @@ ARCHIVOS
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
 // CD Actual: Jujuy
 
 03: Pantalla "Carga/Descarga Playero"
@@ -71,10 +70,9 @@ ARCHIVOS
 	- Verificar guía GUI016 estado "En CD Destino"
 	- Verificar guía GUI017 estado "En CD Destino"
  - HDR:
-	- Verificar que "HDR_ID": 4572 esté completada (Completada = true)
+	- Verificar HojaDeRuta 4572, Completada = true
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 // CD Actual: Jujuy
 

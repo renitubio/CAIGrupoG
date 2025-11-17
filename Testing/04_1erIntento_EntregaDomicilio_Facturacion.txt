@@ -28,22 +28,11 @@
 ARCHIVOS
  - Guías:
 	- Verificar guía GUI008 estado "Entregada"
-		"NumeroGuia": "GUI008",
-		"TipoPaquete": 3,
-		"Estado": 11,
-		"CDDestinoID": 1,
-		"ClienteCUIT": "30701234568",
-		"CDOrigenID": 2,
-		"Importe": 5500.00,
-		"DNIAutorizadoRetirar": "9987678",
-		"DomicilioDestino": "Moreno146",
-		"EntregaDomicilio": true,
-		"FechaAdmision": "2024-10-11T00:00:00",
-		"RetiroDomicilio": false,
-		"EntregaAgencia": false,
-		"NumeroFactura": 0,
-		"AgenciaDestinoID": 0,
-		"Fecha": "0001-01-01T00:00:00"
+
+- HDR:
+	- Verificar HojaDeRuta 4571, Completada = true
+
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 02: Pantalla "Facturación"
  1 - CUIT: 30701234568
@@ -61,10 +50,11 @@ ARCHIVOS
  ARCHIVOS
   - Guías:
 	- Verificar guía GUI008 estado "Facturada"
+
  - Facturas:
- - Verificar factura FAC12345 contiene:
-	"NumeroFactura": 3,
-	"Monto": $5500.00
-	"FechaEmision": "2025-09-08T00:00:00",
-	"ClienteCUIT": "20633554987"
+	Verificar Factura:
+		"NumeroFactura": 3,
+		"Monto": 6100.00,
+		"FechaEmision": "2025-11-17T17:18:18.2333559-03:00",
+		"ClienteCUIT": "30701234568"
 
