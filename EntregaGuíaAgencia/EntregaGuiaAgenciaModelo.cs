@@ -31,7 +31,7 @@ namespace CAIGrupoG.EntregaGuíaAgencia
             var guiasViewModel = guiasEntidad.Select(g => new Guia
             {
                 NumeroGuia = g.NumeroGuia,
-                TipoPaquete = (TipoPaquete)g.TipoPaquete,
+                TipoPaquete = (TipoPaquete)((int)g.TipoPaquete - 1), // Conversión correcta de TipoPaqueteEnum a TipoPaquete
                 Estado = (EstadoGuia)g.Estado,
                 TipoPaqueteTexto = ((TipoPaquete)g.TipoPaquete).ToString() // <-- Esto muestra S, M, L, XL
             }).ToList();
