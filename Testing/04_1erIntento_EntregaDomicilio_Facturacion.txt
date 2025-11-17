@@ -42,7 +42,7 @@ ARCHIVOS
 	- Estado: Entregado
 	- Tipo Paquete: L
 	- Razón Social: Tech Soluciones S.A.
-	- Importe: $5500
+	- Importe: $6100
  4 - Botón: Generar Factura
  5 - Mensaje: "Facturas emitidas exitosamente".
  6 - Finalizar sistema

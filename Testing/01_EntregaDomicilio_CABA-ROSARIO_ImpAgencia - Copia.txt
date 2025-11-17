@@ -186,7 +186,7 @@ ARCHIVOS
 	- N° Guía: GUI017, GUI018, GUI019
 	- Estado: Entregado
 	- Razón Social: Tech Soluciones S.A.
-	- Importe: $550, $1500.50, $1500.50
+	- Importe: $2140, $3090.50, $3900.50
  4 - Botón: Emitir
  5 - Mensaje: "Facturas emitidas exitosamente".
  6 - Finalizar sistema
@@ -200,7 +200,7 @@ ARCHIVOS
 - Factura:
 	- Verificar factura:
 		"NumeroFactura": 3,
-		"Monto": 8321.00,
+		"Monto": 8321.00, // Se destima total de la GUI008 ya que es parte del testing 04.
 		"FechaEmision": "2025-11-17T17:09:32.7792152-03:00",
 		"ClienteCUIT": "30701234568"
 
