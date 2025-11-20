@@ -170,28 +170,21 @@ namespace CAIGrupoG.Playero
 
                     foreach (var guiaEntidad in descargasSeleccionadasEntidad)
                     {
-                            // Primero cambiar a AdmitidoCDDestino
-                          guiaEntidad.Estado = EstadoEncomiendaEnum.AdmitidoCDDestino;
-                            GuiaAlmacen.Actualizar(guiaEntidad);
+                         // Primero cambiar a AdmitidoCDDestino
+                         guiaEntidad.Estado = EstadoEncomiendaEnum.AdmitidoCDDestino;
+                         GuiaAlmacen.Actualizar(guiaEntidad);
 
                          var hoja = HojaDeRutaAlmacen.HojasDeRuta.FirstOrDefault(h =>
                             h.Guias.Any(g => g.NumeroGuia == guiaEntidad.NumeroGuia) &&
                             h.Completada == false &&
                             h.ServicioID > 0);
 
-                         if (hoja != null)
-                            {
-                              serviciosAfectados.Add(hoja.ServicioID);
+                         // Verificar si el CD actual es el destino final de la guía
+                         bool esDestinoFinal = NuestroCD == guiaEntidad.CDDestinoID;
 
-                                var servicioActual = ServicioAlmacen.Servicios.FirstOrDefault(s => s.ServicioID == hoja.ServicioID);
-                                if (servicioActual != null)
-                                {
-                                    // Verificar si el CD actual es el destino final de la guía
-                                    bool esDestinoFinal = NuestroCD == guiaEntidad.CDDestinoID;
-
-                                      if (!esDestinoFinal)
-                                      {
-                                                // No es destino final, buscar siguiente tramo usando las HDRs existentes
+                         if (!esDestinoFinal)
+                         {
+                                            // No es destino final, buscar siguiente tramo usando las HDRs existentes
                                             // Buscar otra HDR que tenga esta guía y cuyo servicio salga del CD actual
                                             var siguienteHDR = HojaDeRutaAlmacen.HojasDeRuta
                                                .Where(h => h.Guias.Any(g => g.NumeroGuia == guiaEntidad.NumeroGuia) &&
@@ -207,10 +200,8 @@ namespace CAIGrupoG.Playero
                                                    guiaEntidad.Estado = EstadoEncomiendaEnum.AdmitidoCDOrigen;
                                                 GuiaAlmacen.Actualizar(guiaEntidad);
                                              }
-                                      }
-                              // Si es destino final, la guía queda en estado AdmitidoCDDestino (estado 7)
-                                }
                          }
+                         // Si es destino final, la guía queda en estado AdmitidoCDDestino (estado 7)
                     }
 
                     // Agrupación para distribución (solo si EntregaDomicilio o EntregaAgencia son true)
