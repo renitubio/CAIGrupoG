@@ -31,9 +31,7 @@ namespace CAIGrupoG.Modelos
             };
         }
 
-        /// <summary>
         /// Traduce el enum de Estado del Almacén al enum de la Vista.
-        /// </summary>
         private EstadoEncomienda MapearEstado(Almacenes.EstadoEncomiendaEnum estadoAlmacen)
         {
 
@@ -57,9 +55,7 @@ namespace CAIGrupoG.Modelos
             };
         }
 
-        /// <summary>
         /// Determina el texto de destino correcto (Dirección o Nombre de Agencia).
-        /// </summary>
         private string ObtenerNombreDestino(GuiaEntidad guia)
         {
             if (guia.EntregaDomicilio)
@@ -125,8 +121,8 @@ namespace CAIGrupoG.Modelos
 
             // 2. Filtrar las hojas de ruta PENDIENTES (trabajos ya iniciados)
             _hojasDeRutaPendientes = HojaDeRutaAlmacen.HojasDeRuta
-        .Where(hdr => hdr.FleteroDNI == dniFletero && !hdr.Completada)
-        .ToList();
+                .Where(hdr => hdr.FleteroDNI == dniFletero && !hdr.Completada)
+                .ToList();
 
             var resultado = new GuiasPorDNIResultado();
             var todasLasGuias = GuiaAlmacen.Guias.ToList();
@@ -136,7 +132,7 @@ namespace CAIGrupoG.Modelos
               .Select(g => g.NumeroGuia)
               .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
-            // --- ⚠️ ARREGLO 1: LÓGICA COMBINADA DE BÚSQUEDA ---
+
             var guiasParaMostrar = new List<GuiaEntidad>();
 
             // A. Añadir trabajos EN CURSO (de las HDRs pendientes)
@@ -155,14 +151,12 @@ namespace CAIGrupoG.Modelos
                 }
             }
 
-            // --- ⚠️ ARREGLO 2: LÓGICA SIMPLIFICADA PARA "NUEVOS TRABAJOS" ---
-
             // B. Buscar guías "Impuesto..." que tengan el CD de Origen del fletero
             var estadosImpuesto = new[]
-      {
-        EstadoEncomiendaEnum.ImpuestoCallCenter,
-        EstadoEncomiendaEnum.ImpuestoAgencia
-      };
+            {
+                EstadoEncomiendaEnum.ImpuestoCallCenter,
+                EstadoEncomiendaEnum.ImpuestoAgencia
+            };
 
             var guiasNuevas = todasLasGuias
               .Where(g => estadosImpuesto.Contains(g.Estado) && // <-- Estado Impuesto...
@@ -178,24 +172,23 @@ namespace CAIGrupoG.Modelos
 
             // Definición de listas (como las tenías)
             var estadosEntrantes = new[]
-      {
-        EstadoEncomiendaEnum.EnCaminoARetirarDomicilio,
-        EstadoEncomiendaEnum.EnCaminoARetirarAgencia,
-        EstadoEncomiendaEnum.PrimerIntentoDeEntrega,
-        EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio,
-        EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia,
-        EstadoEncomiendaEnum.AdmitidoCDOrigen
-      };
+            {
+                EstadoEncomiendaEnum.EnCaminoARetirarDomicilio,
+                EstadoEncomiendaEnum.EnCaminoARetirarAgencia,
+                EstadoEncomiendaEnum.PrimerIntentoDeEntrega,
+                EstadoEncomiendaEnum.DistribucionUltimaMillaDomicilio,
+                EstadoEncomiendaEnum.DistribucionUltimaMillaAgencia,
+                EstadoEncomiendaEnum.AdmitidoCDOrigen
+            };
 
             var estadosSalientes = new[]
             {
-        EstadoEncomiendaEnum.ImpuestoCallCenter,
-        EstadoEncomiendaEnum.ImpuestoAgencia,
-        EstadoEncomiendaEnum.AdmitidoCDDestino
-      };
+                EstadoEncomiendaEnum.ImpuestoCallCenter,
+                EstadoEncomiendaEnum.ImpuestoAgencia,
+                EstadoEncomiendaEnum.AdmitidoCDDestino
+            };
 
-            // 5. Separar guías en admisión y retiro
-            // --- ⚠️ ARREGLO 3: Usamos 'guiasParaMostrar' y 'ObtenerNombreDestino' ---
+            // 3. Separar guías en admisión y retiro
             resultado.Admision = guiasParaMostrar
              .Where(g => estadosEntrantes.Contains(g.Estado))
                .Select(g => new Guia
@@ -331,7 +324,6 @@ namespace CAIGrupoG.Modelos
             StringComparer.OrdinalIgnoreCase
             );
 
-            // ⚠️ ARREGLO2: Lógica para crear HDRs si estamos aceptando nuevos trabajos
             var guiasNuevasSeleccionadas = GuiaAlmacen.Guias
             .Where(g => guiasSeleccionadasNumeros.Contains(g.NumeroGuia) &&
             (g.Estado == EstadoEncomiendaEnum.ImpuestoCallCenter ||
@@ -362,11 +354,9 @@ namespace CAIGrupoG.Modelos
 
             foreach (var guia in GuiaAlmacen.Guias)
             {
-                // Esta lógica ahora funciona para AMBAS listas
                 bool fueSeleccionada = guiasSeleccionadasNumeros.Contains(guia.NumeroGuia);
                 bool noFueSeleccionada = guiasNoSeleccionadasNumeros.Contains(guia.NumeroGuia);
 
-                // (Tu lógica de switch es correcta, la pegamos tal cual)
                 switch (guia.Estado)
                 {
                     // ENTRANTES
@@ -422,7 +412,7 @@ namespace CAIGrupoG.Modelos
                 }
             }
 
-            // --- NUEVO: Crear HDRs de transporte por tramos para guías admitidas en CDOrigen ---
+            // ---  Crear HDRs de transporte por tramos para guías admitidas en CDOrigen ---
             var guiasAdmitidas = GuiaAlmacen.Guias
                  .Where(g => guiasSeleccionadasNumeros.Contains(g.NumeroGuia) && g.Estado == EstadoEncomiendaEnum.AdmitidoCDOrigen)
                  .ToList();
@@ -459,7 +449,7 @@ namespace CAIGrupoG.Modelos
                     }
                 }
             }
-            // --- FIN NUEVO ---
+            // --- FIN ---
 
             GuiaAlmacen.Grabar();
 
@@ -467,8 +457,7 @@ namespace CAIGrupoG.Modelos
              {
              EstadoEncomiendaEnum.Entregado,
              EstadoEncomiendaEnum.Rechazado,
-            // EstadoEncomiendaEnum.AdmitidoCDOrigen,
-             EstadoEncomiendaEnum.AgenciaDestino,
+             EstadoEncomiendaEnum.AgenciaDestino
              };
 
             foreach (var hdrPendiente in _hojasDeRutaPendientes)
@@ -519,7 +508,6 @@ namespace CAIGrupoG.Modelos
             HojaDeRutaAlmacen.Grabar();
         }
 
-        // --- Agregado: método para buscar tramos de servicio igual que en ImposicionDeEncomiendaCDModelo ---
         private class TramoServicio
         {
             public int CDOrigen { get; set; }
