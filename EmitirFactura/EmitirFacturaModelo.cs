@@ -37,7 +37,7 @@ namespace CAIGrupoG.EmitirFactura
                     return new List<Guia>();
 
                 var cliente = ClienteAlmacen.Clientes.FirstOrDefault(c => c.ClienteCUIT == cuit);
-                string razonSocial = cliente?.RazonSocial ?? $"CUIT {cuit} (Razón Social no encontrada)";
+                string razonSocial = cliente.RazonSocial;
 
                 var resultado = new List<Guia>();
                 foreach (var g in guiasEncontradas)
