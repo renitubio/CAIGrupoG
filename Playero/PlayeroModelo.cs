@@ -163,6 +163,7 @@ namespace CAIGrupoG.Playero
                 // 2. Actualización de Estados para Descargas (Estado 6 -> 7: AdmitidoCDDestino)
             if (descargasSeleccionadas != null && descargasSeleccionadas.Any())
             {
+
                     var descargasSeleccionadasEntidad = descargasSeleccionadas
                         .Select(g => GuiaAlmacen.Guias.FirstOrDefault(ge => ge.NumeroGuia == g.NumeroGuia))
                          .Where(ge => ge != null)
@@ -179,8 +180,11 @@ namespace CAIGrupoG.Playero
                             h.Completada == false &&
                             h.ServicioID > 0);
 
-                         // Verificar si el CD actual es el destino final de la guía
-                         bool esDestinoFinal = NuestroCD == guiaEntidad.CDDestinoID;
+                        serviciosAfectados.Add(hoja.ServicioID);
+                        var servicioActual = ServicioAlmacen.Servicios.FirstOrDefault(s => s.ServicioID == hoja.ServicioID); 
+                        
+                        // Verificar si el CD actual es el destino final de la guía
+                        bool esDestinoFinal = NuestroCD == guiaEntidad.CDDestinoID;
 
                          if (!esDestinoFinal)
                          {
@@ -197,7 +201,7 @@ namespace CAIGrupoG.Playero
                                              {
                                                   // Hay un siguiente tramo, preparar la guía para carga
                                                   guiaEntidad.CDOrigenID = siguienteHDR.Servicio.CDOrigen;
-                                                   guiaEntidad.Estado = EstadoEncomiendaEnum.AdmitidoCDOrigen;
+                                                  guiaEntidad.Estado = EstadoEncomiendaEnum.AdmitidoCDOrigen;
                                                 GuiaAlmacen.Actualizar(guiaEntidad);
                                              }
                          }
@@ -251,7 +255,7 @@ namespace CAIGrupoG.Playero
 
                 if (servicio != null)
                 {
-                    // ⚠️ ARREGLO: Solo nos importa si es un servicio de DESCARGA
+                    //  Solo nos importa si es un servicio de DESCARGA
                     if (servicio.CDDestino == NuestroCD)
                     {
                         // Es un servicio de DESCARGA: la guía debe estar en AdmitidoCDDestino (Estado7).
